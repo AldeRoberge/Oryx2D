@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
 /**
- * A wrapper for LinkedHashMap that simulates AS3's Vector (like List in Java)
+ * A wrapper for ConcurrentHashMap that simulates AS3's Vector
  * Simulates a List that can be used as <Index, Value>
  */
 public class Vector<T> implements Iterable<T> {
@@ -23,6 +23,7 @@ public class Vector<T> implements Iterable<T> {
 		map = new ConcurrentHashMap<>(initialCapacity);
 	}
 
+	@SafeVarargs
 	public Vector(T... addAll) {
 		add(addAll);
 	}
@@ -41,7 +42,6 @@ public class Vector<T> implements Iterable<T> {
 		this.length = map.size();
 	}
 
-
 	/**
 	 * Used remove instead
 	 */
@@ -52,7 +52,6 @@ public class Vector<T> implements Iterable<T> {
 	public void sort(BiFunction<T, T, Integer> sort) {
 
 	}
-
 
 	/**
 	 * Removes object at index
@@ -145,9 +144,6 @@ public class Vector<T> implements Iterable<T> {
 		map.clear();
 	}
 
-	public void sortOn(Vector sortOnFields, Vector sortOnParams) {
-	}
-
 	public void splice(T i, T i1, T lineTo, T lineTo1, T lineTo2) {
 	}
 
@@ -194,4 +190,6 @@ public class Vector<T> implements Iterable<T> {
 	}
 
 
+	public void sortOn(Vector<?> visibleSortFields, Vector<?> visibleSortParams) {
+	}
 }

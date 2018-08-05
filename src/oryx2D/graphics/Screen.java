@@ -45,36 +45,36 @@ public class Screen {
 	/**
 	 * @param xp x position
 	 * @param yp y position
-	 * @param BitmapData to draw
+	 * @param image to draw
 	 * @param flip flip
 	 */
-	public void render(int xp, int yp, BitmapData BitmapData, int flip) {
+	public void render(int xp, int yp, BitmapData image, int flip) {
 		xp -= xOffset;
 		yp -= yOffset;
 
-		for (int y = 0; y < BitmapData.height; y++) {
+		for (int y = 0; y < image.height; y++) {
 			int ya = y + yp;
 			int ys = y;
 
 			if (flip == 2 || flip == 3)
-				ys = BitmapData.height - 1 - y;
+				ys = image.height - 1 - y;
 
-			for (int x = 0; x < BitmapData.width; x++) {
+			for (int x = 0; x < image.width; x++) {
 				int xa = x + xp;
 				int xs = x;
 
 				if (flip == 1 || flip == 3)
-					xs = BitmapData.width - 1 - x;
+					xs = image.width - 1 - x;
 
 				// Check if BitmapData is outside of the screen
-				if (xa < -BitmapData.width || xa >= this.width || ya < 0 || ya >= this.height) {
+				if (xa < -image.width || xa >= this.width || ya < 0 || ya >= this.height) {
 					break;
 				}
 
 				if (xa < 0)
 					xa = 0;
 
-				int pixelColor = BitmapData.pixels[xs + ys * BitmapData.width];
+				int pixelColor = image.pixels[xs + ys * image.width];
 
 				if (pixelColor != 0 && pixelColor != 0xFFFF00FF) { //PINK or transparent
 					pixels[xa + ya * this.width] = pixelColor;

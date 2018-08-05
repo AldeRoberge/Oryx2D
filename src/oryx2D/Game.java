@@ -20,16 +20,14 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private static final String TITLE = "Oryx2D";
 
-	//
-
 	private static final double frameRate = 60;
 
 	private static final int scale = 6; // (50 / 8 = 6.25)
 
-	private static final int width = 1000 / scale;
-	private static final int height = 750 / scale;
+	private static final float UI_SCALING = 1.25F;
 
-	private static final int backgroundColor = 0000000;
+	private static final int width = (int) (800 / scale * UI_SCALING);
+	private static final int height = (int) (600 / scale * UI_SCALING);
 
 	//
 

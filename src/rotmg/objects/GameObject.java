@@ -972,15 +972,26 @@ public class GameObject extends BasicObject {
 	}
 
 	public BitmapData getPortrait() {
-		BitmapData loc1 = null;
-		int loc2 = 0;
-		if (this.portrait == null) {
-			loc1 = this.props.portrait != null ? this.props.portrait.getTexture() : this.texture;
-			loc2 = 4 / loc1.width * 100;
-			this.portrait = TextureRedrawer.resize(loc1, this.mask, loc2, true, this.tex1Id, this.tex2Id);
-			this.portrait = GlowRedrawer.outlineGlow(this.portrait, 0);
+
+		try {
+
+
+			BitmapData loc1 = null;
+			int loc2 = 0;
+			if (this.portrait == null) {
+				loc1 = this.props.portrait != null ? this.props.portrait.getTexture() : this.texture;
+				loc2 = 4 / loc1.width * 100;
+				this.portrait = TextureRedrawer.resize(loc1, this.mask, loc2, true, this.tex1Id, this.tex2Id);
+				this.portrait = GlowRedrawer.outlineGlow(this.portrait, 0);
+			}
+			return this.portrait;
+
+		} catch (Exception e) {
+
 		}
-		return this.portrait;
+
+		return null;
+
 	}
 
 	public void setAttack(int param1, double param2) {

@@ -19,9 +19,9 @@ import rotmg.util.IntPoint;
  */
 public abstract class AbstractMap extends Sprite {
 
-	public static final Vector<Square> squares = new Vector<Square>();
-	public static final Dictionary<Integer, BasicObject> boDict = new Dictionary<>();
-	public static final Dictionary<Integer, GameObject> goDict = new Dictionary<>();
+	public static final Vector<Square> squares = new Vector<Square>(); // Tiles
+	public static final Dictionary<Integer, BasicObject> boDict = new Dictionary<>(); // Basic Objects
+	public static final Dictionary<Integer, GameObject> goDict = new Dictionary<>(); // Game Objects
 
 	public AGameSprite gs;
 	public String name;

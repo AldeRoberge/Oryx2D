@@ -3,6 +3,7 @@ package mx.logging;
 import alde.flash.utils.Vector;
 
 public class ILogger {
+
 	public static ILogger instance = new ILogger();
 
 	public static void info(String info) {
@@ -15,4 +16,5 @@ public class ILogger {
 
 	public void warn(String s, Vector<String> strings) {
 	}
+
 }

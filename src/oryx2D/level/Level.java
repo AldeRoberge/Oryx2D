@@ -4,6 +4,7 @@ import alde.flash.utils.Vector;
 import flash.display.BitmapData;
 import oryx2D.graphics.Screen;
 import rotmg.map.AbstractMap;
+import rotmg.objects.GameObject;
 import rotmg.objects.Square;
 
 public class Level {
@@ -45,6 +46,28 @@ public class Level {
 				}
 			}
 		}
+
+
+		int nullTexture = 0;
+		int nonNullTexture = 0;
+
+		synchronized (AbstractMap.goDict) {
+			for (GameObject g : AbstractMap.goDict) {
+
+				if (g.getPortrait() != null) {
+					screen.render((int) g.x, (int) g.y, g.getPortrait());
+
+
+					nonNullTexture++;
+				} else {
+					nullTexture++;
+				}
+			}
+		}
+
+		System.out.println("NonNull : " + nonNullTexture + ", Null : " + nullTexture);
+
+
 	}
 
 	public Square getTile(int x, int y) {
