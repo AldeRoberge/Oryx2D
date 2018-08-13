@@ -38,8 +38,8 @@ public class Screen {
 		this.yOffset = yOffset;
 	}
 
-	public void render(int xp, int yp, BitmapData bitmapData) {
-		this.render(bitmapData.height * xp, bitmapData.width * yp, bitmapData, 0);
+	public void render(double xp, double yp, BitmapData bitmapData) {
+		this.render((int) (bitmapData.height * xp), (int) (bitmapData.width * yp), bitmapData, 0);
 	}
 	
 	

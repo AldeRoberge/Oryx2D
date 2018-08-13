@@ -43,9 +43,8 @@ public class Level {
 		for (int x = tilePositionTopLeft; x < tilePositionTopRight; x++) {
 			for (int y = tilePositionBottomLeft; y < tilePositionBottomRight; y++) {
 				Square t = (getTile(x, y));
-				if (t != null) {
+				if (t != null && t.texture != null) {
 					screen.render(x, y, t.texture);
-					
 				}
 			}
 		}
@@ -57,9 +56,12 @@ public class Level {
 			synchronized (AbstractMap.goDict) {
 				for (GameObject g : AbstractMap.goDict) {
 					if (g.getPortrait() != null) {
-						//screen.render((int) g.x, (int) g.y, g.getPortrait());
-						screen.render((int) g.x * debug.height, (int) g.y * debug.width, debug);
-						screen.render(debug.height * g.x, debug.width * g.y, debug);
+
+						//screen.render(g.x, g.y, debug);
+
+						System.out.println(g.x + ", " + g.y);
+
+						screen.render(g.x, g.y, g.texture);
 
 						nonNullTexture++;
 					} else {

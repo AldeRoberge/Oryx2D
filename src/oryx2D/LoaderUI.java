@@ -121,6 +121,10 @@ public class LoaderUI {
 		});
 		btnJoin.setForeground(Color.BLACK);
 		btnJoin.setBackground(Color.WHITE);
+
+		if (Properties.AUTOMATICALLY_CONNECT.getValueAsBoolean()) {
+			btnJoin.doClick();
+		}
 		fillerPanel4.add(btnJoin);
 		
 		JPanel fillerPanel5 = new JPanel();
