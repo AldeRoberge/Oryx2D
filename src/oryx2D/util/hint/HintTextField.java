@@ -14,6 +14,12 @@ public class HintTextField extends JTextField {
 
 	private final String hint;
 
+	public HintTextField(String value, String hint) {
+		super(value);
+		this.hint = hint;
+		setEnabled(true);
+	}
+
 	public HintTextField(String hint) {
 		this.hint = hint;
 		setEnabled(true);

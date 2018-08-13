@@ -1,13 +1,19 @@
 package oryx2D;
 
+import alde.commons.properties.Property;
+import oryx2D.properties.Properties;
 import oryx2D.util.hint.HintTextField;
 import oryx2D.util.hint.PasswordHintTextField;
+import rotmg.account.core.WebAccount;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class LoaderUI {
+
+	public Property EMAIL = Properties.EMAIL;
+	public Property PASSWORD = Properties.PASSWORD;
 
 	private JFrame frame;
 	private JTextField emailField;
@@ -52,8 +58,15 @@ public class LoaderUI {
 		frame.setTitle("Oryx2D Launcher");
 		frame.setLocationRelativeTo(null);
 
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
+		
 		//frame.setResizable(false);
-		frame.setBounds(100, 100, 800, 550);
+		frame.setBounds(100, 100, 800, 486);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -61,60 +74,62 @@ public class LoaderUI {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(LoaderUI.class.getResource("/oryx2D/loader/oryx2D.png")));
-		panel.add(lblNewLabel, BorderLayout.CENTER);
+		JLabel oryxLabel = new JLabel("icon");
+		oryxLabel.setIcon(new ImageIcon(LoaderUI.class.getResource("/oryx2D/loader/oryx2D.png")));
+		panel.add(oryxLabel, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.BLACK);
-		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		JPanel fillerPanel1 = new JPanel();
+		fillerPanel1.setBackground(Color.BLACK);
+		frame.getContentPane().add(fillerPanel1, BorderLayout.CENTER);
+		fillerPanel1.setLayout(new BoxLayout(fillerPanel1, BoxLayout.Y_AXIS));
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.BLACK);
-		panel_1.add(panel_2);
-		
+		JPanel emailPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) emailPanel.getLayout();
+		emailPanel.setBackground(Color.BLACK);
+		fillerPanel1.add(emailPanel);
 
-		emailField = new HintTextField("Email");
-		panel_2.add(emailField);
+		emailField = new HintTextField(EMAIL.getValue(), "Email");
+		emailPanel.add(emailField);
 		emailField.setColumns(20);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.BLACK);
-		panel_1.add(panel_3);
+		JPanel passwordPanel = new JPanel();
+		passwordPanel.setBackground(Color.BLACK);
+		fillerPanel1.add(passwordPanel);
 		
-		passwordField = new PasswordHintTextField("Password");
-		panel_3.add(passwordField);
+		passwordField = new PasswordHintTextField(PASSWORD.getValue(), "Password");
+		passwordPanel.add(passwordField);
 		passwordField.setColumns(20);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(Color.BLACK);
-		panel_1.add(panel_4);
+		JPanel fillerPanel2 = new JPanel();
+		fillerPanel2.setBackground(Color.BLACK);
+		fillerPanel1.add(fillerPanel2);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.BLACK);
-		panel_1.add(panel_5);
+		JPanel fillerPanel3 = new JPanel();
+		fillerPanel3.setBackground(Color.BLACK);
+		fillerPanel1.add(fillerPanel3);
 		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(Color.BLACK);
-		panel_1.add(panel_6);
+		JPanel fillerPanel4 = new JPanel();
+		fillerPanel4.setBackground(Color.BLACK);
+		fillerPanel1.add(fillerPanel4);
 		
 		JButton btnJoin = new JButton("        Connect        ");
 		btnJoin.addActionListener(e -> {
-			Game.main(null);
+			Game.launch(new WebAccount(EMAIL.getValue(), PASSWORD.getValue()));
+			EMAIL.setValue(emailField.getText());
+			PASSWORD.setValue(passwordField.getText());
 			frame.dispose();
 		});
 		btnJoin.setForeground(Color.BLACK);
 		btnJoin.setBackground(Color.WHITE);
-		panel_6.add(btnJoin);
+		fillerPanel4.add(btnJoin);
 		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(Color.BLACK);
-		panel_1.add(panel_7);
+		JPanel fillerPanel5 = new JPanel();
+		fillerPanel5.setBackground(Color.BLACK);
+		fillerPanel1.add(fillerPanel5);
 		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBackground(Color.BLACK);
-		panel_1.add(panel_8);
+		JPanel fillerPanel6 = new JPanel();
+		fillerPanel6.setBackground(Color.BLACK);
+		fillerPanel1.add(fillerPanel6);
 	}
 
 }

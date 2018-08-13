@@ -14,6 +14,12 @@ public class PasswordHintTextField extends JPasswordField {
 
 	private final String hint;
 
+	public PasswordHintTextField(String value, String hint) {
+		super(value);
+		this.hint = hint;
+		setEnabled(true);
+	}
+
 	public PasswordHintTextField(String hint) {
 		this.hint = hint;
 		setEnabled(true);
@@ -22,7 +28,7 @@ public class PasswordHintTextField extends JPasswordField {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (getText().length() == 0) {
+		if (getPassword().length == 0) {
 			int h = getHeight();
 			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

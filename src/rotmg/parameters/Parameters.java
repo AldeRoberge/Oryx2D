@@ -16,7 +16,7 @@ import rotmg.util.MoreDateUtil;
 public class Parameters {
 
 	public static final String BUILD_VERSION = "X28.0";
-	public static final String MINOR_VERSION = "1";
+	public static final String MINOR_VERSION = "3";
 	public static final boolean ENABLE_ENCRYPTION = true;
 	public static final boolean ALLOW_SCREENSHOT_MODE = false;
 	public static final boolean USE_NEW_FRIENDS_UI = true;

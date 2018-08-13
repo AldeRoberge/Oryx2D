@@ -39,18 +39,17 @@ public class WebAccount implements Account {
 
 	public WebAccount() {
 		super();
-		/*try {
-		 this.entryTag = ExternalInterface.call("rotmg.UrlLib.getParam", "entrypt");
-		 return;
-		 }
-		 catch (error:Error) {
-		 return;
-		 }*/
 	}
+
+	public static WebAccount instance;
 
 	public WebAccount(String email, String password) {
 		this.userId = email;
 		this.password = password;
+	}
+
+	public static void setInstance(WebAccount inst) {
+		instance = inst;
 	}
 
 	public static Account getInstance() {
@@ -66,7 +65,6 @@ public class WebAccount implements Account {
 	public String getUserId() {
 		if (this.userId == null) {
 			//this.userId = GUID.create();
-
 		}
 		return this.userId;
 	}

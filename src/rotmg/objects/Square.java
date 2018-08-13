@@ -168,17 +168,6 @@ public class Square {
 		}
 	}
 
-	/**
-	 * Every tiles render themselves
-	 */
-	public void render(int x, int y, Screen screen) {
-
-		if (texture != null) {
-			screen.render(x * texture.height, y * texture.width, texture);
-		}
-
-
-	}
 
 	public boolean isSolid() {
 		return this.props.noWalk;

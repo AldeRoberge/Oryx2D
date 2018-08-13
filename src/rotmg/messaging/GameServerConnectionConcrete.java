@@ -1494,8 +1494,8 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	private void handleIncorrectVersionFailure(Failure event) {
-		System.out.println("Client version " + Parameters.BUILD_VERSION + " Server version: " + event.errorDescription
-				+ "Client Update Needed.");
+		System.out.println("Client version " + Parameters.BUILD_VERSION + ". Server version: " + event.errorDescription
+				+ ". Client Update Needed.");
 
 		/*Dialog dialog = new Dialog("Client version: " + Parameters.BUILD_VERSION + "\nServer version: " + event.errorDescription,
 				"Client Update Needed", "Ok", null, "/clientUpdate");

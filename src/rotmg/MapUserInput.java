@@ -8,7 +8,6 @@ import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.system.Capabilities;
-import net.hires.debug.Stats;
 import robotlegs.bender.bundles.mvcs.components.StatsTabHotKeyInputSignal;
 import rotmg.application.api.ApplicationSetup;
 import rotmg.application.impl.ProductionSetup;
@@ -43,7 +42,6 @@ import static rotmg.tutorial.doneAction.doneAction;
 public class MapUserInput {
 
 	private static final int MOUSE_DOWN_WAIT_PERIOD = 175;
-	private static Stats stats = new Stats();
 	private static boolean arrowWarning = false;
 
 	public GameSprite gs;
@@ -600,7 +598,7 @@ public class MapUserInput {
 	}
 
 	private void togglePerformanceStats() {
-		if (this.gs.contains(stats)) {
+		/*if (this.gs.contains(stats)) {
 			this.gs.removeChild(stats);
 			this.gs.removeChild(this.gs.gsc.jitterWatcher);
 			this.gs.gsc.disableJitterWatcher();
@@ -609,7 +607,7 @@ public class MapUserInput {
 			this.gs.gsc.enableJitterWatcher();
 			this.gs.gsc.jitterWatcher.y = stats.height;
 			this.gs.addChild(this.gs.gsc.jitterWatcher);
-		}
+		}**/
 	}
 
 	private void toggleScreenShotMode() {

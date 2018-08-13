@@ -7,6 +7,7 @@ import oryx2D.input.Mouse;
 import oryx2D.level.Level;
 import oryx2D.level.TileCoordinate;
 import rotmg.WebMain;
+import rotmg.account.core.WebAccount;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -84,7 +85,10 @@ public class Game extends Canvas implements Runnable {
 		return height * scale;
 	}
 
-	public static void main(String[] args) {
+	public static void launch(WebAccount account) {
+
+		WebAccount.setInstance(account);
+
 		WebMain webMain = new WebMain();
 		//webMain.hook(this);
 
@@ -97,7 +101,6 @@ public class Game extends Canvas implements Runnable {
 		game.frame.pack();
 		game.frame.setVisible(true);
 		game.start();
-
 	}
 
 	public synchronized void start() {
@@ -182,12 +185,10 @@ public class Game extends Canvas implements Runnable {
 		player.render(screen);
 
 		Graphics g = bs.getDrawGraphics();
-
 		screen.drawPixels(g, getWidth(), getHeight());
-
 		drawDebug(g);
-
 		g.dispose(); //Release the memory
+
 		bs.show(); //Show the buffer
 
 	}
@@ -200,7 +201,6 @@ public class Game extends Canvas implements Runnable {
 			if (showFPS) {
 				g.drawString("frameRate : " + currentFPS, 80, 40);
 			}
-
 
 				/*g.fillRect(Mouse.getX() - 10, Mouse.getY() - 10, 10, 10);
 				if (Mouse.getButton() != -1)

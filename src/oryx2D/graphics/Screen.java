@@ -38,9 +38,11 @@ public class Screen {
 		this.yOffset = yOffset;
 	}
 
-	public void render(int xp, int yp, BitmapData BitmapData) {
-		this.render(xp, yp, BitmapData, 0);
+	public void render(int xp, int yp, BitmapData bitmapData) {
+		this.render(bitmapData.height * xp, bitmapData.width * yp, bitmapData, 0);
 	}
+	
+	
 
 	/**
 	 * @param xp x position
@@ -86,5 +88,8 @@ public class Screen {
 	public void drawPixels(Graphics g, int width, int height) {
 		g.drawImage(image, 0, 0, width, height, null); //Draw the image
 	}
+
+
+
 
 }

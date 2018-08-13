@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../GitHub/AldeCommons/AldeCommons.iml" filepath="$PROJECT_DIR$/../GitHub/AldeCommons/AldeCommons.iml" />
       <module fileurl="file://$PROJECT_DIR$/Realm-Relay.iml" filepath="$PROJECT_DIR$/Realm-Relay.iml" />
     </modules>
   </component>

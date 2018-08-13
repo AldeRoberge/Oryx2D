@@ -972,10 +972,7 @@ public class GameObject extends BasicObject {
 	}
 
 	public BitmapData getPortrait() {
-
 		try {
-
-
 			BitmapData loc1 = null;
 			int loc2 = 0;
 			if (this.portrait == null) {

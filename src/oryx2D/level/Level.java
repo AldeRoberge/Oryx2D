@@ -11,6 +11,7 @@ public class Level {
 
 	public static BitmapData voidTile = new BitmapData("/oryx2D/textures/tiles/void.png");
 
+	public static BitmapData debug = new BitmapData("/oryx2D/textures/debug/cross.png");
 
 	public static final int TILE_SIZE = 8;
 
@@ -41,32 +42,36 @@ public class Level {
 
 		for (int x = tilePositionTopLeft; x < tilePositionTopRight; x++) {
 			for (int y = tilePositionBottomLeft; y < tilePositionBottomRight; y++) {
-				if (getTile(x, y) != null) {
-					getTile(x, y).render(x, y, screen);
+				Square t = (getTile(x, y));
+				if (t != null) {
+					screen.render(x, y, t.texture);
+					
 				}
 			}
 		}
-
 
 		int nullTexture = 0;
 		int nonNullTexture = 0;
 
-		synchronized (AbstractMap.goDict) {
-			for (GameObject g : AbstractMap.goDict) {
+		try {
+			synchronized (AbstractMap.goDict) {
+				for (GameObject g : AbstractMap.goDict) {
+					if (g.getPortrait() != null) {
+						//screen.render((int) g.x, (int) g.y, g.getPortrait());
+						screen.render((int) g.x * debug.height, (int) g.y * debug.width, debug);
+						screen.render(debug.height * g.x, debug.width * g.y, debug);
 
-				if (g.getPortrait() != null) {
-					screen.render((int) g.x, (int) g.y, g.getPortrait());
-
-
-					nonNullTexture++;
-				} else {
-					nullTexture++;
+						nonNullTexture++;
+					} else {
+						nullTexture++;
+					}
 				}
 			}
+		} catch (Exception e) {
+
 		}
 
 		System.out.println("NonNull : " + nonNullTexture + ", Null : " + nullTexture);
-
 
 	}
 

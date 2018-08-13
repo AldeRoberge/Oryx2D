@@ -1,0 +1,2 @@
+PASSWORD = ati3SmaQ3de
+EMAIL = fliphcc@gmail.com
