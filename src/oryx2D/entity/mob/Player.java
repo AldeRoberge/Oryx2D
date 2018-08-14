@@ -85,11 +85,9 @@ public class Player extends Mob {
 				}
 			}
 		} else {
-
 			if (dir == 3) {
 				flip = 1;
 			}
-
 			sprite = player_side;
 			if (walking) {
 				if (anim % 20 > 10) {

@@ -1,6 +1,6 @@
 package rotmg.dialogs.view;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.airglobal.Graphics;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;

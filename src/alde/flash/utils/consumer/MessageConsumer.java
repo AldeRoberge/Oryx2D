@@ -1,4 +1,4 @@
-package alde.flash.utils;
+package alde.flash.utils.consumer;
 
 import rotmg.net.impl.Message;
 

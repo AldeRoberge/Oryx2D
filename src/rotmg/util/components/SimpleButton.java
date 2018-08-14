@@ -1,7 +1,7 @@
 package rotmg.util.components;
 
-import alde.flash.utils.EventConsumer;
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.EventConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
 import flash.airglobal.Graphics;
 import flash.display.*;

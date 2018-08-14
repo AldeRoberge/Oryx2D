@@ -145,12 +145,12 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		return new AddSpeechBalloonVO(this, loc2.getString(), "", false, false, loc3, 1, loc4, 1, loc5, 6, true, false);
 	}
 
-	public boolean update(int param1, int param2) {
+	public boolean update(int time, int dt) {
 
-		super.update(param1, param2);
+		super.update(time, dt);
 
 
-		this.untilNextMessage = this.untilNextMessage - param2;
+		this.untilNextMessage = this.untilNextMessage - dt;
 		if (this.untilNextMessage > 0) {
 			return true;
 		}

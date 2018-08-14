@@ -1,6 +1,6 @@
 package rotmg.pets.view.components;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.MouseEvent;

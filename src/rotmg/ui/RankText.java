@@ -1,6 +1,6 @@
 package rotmg.ui;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import flash.display.Sprite;
 import rotmg.text.view.stringBuilder.LineBuilder;
 import rotmg.text.view.stringBuilder.TextFieldDisplayConcrete;

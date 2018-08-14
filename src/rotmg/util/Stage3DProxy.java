@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Stage3D;
 import flash.events.Event;
 import flash.events.IEventDispatcher;

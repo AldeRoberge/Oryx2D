@@ -1,7 +1,7 @@
 package rotmg;
 
-import alde.flash.utils.EventConsumer;
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.EventConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.XML;
 import flash.display.Stage;
 import flash.events.Event;
@@ -547,7 +547,6 @@ public class MapUserInput {
 		double loc3 = 0;
 		if (param1.keyCode == Parameters.data.moveUp) {
 			this.moveUp = false;
-
 		} else if (param1.keyCode == Parameters.data.moveDown) {
 			this.moveDown = false;
 

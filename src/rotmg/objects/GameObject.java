@@ -596,26 +596,26 @@ public class GameObject extends BasicObject {
 		return true;
 	}
 
-	public boolean update(int param1, int param2) {
-		int loc4 = 0;
-		double loc5 = 0;
-		double loc6 = 0;
-		boolean loc3 = false;
+	public boolean update(int time, int dt) {
+		int tickDT = 0;
+		double pX = 0;
+		double pY = 0;
+		boolean moving = false;
 		if (!(this.moveVec.x == 0 && this.moveVec.y == 0)) {
 			if (this.myLastTickId < map.gs.gsc.lastTickId) {
 				this.moveVec.x = 0;
 				this.moveVec.y = 0;
 				this.moveTo(this.tickPosition.x, this.tickPosition.y);
 			} else {
-				loc4 = param1 - this.lastTickUpdateTime;
-				loc5 = this.posAtTick.x + loc4 * this.moveVec.x;
-				loc6 = this.posAtTick.y + loc4 * this.moveVec.y;
-				this.moveTo(loc5, loc6);
-				loc3 = true;
+				tickDT = time - this.lastTickUpdateTime;
+				pX = this.posAtTick.x + tickDT * this.moveVec.x;
+				pY = this.posAtTick.y + tickDT * this.moveVec.y;
+				this.moveTo(pX, pY);
+				moving = true;
 			}
 		}
 		if (this.props.whileMoving != null) {
-			if (!loc3) {
+			if (!moving) {
 				z = this.props.z;
 				this.flying = this.props.flying;
 			} else {
@@ -637,18 +637,23 @@ public class GameObject extends BasicObject {
 		this.moveVec.y = 0;
 	}
 
-	public void onTickPos(double param1, double param2, int param3, int param4) {
-		if (this.myLastTickId < map.gs.gsc.lastTickId) {
-			this.moveTo(this.tickPosition.x, this.tickPosition.y);
+	public void onTickPos(double x, double y, int tickTime, int tickId) {
+		try {
+			if (this.myLastTickId < map.gs.gsc.lastTickId) {
+				this.moveTo(this.tickPosition.x, this.tickPosition.y);
+			}
+			this.lastTickUpdateTime = map.gs.lastUpdate;
+			this.tickPosition.x = x;
+			this.tickPosition.y = y;
+			this.posAtTick.x = this.x;
+			this.posAtTick.y = this.y;
+			this.moveVec.x = (this.tickPosition.x - this.posAtTick.x) / tickTime;
+			this.moveVec.y = (this.tickPosition.y - this.posAtTick.y) / tickTime;
+			this.myLastTickId = tickId;
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		this.lastTickUpdateTime = map.gs.lastUpdate;
-		this.tickPosition.x = param1;
-		this.tickPosition.y = param2;
-		this.posAtTick.x = x;
-		this.posAtTick.y = y;
-		this.moveVec.x = (this.tickPosition.x - this.posAtTick.x) / param3;
-		this.moveVec.y = (this.tickPosition.y - this.posAtTick.y) / param3;
-		this.myLastTickId = param4;
 	}
 
 	public void damage(boolean param1, int param2, Vector<Integer> param3, boolean param4, Projectile param5) {
@@ -873,22 +878,22 @@ public class GameObject extends BasicObject {
 	}
 
 	protected BitmapData getTexture(Camera param1, int param2) {
-		Pet loc6 = null;
+		Pet pet = null;
 		double loc7 = 0;
 		int loc8 = 0;
-		MaskedImage loc9 = null;
+		MaskedImage maskedImage = null;
 		int loc10 = 0;
 		BitmapData loc11 = null;
 		int loc12 = 0;
 		BitmapData loc13 = null;
 		if (this instanceof Pet) {
-			loc6 = (Pet) this;
+			pet = (Pet) this;
 			if (this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0 && !this.isPaused()) {
-				if (loc6.skinId != 32912) {
-					loc6.setSkin(32912);
+				if (pet.skinId != 32912) {
+					pet.setSkin(32912);
 				}
-			} else if (!loc6.isDefaultAnimatedChar) {
-				loc6.setDefaultSkin();
+			} else if (!pet.isDefaultAnimatedChar) {
+				pet.setDefaultSkin();
 			}
 		}
 		BitmapData loc3 = this.texture;
@@ -916,9 +921,9 @@ public class GameObject extends BasicObject {
 				}
 				loc7 = param2 % loc10 / loc10;
 			}
-			loc9 = this.animatedChar.imageFromFacing(this.facing, param1, loc8, loc7);
-			loc3 = loc9.image;
-			loc5 = loc9.mask;
+			maskedImage = this.animatedChar.imageFromFacing(this.facing, param1, loc8, loc7);
+			loc3 = maskedImage.image;
+			loc5 = maskedImage.mask;
 		} else if (this.animations != null) {
 			loc11 = this.animations.getTexture(param2);
 			if (loc11 != null) {

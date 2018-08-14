@@ -1,6 +1,6 @@
 package rotmg.ui.tooltip;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
 import rotmg.objects.Player;
 import rotmg.text.view.stringBuilder.LineBuilder;

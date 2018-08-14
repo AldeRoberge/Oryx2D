@@ -1,6 +1,6 @@
 package rotmg.packages.models;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Loader;
 import flash.events.Event;
 import flash.events.IOErrorEvent;

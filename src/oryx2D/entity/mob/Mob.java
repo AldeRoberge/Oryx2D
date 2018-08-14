@@ -22,9 +22,7 @@ public abstract class Mob extends Entity {
 		if (!collision(xa, 0)) {
 			x += xa;
 		}
-
 	}
-
 
 
 	void shoot(int x, int y, double dir) {

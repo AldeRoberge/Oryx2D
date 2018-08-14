@@ -1,7 +1,7 @@
 package rotmg.view;
 
-import alde.flash.utils.EventConsumer;
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.EventConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import robotlegs.bender.bundles.mvcs.Mediator;
 import rotmg.GameSprite;
 import rotmg.core.model.MapModel;

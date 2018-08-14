@@ -9,8 +9,6 @@ import rotmg.objects.Square;
 
 public class Level {
 
-	public static BitmapData voidTile = new BitmapData("/oryx2D/textures/tiles/void.png");
-
 	public static BitmapData debug = new BitmapData("/oryx2D/textures/debug/cross.png");
 
 	public static final int TILE_SIZE = 8;
@@ -49,31 +47,17 @@ public class Level {
 			}
 		}
 
-		int nullTexture = 0;
-		int nonNullTexture = 0;
-
 		try {
-			synchronized (AbstractMap.goDict) {
-				for (GameObject g : AbstractMap.goDict) {
-					if (g.getPortrait() != null) {
-
-						//screen.render(g.x, g.y, debug);
-
-						System.out.println(g.x + ", " + g.y);
-
-						screen.render(g.x, g.y, g.texture);
-
-						nonNullTexture++;
-					} else {
-						nullTexture++;
-					}
+			for (GameObject g : AbstractMap.goDict) {
+				if (g.texture != null) {
+					//screen.render(g.x, g.y, debug);
+					screen.render(g.x, g.y, g.texture);
 				}
 			}
 		} catch (Exception e) {
-
 		}
 
-		System.out.println("NonNull : " + nonNullTexture + ", Null : " + nullTexture);
+
 
 	}
 

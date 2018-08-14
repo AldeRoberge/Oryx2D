@@ -37,5 +37,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module" module-name="AldeCommons" />
     <orderEntry type="library" name="AldeCommons" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
   </component>
 </module>

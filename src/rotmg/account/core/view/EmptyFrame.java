@@ -1,6 +1,6 @@
 package rotmg.account.core.view;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
 import flash.display.Sprite;
 import flash.events.Event;

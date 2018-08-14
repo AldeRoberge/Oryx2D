@@ -1,6 +1,6 @@
 package rotmg.objects.particles;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
 import flash.display.BitmapData;
 import flash.events.TimerEvent;
@@ -62,7 +62,7 @@ public class ShockerEffect extends ParticleEffect {
 		}
 	}
 
-	public boolean update(int param1, int param2) {
+	public boolean update(int time, int dt) {
 		if (this.isDestroyed) {
 			return false;
 		}

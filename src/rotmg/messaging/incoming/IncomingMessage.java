@@ -1,6 +1,6 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.MessageConsumer;
+import alde.flash.utils.consumer.MessageConsumer;
 import rotmg.net.impl.Message;
 
 import java.io.DataInput;

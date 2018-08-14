@@ -41,8 +41,7 @@ public class Screen {
 	public void render(double xp, double yp, BitmapData bitmapData) {
 		this.render((int) (bitmapData.height * xp), (int) (bitmapData.width * yp), bitmapData, 0);
 	}
-	
-	
+
 
 	/**
 	 * @param xp x position

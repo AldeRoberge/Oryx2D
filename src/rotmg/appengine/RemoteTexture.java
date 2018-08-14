@@ -1,6 +1,6 @@
 package rotmg.appengine;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
 import flash.display.BitmapData;
 import flash.utils.Date;

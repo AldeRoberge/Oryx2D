@@ -1,7 +1,7 @@
 package rotmg.messaging;
 
-import alde.flash.utils.EventConsumer;
-import alde.flash.utils.MessageConsumer;
+import alde.flash.utils.consumer.EventConsumer;
+import alde.flash.utils.consumer.MessageConsumer;
 import alde.flash.utils.RSA;
 import alde.flash.utils.XML;
 import com.hurlant.crypto.symmetric.ICipher;
@@ -793,7 +793,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	public void onServerPlayerShoot(ServerPlayerShoot serverPlayerShoot) {
-		boolean needsAck = serverPlayerShoot.ownerId == this.playerId;
+		boolean needsAck = (serverPlayerShoot.ownerId == this.playerId);
 		GameObject owner = this.gs.map.goDict.get(serverPlayerShoot.ownerId);
 		if (owner == null || owner.dead) {
 			if (needsAck) {

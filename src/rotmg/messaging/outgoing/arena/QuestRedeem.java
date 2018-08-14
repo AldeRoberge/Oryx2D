@@ -1,6 +1,6 @@
 package rotmg.messaging.outgoing.arena;
 
-import alde.flash.utils.MessageConsumer;
+import alde.flash.utils.consumer.MessageConsumer;
 import rotmg.messaging.data.SlotObjectData;
 import rotmg.messaging.outgoing.OutgoingMessage;
 

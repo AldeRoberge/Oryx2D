@@ -1,6 +1,6 @@
 package rotmg.lib.tasks.tasks;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
 import rotmg.lib.tasks.Task;
 

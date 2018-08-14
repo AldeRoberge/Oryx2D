@@ -1,12 +1,12 @@
 package alde.flash.utils;
 
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import rotmg.objects.animation.AnimationData;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,8 +23,9 @@ import java.util.List;
  */
 public class XML {
 
+	private static org.slf4j.Logger log = LoggerFactory.getLogger(XML.class);
+
 	public Element element;
-	public List<AnimationData> animations;
 
 	public XML(Element el) {
 		this.element = el;
@@ -46,7 +47,7 @@ public class XML {
 		if (doc != null) {
 			this.element = doc.getDocumentElement();
 		} else {
-			debug("Could not build XML from String '" + data + "'.");
+			log.error("Could not build XML from String '" + data + "'.");
 		}
 	}
 
@@ -160,17 +161,13 @@ public class XML {
 		int value = getIntValue(tag, -1);
 
 		if (value == -1) {
-			debug("Error : Could not get boolean value '" + tag + "' from int value.");
+			log.error("Error : Could not get boolean value '" + tag + "' from int value.");
 			return defaultValue;
 		} else if (value == 1) {
 			return false;
 		} else {
 			return false;
 		}
-	}
-
-	private void debug(String s) {
-		//TODO
 	}
 
 	public int getIntValue(String tag) {
@@ -181,7 +178,7 @@ public class XML {
 		try {
 			return hexToInt(checkIfHasZero(getValue(tag)));
 		} catch (Exception e) {
-			debug(e.getMessage() + " with getting integer value " + tag + ", returning " + defaultValue + ".");
+			log.error(e.getMessage() + " with getting integer value " + tag + ", returning " + defaultValue + ".");
 			return defaultValue;
 		}
 	}
@@ -202,7 +199,7 @@ public class XML {
 		try {
 			return hexToInt(checkIfHasZero(getAttribute(name)));
 		} catch (Exception e) {
-			debug(e.getMessage() + " with getting double attribute '" + name + "', returning " + defaultValue + ".");
+			log.error(e.getMessage() + " with getting double attribute '" + name + "', returning " + defaultValue + ".");
 			return defaultValue;
 		}
 	}
@@ -227,7 +224,7 @@ public class XML {
 			try {
 				return Double.parseDouble(checkIfHasZero(getAttribute(name)));
 			} catch (Exception a) {
-				debug(a.getMessage() + " with getting double attribute " + name
+				log.error(a.getMessage() + " with getting double attribute " + name
 						+ ", returning " + defaultValue + "F.");
 				return defaultValue;
 			}

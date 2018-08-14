@@ -1,6 +1,6 @@
 package rotmg.ui;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import org.osflash.signals.Signal;
 import rotmg.text.view.stringBuilder.LineBuilder;
 import rotmg.text.view.stringBuilder.StaticStringBuilder;

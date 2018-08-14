@@ -1,6 +1,6 @@
 package org.osflash.signals;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 
 import java.util.Vector;
 

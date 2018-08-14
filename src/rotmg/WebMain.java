@@ -2,7 +2,7 @@ package rotmg;
 
 //The uppermost Sprite
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.display.StageScaleMode;

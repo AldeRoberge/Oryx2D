@@ -1,6 +1,6 @@
 package rotmg.pets.data;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.XML;
 import flash.display.Bitmap;
 import flash.display.BitmapData;

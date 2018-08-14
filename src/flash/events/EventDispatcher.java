@@ -1,6 +1,6 @@
 package flash.events;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.utils.Dictionary;
 
 import java.util.function.Consumer;

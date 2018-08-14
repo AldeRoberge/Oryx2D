@@ -1,7 +1,7 @@
 package rotmg.ui.tooltip;
 
-import alde.flash.utils.EventConsumer;
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.EventConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
 import flash.display.*;
 import flash.events.Event;

@@ -1,6 +1,6 @@
 package rotmg.assets.model;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.BitmapData;
 import flash.events.TimerEvent;
 import flash.utils.timer.Timer;

@@ -1,6 +1,6 @@
 package rotmg;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
 import flash.display.DisplayObject;
 import flash.display.Sprite;

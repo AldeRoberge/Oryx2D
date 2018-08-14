@@ -1,6 +1,6 @@
 package rotmg.account.core.services;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.XML;
 import flash.events.TimerEvent;
 import flash.utils.timer.Timer;

@@ -1,6 +1,6 @@
 package rotmg.map.mapoverlay;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;

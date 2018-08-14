@@ -1,6 +1,6 @@
 package flash.utils.timer;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
 

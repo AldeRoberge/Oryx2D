@@ -1,6 +1,6 @@
 package rotmg.appengine.impl;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
 import flash.events.Event;
 import flash.events.IOErrorEvent;

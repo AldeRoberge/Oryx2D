@@ -1,6 +1,6 @@
 package rotmg.messaging.incoming.pets;
 
-import alde.flash.utils.MessageConsumer;
+import alde.flash.utils.consumer.MessageConsumer;
 import rotmg.messaging.outgoing.OutgoingMessage;
 
 import java.io.DataInput;

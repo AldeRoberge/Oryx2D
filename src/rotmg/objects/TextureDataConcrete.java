@@ -1,6 +1,6 @@
 package rotmg.objects;
 
-import alde.flash.utils.SignalConsumer;
+import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
 import alde.flash.utils.XML;
 import flash.display.BitmapData;

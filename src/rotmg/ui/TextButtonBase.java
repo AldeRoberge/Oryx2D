@@ -1,6 +1,6 @@
 package rotmg.ui;
 
-import alde.flash.utils.EventConsumer;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.events.MouseEvent;
 import rotmg.text.view.stringBuilder.LineBuilder;
 
