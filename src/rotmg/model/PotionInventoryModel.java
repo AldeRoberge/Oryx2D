@@ -1,7 +1,7 @@
 package rotmg.model;
 
-import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.XML;
+import alde.flash.utils.consumer.SignalConsumer;
 import flash.utils.Dictionary;
 import org.osflash.signals.Signal;
 

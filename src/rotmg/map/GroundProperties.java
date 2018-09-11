@@ -1,11 +1,12 @@
 package rotmg.map;
 
-import alde.flash.utils.XML;
 import flash.display.BitmapData;
 import rotmg.objects.TextureData;
 import rotmg.objects.TextureDataConcrete;
 
 import java.util.List;
+
+import alde.flash.utils.XML;
 
 /**
  * 75% done : requires AnimateProperties

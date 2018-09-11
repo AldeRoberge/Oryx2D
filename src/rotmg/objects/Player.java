@@ -1,10 +1,11 @@
 package rotmg.objects;
 
-import alde.flash.utils.XML;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.utils.Dictionary;
 import org.osflash.signals.Signal;
+
+import alde.flash.utils.XML;
 import rotmg.assets.services.CharacterFactory;
 import rotmg.constants.GeneralConstants;
 import rotmg.messaging.data.StatData;

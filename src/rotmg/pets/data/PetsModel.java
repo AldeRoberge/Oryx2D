@@ -1,6 +1,5 @@
 package rotmg.pets.data;
 
-import alde.flash.utils.XML;
 import flash.utils.Dictionary;
 import rotmg.appengine.SavedCharacter;
 import rotmg.core.model.PlayerModel;
@@ -11,6 +10,8 @@ import rotmg.pets.controller.NotifyActivePetUpdated;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import alde.flash.utils.XML;
 
 // This is a 100% match, except maybe for the getInstance() [Inject]
 public class PetsModel {

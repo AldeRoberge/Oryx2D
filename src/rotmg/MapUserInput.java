@@ -1,8 +1,8 @@
 package rotmg;
 
+import alde.flash.utils.XML;
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.XML;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
