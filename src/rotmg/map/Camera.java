@@ -8,6 +8,9 @@ import rotmg.objects.GameObject;
 import rotmg.parameters.Parameters;
 import rotmg.util.RandomUtil;
 
+/**
+ * Oryx2D does not use this class, it has it's own camera implementation
+ */
 public class Camera {
 
 	public static final Vector3D lN = new Vector3D(0, 0, 1);

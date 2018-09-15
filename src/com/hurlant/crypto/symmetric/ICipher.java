@@ -4,9 +4,8 @@ import org.bouncycastle.crypto.StreamCipher;
 import org.bouncycastle.crypto.engines.RC4Engine;
 import org.bouncycastle.crypto.params.KeyParameter;
 
-
 /**
- * Formelly known as ICipher
+ * Formerly known as ICipher
  */
 public class ICipher {
 
