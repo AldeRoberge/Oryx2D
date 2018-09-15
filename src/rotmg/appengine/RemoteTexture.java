@@ -1,10 +1,9 @@
 package rotmg.appengine;
 
-import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.SignalConsumer;
 import flash.display.BitmapData;
 import flash.utils.Date;
-import ion.utils.png.PNGDecoder;
 import mx.logging.ILogger;
 import rotmg.util.BitmapDataSpy;
 
@@ -60,8 +59,8 @@ public class RemoteTexture {
 	}*/
 
 	public void makeTexture(byte param1) {
-		BitmapData loc2 = PNGDecoder.decodeImage(param1);
-		this.callback.dispatch(loc2);
+		//BitmapData loc2 = PNGDecoder.decodeImage(param1);
+		//this.callback.dispatch(loc2);
 	}
 
 	public void reportError(String param1) {
