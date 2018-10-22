@@ -238,7 +238,7 @@ public class GameObject extends BasicObject {
 	public void setTexture(int param1) {
 		TextureData loc2 = ObjectLibrary.typeToTextureData.get(param1);
 		if (loc2 == null) {
-			System.err.println("Error, could not find data for object : " + param1);
+			//System.err.println("Error, could not find data for object : " + param1);
 		} else {
 			this.texture = loc2.texture;
 			this.mask = loc2.mask;

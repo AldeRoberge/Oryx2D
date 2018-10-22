@@ -21,7 +21,7 @@ public class AnimationData {
 			this.prob = xml.getIntAttribute("prob");
 		}
 
-		this.period = (int) (xml.getIntAttribute("period") * 1000);
+		this.period = (int) (xml.getDoubleAttribute("period") * 1000);
 
 		this.periodJitter = (int) (xml.getDoubleAttribute("periodJitter") * 1000);
 
