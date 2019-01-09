@@ -228,7 +228,7 @@ Injector
 -------
 
    AS3 uses injector.getInstance to get static instances of classes...
-   I have personally opted for the (https://www.geeksforgeeks.org/singleton-class-java/)[Singleton] pattern instead
+   I have personally opted for the [Singleton](https://www.geeksforgeeks.org/singleton-class-java/) pattern instead
    
    
    
