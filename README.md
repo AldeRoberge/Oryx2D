@@ -1,29 +1,7 @@
-NOTES :
-    
-    MapUserInput handles Input
-    
-    GameSprite handles map drawing
-    Map handles object drawing
-        
-    Player handles camera rotation
-
-TODO : 
-
-    Reorganise files to match client
-    Add 'get' awareness in README (replaced get value() with getValue())
-    Add placeholder for graphic stuff (Player, GameObject)
-    
-    
-    
-    
+Help with convertion from AS3 to Java
 -------------------
     
-Most changes are automatically made by the AS3 to Java converter AS3toCSharp.
-
-see AldeCommons' *AS3ToJava.java*
-
-Good news, most of the manual changes are related to Arrays and Dictionary.
-
+Note : Most changes are automatically made by the AS3 to Java converter AS3toCSharp (see AldeCommons' *AS3ToJava.java*).
 
 Strings
 --------
@@ -143,20 +121,21 @@ Casting
 
     int(equipment.length)
     
-    Object as Projectile
-
-
    **Java**
-   
+    
     (int) equipment.length
 
-    (Projectile) Object
+   **AS3**
+
+     Object as Projectile
+    
+   **Java**
+    
+     (Projectile) Object
 
 
 Freelist
 ------
-
-   We allocated objects from memory directly
 
    **AS3**
     
@@ -170,15 +149,15 @@ Freelist
 Arrays
 -----------
 
-   Arrays in AS3 are weird. There is lists, vectors and arrays.
+   Arrays in AS3 are *weird*. There are lists, vectors and arrays.
    We try to use lists for Messages (packets) as much as possible.
-   For the rest, we use the utility class Vector (see bellow).
+   For the rest, we use the utility class Vector (see Vector.java).
    
 
 Vectors
 ---------------
 
-   Use the utility class Vector.
+   Use the utility generic class Vector.
    
    **AS3**
 
@@ -192,7 +171,7 @@ Vectors
 XML handling
 --------------
 
-   Java doesn't have XML handling built in. Use the utility class XML.java instead.
+   Java doesn't have XML handling *built in*. Use the utility class XML.java instead.
 
     <Element attribute="value">value</Element>
 
@@ -218,48 +197,38 @@ XML handling
 
    Take a look at XML.java for more XML-related tasks
    
-
-
-    
-
-
-    
-    
-
-    
-    
-
-   
    
 Signals
 -----------
 
-   RotMG uses the Signal class to send messages between the classes. 
+   RotMG uses the (non-native) Signal class to send messages between the classes. 
    I have implemented a version of it.
    
-   Add a method : add(Consumer<Class>)
-   Call the method : dispatch(Class c)
+   	Add a method : add(Consumer<Class>)
+   	Call the method : dispatch(Class c)
    
-   See Signal for more information
+   See Signal.java for more information
    
    **AS3**
       
-       public class Portrait extends Signal
+       public class Portrait extends Signal {
        
-       public function Portrait() {
-            super(Boolean)  
+	       public function Portrait() {
+		    super(Boolean)  
+	       }
+       
        }
        
    **JAVA**
    
-       public class Portrait extends Signal<Boolean>
+       public class Portrait extends Signal<Boolean> {}
    
    
 Injector
 -------
 
    AS3 uses injector.getInstance to get static instances of classes...
-   I have personally opted for the Singleton pattern instead
+   I have personally opted for the (https://www.geeksforgeeks.org/singleton-class-java/)[Singleton] pattern instead
    
    
    
