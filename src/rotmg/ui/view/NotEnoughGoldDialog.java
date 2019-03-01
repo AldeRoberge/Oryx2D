@@ -4,11 +4,11 @@ import org.osflash.signals.Signal;
 
 public class NotEnoughGoldDialog /*extends Dialog*/ {
 
-	private static String TRACKING_TAG = "/notEnoughGold";
+    private static String TRACKING_TAG = "/notEnoughGold";
 
-	public Signal cancel;
+    public Signal cancel;
 
-	public Signal buyGold;
+    public Signal buyGold;
 
 	/*public NotEnoughGoldDialog() {
 		super(TextKey.NOT_ENOUGH_GOLD, TextKey.GOLD_NOTENOUGHFORITEM, TextKey.FRAME_CANCEL, TextKey.BUY_GOLD, TRACKING_TAG);

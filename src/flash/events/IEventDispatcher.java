@@ -2,6 +2,6 @@ package flash.events;
 
 public interface IEventDispatcher {
 
-	//TODO implement this
+    //TODO implement this
 
 }

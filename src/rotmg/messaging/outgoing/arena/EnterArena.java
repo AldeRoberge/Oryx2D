@@ -9,20 +9,20 @@ import rotmg.messaging.outgoing.OutgoingMessage;
 
 public class EnterArena extends OutgoingMessage {
 
-	private int currency;
+    private int currency;
 
-	public EnterArena(int id, MessageConsumer callback) {
-		super(id, callback);
-	}
+    public EnterArena(int id, MessageConsumer callback) {
+        super(id, callback);
+    }
 
-	@Override
-	public void parseFromInput(DataInput in) throws IOException {
-		this.currency = in.readInt();
-	}
+    @Override
+    public void parseFromInput(DataInput in) throws IOException {
+        this.currency = in.readInt();
+    }
 
-	@Override
-	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(this.currency);
-	}
+    @Override
+    public void writeToOutput(DataOutput out) throws IOException {
+        out.writeInt(this.currency);
+    }
 
 }

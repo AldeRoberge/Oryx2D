@@ -4,14 +4,14 @@ import org.osflash.signals.Signal;
 
 public class InitPackagesSignal extends Signal {
 
-	static InitPackagesSignal instance;
+    static InitPackagesSignal instance;
 
-	public static InitPackagesSignal getInstance() {
+    public static InitPackagesSignal getInstance() {
 
-		if (instance == null) {
-			instance = new InitPackagesSignal();
-		}
+        if (instance == null) {
+            instance = new InitPackagesSignal();
+        }
 
-		return instance;
-	}
+        return instance;
+    }
 }

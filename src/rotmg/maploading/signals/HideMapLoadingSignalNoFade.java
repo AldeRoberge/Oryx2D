@@ -4,14 +4,14 @@ import org.osflash.signals.Signal;
 
 public class HideMapLoadingSignalNoFade extends Signal {
 
-	static HideMapLoadingSignalNoFade instance;
+    static HideMapLoadingSignalNoFade instance;
 
-	public static HideMapLoadingSignalNoFade getInstance() {
-		if (instance == null) {
-			instance = new HideMapLoadingSignalNoFade();
-		}
-		return instance;
-	}
+    public static HideMapLoadingSignalNoFade getInstance() {
+        if (instance == null) {
+            instance = new HideMapLoadingSignalNoFade();
+        }
+        return instance;
+    }
 
 }
 

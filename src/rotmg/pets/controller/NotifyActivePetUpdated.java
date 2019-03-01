@@ -4,13 +4,13 @@ import org.osflash.signals.Signal;
 
 public class NotifyActivePetUpdated extends Signal {
 
-	static NotifyActivePetUpdated instance;
+    static NotifyActivePetUpdated instance;
 
-	public static NotifyActivePetUpdated getInstance() {
-		if (instance == null) {
-			instance = new NotifyActivePetUpdated();
-		}
+    public static NotifyActivePetUpdated getInstance() {
+        if (instance == null) {
+            instance = new NotifyActivePetUpdated();
+        }
 
-		return instance;
-	}
+        return instance;
+    }
 }

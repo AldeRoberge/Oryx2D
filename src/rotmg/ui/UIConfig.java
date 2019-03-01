@@ -3,10 +3,10 @@ package rotmg.ui;
 import robotlegs.bender.framework.api.IConfig;
 
 public class UIConfig implements IConfig {
-	@Override
-	public void configure() {
+    @Override
+    public void configure() {
 
-	}
+    }
 	/*
 
 	public Injector injector = Injector.getInstance();

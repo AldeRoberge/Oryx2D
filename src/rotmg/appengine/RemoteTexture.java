@@ -13,29 +13,29 @@ import rotmg.util.BitmapDataSpy;
  */
 public class RemoteTexture {
 
-	private static final String URL_PATTERN = "http://{DOMAIN}/picture/get";
+    private static final String URL_PATTERN = "http://{DOMAIN}/picture/get";
 
-	private static final String ERROR_PATTERN = "Remote Texture Error: {ERROR} (id:{ID}, instance:{INSTANCE})";
+    private static final String ERROR_PATTERN = "Remote Texture Error: {ERROR} (id:{ID}, instance:{INSTANCE})";
 
-	private static final int START_TIME = new Date().getTime();
+    private static final int START_TIME = new Date().getTime();
 
-	public String id;
+    public String id;
 
-	public String instance;
+    public String instance;
 
-	public SignalConsumer callback;
+    public SignalConsumer callback;
 
-	private ILogger logger;
+    private ILogger logger;
 
-	public RemoteTexture(String param1, String param2, SignalConsumer param3) {
-		super();
-		this.id = param1;
-		this.instance = param2;
-		this.callback = param3;
-		this.logger = ILogger.getInstance();
-	}
+    public RemoteTexture(String param1, String param2, SignalConsumer param3) {
+        super();
+        this.id = param1;
+        this.instance = param2;
+        this.callback = param3;
+        this.logger = ILogger.getInstance();
+    }
 
-	public void run() {
+    public void run() {
 		/*String loc1 = this.instance.equals("testing") ? "rotmghrdtesting.appspot.com" : "realmofthemadgodhrd.appspot.com";
 		String loc2 = URL_PATTERN.replace("{DOMAIN}", loc1);
 		Vector loc3 = new Object();
@@ -45,11 +45,11 @@ public class RemoteTexture {
 		loc4.setDataFormat(URLLoaderDataFormat.BINARY);
 		loc4.complete.addOnce(new SignalConsumer<>(this::onComplete));
 		loc4.sendRequest(loc2, loc3);*/
-	}
+    }
 
-	private void onComplete(byte param2) {
-		this.makeTexture(param2);
-	}
+    private void onComplete(byte param2) {
+        this.makeTexture(param2);
+    }
 
 	/*private void onComplete(boolean param1, Object param2) {
 		if (param1) {
@@ -59,16 +59,16 @@ public class RemoteTexture {
 		}
 	}*/
 
-	public void makeTexture(byte param1) {
-		BitmapData loc2 = PNGDecoder.decodeImage(param1);
-		this.callback.dispatch(loc2);
-	}
+    public void makeTexture(byte param1) {
+        BitmapData loc2 = PNGDecoder.decodeImage(param1);
+        this.callback.dispatch(loc2);
+    }
 
-	public void reportError(String param1) {
-		param1 = ERROR_PATTERN.replace("{ERROR}", param1).replace("{ID}", this.id).replace("{INSTANCE}", this.instance);
-		this.logger.warn("RemoteTexture.reportError: {0}", new Vector<>(param1));
-		BitmapData loc2 = new BitmapDataSpy(1, 1);
-		this.callback.dispatch(loc2);
-	}
+    public void reportError(String param1) {
+        param1 = ERROR_PATTERN.replace("{ERROR}", param1).replace("{ID}", this.id).replace("{INSTANCE}", this.instance);
+        this.logger.warn("RemoteTexture.reportError: {0}", new Vector<>(param1));
+        BitmapData loc2 = new BitmapDataSpy(1, 1);
+        this.callback.dispatch(loc2);
+    }
 
 }

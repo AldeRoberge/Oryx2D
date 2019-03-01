@@ -1,7 +1,6 @@
 package rotmg.chat;
 
 import org.swiftsuspenders.Injector;
-
 import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
 import robotlegs.bender.extensions.signalCommandMap.api.SignalCommandMap;
 import robotlegs.bender.framework.api.IConfig;
@@ -13,20 +12,20 @@ import rotmg.net.impl.MessageCenter;
 
 public class ChatConfig implements IConfig {
 
-	public Injector injector = Injector.getInstance();
+    public Injector injector = Injector.getInstance();
 
-	public MessageMap messageMap = MessageCenter.getInstance();
+    public MessageMap messageMap = MessageCenter.getInstance();
 
-	public SignalCommandMap commandMap = SignalCommandMap.getInstance();
+    public SignalCommandMap commandMap = SignalCommandMap.getInstance();
 
-	public IMediatorMap mediatorMap = IMediatorMap.getInstance();
+    public IMediatorMap mediatorMap = IMediatorMap.getInstance();
 
-	public ChatConfig() {
-		super();
-	}
+    public ChatConfig() {
+        super();
+    }
 
-	@Override
-	public void configure() {
+    @Override
+    public void configure() {
 		/*this.injector.map(ChatModel.class).asSingleton();
 		this.injector.map(ChatConfig).asSingleton();
 		this.injector.map(ChatListItemFactory).asSingleton();
@@ -37,11 +36,11 @@ public class ChatConfig implements IConfig {
 		this.commandMap.map(AddTextLineSignal).toCommand(ParseAddTextLineCommand);
 		this.commandMap.map(ExitGameSignal).toCommand(ClearTellModelCommand);
 		this.commandMap.map(GameClosedSignal).toCommand(ClearTellModelCommand);*/
-		this.messageMap.map(GameServerConnection.TEXT).toMessage(Text.class).toHandler(TextHandler.class);
+        this.messageMap.map(GameServerConnection.TEXT).toMessage(Text.class).toHandler(TextHandler.class);
 		/*this.commandMap.map(ParseChatMessageSignal).toCommand(ParseChatMessageCommand);
 		this.mediatorMap.map(ChatInput).toMediator(ChatInputMediator);
 		this.mediatorMap.map(ChatList).toMediator(ChatListMediator);
 		this.mediatorMap.map(Chat).toMediator(ChatMediator);
 		this.mediatorMap.map(ChatInputNotAllowed).toMediator(ChatInputNotAllowedMediator);*/
-	}
+    }
 }

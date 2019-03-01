@@ -5,46 +5,46 @@ package rotmg.account.core;
  */
 public interface Account {
 
-	String getPlatformToken();
+    String getPlatformToken();
 
-	void setPlatformToken(String param1);
+    void setPlatformToken(String param1);
 
-	void updateUser(String param1, String param2, String param3);
+    void updateUser(String param1, String param2, String param3);
 
-	String getUserName();
+    String getUserName();
 
-	String getUserId();
+    String getUserId();
 
-	String getPassword();
+    String getPassword();
 
-	String getToken();
+    String getToken();
 
-	String getSecret();
+    String getSecret();
 
-	Object getCredentials();
+    Object getCredentials();
 
-	boolean isRegistered();
+    boolean isRegistered();
 
-	void clear();
+    void clear();
 
-	void reportIntStat(String param1, int param2);
+    void reportIntStat(String param1, int param2);
 
-	String getRequestPrefix();
+    String getRequestPrefix();
 
-	String gameNetworkUserId();
+    String gameNetworkUserId();
 
-	String gameNetwork();
+    String gameNetwork();
 
-	String playPlatform();
+    String playPlatform();
 
-	String getEntryTag();
+    String getEntryTag();
 
-	void verify(boolean param1);
+    void verify(boolean param1);
 
-	boolean isVerified();
+    boolean isVerified();
 
-	String getMoneyUserId();
+    String getMoneyUserId();
 
-	String getMoneyAccessToken();
+    String getMoneyAccessToken();
 
 }

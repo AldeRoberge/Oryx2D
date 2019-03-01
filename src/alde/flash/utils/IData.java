@@ -10,8 +10,8 @@ import java.io.IOException;
  */
 public interface IData {
 
-	void parseFromInput(DataInput in) throws IOException;
+    void parseFromInput(DataInput in) throws IOException;
 
-	void writeToOutput(DataOutput out) throws IOException;
+    void writeToOutput(DataOutput out) throws IOException;
 
 }

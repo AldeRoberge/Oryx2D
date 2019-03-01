@@ -17,196 +17,196 @@ import spark.filters.DropShadowFilter;
 
 public class PlayerMenu extends Menu {
 
-	public AGameSprite gs;
+    public AGameSprite gs;
 
-	public String playerName;
+    public String playerName;
 
-	public Player player;
+    public Player player;
 
-	public GameObjectListItem playerPanel;
+    public GameObjectListItem playerPanel;
 
-	public TextFieldDisplayConcrete namePlate;
+    public TextFieldDisplayConcrete namePlate;
 
-	public PlayerMenu() {
-		super(3552822, 16777215);
-	}
+    public PlayerMenu() {
+        super(3552822, 16777215);
+    }
 
-	public void initDifferentServer(AGameSprite param1, String param2, boolean param3, boolean param4) {
-		MenuOption loc5 = null;
-		this.gs = param1;
-		this.playerName = param2;
-		this.player = null;
-		this.namePlate = new TextFieldDisplayConcrete().setSize(13).setColor(16572160).setHTML(true);
-		this.namePlate.setStringBuilder(new LineBuilder().setParams(this.playerName));
-		this.namePlate.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-		this.addChild(this.namePlate);
-		this.yOffset = this.yOffset - 13;
-		loc5 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 21), 16777215, TextKey.PLAYERMENU_PM);
-		loc5.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onPrivateMessage));
-		this.addOption(loc5);
-		loc5 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 8), 16777215, TextKey.FRIEND_BLOCK_BUTTON);
-		loc5.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onIgnoreDifferentServer));
-		this.addOption(loc5);
-		loc5 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 18), 16777215, "Add Friend");
-		loc5.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onAddFriend));
-		this.addOption(loc5);
-	}
+    public void initDifferentServer(AGameSprite param1, String param2, boolean param3, boolean param4) {
+        MenuOption loc5 = null;
+        this.gs = param1;
+        this.playerName = param2;
+        this.player = null;
+        this.namePlate = new TextFieldDisplayConcrete().setSize(13).setColor(16572160).setHTML(true);
+        this.namePlate.setStringBuilder(new LineBuilder().setParams(this.playerName));
+        this.namePlate.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
+        this.addChild(this.namePlate);
+        this.yOffset = this.yOffset - 13;
+        loc5 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 21), 16777215, TextKey.PLAYERMENU_PM);
+        loc5.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onPrivateMessage));
+        this.addOption(loc5);
+        loc5 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 8), 16777215, TextKey.FRIEND_BLOCK_BUTTON);
+        loc5.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onIgnoreDifferentServer));
+        this.addOption(loc5);
+        loc5 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 18), 16777215, "Add Friend");
+        loc5.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onAddFriend));
+        this.addOption(loc5);
+    }
 
-	private void onIgnoreDifferentServer(Event param1) {
-		this.gs.gsc.playerText("/ignore " + this.playerName);
-		this.remove();
-	}
+    private void onIgnoreDifferentServer(Event param1) {
+        this.gs.gsc.playerText("/ignore " + this.playerName);
+        this.remove();
+    }
 
-	public void init(AGameSprite param1, Player param2) {
-		MenuOption loc3 = null;
-		this.gs = param1;
-		this.playerName = param2.name;
-		this.player = param2;
-		this.playerPanel = new GameObjectListItem(11776947, true, this.player, true);
-		this.yOffset = this.yOffset + 7;
-		this.addChild(this.playerPanel);
-		if (Player.isAdmin || Player.isMod) {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, "Ban MultiBoxer");
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onKickMultiBox));
-			this.addOption(loc3);
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, "Ban RWT");
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onKickRWT));
-			this.addOption(loc3);
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, "Ban Cheat");
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onKickCheat));
-			this.addOption(loc3);
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 4), 16777215, TextKey.PLAYERMENU_MUTE);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onMute));
-			this.addOption(loc3);
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 3), 16777215, TextKey.PLAYERMENU_UNMUTE);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onUnMute));
-			this.addOption(loc3);
-		}
-		if (this.gs.map.allowPlayerTeleport() && this.player.isTeleportEligible(this.player)) {
-			loc3 = new TeleportMenuOption(this.gs.map.player);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onTeleport));
-			this.addOption(loc3);
-		}
-		if ((this.gs.map.player.guildRank >= GuildUtil.OFFICER) && ((param2.guildName == null) || (param2.guildName.length() == 0))) {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, TextKey.PLAYERMENU_INVITE);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onInvite));
-			this.addOption(loc3);
-		}
-		if (!this.player.starred) {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterface2", 5), 16777215, TextKey.PLAYERMENU_LOCK);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onLock));
-			this.addOption(loc3);
-		} else {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterface2", 6), 16777215, TextKey.PLAYERMENU_UNLOCK);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onUnlock));
-			this.addOption(loc3);
-		}
-		loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 7), 16777215, TextKey.PLAYERMENU_TRADE);
-		loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onTrade));
-		this.addOption(loc3);
-		loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 21), 16777215, TextKey.PLAYERMENU_PM);
-		loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onPrivateMessage));
-		this.addOption(loc3);
-		if (this.player.isFellowGuild) {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 21), 16777215, TextKey.PLAYERMENU_GUILDCHAT);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onGuildMessage));
-			this.addOption(loc3);
-		}
-		if (!this.player.ignored) {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 8), 16777215, TextKey.FRIEND_BLOCK_BUTTON);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onIgnore));
-			this.addOption(loc3);
-		} else {
-			loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 9), 16777215, TextKey.PLAYERMENU_UNIGNORE);
-			loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onUnignore));
-			this.addOption(loc3);
-		}
-		loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 18), 16777215, "Add Friend");
-		loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onAddFriend));
-		this.addOption(loc3);
-	}
+    public void init(AGameSprite param1, Player param2) {
+        MenuOption loc3 = null;
+        this.gs = param1;
+        this.playerName = param2.name;
+        this.player = param2;
+        this.playerPanel = new GameObjectListItem(11776947, true, this.player, true);
+        this.yOffset = this.yOffset + 7;
+        this.addChild(this.playerPanel);
+        if (Player.isAdmin || Player.isMod) {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, "Ban MultiBoxer");
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onKickMultiBox));
+            this.addOption(loc3);
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, "Ban RWT");
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onKickRWT));
+            this.addOption(loc3);
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, "Ban Cheat");
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onKickCheat));
+            this.addOption(loc3);
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 4), 16777215, TextKey.PLAYERMENU_MUTE);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onMute));
+            this.addOption(loc3);
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 3), 16777215, TextKey.PLAYERMENU_UNMUTE);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onUnMute));
+            this.addOption(loc3);
+        }
+        if (this.gs.map.allowPlayerTeleport() && this.player.isTeleportEligible(this.player)) {
+            loc3 = new TeleportMenuOption(this.gs.map.player);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onTeleport));
+            this.addOption(loc3);
+        }
+        if ((this.gs.map.player.guildRank >= GuildUtil.OFFICER) && ((param2.guildName == null) || (param2.guildName.length() == 0))) {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 10), 16777215, TextKey.PLAYERMENU_INVITE);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onInvite));
+            this.addOption(loc3);
+        }
+        if (!this.player.starred) {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterface2", 5), 16777215, TextKey.PLAYERMENU_LOCK);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onLock));
+            this.addOption(loc3);
+        } else {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterface2", 6), 16777215, TextKey.PLAYERMENU_UNLOCK);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onUnlock));
+            this.addOption(loc3);
+        }
+        loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 7), 16777215, TextKey.PLAYERMENU_TRADE);
+        loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onTrade));
+        this.addOption(loc3);
+        loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 21), 16777215, TextKey.PLAYERMENU_PM);
+        loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onPrivateMessage));
+        this.addOption(loc3);
+        if (this.player.isFellowGuild) {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 21), 16777215, TextKey.PLAYERMENU_GUILDCHAT);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onGuildMessage));
+            this.addOption(loc3);
+        }
+        if (!this.player.ignored) {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 8), 16777215, TextKey.FRIEND_BLOCK_BUTTON);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onIgnore));
+            this.addOption(loc3);
+        } else {
+            loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 9), 16777215, TextKey.PLAYERMENU_UNIGNORE);
+            loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onUnignore));
+            this.addOption(loc3);
+        }
+        loc3 = new MenuOption(AssetLibrary.getImageFromSet("lofiInterfaceBig", 18), 16777215, "Add Friend");
+        loc3.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onAddFriend));
+        this.addOption(loc3);
+    }
 
-	private void onKickMultiBox(Event param1) {
-		this.gs.gsc.playerText("/kick " + this.player.name + " Multiboxing");
-		this.remove();
-	}
+    private void onKickMultiBox(Event param1) {
+        this.gs.gsc.playerText("/kick " + this.player.name + " Multiboxing");
+        this.remove();
+    }
 
-	private void onKickRWT(Event param1) {
-		this.gs.gsc.playerText("/kick " + this.player.name + " RWT");
-		this.remove();
-	}
+    private void onKickRWT(Event param1) {
+        this.gs.gsc.playerText("/kick " + this.player.name + " RWT");
+        this.remove();
+    }
 
-	private void onKickCheat(Event param1) {
-		this.gs.gsc.playerText("/kick " + this.player.name + " Cheating");
-		this.remove();
-	}
+    private void onKickCheat(Event param1) {
+        this.gs.gsc.playerText("/kick " + this.player.name + " Cheating");
+        this.remove();
+    }
 
-	private void onMute(Event param1) {
-		this.gs.gsc.playerText("/mute " + this.player.name);
-		this.remove();
-	}
+    private void onMute(Event param1) {
+        this.gs.gsc.playerText("/mute " + this.player.name);
+        this.remove();
+    }
 
-	private void onUnMute(Event param1) {
-		this.gs.gsc.playerText("/unmute " + this.player.name);
-		this.remove();
-	}
+    private void onUnMute(Event param1) {
+        this.gs.gsc.playerText("/unmute " + this.player.name);
+        this.remove();
+    }
 
-	private void onPrivateMessage(Event param1) {
+    private void onPrivateMessage(Event param1) {
 		/*ShowChatInputSignal loc2 = ShowChatInputSignal.getInstance();
 		loc2.dispatch(true, "/tell " + this.playerName + " ");
 		remove();*/
-	}
+    }
 
-	private void onAddFriend(Event param1) {
+    private void onAddFriend(Event param1) {
 		/*FriendActionSignal loc2 = StaticInjectorContext.getInjector().getInstance(FriendActionSignal);
 		loc2.dispatch(new FriendRequestVO(FriendsActions.INVITE, this.playerName));
 		remove();*/
-	}
+    }
 
-	private void onTradeMessage(Event param1) {
+    private void onTradeMessage(Event param1) {
 		/*ShowChatInputSignal loc2 = StaticInjectorContext.getInjector().getInstance(ShowChatInputSignal);
 		loc2.dispatch(true, "/trade " + this.playerName);
 		remove();*/
-	}
+    }
 
-	private void onGuildMessage(Event param1) {
+    private void onGuildMessage(Event param1) {
 		/*ShowChatInputSignal loc2 = StaticInjectorContext.getInjector().getInstance(ShowChatInputSignal);
 		loc2.dispatch(true, "/g ");
 		remove();*/
-	}
+    }
 
-	private void onTeleport(Event param1) {
-		this.gs.map.player.teleportTo(this.player);
-		this.remove();
-	}
+    private void onTeleport(Event param1) {
+        this.gs.map.player.teleportTo(this.player);
+        this.remove();
+    }
 
-	private void onInvite(Event param1) {
-		this.gs.gsc.guildInvite(this.playerName);
-		this.remove();
-	}
+    private void onInvite(Event param1) {
+        this.gs.gsc.guildInvite(this.playerName);
+        this.remove();
+    }
 
-	private void onLock(Event param1) {
-		this.gs.map.party.lockPlayer(this.player);
-		this.remove();
-	}
+    private void onLock(Event param1) {
+        this.gs.map.party.lockPlayer(this.player);
+        this.remove();
+    }
 
-	private void onUnlock(Event param1) {
-		this.gs.map.party.unlockPlayer(this.player);
-		this.remove();
-	}
+    private void onUnlock(Event param1) {
+        this.gs.map.party.unlockPlayer(this.player);
+        this.remove();
+    }
 
-	private void onTrade(Event param1) {
-		this.gs.gsc.requestTrade(this.playerName);
-		this.remove();
-	}
+    private void onTrade(Event param1) {
+        this.gs.gsc.requestTrade(this.playerName);
+        this.remove();
+    }
 
-	private void onIgnore(Event param1) {
-		this.gs.map.party.ignorePlayer(this.player);
-		this.remove();
-	}
+    private void onIgnore(Event param1) {
+        this.gs.map.party.ignorePlayer(this.player);
+        this.remove();
+    }
 
-	private void onUnignore(Event param1) {
-		this.gs.map.party.unignorePlayer(this.player);
-		this.remove();
-	}
+    private void onUnignore(Event param1) {
+        this.gs.map.party.unignorePlayer(this.player);
+        this.remove();
+    }
 }

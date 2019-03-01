@@ -9,49 +9,49 @@ import flash.geom.Matrix;
  */
 public class TextureMatrix {
 
-	public BitmapData texture = null;
+    public BitmapData texture = null;
 
-	public Matrix tToS;
+    public Matrix tToS;
 
-	private Matrix uvMatrix = null;
+    private Matrix uvMatrix = null;
 
-	private Matrix tempMatrix;
+    private Matrix tempMatrix;
 
-	public TextureMatrix(BitmapData param1, Vector<Double> param2) {
-		super();
-		this.tToS = new Matrix();
-		this.tempMatrix = new Matrix();
-		this.texture = param1;
-		this.calculateUVMatrix(param2);
-	}
+    public TextureMatrix(BitmapData param1, Vector<Double> param2) {
+        super();
+        this.tToS = new Matrix();
+        this.tempMatrix = new Matrix();
+        this.texture = param1;
+        this.calculateUVMatrix(param2);
+    }
 
-	public void setUVT(Vector<Double> param1) {
-		this.calculateUVMatrix(param1);
-	}
+    public void setUVT(Vector<Double> param1) {
+        this.calculateUVMatrix(param1);
+    }
 
-	public void setVOut(Vector<Double> param1) {
-		this.calculateTextureMatrix(param1);
-	}
+    public void setVOut(Vector<Double> param1) {
+        this.calculateTextureMatrix(param1);
+    }
 
-	public void calculateTextureMatrix(Vector<Double> param1) {
-		this.tToS.a = this.uvMatrix.a;
-		this.tToS.b = this.uvMatrix.b;
-		this.tToS.c = this.uvMatrix.c;
-		this.tToS.d = this.uvMatrix.d;
-		this.tToS.tx = this.uvMatrix.tx;
-		this.tToS.ty = this.uvMatrix.ty;
-		int loc2 = param1.length - 2;
-		int loc3 = loc2 + 1;
-		this.tempMatrix.a = param1.get(2) - param1.get(0);
-		this.tempMatrix.b = param1.get(3) - param1.get(1);
-		this.tempMatrix.c = param1.get(loc2) - param1.get(0);
-		this.tempMatrix.d = param1.get(loc3) - param1.get(1);
-		this.tempMatrix.tx = param1.get(0);
-		this.tempMatrix.ty = param1.get(1);
-		this.tToS.concat(this.tempMatrix);
-	}
+    public void calculateTextureMatrix(Vector<Double> param1) {
+        this.tToS.a = this.uvMatrix.a;
+        this.tToS.b = this.uvMatrix.b;
+        this.tToS.c = this.uvMatrix.c;
+        this.tToS.d = this.uvMatrix.d;
+        this.tToS.tx = this.uvMatrix.tx;
+        this.tToS.ty = this.uvMatrix.ty;
+        int loc2 = param1.length - 2;
+        int loc3 = loc2 + 1;
+        this.tempMatrix.a = param1.get(2) - param1.get(0);
+        this.tempMatrix.b = param1.get(3) - param1.get(1);
+        this.tempMatrix.c = param1.get(loc2) - param1.get(0);
+        this.tempMatrix.d = param1.get(loc3) - param1.get(1);
+        this.tempMatrix.tx = param1.get(0);
+        this.tempMatrix.ty = param1.get(1);
+        this.tToS.concat(this.tempMatrix);
+    }
 
-	public void calculateUVMatrix(Vector<Double> param1) {
+    public void calculateUVMatrix(Vector<Double> param1) {
 		/*if (this.texture == null) {
 			this.uvMatrix = null;
 			return;
@@ -69,7 +69,7 @@ public class TextureMatrix {
 		double loc12 = loc8 - loc4;
 		this.uvMatrix = new Matrix(loc9, loc10, loc11, loc12, loc3, loc4);
 		this.uvMatrix.invert();*/
-	}
+    }
 
 
 }

@@ -4,14 +4,14 @@ import org.osflash.signals.Signal;
 
 public class NewsButtonRefreshSignal extends Signal {
 
-	static NewsButtonRefreshSignal instance;
+    static NewsButtonRefreshSignal instance;
 
-	public static NewsButtonRefreshSignal getInstance() {
+    public static NewsButtonRefreshSignal getInstance() {
 
-		if (instance == null) {
-			instance = new NewsButtonRefreshSignal();
-		}
+        if (instance == null) {
+            instance = new NewsButtonRefreshSignal();
+        }
 
-		return instance;
-	}
+        return instance;
+    }
 }

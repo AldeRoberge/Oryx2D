@@ -1,13 +1,12 @@
 package rotmg.view;
 
-import org.osflash.signals.Signal;
-
 import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import org.osflash.signals.Signal;
 import rotmg.GameSprite;
 import rotmg.objects.SellableObject;
 import rotmg.parameters.Parameters;
@@ -20,17 +19,17 @@ import rotmg.util.components.LegacyBuyButton;
 //100% match but commented unimplemented stuff
 public class MysteryBoxPanel extends Panel {
 
-	private final int BUTTON_OFFSET = 17;
-	public Signal buyItem;
-	private SellableObject owner;
-	private TextFieldDisplayConcrete nameText;
-	private LegacyBuyButton buyButton;
-	private DeprecatedTextButton infoButton;
-	private Sprite icon;
-	private Bitmap bitmap;
+    private final int BUTTON_OFFSET = 17;
+    public Signal buyItem;
+    private SellableObject owner;
+    private TextFieldDisplayConcrete nameText;
+    private LegacyBuyButton buyButton;
+    private DeprecatedTextButton infoButton;
+    private Sprite icon;
+    private Bitmap bitmap;
 
-	public MysteryBoxPanel(GameSprite param1, int param2) {
-		super(param1);
+    public MysteryBoxPanel(GameSprite param1, int param2) {
+        super(param1);
 		/*this.buyItem = new Signal(SellableObject);
 		Injector loc3 = StaticInjectorContext.getInjector();
 		GetMysteryBoxesTask loc4 = loc3.getInstance(GetMysteryBoxesTask);
@@ -64,36 +63,36 @@ public class MysteryBoxPanel extends Panel {
 		this.bitmap.bitmapData = ArenaViewAssetFactory.returnHostBitmap(param2).bitmapData;
 		addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
 		addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));*/
-	}
+    }
 
-	public void setOwner(SellableObject param1) {
-		if (param1 == this.owner) {
-			return;
-		}
-		this.owner = param1;
-		this.buyButton.setPrice(this.owner.price, this.owner.currency);
-		String loc2 = this.owner.soldObjectName();
-		this.nameText.setStringBuilder(new LineBuilder().setParams(loc2));
-		this.bitmap.bitmapData = this.owner.getIcon();
-	}
+    public void setOwner(SellableObject param1) {
+        if (param1 == this.owner) {
+            return;
+        }
+        this.owner = param1;
+        this.buyButton.setPrice(this.owner.price, this.owner.currency);
+        String loc2 = this.owner.soldObjectName();
+        this.nameText.setStringBuilder(new LineBuilder().setParams(loc2));
+        this.bitmap.bitmapData = this.owner.getIcon();
+    }
 
-	private void onAddedToStage(Event param1) {
-		this.stage.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
-		this.icon.x = -4;
-		this.icon.y = -8;
-		this.nameText.x = 44;
-	}
+    private void onAddedToStage(Event param1) {
+        this.stage.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
+        this.icon.x = -4;
+        this.icon.y = -8;
+        this.nameText.x = 44;
+    }
 
-	private void onRemovedFromStage(Event param1) {
-		this.stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
-		this.infoButton.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onInfoButtonClick));
-	}
+    private void onRemovedFromStage(Event param1) {
+        this.stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
+        this.infoButton.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onInfoButtonClick));
+    }
 
-	private void onInfoButtonClick(MouseEvent param1) {
-		this.onInfoButton();
-	}
+    private void onInfoButtonClick(MouseEvent param1) {
+        this.onInfoButton();
+    }
 
-	private void onInfoButton() {
+    private void onInfoButton() {
 		/*ShowPopupSignal loc5 = null;
 		Injector loc1 = StaticInjectorContext.getInjector();
 		MysteryBoxModel loc2 = MysteryBoxModel.getInstance();
@@ -110,21 +109,21 @@ public class MysteryBoxPanel extends Panel {
 			loc4.dispatch(new RegisterPromptDialog("SellableObjectPanelMediator.text", {"type":
 			Currency.typeToName(Currency.GOLD)}));
 		}*/
-	}
+    }
 
-	private void onKeyDown(KeyboardEvent param1) {
-		if ((param1.keyCode == Parameters.data.interact) && (this.stage.focus == null)) {
-			this.onInfoButton();
-		}
-	}
+    private void onKeyDown(KeyboardEvent param1) {
+        if ((param1.keyCode == Parameters.data.interact) && (this.stage.focus == null)) {
+            this.onInfoButton();
+        }
+    }
 
-	@Override
-	public void draw() {
-		this.nameText.y = this.nameText.height > 30 ? 0 : 12;
-		this.infoButton.x = (WIDTH / 2) - (this.infoButton.width / 2);
-		this.infoButton.y = HEIGHT - (this.infoButton.height / 2) - this.BUTTON_OFFSET;
-		if (!this.contains(this.infoButton)) {
-			this.addChild(this.infoButton);
-		}
-	}
+    @Override
+    public void draw() {
+        this.nameText.y = this.nameText.height > 30 ? 0 : 12;
+        this.infoButton.x = (WIDTH / 2) - (this.infoButton.width / 2);
+        this.infoButton.y = HEIGHT - (this.infoButton.height / 2) - this.BUTTON_OFFSET;
+        if (!this.contains(this.infoButton)) {
+            this.addChild(this.infoButton);
+        }
+    }
 }

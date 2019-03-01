@@ -6,15 +6,15 @@ import rotmg.servers.api.model.LiveServerModel;
 
 public interface ServerModel {
 
-	static ServerModel getInstance() {
-		return LiveServerModel.getInstance();
-	}
+    static ServerModel getInstance() {
+        return LiveServerModel.getInstance();
+    }
 
-	Server getServer();
+    Server getServer();
 
-	boolean isServerAvailable();
+    boolean isServerAvailable();
 
-	Vector<Server> getServers();
+    Vector<Server> getServers();
 
-	void setServers(Vector<Server> param1);
+    void setServers(Vector<Server> param1);
 }

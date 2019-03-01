@@ -9,13 +9,13 @@ import rotmg.objects.TextureDataConcrete;
  */
 public class FrameData {
 
-	public int time;
+    public int time;
 
-	public TextureData textureData;
+    public TextureData textureData;
 
-	public FrameData(XML xml) {
-		this.time = (int) (xml.getDoubleAttribute("time") * 1000);
-		this.textureData = new TextureDataConcrete(xml);
-	}
+    public FrameData(XML xml) {
+        this.time = (int) (xml.getDoubleAttribute("time") * 1000);
+        this.textureData = new TextureDataConcrete(xml);
+    }
 
 }

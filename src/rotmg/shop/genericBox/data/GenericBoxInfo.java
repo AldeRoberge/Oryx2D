@@ -4,39 +4,39 @@ import java.util.Date;
 
 public class GenericBoxInfo {
 
-	public String id;
+    public String id;
 
-	public String title;
+    public String title;
 
-	public String description;
+    public String description;
 
-	public String weight;
+    public String weight;
 
-	public String contents;
+    public String contents;
 
-	public int priceAmount;
+    public int priceAmount;
 
-	public int priceCurrency;
+    public int priceCurrency;
 
-	public int saleAmount;
+    public int saleAmount;
 
-	public int saleCurrency;
+    public int saleCurrency;
 
-	public int quantity;
+    public int quantity;
 
-	public Date saleEnd;
+    public Date saleEnd;
 
-	public Date startTime;
+    public Date startTime;
 
-	public Date endTime;
+    public Date endTime;
 
-	public int unitsLeft = -1;
+    public int unitsLeft = -1;
 
-	public int totalUnits = -1;
+    public int totalUnits = -1;
 
-	public int slot = 0;
+    public int slot = 0;
 
-	public String tags = "";
+    public String tags = "";
 
 
 }

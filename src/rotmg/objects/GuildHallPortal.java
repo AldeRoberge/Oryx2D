@@ -7,13 +7,13 @@ import rotmg.ui.panels.Panel;
 
 public class GuildHallPortal extends GameObject implements IInteractiveObject {
 
-	public GuildHallPortal(XML param1) {
-		super(param1);
-		this.isInteractive = true;
-	}
+    public GuildHallPortal(XML param1) {
+        super(param1);
+        this.isInteractive = true;
+    }
 
-	@Override
-	public Panel getPanel(GameSprite param1) {
-		return new GuildHallPortalPanel(param1, this);
-	}
+    @Override
+    public Panel getPanel(GameSprite param1) {
+        return new GuildHallPortalPanel(param1, this);
+    }
 }

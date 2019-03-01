@@ -9,38 +9,38 @@ import rotmg.pets.data.PetVO;
  */
 public class ArenaLeaderboardEntry {
 
-	public BitmapData playerBitmap;
+    public BitmapData playerBitmap;
 
-	public String name;
+    public String name;
 
-	public PetVO pet;
+    public PetVO pet;
 
-	public Vector<Integer> slotTypes;
+    public Vector<Integer> slotTypes;
 
-	public Vector<Integer> equipment;
+    public Vector<Integer> equipment;
 
-	public double runtime;
+    public double runtime;
 
-	public int currentWave;
+    public int currentWave;
 
-	public String guildName;
+    public String guildName;
 
-	public int guildRank;
+    public int guildRank;
 
-	public int rank = -1;
+    public int rank = -1;
 
-	public boolean isPersonalRecord = false;
+    public boolean isPersonalRecord = false;
 
-	public ArenaLeaderboardEntry() {
-		super();
-	}
+    public ArenaLeaderboardEntry() {
+        super();
+    }
 
-	public boolean isEqual(ArenaLeaderboardEntry param1) {
-		return param1.name.equals(this.name) && (this.runtime == param1.runtime) && (this.currentWave == param1.currentWave);
-	}
+    public boolean isEqual(ArenaLeaderboardEntry param1) {
+        return param1.name.equals(this.name) && (this.runtime == param1.runtime) && (this.currentWave == param1.currentWave);
+    }
 
-	public boolean isBetterThan(ArenaLeaderboardEntry param1) {
-		return (this.currentWave > param1.currentWave) || ((this.currentWave == param1.currentWave) && (this.runtime < param1.runtime));
-	}
+    public boolean isBetterThan(ArenaLeaderboardEntry param1) {
+        return (this.currentWave > param1.currentWave) || ((this.currentWave == param1.currentWave) && (this.runtime < param1.runtime));
+    }
 
 }

@@ -1,5 +1,5 @@
 package flash.ui;
 
 public class Mouse {
-	public static String cursor;
+    public static String cursor;
 }

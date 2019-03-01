@@ -8,7 +8,7 @@ import rotmg.pets.view.components.DialogCloseButton;
  */
 public class PetsViewAssetFactory {
 
-	public static DialogCloseButton returnCloseButton(double modalWidth) {
-		return null;
-	}
+    public static DialogCloseButton returnCloseButton(double modalWidth) {
+        return null;
+    }
 }

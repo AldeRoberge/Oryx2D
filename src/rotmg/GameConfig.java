@@ -6,24 +6,24 @@ package rotmg;
 public class GameConfig {
 
 
-	private void generalGameConfiguration() {
+    private void generalGameConfiguration() {
 
-	}
+    }
 
-	public void configure() {
+    public void configure() {
 
-	}
+    }
 
-	private void makeTextPanelMappings() {
+    private void makeTextPanelMappings() {
 
-	}
+    }
 
-	private void makeGiftStatusDisplayMappings() {
+    private void makeGiftStatusDisplayMappings() {
 
-	}
+    }
 
-	private void mapLoopMonitor() {
+    private void mapLoopMonitor() {
 
-	}
+    }
 
 }

@@ -7,50 +7,50 @@ import rotmg.language.model.StringMap;
  */
 public class LineBuilder implements StringBuilder {
 
-	public String key;
+    public String key;
 
-	public Object tokens;
+    public Object tokens;
 
-	private String postfix = "";
+    private String postfix = "";
 
-	private String prefix = "";
+    private String prefix = "";
 
-	private StringMap map;
-	private String params;
+    private StringMap map;
+    private String params;
 
-	public LineBuilder() {
-		super();
-	}
+    public LineBuilder() {
+        super();
+    }
 
-	@Override
-	public void setStringMap(StringMap param1) {
+    @Override
+    public void setStringMap(StringMap param1) {
 
-	}
+    }
 
-	@Override
-	public String getString() {
-		return null;
-	}
+    @Override
+    public String getString() {
+        return null;
+    }
 
-	public LineBuilder setParams(String params) {
-		this.params = params;
-		return this;
-	}
+    public LineBuilder setParams(String params) {
+        this.params = params;
+        return this;
+    }
 
-	public LineBuilder setParams(String s, String s1) {
-		this.key = this.key;
-		this.params = this.params;
-		return this;
-	}
+    public LineBuilder setParams(String s, String s1) {
+        this.key = this.key;
+        this.params = this.params;
+        return this;
+    }
 
-	public LineBuilder setPrefix(String prefix) {
-		this.prefix = prefix;
-		return this;
-	}
+    public LineBuilder setPrefix(String prefix) {
+        this.prefix = prefix;
+        return this;
+    }
 
-	public LineBuilder setPostfix(String postfix) {
-		this.postfix = postfix;
-		return this;
-	}
+    public LineBuilder setPostfix(String postfix) {
+        this.postfix = postfix;
+        return this;
+    }
 
 }

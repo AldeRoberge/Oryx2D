@@ -3,12 +3,12 @@ package flash.net;
 import alde.flash.utils.Vector;
 
 public class URLVariables {
-	public int ignore;
+    public int ignore;
 
-	public void put() {
+    public void put() {
 
-	}
+    }
 
-	public void set(Vector<String> params) {
-	}
+    public void set(Vector<String> params) {
+    }
 }

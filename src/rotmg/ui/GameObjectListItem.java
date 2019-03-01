@@ -1,11 +1,10 @@
 package rotmg.ui;
 
-import org.osflash.signals.Signal;
-
 import alde.flash.utils.Vector;
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.geom.ColorTransform;
+import org.osflash.signals.Signal;
 import rotmg.objects.GameObject;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
@@ -17,113 +16,113 @@ import spark.filters.DropShadowFilter;
 
 public class GameObjectListItem extends Sprite {
 
-	public Bitmap portrait;
-	public boolean isLongVersion;
-	public GameObject go;
-	public Signal textReady;
-	private TextFieldDisplayConcrete text;
-	private TemplateBuilder builder;
-	private int color;
-	private String objname;
+    public Bitmap portrait;
+    public boolean isLongVersion;
+    public GameObject go;
+    public Signal textReady;
+    private TextFieldDisplayConcrete text;
+    private TemplateBuilder builder;
+    private int color;
+    private String objname;
 
-	private int type;
+    private int type;
 
-	private int level;
+    private int level;
 
-	private boolean positionClassBelow;
+    private boolean positionClassBelow;
 
 
-	public GameObjectListItem(int param1, boolean param2, GameObject param3) {
-		this(param1, param2, param3, false);
-	}
+    public GameObjectListItem(int param1, boolean param2, GameObject param3) {
+        this(param1, param2, param3, false);
+    }
 
-	public GameObjectListItem(int param1, boolean param2, GameObject param3, boolean param4) {
-		super();
-		this.positionClassBelow = param4;
-		this.isLongVersion = param2;
-		this.color = param1;
-		this.portrait = new Bitmap();
-		this.portrait.x = -4;
-		this.portrait.y = !!param4 ? -1 : -4;
-		this.addChild(this.portrait);
-		this.text = new TextFieldDisplayConcrete().setSize(13).setColor(param1).setHTML(param2);
-		if (!param2) {
-			this.text.setTextWidth(66).setTextHeight(20).setBold(true);
-		}
-		this.text.x = 32;
-		this.text.y = 6;
-		this.text.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-		this.addChild(this.text);
-		this.textReady = this.text.textChanged;
-		this.draw(param3);
-	}
+    public GameObjectListItem(int param1, boolean param2, GameObject param3, boolean param4) {
+        super();
+        this.positionClassBelow = param4;
+        this.isLongVersion = param2;
+        this.color = param1;
+        this.portrait = new Bitmap();
+        this.portrait.x = -4;
+        this.portrait.y = !!param4 ? -1 : -4;
+        this.addChild(this.portrait);
+        this.text = new TextFieldDisplayConcrete().setSize(13).setColor(param1).setHTML(param2);
+        if (!param2) {
+            this.text.setTextWidth(66).setTextHeight(20).setBold(true);
+        }
+        this.text.x = 32;
+        this.text.y = 6;
+        this.text.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
+        this.addChild(this.text);
+        this.textReady = this.text.textChanged;
+        this.draw(param3);
+    }
 
-	public void draw(GameObject param1) {
-		this.draw(param1, null);
-	}
+    public void draw(GameObject param1) {
+        this.draw(param1, null);
+    }
 
-	public void draw(GameObject param1, ColorTransform param2) {
-		boolean loc3 = false;
-		loc3 = this.isClear();
-		this.go = param1;
-		this.visible = param1 != null;
-		if (this.visible && (this.hasChanged() || loc3)) {
-			this.redraw();
+    public void draw(GameObject param1, ColorTransform param2) {
+        boolean loc3 = false;
+        loc3 = this.isClear();
+        this.go = param1;
+        this.visible = param1 != null;
+        if (this.visible && (this.hasChanged() || loc3)) {
+            this.redraw();
 
-			if (param2 != null) {
-				this.transform.colorTransform = param2;
-			} else {
-				this.transform.colorTransform = MoreColorUtil.identity;
-			}
-		}
-	}
+            if (param2 != null) {
+                this.transform.colorTransform = param2;
+            } else {
+                this.transform.colorTransform = MoreColorUtil.identity;
+            }
+        }
+    }
 
-	public void clear() {
-		this.go = null;
-		this.visible = false;
-	}
+    public void clear() {
+        this.go = null;
+        this.visible = false;
+    }
 
-	public boolean isClear() {
-		return (this.go == null) && (this.visible == false);
-	}
+    public boolean isClear() {
+        return (this.go == null) && (this.visible == false);
+    }
 
-	private boolean hasChanged() {
-		boolean loc1 = (this.go.name != this.objname) || (this.go.level != this.level) || (this.go.objectType != this.type);
-		if (loc1) {
-			this.updateData();
-		}
-		return loc1;
-	}
+    private boolean hasChanged() {
+        boolean loc1 = (this.go.name != this.objname) || (this.go.level != this.level) || (this.go.objectType != this.type);
+        if (loc1) {
+            this.updateData();
+        }
+        return loc1;
+    }
 
-	private void updateData() {
-		this.objname = this.go.name;
-		this.level = this.go.level;
-		this.type = this.go.objectType;
-	}
+    private void updateData() {
+        this.objname = this.go.name;
+        this.level = this.go.level;
+        this.type = this.go.objectType;
+    }
 
-	private void redraw() {
-		this.portrait.bitmapData = this.go.getPortrait();
-		this.text.setStringBuilder(this.prepareText());
-		this.text.setColor(this.getDrawColor());
-		this.text.update();
-	}
+    private void redraw() {
+        this.portrait.bitmapData = this.go.getPortrait();
+        this.text.setStringBuilder(this.prepareText());
+        this.text.setColor(this.getDrawColor());
+        this.text.update();
+    }
 
-	private TemplateBuilder prepareText() {
+    private TemplateBuilder prepareText() {
 
-		if (this.builder == null) {
-			this.builder = new TemplateBuilder();
-		}
-		if (this.isLongVersion) {
-			this.applyLongTextToBuilder();
-		} else if (this.isNameDefined()) {
-			this.builder.setTemplate(this.objname);
-		} else {
-			this.builder.setTemplate(ObjectLibrary.typeToDisplayId.get(this.type));
-		}
-		return this.builder;
-	}
+        if (this.builder == null) {
+            this.builder = new TemplateBuilder();
+        }
+        if (this.isLongVersion) {
+            this.applyLongTextToBuilder();
+        } else if (this.isNameDefined()) {
+            this.builder.setTemplate(this.objname);
+        } else {
+            this.builder.setTemplate(ObjectLibrary.typeToDisplayId.get(this.type));
+        }
+        return this.builder;
+    }
 
-	private void applyLongTextToBuilder() {
+    private void applyLongTextToBuilder() {
 		/*String loc1 = null;
 		GameObject loc2 = null;
 		if (this.isNameDefined()) {
@@ -140,24 +139,24 @@ public class GameObjectListItem extends Sprite {
 			loc2.name = ObjectLibrary.typeToDisplayId.get(this.type);
 		}
 		this.builder.setTemplate(loc1, loc2);*/
-	}
+    }
 
-	private boolean isNameDefined() {
-		return (this.go.name != null) && (this.go.name != "");
-	}
+    private boolean isNameDefined() {
+        return (this.go.name != null) && (this.go.name != "");
+    }
 
-	private int getDrawColor() {
-		Player loc1 = (Player) this.go;
-		if (loc1 == null) {
-			return this.color;
-		}
-		if (loc1.isFellowGuild) {
-			return Parameters.FELLOW_GUILD_COLOR;
-		}
-		if (loc1.nameChosen) {
-			return Parameters.NAME_CHOSEN_COLOR;
-		}
-		return this.color;
-	}
+    private int getDrawColor() {
+        Player loc1 = (Player) this.go;
+        if (loc1 == null) {
+            return this.color;
+        }
+        if (loc1.isFellowGuild) {
+            return Parameters.FELLOW_GUILD_COLOR;
+        }
+        if (loc1.nameChosen) {
+            return Parameters.NAME_CHOSEN_COLOR;
+        }
+        return this.color;
+    }
 }
 

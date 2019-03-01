@@ -6,70 +6,70 @@ import flash.ui.ContextMenu;
 
 public class InteractiveObject extends DisplayObject {
 
-	public Boolean getTabEnabled() {
-		return null;
-	}
+    public Boolean getTabEnabled() {
+        return null;
+    }
 
-	public void setTabEnabled(Boolean enabled) {
-	}
+    public void setTabEnabled(Boolean enabled) {
+    }
 
-	public int getTabIndex() {
-		return 1;
-	}
+    public int getTabIndex() {
+        return 1;
+    }
 
-	public void setTabIndex(int index) {
-	}
+    public void setTabIndex(int index) {
+    }
 
-	public Object getFocusRect() {
-		return null;
-	}
+    public Object getFocusRect() {
+        return null;
+    }
 
-	public void setFocusRect(Object focusRect) {
-	}
+    public void setFocusRect(Object focusRect) {
+    }
 
-	public Boolean getMouseEnabled() {
-		return null;
-	}
+    public Boolean getMouseEnabled() {
+        return null;
+    }
 
-	public void setMouseEnabled(Boolean enabled) {
-	}
+    public void setMouseEnabled(Boolean enabled) {
+    }
 
-	public Boolean getDoubleClickEnabled() {
-		return null;
-	}
+    public Boolean getDoubleClickEnabled() {
+        return null;
+    }
 
-	public void setDoubleClickEnabled(Boolean enabled) {
-	}
+    public void setDoubleClickEnabled(Boolean enabled) {
+    }
 
-	public AccessibilityImplementation getAccessibilityImplementation() {
-		return null;
-	}
+    public AccessibilityImplementation getAccessibilityImplementation() {
+        return null;
+    }
 
-	public void setAccessibilityImplementation(AccessibilityImplementation value) {
-	}
+    public void setAccessibilityImplementation(AccessibilityImplementation value) {
+    }
 
-	public Rectangle getSoftKeyboardInputAreaOfInterest() {
-		return null;
-	}
+    public Rectangle getSoftKeyboardInputAreaOfInterest() {
+        return null;
+    }
 
-	public void setSoftKeyboardInputAreaOfInterest(Rectangle value) {
-	}
+    public void setSoftKeyboardInputAreaOfInterest(Rectangle value) {
+    }
 
-	public Boolean getNeedsSoftKeyboard() {
-		return null;
-	}
+    public Boolean getNeedsSoftKeyboard() {
+        return null;
+    }
 
-	public void setNeedsSoftKeyboard(Boolean value) {
-	}
+    public void setNeedsSoftKeyboard(Boolean value) {
+    }
 
-	public Boolean requestSoftKeyboard() {
-		return null;
-	}
+    public Boolean requestSoftKeyboard() {
+        return null;
+    }
 
-	public ContextMenu getContextMenu() {
-		return null;
-	}
+    public ContextMenu getContextMenu() {
+        return null;
+    }
 
-	public void setContextMenu(ContextMenu contextMenu) {
-	}
+    public void setContextMenu(ContextMenu contextMenu) {
+    }
 }

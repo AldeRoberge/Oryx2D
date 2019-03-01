@@ -1,7 +1,5 @@
 package rotmg.map.partyoverlay;
 
-import static flash.utils.timer.getTimer.getTimer;
-
 import flash.events.MouseEvent;
 import rotmg.map.Camera;
 import rotmg.map.Map;
@@ -12,64 +10,66 @@ import rotmg.ui.tooltip.PortraitToolTip;
 import rotmg.ui.tooltip.QuestToolTip;
 import rotmg.ui.tooltip.ToolTip;
 
+import static flash.utils.timer.getTimer.getTimer;
+
 public class QuestArrow extends GameObjectArrow {
 
-	public Map map;
+    public Map map;
 
-	public QuestArrow(Map param1) {
-		super(16352321, 12919330, true);
-		this.map = param1;
-	}
+    public QuestArrow(Map param1) {
+        super(16352321, 12919330, true);
+        this.map = param1;
+    }
 
-	public void refreshToolTip() {
-		this.setToolTip(this.getToolTip(this.go, getTimer()));
-	}
+    public void refreshToolTip() {
+        this.setToolTip(this.getToolTip(this.go, getTimer()));
+    }
 
-	@Override
-	protected void onMouseOver(MouseEvent param1) {
-		super.onMouseOver(param1);
-		this.refreshToolTip();
-	}
+    @Override
+    protected void onMouseOver(MouseEvent param1) {
+        super.onMouseOver(param1);
+        this.refreshToolTip();
+    }
 
-	@Override
-	protected void onMouseOut(MouseEvent param1) {
-		super.onMouseOut(param1);
-		this.refreshToolTip();
-	}
+    @Override
+    protected void onMouseOut(MouseEvent param1) {
+        super.onMouseOut(param1);
+        this.refreshToolTip();
+    }
 
-	private ToolTip getToolTip(GameObject param1, int param2) {
-		if ((param1 == null) || (param1.texture == null)) {
-			return null;
-		}
-		if (this.shouldShowFullQuest(param2)) {
-			return new QuestToolTip(this.go);
-		}
-		if (Data.showQuestPortraits) {
-			return new PortraitToolTip(param1);
-		}
-		return null;
-	}
+    private ToolTip getToolTip(GameObject param1, int param2) {
+        if ((param1 == null) || (param1.texture == null)) {
+            return null;
+        }
+        if (this.shouldShowFullQuest(param2)) {
+            return new QuestToolTip(this.go);
+        }
+        if (Data.showQuestPortraits) {
+            return new PortraitToolTip(param1);
+        }
+        return null;
+    }
 
-	private boolean shouldShowFullQuest(int param1) {
-		Quest loc2 = this.map.quest;
-		return this.mouseOver || loc2.isNew(param1);
-	}
+    private boolean shouldShowFullQuest(int param1) {
+        Quest loc2 = this.map.quest;
+        return this.mouseOver || loc2.isNew(param1);
+    }
 
-	@Override
-	public void draw(int param1, Camera param2) {
-		Object loc4 = false;
-		boolean loc5 = false;
-		GameObject loc3 = this.map.quest.getObject(param1);
-		if (loc3 != this.go) {
-			this.setGameObject(loc3);
-			this.setToolTip(this.getToolTip(loc3, param1));
-		} else if (this.go != null) {
-			loc4 = this.tooltip instanceof QuestToolTip;
-			loc5 = this.shouldShowFullQuest(param1);
-			if (!loc4.equals(loc5)) {
-				this.setToolTip(this.getToolTip(loc3, param1));
-			}
-		}
-		super.draw(param1, param2);
-	}
+    @Override
+    public void draw(int param1, Camera param2) {
+        Object loc4 = false;
+        boolean loc5 = false;
+        GameObject loc3 = this.map.quest.getObject(param1);
+        if (loc3 != this.go) {
+            this.setGameObject(loc3);
+            this.setToolTip(this.getToolTip(loc3, param1));
+        } else if (this.go != null) {
+            loc4 = this.tooltip instanceof QuestToolTip;
+            loc5 = this.shouldShowFullQuest(param1);
+            if (!loc4.equals(loc5)) {
+                this.setToolTip(this.getToolTip(loc3, param1));
+            }
+        }
+        super.draw(param1, param2);
+    }
 }

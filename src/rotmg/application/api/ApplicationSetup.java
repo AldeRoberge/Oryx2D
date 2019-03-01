@@ -2,26 +2,26 @@ package rotmg.application.api;
 
 public interface ApplicationSetup extends DebugSetup {
 
-	String getBuildLabel();
+    String getBuildLabel();
 
-	String getAppEngineUrl(boolean param1);
+    String getAppEngineUrl(boolean param1);
 
-	String getAnalyticsCode();
+    String getAnalyticsCode();
 
-	boolean useLocalTextures();
+    boolean useLocalTextures();
 
-	boolean isToolingEnabled();
+    boolean isToolingEnabled();
 
-	boolean areDeveloperHotkeysEnabled();
+    boolean areDeveloperHotkeysEnabled();
 
-	boolean isGameLoopMonitored();
+    boolean isGameLoopMonitored();
 
-	boolean useProductionDialogs();
+    boolean useProductionDialogs();
 
-	boolean areErrorsReported();
+    boolean areErrorsReported();
 
-	boolean isServerLocal();
+    boolean isServerLocal();
 
-	String getServerDomain();
+    String getServerDomain();
 
 }

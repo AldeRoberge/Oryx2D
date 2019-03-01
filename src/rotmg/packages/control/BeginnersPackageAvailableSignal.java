@@ -4,14 +4,14 @@ import org.osflash.signals.Signal;
 
 public class BeginnersPackageAvailableSignal extends Signal {
 
-	static BeginnersPackageAvailableSignal instance;
+    static BeginnersPackageAvailableSignal instance;
 
-	public static BeginnersPackageAvailableSignal getInstance() {
+    public static BeginnersPackageAvailableSignal getInstance() {
 
-		if (instance == null) {
-			instance = new BeginnersPackageAvailableSignal();
-		}
+        if (instance == null) {
+            instance = new BeginnersPackageAvailableSignal();
+        }
 
-		return instance;
-	}
+        return instance;
+    }
 }

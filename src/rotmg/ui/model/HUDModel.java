@@ -8,18 +8,18 @@ import rotmg.parameters.Parameters;
  */
 public class HUDModel {
 
-	public GameSprite gameSprite;
+    public GameSprite gameSprite;
 
-	public HUDModel() {
-		super();
-	}
+    public HUDModel() {
+        super();
+    }
 
-	public String getPlayerName() {
-		return this.gameSprite.model.getName() != null ? this.gameSprite.model.getName() : this.gameSprite.map.player.name;
-	}
+    public String getPlayerName() {
+        return this.gameSprite.model.getName() != null ? this.gameSprite.model.getName() : this.gameSprite.map.player.name;
+    }
 
-	public String getButtonType() {
-		return this.gameSprite.gsc.gameId == Parameters.NEXUS_GAMEID ? "OPTIONS_BUTTON" : "NEXUS_BUTTON";
-	}
+    public String getButtonType() {
+        return this.gameSprite.gsc.gameId == Parameters.NEXUS_GAMEID ? "OPTIONS_BUTTON" : "NEXUS_BUTTON";
+    }
 
 }

@@ -1,18 +1,17 @@
 package rotmg.core.signals;
 
-import org.osflash.signals.Signal;
-
 import alde.flash.utils.XML;
+import org.osflash.signals.Signal;
 
 public class AppInitDataReceivedSignal extends Signal<XML> {
 
-	private static AppInitDataReceivedSignal instance;
+    private static AppInitDataReceivedSignal instance;
 
-	public static AppInitDataReceivedSignal getInstance() {
-		if (instance == null) {
-			instance = new AppInitDataReceivedSignal();
-		}
-		return instance;
-	}
+    public static AppInitDataReceivedSignal getInstance() {
+        if (instance == null) {
+            instance = new AppInitDataReceivedSignal();
+        }
+        return instance;
+    }
 
 }

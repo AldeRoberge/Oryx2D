@@ -4,12 +4,12 @@ import org.osflash.signals.Signal;
 
 public class PackageAvailableSignal extends Signal {
 
-	PackageAvailableSignal instance;
+    PackageAvailableSignal instance;
 
-	public PackageAvailableSignal getInstance() {
-		if (this.instance == null) {
-			this.instance = new PackageAvailableSignal();
-		}
-		return this.instance;
-	}
+    public PackageAvailableSignal getInstance() {
+        if (this.instance == null) {
+            this.instance = new PackageAvailableSignal();
+        }
+        return this.instance;
+    }
 }

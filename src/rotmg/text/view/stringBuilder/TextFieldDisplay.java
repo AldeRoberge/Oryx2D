@@ -6,10 +6,10 @@ import rotmg.text.model.FontInfo;
 
 public interface TextFieldDisplay {
 
-	public void setTextField(TextField param1);
+    public void setTextField(TextField param1);
 
-	public void setStringMap(StringMap param1);
+    public void setStringMap(StringMap param1);
 
-	public void setFont(FontInfo param1);
+    public void setFont(FontInfo param1);
 
 }

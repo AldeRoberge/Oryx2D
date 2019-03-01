@@ -13,38 +13,38 @@ Not fully implemented
  */
 public class Frame {
 
-	private static final double INDENT = 17;
+    private static final double INDENT = 17;
 
-	public TextFieldDisplayConcrete titleText;
+    public TextFieldDisplayConcrete titleText;
 
-	public DeprecatedClickableText leftButton;
+    public DeprecatedClickableText leftButton;
 
-	public DeprecatedClickableText rightButton;
+    public DeprecatedClickableText rightButton;
 
-	public String analyticsPageName;
+    public String analyticsPageName;
 
-	public Vector<TextInputField> textInputFields;
+    public Vector<TextInputField> textInputFields;
 
-	public Vector<DeprecatedClickableText> navigationLinks;
+    public Vector<DeprecatedClickableText> navigationLinks;
 
-	public int w = 288;
+    public int w = 288;
 
-	public int h = 100;
+    public int h = 100;
 
-	private GoogleAnalytics googleAnalytics;
+    private GoogleAnalytics googleAnalytics;
 
-	private GraphicsSolidFill titleFill;
+    private GraphicsSolidFill titleFill;
 
-	private GraphicsSolidFill backgroundFill;
+    private GraphicsSolidFill backgroundFill;
 
-	private GraphicsSolidFill outlineFill;
+    private GraphicsSolidFill outlineFill;
 
-	private GraphicsStroke lineStyle;
+    private GraphicsStroke lineStyle;
 
-	private GraphicsPath path1;
+    private GraphicsPath path1;
 
-	private GraphicsPath path2;
+    private GraphicsPath path2;
 
-	private Vector<IGraphicsData> graphicsData;
+    private Vector<IGraphicsData> graphicsData;
 
 }

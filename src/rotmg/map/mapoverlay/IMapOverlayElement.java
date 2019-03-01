@@ -5,10 +5,10 @@ import rotmg.objects.GameObject;
 
 public interface IMapOverlayElement {
 
-	boolean draw(Camera param1, int param2);
+    boolean draw(Camera param1, int param2);
 
-	void dispose();
+    void dispose();
 
-	GameObject getGameObject();
+    GameObject getGameObject();
 
 }

@@ -4,49 +4,49 @@ import rotmg.language.model.StringMap;
 
 public class TemplateBuilder implements StringBuilder {
 
-	private String template;
+    private String template;
 
-	private Object tokens;
+    private Object tokens;
 
-	private String postfix = "";
+    private String postfix = "";
 
-	private String prefix = "";
+    private String prefix = "";
 
-	private StringMap provider;
+    private StringMap provider;
 
-	public TemplateBuilder() {
-		super();
-	}
+    public TemplateBuilder() {
+        super();
+    }
 
-	public TemplateBuilder setTemplate(String param1) {
-		return this.setTemplate(param1, null);
-	}
+    public TemplateBuilder setTemplate(String param1) {
+        return this.setTemplate(param1, null);
+    }
 
-	public TemplateBuilder setTemplate(String param1, Object param2) {
-		this.template = param1;
-		this.tokens = param2;
-		return this;
-	}
+    public TemplateBuilder setTemplate(String param1, Object param2) {
+        this.template = param1;
+        this.tokens = param2;
+        return this;
+    }
 
-	public TemplateBuilder setPrefix(String param1) {
-		this.prefix = param1;
-		return this;
-	}
+    public TemplateBuilder setPrefix(String param1) {
+        this.prefix = param1;
+        return this;
+    }
 
-	public TemplateBuilder setPostfix(String param1) {
-		this.postfix = param1;
-		return this;
-	}
+    public TemplateBuilder setPostfix(String param1) {
+        this.postfix = param1;
+        return this;
+    }
 
-	@Override
-	public void setStringMap(StringMap param1) {
-		this.provider = param1;
-	}
+    @Override
+    public void setStringMap(StringMap param1) {
+        this.provider = param1;
+    }
 
-	@Override
-	public String getString() {
+    @Override
+    public String getString() {
 
-		return "this is not yet implemented";
+        return "this is not yet implemented";
 		/*
 		var loc2:* = null;
 		var loc3:String = null;
@@ -61,6 +61,6 @@ public class TemplateBuilder implements StringBuilder {
 		loc1 = loc1.replace(/\\n/g,"\n");
 		return this.prefix + loc1 + this.postfix;
 	}*/
-	}
+    }
 
 }

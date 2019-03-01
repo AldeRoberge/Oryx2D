@@ -4,11 +4,11 @@ import rotmg.util.Offer;
 
 public class PaymentData {
 
-	public Offer offer;
+    public Offer offer;
 
-	public String paymentMethod;
+    public String paymentMethod;
 
-	public PaymentData() {
-		super();
-	}
+    public PaymentData() {
+        super();
+    }
 }

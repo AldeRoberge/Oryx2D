@@ -4,13 +4,13 @@ import org.osflash.signals.Signal;
 
 public class BuyCharacterPendingSignal extends Signal {
 
-	private static BuyCharacterPendingSignal instance;
+    private static BuyCharacterPendingSignal instance;
 
-	public static BuyCharacterPendingSignal getInstance() {
-		if (instance == null) {
-			instance = new BuyCharacterPendingSignal();
-		}
-		return instance;
-	}
+    public static BuyCharacterPendingSignal getInstance() {
+        if (instance == null) {
+            instance = new BuyCharacterPendingSignal();
+        }
+        return instance;
+    }
 
 }

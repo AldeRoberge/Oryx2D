@@ -8,18 +8,18 @@ import rotmg.characters.reskin.ReskinConfig;
 
 public class CharactersConfig implements IConfig {
 
-	public IContext context;
+    public IContext context;
 
-	public ISignalCommandMap commandMap;
+    public ISignalCommandMap commandMap;
 
-	public CharactersConfig() {
-		super();
-	}
+    public CharactersConfig() {
+        super();
+    }
 
-	@Override
-	public void configure() {
-		//this.injector.map(CharacterModel).toSingleton(LegacyCharacterModel);
-		this.context.configure(DeletionConfig.class);
-		this.context.configure(ReskinConfig.class);
-	}
+    @Override
+    public void configure() {
+        //this.injector.map(CharacterModel).toSingleton(LegacyCharacterModel);
+        this.context.configure(DeletionConfig.class);
+        this.context.configure(ReskinConfig.class);
+    }
 }

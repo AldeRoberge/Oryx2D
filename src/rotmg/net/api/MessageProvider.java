@@ -4,6 +4,6 @@ import rotmg.net.impl.Message;
 
 public interface MessageProvider {
 
-	Message require(int param1);
+    Message require(int param1);
 
 }

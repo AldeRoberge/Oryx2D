@@ -4,46 +4,46 @@ import rotmg.messaging.incoming.Text;
 
 public class TextHandler {
 
-	/**
-	 * private final TextColors NORMAL_SPEECH_COLORS = new TextColors(14802908, 16777215, 5526612);
-	 * <p>
-	 * private final TextColors ENEMY_SPEECH_COLORS = new TextColors(5644060, 16549442, 13484223);
-	 * <p>
-	 * private final TextColors TELL_SPEECH_COLORS = new TextColors(2493110, 61695, 13880567);
-	 * <p>
-	 * private final TextColors GUILD_SPEECH_COLORS = new TextColors(4098560, 10944349, 13891532);
-	 * <p>
-	 * public Account account = WebAccount.getInstance();
-	 * <p>
-	 * public GameModel model = GameModel.getInstance();
-	 * <p>
-	 * public AddTextLineSignal addTextLine = AddTextLineSignal.getInstance();
-	 * <p>
-	 * public AddSpeechBalloonSignal addSpeechBalloon = AddSpeechBalloonSignal.getInstance();
-	 * <p>
-	 * public StringMap stringMap = StringMap.getInstance();
-	 * <p>
-	 * public  TellModel tellModel = TellModel.getInstance();
-	 * <p>
-	 * public  SpamFilter spamFilter = SpamFilter.getInstance();
-	 * <p>
-	 * public OpenDialogSignal openDialogSignal = OpenDialogSignal.getInstance();
-	 * <p>
-	 * public HUDModel hudModel = HUDModel.getInstance();
-	 * <p>
-	 * public FriendModel friendModel = FriendModel.getInstance();
-	 * <p>
-	 * public ApplicationSetup setup = ApplicationSetup.getInstance();
-	 * <p>
-	 * public  TextHandler()  {
-	 * super();
-	 * }
-	 */
+    /**
+     * private final TextColors NORMAL_SPEECH_COLORS = new TextColors(14802908, 16777215, 5526612);
+     * <p>
+     * private final TextColors ENEMY_SPEECH_COLORS = new TextColors(5644060, 16549442, 13484223);
+     * <p>
+     * private final TextColors TELL_SPEECH_COLORS = new TextColors(2493110, 61695, 13880567);
+     * <p>
+     * private final TextColors GUILD_SPEECH_COLORS = new TextColors(4098560, 10944349, 13891532);
+     * <p>
+     * public Account account = WebAccount.getInstance();
+     * <p>
+     * public GameModel model = GameModel.getInstance();
+     * <p>
+     * public AddTextLineSignal addTextLine = AddTextLineSignal.getInstance();
+     * <p>
+     * public AddSpeechBalloonSignal addSpeechBalloon = AddSpeechBalloonSignal.getInstance();
+     * <p>
+     * public StringMap stringMap = StringMap.getInstance();
+     * <p>
+     * public  TellModel tellModel = TellModel.getInstance();
+     * <p>
+     * public  SpamFilter spamFilter = SpamFilter.getInstance();
+     * <p>
+     * public OpenDialogSignal openDialogSignal = OpenDialogSignal.getInstance();
+     * <p>
+     * public HUDModel hudModel = HUDModel.getInstance();
+     * <p>
+     * public FriendModel friendModel = FriendModel.getInstance();
+     * <p>
+     * public ApplicationSetup setup = ApplicationSetup.getInstance();
+     * <p>
+     * public  TextHandler()  {
+     * super();
+     * }
+     */
 
 
-	public void execute(Text c) {
+    public void execute(Text c) {
 
-	}
+    }
 
 	/*
 	public void  execute(Text param1)  {

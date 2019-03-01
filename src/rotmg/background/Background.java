@@ -8,33 +8,33 @@ import rotmg.map.Camera;
  */
 public class Background extends Sprite {
 
-	public static final int NO_BACKGROUND = 0;
+    public static final int NO_BACKGROUND = 0;
 
-	public static final int STAR_BACKGROUND = 1;
+    public static final int STAR_BACKGROUND = 1;
 
-	public static final int NEXUS_BACKGROUND = 2;
+    public static final int NEXUS_BACKGROUND = 2;
 
-	public static final int NUM_BACKGROUND = 3;
+    public static final int NUM_BACKGROUND = 3;
 
-	public Background() {
-		super();
-		this.visible = false;
-	}
+    public Background() {
+        super();
+        this.visible = false;
+    }
 
-	public static Background getBackground(int param1) {
-		switch (param1) {
-		case NO_BACKGROUND:
-			return null;
-		case STAR_BACKGROUND:
-			return new StarBackground();
-		case NEXUS_BACKGROUND:
-			return new NexusBackground();
-		default:
-			return null;
-		}
-	}
+    public static Background getBackground(int param1) {
+        switch (param1) {
+            case NO_BACKGROUND:
+                return null;
+            case STAR_BACKGROUND:
+                return new StarBackground();
+            case NEXUS_BACKGROUND:
+                return new NexusBackground();
+            default:
+                return null;
+        }
+    }
 
-	public void draw(Camera param1, int param2) {
-	}
+    public void draw(Camera param1, int param2) {
+    }
 
 }

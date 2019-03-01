@@ -10,11 +10,11 @@ import flash.utils.Dictionary;
  */
 public class ParticleLibrary {
 
-	public static final Dictionary<String, ParticleProperties> propsLibrary = new Dictionary<>();
+    public static final Dictionary<String, ParticleProperties> propsLibrary = new Dictionary<>();
 
-	public static void parseFromXML(XML xml) {
-		for (XML x : xml.children("Particle")) {
-			propsLibrary.put(xml.getAttribute("id"), new ParticleProperties(x));
-		}
-	}
+    public static void parseFromXML(XML xml) {
+        for (XML x : xml.children("Particle")) {
+            propsLibrary.put(xml.getAttribute("id"), new ParticleProperties(x));
+        }
+    }
 }

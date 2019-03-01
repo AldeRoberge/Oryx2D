@@ -4,8 +4,8 @@ import rotmg.language.model.StringMap;
 
 public interface StringBuilder {
 
-	void setStringMap(StringMap param1);
+    void setStringMap(StringMap param1);
 
-	String getString();
+    String getString();
 
 }

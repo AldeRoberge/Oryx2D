@@ -5,8 +5,8 @@ import flash.events.SecurityError;
 import flash.net.URLRequest;
 
 public class Loader {
-	public EventDispatcher contentLoaderInfo;
+    public EventDispatcher contentLoaderInfo;
 
-	public void load(URLRequest urlRequest) throws SecurityError {
-	}
+    public void load(URLRequest urlRequest) throws SecurityError {
+    }
 }

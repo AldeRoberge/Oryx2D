@@ -2,19 +2,19 @@ package oryx2D.level;
 
 public class TileCoordinate {
 
-	private int x, y;
+    private int x, y;
 
-	public TileCoordinate(int x, int y) {
-		this.x = x * Level.TILE_SIZE;
-		this.y = y * Level.TILE_SIZE;
-	}
+    public TileCoordinate(int x, int y) {
+        this.x = x * Level.TILE_SIZE;
+        this.y = y * Level.TILE_SIZE;
+    }
 
-	public int x() {
-		return this.x;
-	}
+    public int x() {
+        return this.x;
+    }
 
-	public int y() {
-		return this.y;
-	}
+    public int y() {
+        return this.y;
+    }
 
 }

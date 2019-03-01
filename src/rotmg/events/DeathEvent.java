@@ -6,21 +6,21 @@ import rotmg.objects.Player;
 
 public class DeathEvent extends Event {
 
-	public static final String DEATH = "DEATH";
+    public static final String DEATH = "DEATH";
 
-	public BitmapData background;
+    public BitmapData background;
 
-	public Player player;
+    public Player player;
 
-	public int accountId;
+    public int accountId;
 
-	public int charId;
+    public int charId;
 
-	public DeathEvent(BitmapData param1, int param2, int param3) {
-		super(DEATH);
-		this.background = param1;
-		this.accountId = param2;
-		this.charId = param3;
-	}
+    public DeathEvent(BitmapData param1, int param2, int param3) {
+        super(DEATH);
+        this.background = param1;
+        this.accountId = param2;
+        this.charId = param3;
+    }
 }
 

@@ -10,30 +10,30 @@ import rotmg.net.api.MessageMap;
 
 public class ReskinConfig implements IConfig {
 
-	public IContext context;
+    public IContext context;
 
 	/*public IMediatorMap mediatorMap;
 
 	public ISignalCommandMap commandMap;*/
 
-	public MessageMap messageMap;
+    public MessageMap messageMap;
 
-	public ReskinConfig() {
-		super();
-	}
+    public ReskinConfig() {
+        super();
+    }
 
-	@Override
-	public void configure() {
+    @Override
+    public void configure() {
 		/*this.mediatorMap.map(ReskinCharacterView).toMediator(ReskinCharacterMediator);
 		this.mediatorMap.map(ReskinPanel).toMediator(ReskinPanelMediator);
 		this.commandMap.map(AddReskinConsoleActionSignal).toCommand(AddReskinConsoleActionCommand);
 		this.commandMap.map(OpenReskinDialogSignal).toCommand(OpenReskinDialogCommand);
 		this.commandMap.map(ReskinCharacterSignal).toCommand(ReskinCharacterCommand);*/
-		this.messageMap.map(GameServerConnection.RESKIN).toMessage(Reskin.class).toHandler(ReskinHandler.class);
-		/*this.context.lifecycle.afterInitializing(this.onInit);*/
-	}
+        this.messageMap.map(GameServerConnection.RESKIN).toMessage(Reskin.class).toHandler(ReskinHandler.class);
+        /*this.context.lifecycle.afterInitializing(this.onInit);*/
+    }
 
-	private void onInit() {
-		/*AddReskinConsoleActionSignal.getInstance().dispatch();*/
-	}
+    private void onInit() {
+        /*AddReskinConsoleActionSignal.getInstance().dispatch();*/
+    }
 }

@@ -10,30 +10,30 @@ import rotmg.util.GraphicsUtil;
 
 public class LineBreakDesign extends Shape {
 
-	private GraphicsSolidFill designFill;
+    private GraphicsSolidFill designFill;
 
-	private GraphicsPath designPath;
+    private GraphicsPath designPath;
 
-	private Vector<IGraphicsData> designGraphicsData;
+    private Vector<IGraphicsData> designGraphicsData;
 
-	public LineBreakDesign(int param1, int param2) {
-		super();
-		this.designFill = new GraphicsSolidFill(16777215, 1);
-		this.designPath = new GraphicsPath(new Vector<Integer>(), new Vector<Double>(), GraphicsPathWinding.NON_ZERO);
+    public LineBreakDesign(int param1, int param2) {
+        super();
+        this.designFill = new GraphicsSolidFill(16777215, 1);
+        this.designPath = new GraphicsPath(new Vector<Integer>(), new Vector<Double>(), GraphicsPathWinding.NON_ZERO);
 
-		this.designGraphicsData = new Vector<>(this.designFill, this.designPath, GraphicsUtil.END_FILL);
-		this.setWidthColor(param1, param2);
-	}
+        this.designGraphicsData = new Vector<>(this.designFill, this.designPath, GraphicsUtil.END_FILL);
+        this.setWidthColor(param1, param2);
+    }
 
-	public void setWidthColor(int param1, int param2) {
-		this.graphics.clear();
-		this.designFill.color = param2;
-		GraphicsUtil.clearPath(this.designPath);
-		GraphicsUtil.drawDiamond(0, 0, 4, this.designPath);
-		GraphicsUtil.drawDiamond(param1, 0, 4, this.designPath);
-		GraphicsUtil.drawRect(0, -1, param1, 2, this.designPath);
-		this.graphics.drawGraphicsData(this.designGraphicsData);
-	}
+    public void setWidthColor(int param1, int param2) {
+        this.graphics.clear();
+        this.designFill.color = param2;
+        GraphicsUtil.clearPath(this.designPath);
+        GraphicsUtil.drawDiamond(0, 0, 4, this.designPath);
+        GraphicsUtil.drawDiamond(param1, 0, 4, this.designPath);
+        GraphicsUtil.drawRect(0, -1, param1, 2, this.designPath);
+        this.graphics.drawGraphicsData(this.designGraphicsData);
+    }
 
 
 }
