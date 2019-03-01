@@ -15,8 +15,8 @@ import rotmg.util.MoreDateUtil;
  */
 public class Parameters {
 
-    public static final String BUILD_VERSION = "X28.0";
-    public static final String MINOR_VERSION = "3";
+    public static final String BUILD_VERSION = "X31.3";
+    public static final String MINOR_VERSION = "1";
     public static final boolean ENABLE_ENCRYPTION = true;
     public static final boolean ALLOW_SCREENSHOT_MODE = false;
     public static final boolean USE_NEW_FRIENDS_UI = true;
@@ -33,6 +33,7 @@ public class Parameters {
     public static final String USER_GENERATED_CONTENT_TERMS = "/UGDTermsofUse.html";
     public static final String RANDOM1 = "311f80691451c71b09a13a2a6e";
     public static final String RANDOM2 = "72c5583cafb6818995cbd74b80";
+
     /**
      * RSA formatted
      * AS3 format : "-----BEGIN PUBLIC KEY-----\n" + "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCKFctVrhfF3m2Kes0FBL/JFeO" + "cmNg9eJz8k/hQy1kadD+XFUpluRqa//Uxp2s9W2qE0EoUCu59ugcf/p7lGuL99Uo" + "SGmQEynkBvZct+/M40L0E0rZ4BVgzLOJmIbXMp0J4PnPcb6VLZvxazGcmSfjauC7" + "F3yWYqUbZd/HCBtawwIDAQAB\n" + "-----END PUBLIC KEY-----";
