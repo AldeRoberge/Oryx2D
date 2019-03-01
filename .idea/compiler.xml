@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="AldeCommons" target="1.8" />
+      <module name="AldeCommons" target="8" />
       <module name="Oryx2D" target="1.5" />
     </bytecodeTargetLevel>
   </component>

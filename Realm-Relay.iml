@@ -34,9 +34,23 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/gdx-backend-lwjgl-natives.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/gdx-backend-lwjgl.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/gdx-natives.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/gdx.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/slf4j-api-1.7.26.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/slf4j-log4j12-1.7.26.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/slf4j-simple-1.7.26.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/gdx-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
     <orderEntry type="module" module-name="AldeCommons" />
-    <orderEntry type="library" name="AldeCommons" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
   </component>
 </module>
