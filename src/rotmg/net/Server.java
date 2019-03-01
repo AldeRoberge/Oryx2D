@@ -61,12 +61,12 @@ public class Server {
 	@Override
 	public String toString() {
 		return "Server{" +
-				"name='" + name + '\'' +
-				", address='" + address + '\'' +
-				", port=" + port +
-				", latLong=" + latLong +
-				", usage=" + usage +
-				", isAdminOnly=" + isAdminOnly +
+				"name='" + this.name + '\'' +
+				", address='" + this.address + '\'' +
+				", port=" + this.port +
+				", latLong=" + this.latLong +
+				", usage=" + this.usage +
+				", isAdminOnly=" + this.isAdminOnly +
 				'}';
 	}
 }

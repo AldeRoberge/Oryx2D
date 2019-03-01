@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Reconnect extends IncomingMessage {
 
@@ -31,7 +31,7 @@ public class Reconnect extends IncomingMessage {
 		this.keyTime = in.readInt();
 		this.isFromArena = in.readBoolean();
 		this.key = new byte[in.readShort()];
-		in.readFully(key);
+		in.readFully(this.key);
 	}
 
 	@Override

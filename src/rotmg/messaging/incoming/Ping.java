@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Ping extends IncomingMessage {
 
@@ -16,12 +16,12 @@ public class Ping extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		serial = in.readInt();
+		this.serial = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(serial);
+		out.writeInt(this.serial);
 	}
 
 }

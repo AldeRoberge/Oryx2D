@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class File extends IncomingMessage {
 
@@ -17,16 +17,16 @@ public class File extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		filename = in.readUTF();
-		bytes = new byte[in.readInt()];
-		in.readFully(bytes);
+		this.filename = in.readUTF();
+		this.bytes = new byte[in.readInt()];
+		in.readFully(this.bytes);
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeUTF(filename);
-		out.writeInt(bytes.length);
-		out.write(bytes);
+		out.writeUTF(this.filename);
+		out.writeInt(this.bytes.length);
+		out.write(this.bytes);
 	}
 
 }

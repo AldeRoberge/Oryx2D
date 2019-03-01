@@ -18,13 +18,13 @@ public class ScreensView extends Sprite {
 		}
 		this.removePrevious();
 		this.current = param1;
-		addChild(param1);
+		this.addChild(param1);
 	}
 
 	private void removePrevious() {
-		if (this.current != null && contains(this.current)) {
+		if ((this.current != null) && this.contains(this.current)) {
 			this.previous = this.current;
-			removeChild(this.current);
+			this.removeChild(this.current);
 		}
 	}
 

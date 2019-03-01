@@ -15,7 +15,7 @@ public class Party {
 		private static final Vector SORT_ON_FIELDS = ["starred_","distSqFromThisPlayer_","objectId_"];
 
 		private static final Vector SORT_ON_PARAMS = [Array.NUMERIC | Array.DESCENDING, Array.NUMERIC , Array.NUMERIC];
-	*/
+	 */
 
 	private static final int PARTY_DISTANCE_SQ = 50 * 50;
 
@@ -39,7 +39,7 @@ public class Party {
 
 	public void update(int param1, int param2) {
 		Player loc5 = null;
-		if (param1 < this.lastUpdate + 500) {
+		if (param1 < (this.lastUpdate + 500)) {
 			return;
 		}
 		this.lastUpdate = param1;
@@ -50,11 +50,11 @@ public class Party {
 		}
 		for (GameObject loc4 : AbstractMap.goDict) {
 			loc5 = (Player) loc4;
-			if (!(loc5 == null || loc5 == loc3)) {
+			if (!((loc5 == null) || (loc5 == loc3))) {
 				loc5.starred = this.starred.get(loc5.accountId) != null;
 				loc5.ignored = this.ignored.get(loc5.accountId) != null;
 				loc5.distSqFromThisPlayer = PointUtil.distanceSquaredXY(loc3.x, loc3.y, loc5.x, loc5.y);
-				if (!(loc5.distSqFromThisPlayer > PARTY_DISTANCE_SQ && !loc5.starred)) {
+				if (!((loc5.distSqFromThisPlayer > PARTY_DISTANCE_SQ) && !loc5.starred)) {
 					this.members.add(loc5);
 				}
 			}

@@ -10,17 +10,25 @@ public abstract class Mob extends Entity {
 
 	public void move(int xa, int ya) {
 
-		if (ya < 0) dir = 0;
-		if (xa > 0) dir = 1;
-		if (ya > 0) dir = 2;
-		if (xa < 0) dir = 3;
-
-		if (!collision(0, ya)) {
-			y += ya;
+		if (ya < 0) {
+			this.dir = 0;
+		}
+		if (xa > 0) {
+			this.dir = 1;
+		}
+		if (ya > 0) {
+			this.dir = 2;
+		}
+		if (xa < 0) {
+			this.dir = 3;
 		}
 
-		if (!collision(xa, 0)) {
-			x += xa;
+		if (!this.collision(0, ya)) {
+			this.y += ya;
+		}
+
+		if (!this.collision(xa, 0)) {
+			this.x += xa;
 		}
 	}
 
@@ -36,11 +44,11 @@ public abstract class Mob extends Entity {
 		boolean solid = false;
 
 		for (int c = 0; c < 4; c++) {
-			int xt = ((x + xa) + c % 2 * 2 - 1) / Level.TILE_SIZE;
-			int yt = ((y + ya) + c / 2 * 2 - 1) / Level.TILE_SIZE;
+			int xt = (((this.x + xa) + ((c % 2) * 2)) - 1) / Level.TILE_SIZE;
+			int yt = (((this.y + ya) + ((c / 2) * 2)) - 1) / Level.TILE_SIZE;
 
-			if (level.getTile(xt, yt) != null) {
-				solid = level.getTile(xt, yt).isSolid();
+			if (this.level.getTile(xt, yt) != null) {
+				solid = this.level.getTile(xt, yt).isSolid();
 			}
 
 		}

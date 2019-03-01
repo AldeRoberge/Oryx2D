@@ -38,8 +38,8 @@ public class LineBuilder implements StringBuilder {
 	}
 
 	public LineBuilder setParams(String s, String s1) {
-		this.key = key;
-		this.params = params;
+		this.key = this.key;
+		this.params = this.params;
 		return this;
 	}
 

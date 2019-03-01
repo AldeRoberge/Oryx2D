@@ -1,8 +1,10 @@
 package rotmg;
 
+import static rotmg.tutorial.doneAction.doneAction;
+
+import alde.flash.utils.XML;
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.XML;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
@@ -29,7 +31,11 @@ import rotmg.objects.Square;
 import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.pets.controller.reskin.ReskinPetFlowStartSignal;
-import rotmg.signals.*;
+import rotmg.signals.AddTextLineSignal;
+import rotmg.signals.ExitGameSignal;
+import rotmg.signals.GiftStatusUpdateSignal;
+import rotmg.signals.SetTextBoxVisibilitySignal;
+import rotmg.signals.UseBuyPotionSignal;
 import rotmg.tutorial.Tutorial;
 import rotmg.ui.Options;
 import rotmg.ui.model.TabStripModel;
@@ -38,8 +44,6 @@ import rotmg.ui.popups.signals.ClosePopupByClassSignal;
 import rotmg.ui.popups.signals.ShowPopupSignal;
 import rotmg.util.KeyCodes;
 import rotmg.util.TextureRedrawer;
-
-import static rotmg.tutorial.doneAction.doneAction;
 
 public class MapUserInput {
 
@@ -121,7 +125,7 @@ public class MapUserInput {
 		this.closePopupByClassSignal = ClosePopupByClassSignal.getInstance();
 		ApplicationSetup loc3 = ProductionSetup.getInstance();
 		this.areFKeysAvailable = loc3.areDeveloperHotkeysEnabled();
-		this.gs.map.signalRenderSwitch.add(new SignalConsumer<Boolean>(this::onRenderSwitch));
+		this.gs.map.signalRenderSwitch.add(new SignalConsumer<>(this::onRenderSwitch));
 	}
 
 	public void onRenderSwitch(boolean param1) {
@@ -222,18 +226,18 @@ public class MapUserInput {
 				return;
 			}
 			loc5 = ObjectLibrary.xmlLibrary.get(loc4);
-			if (loc5 == null || loc5.hasOwnProperty("EndMpCost")) {
+			if ((loc5 == null) || loc5.hasOwnProperty("EndMpCost")) {
 				return;
 			}
 			if (loc2.isUnstable()) {
-				loc6 = Math.random() * 600 - 300;
-				loc7 = Math.random() * 600 - 325;
+				loc6 = (Math.random() * 600) - 300;
+				loc7 = (Math.random() * 600) - 325;
 			} else {
 				loc6 = this.gs.map.mouseX;
 				loc7 = this.gs.map.mouseY;
 			}
 			if (Parameters.isGpuRender()) {
-				if (param1.currentTarget == param1.target || param1.target == this.gs.map || param1.target == this.gs) {
+				if ((param1.currentTarget == param1.target) || (param1.target == this.gs.map) || (param1.target == this.gs)) {
 					loc2.useAltWeapon(loc6, loc7, UseType.START_USE);
 				}
 			} else {
@@ -320,26 +324,26 @@ public class MapUserInput {
 		 this.currentString = "";
 		 }*/
 		switch (param1.keyCode) {
-			case KeyCodes.F1:
-			case KeyCodes.F2:
-			case KeyCodes.F3:
-			case KeyCodes.F4:
-			case KeyCodes.F5:
-			case KeyCodes.F6:
-			case KeyCodes.F7:
-			case KeyCodes.F8:
-			case KeyCodes.F9:
-			case KeyCodes.F10:
-			case KeyCodes.F11:
-			case KeyCodes.F12:
-			case KeyCodes.INSERT:
-			case KeyCodes.ALTERNATE:
-				break;
-			default:
-				if (loc2.focus != null) {
-					return;
-				}
-				break;
+		case KeyCodes.F1:
+		case KeyCodes.F2:
+		case KeyCodes.F3:
+		case KeyCodes.F4:
+		case KeyCodes.F5:
+		case KeyCodes.F6:
+		case KeyCodes.F7:
+		case KeyCodes.F8:
+		case KeyCodes.F9:
+		case KeyCodes.F10:
+		case KeyCodes.F11:
+		case KeyCodes.F12:
+		case KeyCodes.INSERT:
+		case KeyCodes.ALTERNATE:
+			break;
+		default:
+			if (loc2.focus != null) {
+				return;
+			}
+			break;
 		}
 
 		Player loc3 = this.gs.map.player;
@@ -384,8 +388,8 @@ public class MapUserInput {
 			}
 			if (!this.specialKeyDown) {
 				if (loc3.isUnstable()) {
-					loc8 = Math.random() * 600 - 300;
-					loc9 = Math.random() * 600 - 325;
+					loc8 = (Math.random() * 600) - 300;
+					loc9 = (Math.random() * 600) - 325;
 				} else {
 					loc8 = this.gs.map.mouseX;
 					loc9 = this.gs.map.mouseY;
@@ -453,7 +457,7 @@ public class MapUserInput {
 		} else if (param1.keyCode == Parameters.data.togglePerformanceStats) {
 			this.togglePerformanceStats();
 
-		} else if (param1.keyCode == Parameters.data.escapeToNexus || param1.keyCode == Parameters.data.escapeToNexus2) {
+		} else if ((param1.keyCode == Parameters.data.escapeToNexus) || (param1.keyCode == Parameters.data.escapeToNexus2)) {
 			loc4 = CloseAllPopupsSignal.getInstance();
 			loc4.dispatch();
 			this.exitGame.dispatch();
@@ -506,15 +510,15 @@ public class MapUserInput {
 		}
 		if (Parameters.ALLOW_SCREENSHOT_MODE) {
 			switch (param1.keyCode) {
-				case KeyCodes.F2:
-					this.toggleScreenShotMode();
-					break;
-				case KeyCodes.F3:
-					Parameters.screenShotSlimMode = !Parameters.screenShotSlimMode;
-					break;
-				case KeyCodes.F4:
-					this.gs.map.mapOverlay.visible = !this.gs.map.mapOverlay.visible;
-					this.gs.map.partyOverlay.visible = !this.gs.map.partyOverlay.visible;
+			case KeyCodes.F2:
+				this.toggleScreenShotMode();
+				break;
+			case KeyCodes.F3:
+				Parameters.screenShotSlimMode = !Parameters.screenShotSlimMode;
+				break;
+			case KeyCodes.F4:
+				this.gs.map.mapOverlay.visible = !this.gs.map.mapOverlay.visible;
+				this.gs.map.partyOverlay.visible = !this.gs.map.partyOverlay.visible;
 			}
 		}
 		if (this.areFKeysAvailable) {
@@ -568,8 +572,8 @@ public class MapUserInput {
 			if (this.specialKeyDown) {
 				this.specialKeyDown = false;
 				if (this.gs.map.player.isUnstable()) {
-					loc2 = Math.random() * 600 - 300;
-					loc3 = Math.random() * 600 - 325;
+					loc2 = (Math.random() * 600) - 300;
+					loc3 = (Math.random() * 600) - 325;
 				} else {
 					loc2 = this.gs.map.mouseX;
 					loc3 = this.gs.map.mouseY;

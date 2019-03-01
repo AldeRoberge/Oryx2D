@@ -35,72 +35,80 @@ public class Player extends Mob {
 		int xa = 0;
 		int ya = 0;
 
-		if (anim < 7500) {
-			anim++;
+		if (this.anim < 7500) {
+			this.anim++;
 		} else {
-			anim = 0;
+			this.anim = 0;
 		}
 
-		if (input.up) ya--;
-		if (input.down) ya++;
-		if (input.left) xa--;
-		if (input.right) xa++;
-
-		if (xa != 0 || ya != 0) { //If we move
-			move(xa, ya);
-			walking = true;
-		} else {
-			walking = false;
+		if (this.input.up) {
+			ya--;
+		}
+		if (this.input.down) {
+			ya++;
+		}
+		if (this.input.left) {
+			xa--;
+		}
+		if (this.input.right) {
+			xa++;
 		}
 
-		updateShooting();
+		if ((xa != 0) || (ya != 0)) { //If we move
+			this.move(xa, ya);
+			this.walking = true;
+		} else {
+			this.walking = false;
+		}
+
+		this.updateShooting();
 	}
 
 	private void updateShooting() { //get angle of shooting based of center of screen
 		if (Mouse.getButton() == 1) {
-			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
-			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
+			double dx = Mouse.getX() - (Game.getWindowWidth() / 2);
+			double dy = Mouse.getY() - (Game.getWindowHeight() / 2);
 			double dir = Math.atan2(dy, dx);
-			shoot(x, y, dir);
+			this.shoot(this.x, this.y, dir);
 		}
 	}
 
 	@Override
 	public void render(Screen screen) {
 		int flip = 0;
-		if (dir == 0) {
-			sprite = player_forward;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = player_forward_1;
+		if (this.dir == 0) {
+			this.sprite = player_forward;
+			if (this.walking) {
+				if ((this.anim % 20) > 10) {
+					this.sprite = player_forward_1;
 				} else {
-					sprite = player_forward_2;
+					this.sprite = player_forward_2;
 				}
 			}
-		} else if (dir == 2) {
-			sprite = player_back;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = player_back_1;
+		} else if (this.dir == 2) {
+			this.sprite = player_back;
+			if (this.walking) {
+				if ((this.anim % 20) > 10) {
+					this.sprite = player_back_1;
 				} else {
-					sprite = player_back_2;
+					this.sprite = player_back_2;
 				}
 			}
 		} else {
-			if (dir == 3) {
+			if (this.dir == 3) {
 				flip = 1;
 			}
-			sprite = player_side;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = player_side_1;
+			this.sprite = player_side;
+			if (this.walking) {
+				if ((this.anim % 20) > 10) {
+					this.sprite = player_side_1;
 				} else {
-					sprite = player_side;
+					this.sprite = player_side;
 				}
 			}
 		}
 
-		screen.render(x - sprite.width / 2, y - sprite.height / 2, sprite, flip);
+		screen.render(this.x - (this.sprite.width / 2), this.y - (this.sprite.height / 2), this.sprite, flip);
 	}
 
 }

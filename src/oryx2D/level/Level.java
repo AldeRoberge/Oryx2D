@@ -40,8 +40,8 @@ public class Level {
 
 		for (int x = tilePositionTopLeft; x < tilePositionTopRight; x++) {
 			for (int y = tilePositionBottomLeft; y < tilePositionBottomRight; y++) {
-				Square t = (getTile(x, y));
-				if (t != null && t.texture != null) {
+				Square t = (this.getTile(x, y));
+				if ((t != null) && (t.texture != null)) {
 					screen.render(x, y, t.texture);
 				}
 			}
@@ -62,7 +62,7 @@ public class Level {
 	}
 
 	public Square getTile(int x, int y) {
-		for (Square t : tiles) {
+		for (Square t : this.tiles) {
 			if ((t.x == x) && (t.y == y)) {
 				return t;
 			}

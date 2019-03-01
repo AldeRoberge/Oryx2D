@@ -8,8 +8,8 @@ public class ConversionUtil {
 	public static Vector<Integer> toIntVector(int[] array) {
 		Vector<Integer> vector = new Vector<>();
 
-		for (int i = 0; i < array.length; i++) {
-			vector.add(array[i]);
+		for (int element : array) {
+			vector.add(element);
 		}
 
 		return vector;
@@ -23,7 +23,7 @@ public class ConversionUtil {
 
 		String[] splitData = data.split(delimiter);
 
-		Vector<Integer> ints = new Vector<Integer>(splitData.length);
+		Vector<Integer> ints = new Vector<>(splitData.length);
 
 		for (int i = 0; i < splitData.length; i++) {
 

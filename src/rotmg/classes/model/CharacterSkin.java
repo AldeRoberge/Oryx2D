@@ -1,11 +1,12 @@
 package rotmg.classes.model;
 
 import org.osflash.signals.Signal;
+
 import rotmg.assets.model.CharacterTemplate;
 
 public class CharacterSkin {
 
-	public final Signal<CharacterSkin> changed = new Signal<CharacterSkin>();
+	public final Signal<CharacterSkin> changed = new Signal<>();
 
 	public int id = 0;
 

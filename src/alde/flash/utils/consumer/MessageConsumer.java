@@ -1,8 +1,8 @@
 package alde.flash.utils.consumer;
 
-import rotmg.net.impl.Message;
-
 import java.util.function.Consumer;
+
+import rotmg.net.impl.Message;
 
 /**
  * A method that accepts a Message
@@ -21,10 +21,10 @@ public class MessageConsumer<T extends Message> {
 	}
 
 	public void accept(T event) {
-		if (runnable != null) {
-			runnable.run();
+		if (this.runnable != null) {
+			this.runnable.run();
 		} else {
-			consumer.accept(event);
+			this.consumer.accept(event);
 		}
 	}
 }

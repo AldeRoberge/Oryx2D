@@ -74,7 +74,7 @@ public class AnimatedChar {
 	}
 
 	private Dictionary<Integer, Vector<MaskedImage>> loadDir(int offset, boolean mirror, boolean sym,
-	                                                         MaskedImageSet frames) {
+			MaskedImageSet frames) {
 		Vector<MaskedImage> attackVec = null;
 		BitmapData image = null;
 		BitmapData mask = null;
@@ -104,7 +104,7 @@ public class AnimatedChar {
 			image.copyPixels(swordBitImage.image, new Rectangle(0, 0, this.width, this.height),
 					new Point(this.width * 2, 0));
 			mask = null;
-			if (attack2Image.mask != null || swordBitImage.mask != null) {
+			if ((attack2Image.mask != null) || (swordBitImage.mask != null)) {
 				mask = new BitmapData(this.width * 3, this.height, true, 0);
 			}
 			if (attack2Image.mask != null) {
@@ -117,10 +117,10 @@ public class AnimatedChar {
 			}
 			attack2Image = new MaskedImage(image, mask);
 		}
-		Vector<MaskedImage> standVec = new Vector<MaskedImage>();
+		Vector<MaskedImage> standVec = new Vector<>();
 		standVec.add(!!mirror ? standImage.mirror() : standImage);
 		dirDict.put(STAND, standVec);
-		Vector<MaskedImage> walkVec = new Vector<MaskedImage>();
+		Vector<MaskedImage> walkVec = new Vector<>();
 		walkVec.add(!!mirror ? walk1Image.mirror() : walk1Image);
 		if (walk2Image != null) {
 			walkVec.add(!!mirror ? walk2Image.mirror() : walk2Image);
@@ -130,10 +130,10 @@ public class AnimatedChar {
 			walkVec.add(!!mirror ? standImage.mirror() : standImage);
 		}
 		dirDict.put(WALK, walkVec);
-		if (attack1Image == null && attack2Image == null) {
+		if ((attack1Image == null) && (attack2Image == null)) {
 			attackVec = walkVec;
 		} else {
-			attackVec = new Vector<MaskedImage>();
+			attackVec = new Vector<>();
 			if (attack1Image != null) {
 				attackVec.add(!!mirror ? attack1Image.mirror() : attack1Image);
 			}
@@ -160,7 +160,7 @@ public class AnimatedChar {
 	}
 
 	public MaskedImage imageFromAngle(double param1, int param2, double param3) {
-		int loc4 = (int) ((param1 / PIOVER4 + 4) % 8);
+		int loc4 = (int) (((param1 / PIOVER4) + 4) % 8);
 		int[] loc5 = SEC_TO_DIRS[loc4];
 		Dictionary<Integer, Vector<MaskedImage>> loc6 = this.dict.get(loc5[0]);
 		if (loc6 == null) {

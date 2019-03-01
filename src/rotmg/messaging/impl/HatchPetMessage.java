@@ -1,11 +1,11 @@
 package rotmg.messaging.impl;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.incoming.IncomingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.incoming.IncomingMessage;
 
 public class HatchPetMessage extends IncomingMessage {
 
@@ -24,7 +24,7 @@ public class HatchPetMessage extends IncomingMessage {
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeUTF(petName);
-		out.writeInt(petSkin);
+		out.writeUTF(this.petName);
+		out.writeInt(this.petSkin);
 	}
 }

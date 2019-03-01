@@ -29,7 +29,7 @@ public class FixedIPServerModel implements ServerModel {
 
 	@Override
 	public Vector<Server> getServers() {
-		return new Vector<Server>(this.localhost);
+		return new Vector<>(this.localhost);
 	}
 
 	@Override

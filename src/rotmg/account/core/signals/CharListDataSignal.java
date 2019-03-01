@@ -7,11 +7,11 @@ public class CharListDataSignal extends Signal {
 	CharListDataSignal instance;
 
 	public CharListDataSignal getInstance() {
-		if (instance == null) {
-			instance = new CharListDataSignal();
+		if (this.instance == null) {
+			this.instance = new CharListDataSignal();
 		}
 
-		return instance;
+		return this.instance;
 	}
 
 }

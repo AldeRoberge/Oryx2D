@@ -1,11 +1,11 @@
 package rotmg.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alde.flash.utils.StaticAssetLoaderUtility;
 import flash.display.BitmapData;
 import flash.utils.Dictionary;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is a 80% match.
@@ -22,7 +22,7 @@ public class AssetLibrary {
 
 	private static Dictionary<String, List<Sound>> sounds = new Dictionary<>();
 
-	private static Dictionary<BitmapData, String> imageLookup = new Dictionary<BitmapData, String>();
+	private static Dictionary<BitmapData, String> imageLookup = new Dictionary<>();
 
 	public static void addImage(String name, BitmapData data) {
 		images.put(name, data);

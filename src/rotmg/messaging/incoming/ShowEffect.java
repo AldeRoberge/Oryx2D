@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.WorldPosData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.WorldPosData;
 
 public class ShowEffect extends IncomingMessage {
 
@@ -46,22 +46,22 @@ public class ShowEffect extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		effectType = in.readUnsignedByte();
-		targetObjectId = in.readInt();
-		pos1.parseFromInput(in);
-		pos2.parseFromInput(in);
-		color = in.readInt();
-		duration = in.readFloat();
+		this.effectType = in.readUnsignedByte();
+		this.targetObjectId = in.readInt();
+		this.pos1.parseFromInput(in);
+		this.pos2.parseFromInput(in);
+		this.color = in.readInt();
+		this.duration = in.readFloat();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeByte(effectType);
-		out.writeInt(targetObjectId);
-		pos1.writeToOutput(out);
-		pos2.writeToOutput(out);
-		out.writeInt(color);
-		out.writeDouble(duration);
+		out.writeByte(this.effectType);
+		out.writeInt(this.targetObjectId);
+		this.pos1.writeToOutput(out);
+		this.pos2.writeToOutput(out);
+		out.writeInt(this.color);
+		out.writeDouble(this.duration);
 	}
 
 }

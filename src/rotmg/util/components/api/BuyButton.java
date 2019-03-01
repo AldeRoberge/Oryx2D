@@ -1,7 +1,8 @@
 package rotmg.util.components.api;
 
-import flash.display.Sprite;
 import org.osflash.signals.Signal;
+
+import flash.display.Sprite;
 
 public class BuyButton extends Sprite {
 

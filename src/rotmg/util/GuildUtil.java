@@ -24,18 +24,18 @@ public class GuildUtil {
 
 	public static String rankToString(int param1) {
 		switch (param1) {
-			case INITIATE:
-				return wrapInBraces(TextKey.GUILD_RANK_INITIATE);
-			case MEMBER:
-				return wrapInBraces(TextKey.GUILD_RANK_MEMBER);
-			case OFFICER:
-				return wrapInBraces(TextKey.GUILD_RANK_OFFICER);
-			case LEADER:
-				return wrapInBraces(TextKey.GUILD_RANK_LEADER);
-			case FOUNDER:
-				return wrapInBraces(TextKey.GUILD_RANK_FOUNDER);
-			default:
-				return wrapInBraces(TextKey.GUILD_RANK_UNKNOWN);
+		case INITIATE:
+			return wrapInBraces(TextKey.GUILD_RANK_INITIATE);
+		case MEMBER:
+			return wrapInBraces(TextKey.GUILD_RANK_MEMBER);
+		case OFFICER:
+			return wrapInBraces(TextKey.GUILD_RANK_OFFICER);
+		case LEADER:
+			return wrapInBraces(TextKey.GUILD_RANK_LEADER);
+		case FOUNDER:
+			return wrapInBraces(TextKey.GUILD_RANK_FOUNDER);
+		default:
+			return wrapInBraces(TextKey.GUILD_RANK_UNKNOWN);
 		}
 	}
 
@@ -46,20 +46,20 @@ public class GuildUtil {
 	public static BitmapData rankToIcon(int param1, int param2) {
 		BitmapData loc3 = null;
 		switch (param1) {
-			case INITIATE:
-				loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 20);
-				break;
-			case MEMBER:
-				loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 19);
-				break;
-			case OFFICER:
-				loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 18);
-				break;
-			case LEADER:
-				loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 17);
-				break;
-			case FOUNDER:
-				loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 16);
+		case INITIATE:
+			loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 20);
+			break;
+		case MEMBER:
+			loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 19);
+			break;
+		case OFFICER:
+			loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 18);
+			break;
+		case LEADER:
+			loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 17);
+			break;
+		case FOUNDER:
+			loc3 = AssetLibrary.getImageFromSet("lofiInterfaceBig", 16);
 		}
 		return TextureRedrawer.redraw(loc3, param2, true, 0, true);
 	}
@@ -73,13 +73,13 @@ public class GuildUtil {
 		if (param2 == param3) {
 			return false;
 		}
-		if (param1 == FOUNDER && param2 < FOUNDER && param3 < FOUNDER) {
+		if ((param1 == FOUNDER) && (param2 < FOUNDER) && (param3 < FOUNDER)) {
 			return true;
 		}
-		if (param1 == LEADER && param2 < LEADER && param3 <= LEADER) {
+		if ((param1 == LEADER) && (param2 < LEADER) && (param3 <= LEADER)) {
 			return true;
 		}
-		if (param1 == OFFICER && param2 < OFFICER && param3 < OFFICER) {
+		if ((param1 == OFFICER) && (param2 < OFFICER) && (param3 < OFFICER)) {
 			return true;
 		}
 		return false;
@@ -87,14 +87,14 @@ public class GuildUtil {
 
 	public static int promotedRank(int param1) {
 		switch (param1) {
-			case INITIATE:
-				return MEMBER;
-			case MEMBER:
-				return OFFICER;
-			case OFFICER:
-				return LEADER;
-			default:
-				return FOUNDER;
+		case INITIATE:
+			return MEMBER;
+		case MEMBER:
+			return OFFICER;
+		case OFFICER:
+			return LEADER;
+		default:
+			return FOUNDER;
 		}
 	}
 
@@ -105,14 +105,14 @@ public class GuildUtil {
 
 	public static int demotedRank(int param1) {
 		switch (param1) {
-			case OFFICER:
-				return MEMBER;
-			case LEADER:
-				return OFFICER;
-			case FOUNDER:
-				return LEADER;
-			default:
-				return INITIATE;
+		case OFFICER:
+			return MEMBER;
+		case LEADER:
+			return OFFICER;
+		case FOUNDER:
+			return LEADER;
+		default:
+			return INITIATE;
 		}
 	}
 
@@ -122,7 +122,7 @@ public class GuildUtil {
 	}
 
 	public static boolean canRemove(int param1, int param2) {
-		return param1 >= OFFICER && param2 < param1;
+		return (param1 >= OFFICER) && (param2 < param1);
 	}
 
 

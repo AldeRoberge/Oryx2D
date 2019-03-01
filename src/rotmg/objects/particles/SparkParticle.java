@@ -26,9 +26,9 @@ public class SparkParticle extends Particle {
 		if (this.timeLeft <= 0) {
 			return false;
 		}
-		x = x + this.dx * param2 / 1000;
-		y = y + this.dy * param2 / 1000;
-		setSize(this.timeLeft / this.lifetime * this.initialSize);
+		this.x = this.x + ((this.dx * param2) / 1000);
+		this.y = this.y + ((this.dy * param2) / 1000);
+		this.setSize((this.timeLeft / this.lifetime) * this.initialSize);
 		return true;
 	}
 

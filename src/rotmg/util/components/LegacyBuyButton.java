@@ -2,7 +2,11 @@ package rotmg.util.components;
 
 import alde.flash.utils.Vector;
 import flash.airglobal.Graphics;
-import flash.display.*;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsSolidFill;
+import flash.display.IGraphicsData;
 import flash.events.MouseEvent;
 import flash.filters.ColorMatrixFilter;
 import rotmg.assets.services.IconFactory;
@@ -92,25 +96,25 @@ public class LegacyBuyButton extends BuyButton {
 
 	private void readyForPlacementDispatch() {
 		this.updateUI();
-		readyForPlacement.dispatch();
+		this.readyForPlacement.dispatch();
 	}
 
 	private void updateIcon() {
 		switch (this.currency) {
-			case Currency.GOLD:
-				this.icon.bitmapData = coin;
-				break;
-			case Currency.FAME:
-				this.icon.bitmapData = fame;
-				break;
-			case Currency.GUILD_FAME:
-				this.icon.bitmapData = guildFame;
-				break;
-			case Currency.FORTUNE:
-				this.icon.bitmapData = fortune;
-				break;
-			default:
-				this.icon.bitmapData = null;
+		case Currency.GOLD:
+			this.icon.bitmapData = coin;
+			break;
+		case Currency.FAME:
+			this.icon.bitmapData = fame;
+			break;
+		case Currency.GUILD_FAME:
+			this.icon.bitmapData = guildFame;
+			break;
+		case Currency.FORTUNE:
+			this.icon.bitmapData = fortune;
+			break;
+		default:
+			this.icon.bitmapData = null;
 		}
 		this.updateIconPosition();
 	}

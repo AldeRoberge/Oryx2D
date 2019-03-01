@@ -1,7 +1,7 @@
 package rotmg.ui;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import rotmg.sound.SoundEffectLibrary;
@@ -20,16 +20,16 @@ public class ClickableTextBase extends Sprite {
 		this.text = this.makeText().setSize(param1).setColor(16777215);
 		this.text.setBold(param2);
 		this.text.setStringBuilder(new LineBuilder().setParams(param3));
-		addChild(this.text);
+		this.addChild(this.text);
 		this.text.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-		addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
-		addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
-		addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onMouseClick));
+		this.addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
+		this.addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
+		this.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onMouseClick));
 	}
 
 	public void removeOnHoverEvents() {
-		removeEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
-		removeEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
+		this.removeEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
+		this.removeEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
 	}
 
 	protected TextFieldDisplayConcrete makeText() {
@@ -43,8 +43,8 @@ public class ClickableTextBase extends Sprite {
 	public void makeStatic(String param1) {
 		this.text.setStringBuilder(new LineBuilder().setParams(param1));
 		this.setDefaultColor(11776947);
-		mouseEnabled = false;
-		mouseChildren = false;
+		this.mouseEnabled = false;
+		this.mouseChildren = false;
 	}
 
 	public void setColor(int param1) {

@@ -1,9 +1,9 @@
 package rotmg.util;
 
-import flash.display.BitmapData;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import flash.display.BitmapData;
 
 /**
  * This is a 100% match
@@ -13,7 +13,7 @@ public class MaskedImageSet {
 	public List<MaskedImage> images;
 
 	public MaskedImageSet() {
-		this.images = new ArrayList<MaskedImage>();
+		this.images = new ArrayList<>();
 	}
 
 	public void addFromBitmapData(BitmapData images, BitmapData masks, int width, int height) {

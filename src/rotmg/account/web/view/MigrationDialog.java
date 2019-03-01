@@ -1,7 +1,8 @@
 package rotmg.account.web.view;
 
-import flash.utils.timer.Timer;
 import org.osflash.signals.Signal;
+
+import flash.utils.timer.Timer;
 import rotmg.account.core.Account;
 import rotmg.account.core.WebAccount;
 import rotmg.appengine.api.AppEngineClient;

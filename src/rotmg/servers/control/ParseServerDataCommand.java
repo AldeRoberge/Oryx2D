@@ -24,7 +24,7 @@ public class ParseServerDataCommand {
 
 	private Vector<Server> makeListOfServers() {
 		List<XML> loc1 = this.data.child("Servers").children("Server");
-		Vector<Server> loc2 = new Vector<Server>(0);
+		Vector<Server> loc2 = new Vector<>(0);
 		for (XML loc3 : loc1) {
 			loc2.add(this.makeServer(loc3));
 		}

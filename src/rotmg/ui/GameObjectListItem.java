@@ -1,10 +1,11 @@
 package rotmg.ui;
 
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.Vector;
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.geom.ColorTransform;
-import org.osflash.signals.Signal;
 import rotmg.objects.GameObject;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
@@ -44,7 +45,7 @@ public class GameObjectListItem extends Sprite {
 		this.portrait = new Bitmap();
 		this.portrait.x = -4;
 		this.portrait.y = !!param4 ? -1 : -4;
-		addChild(this.portrait);
+		this.addChild(this.portrait);
 		this.text = new TextFieldDisplayConcrete().setSize(13).setColor(param1).setHTML(param2);
 		if (!param2) {
 			this.text.setTextWidth(66).setTextHeight(20).setBold(true);
@@ -52,42 +53,42 @@ public class GameObjectListItem extends Sprite {
 		this.text.x = 32;
 		this.text.y = 6;
 		this.text.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-		addChild(this.text);
+		this.addChild(this.text);
 		this.textReady = this.text.textChanged;
 		this.draw(param3);
 	}
 
 	public void draw(GameObject param1) {
-		draw(param1, null);
+		this.draw(param1, null);
 	}
 
 	public void draw(GameObject param1, ColorTransform param2) {
 		boolean loc3 = false;
 		loc3 = this.isClear();
 		this.go = param1;
-		visible = param1 != null;
-		if (visible && (this.hasChanged() || loc3)) {
+		this.visible = param1 != null;
+		if (this.visible && (this.hasChanged() || loc3)) {
 			this.redraw();
 
 			if (param2 != null) {
-				transform.colorTransform = param2;
+				this.transform.colorTransform = param2;
 			} else {
-				transform.colorTransform = MoreColorUtil.identity;
+				this.transform.colorTransform = MoreColorUtil.identity;
 			}
 		}
 	}
 
 	public void clear() {
 		this.go = null;
-		visible = false;
+		this.visible = false;
 	}
 
 	public boolean isClear() {
-		return this.go == null && visible == false;
+		return (this.go == null) && (this.visible == false);
 	}
 
 	private boolean hasChanged() {
-		boolean loc1 = this.go.name != this.objname || this.go.level != this.level || this.go.objectType != this.type;
+		boolean loc1 = (this.go.name != this.objname) || (this.go.level != this.level) || (this.go.objectType != this.type);
 		if (loc1) {
 			this.updateData();
 		}
@@ -142,7 +143,7 @@ public class GameObjectListItem extends Sprite {
 	}
 
 	private boolean isNameDefined() {
-		return this.go.name != null && this.go.name != "";
+		return (this.go.name != null) && (this.go.name != "");
 	}
 
 	private int getDrawColor() {

@@ -33,10 +33,10 @@ public class RankText extends Sprite {
 			this.prefix.setStringBuilder(new LineBuilder().setParams(TextKey.RANK_TEXT_RANK));
 			//this.prefix.filters = [new DropShadowFilter(0, 0, 0)];
 			this.prefix.textChanged.addOnce(new SignalConsumer<>(this::position));
-			addChild(this.prefix);
+			this.addChild(this.prefix);
 		}
-		mouseEnabled = false;
-		mouseChildren = false;
+		this.mouseEnabled = false;
+		this.mouseChildren = false;
 		this.draw(param1);
 	}
 

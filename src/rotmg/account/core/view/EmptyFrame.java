@@ -1,13 +1,14 @@
 package rotmg.account.core.view;
 
-import alde.flash.utils.consumer.EventConsumer;
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormatAlign;
-import org.osflash.signals.Signal;
 import rotmg.WebMain;
 import rotmg.pets.util.PetsViewAssetFactory;
 import rotmg.pets.view.components.DialogCloseButton;
@@ -43,8 +44,8 @@ public class EmptyFrame extends Sprite {
 		super();
 		this.modalWidth = param1;
 		this.modalHeight = param2;
-		x = WebMain.STAGE.stageWidth / 2 - this.modalWidth / 2;
-		y = WebMain.STAGE.stageHeight / 2 - this.modalHeight / 2;
+		this.x = (WebMain.STAGE.stageWidth / 2) - (this.modalWidth / 2);
+		this.y = (WebMain.STAGE.stageHeight / 2) - (this.modalHeight / 2);
 		if (!param3.equals("")) {
 			this.setTitle(param3, true);
 		}
@@ -52,7 +53,7 @@ public class EmptyFrame extends Sprite {
 			this.backgroundContainer = new Sprite();
 			this.background = this.makeModalBackground();
 			this.backgroundContainer.addChild(this.background);
-			addChild(this.backgroundContainer);
+			this.addChild(this.backgroundContainer);
 		}
 		if (!param3.equals("")) {
 			this.setTitle(param3, true);
@@ -60,7 +61,7 @@ public class EmptyFrame extends Sprite {
 	}
 
 	private void onRemovedFromStage(Event param1) {
-		removeEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+		this.removeEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
 		if (this.closeButton != null) {
 			this.closeButton.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onCloseClick));
 		}
@@ -68,23 +69,23 @@ public class EmptyFrame extends Sprite {
 
 	public void setWidth(double param1) {
 		this.modalWidth = param1;
-		x = WebMain.STAGE.stageWidth / 2 - this.modalWidth / 2;
+		this.x = (WebMain.STAGE.stageWidth / 2) - (this.modalWidth / 2);
 		this.refreshBackground();
 	}
 
 	public void setHeight(double param1) {
 		this.modalHeight = param1;
-		y = WebMain.STAGE.stageHeight / 2 - this.modalHeight / 2;
+		this.y = (WebMain.STAGE.stageHeight / 2) - (this.modalHeight / 2);
 		this.refreshBackground();
 	}
 
 	public void setTitle(String param1, boolean param2) {
-		if (this.title != null && this.title.parent != null) {
-			removeChild(this.title);
+		if ((this.title != null) && (this.title.parent != null)) {
+			this.removeChild(this.title);
 		}
 		if (param1 != null) {
 			this.title = this.getText(param1, TEXT_MARGIN, 5, param2);
-			addChild(this.title);
+			this.addChild(this.title);
 		} else {
 			this.title = null;
 		}
@@ -92,29 +93,29 @@ public class EmptyFrame extends Sprite {
 
 	public void setDesc(String param1, boolean param2) {
 		if (param1 != null) {
-			if (this.desc != null && this.desc.parent != null) {
-				removeChild(this.desc);
+			if ((this.desc != null) && (this.desc.parent != null)) {
+				this.removeChild(this.desc);
 			}
 			this.desc = this.getText(param1, TEXT_MARGIN, 50, param2);
-			addChild(this.desc);
+			this.addChild(this.desc);
 		}
 	}
 
 	public void setCloseButton(boolean param1) {
-		if (this.closeButton == null && param1) {
+		if ((this.closeButton == null) && param1) {
 			this.closeButton = PetsViewAssetFactory.returnCloseButton(this.modalWidth);
 			this.closeButton.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onCloseClick));
-			addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
-			addChild(this.closeButton);
-		} else if (this.closeButton != null && !param1) {
-			removeChild(this.closeButton);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+			this.addChild(this.closeButton);
+		} else if ((this.closeButton != null) && !param1) {
+			this.removeChild(this.closeButton);
 			this.closeButton = null;
 		}
 	}
 
 	protected TextFieldDisplayConcrete getText(String param1, int param2, int param3, boolean param4) {
 		TextFieldDisplayConcrete loc5 = null;
-		loc5 = new TextFieldDisplayConcrete().setSize(16).setColor(16777215).setTextWidth(this.modalWidth - TEXT_MARGIN * 2);
+		loc5 = new TextFieldDisplayConcrete().setSize(16).setColor(16777215).setTextWidth(this.modalWidth - (TEXT_MARGIN * 2));
 		loc5.setBold(true);
 		if (param4) {
 			loc5.setStringBuilder(new StaticStringBuilder(param1));
@@ -132,8 +133,8 @@ public class EmptyFrame extends Sprite {
 	}
 
 	protected Sprite makeModalBackground() {
-		x = WebMain.STAGE.stageWidth / 2 - this.modalWidth / 2;
-		y = WebMain.STAGE.stageHeight / 2 - this.modalHeight / 2;
+		this.x = (WebMain.STAGE.stageWidth / 2) - (this.modalWidth / 2);
+		this.y = (WebMain.STAGE.stageHeight / 2) - (this.modalHeight / 2);
 		PopupWindowBackground loc1 = new PopupWindowBackground();
 		loc1.draw(this.modalWidth, this.modalHeight, PopupWindowBackground.TYPE_DEFAULT_GREY);
 		if (this.title != null) {
@@ -143,8 +144,8 @@ public class EmptyFrame extends Sprite {
 	}
 
 	public void alignAssets() {
-		this.desc.setTextWidth(this.modalWidth - TEXT_MARGIN * 2);
-		this.title.setTextWidth(this.modalWidth - TEXT_MARGIN * 2);
+		this.desc.setTextWidth(this.modalWidth - (TEXT_MARGIN * 2));
+		this.title.setTextWidth(this.modalWidth - (TEXT_MARGIN * 2));
 	}
 
 	protected void refreshBackground() {

@@ -36,11 +36,11 @@ public class ArenaLeaderboardEntry {
 	}
 
 	public boolean isEqual(ArenaLeaderboardEntry param1) {
-		return param1.name.equals(this.name) && this.runtime == param1.runtime && this.currentWave == param1.currentWave;
+		return param1.name.equals(this.name) && (this.runtime == param1.runtime) && (this.currentWave == param1.currentWave);
 	}
 
 	public boolean isBetterThan(ArenaLeaderboardEntry param1) {
-		return this.currentWave > param1.currentWave || this.currentWave == param1.currentWave && this.runtime < param1.runtime;
+		return (this.currentWave > param1.currentWave) || ((this.currentWave == param1.currentWave) && (this.runtime < param1.runtime));
 	}
 
 }

@@ -22,7 +22,7 @@ public abstract class TextureData {
 
 	// Utility method for default int
 	public BitmapData getTexture() {
-		return getTexture(0);
+		return this.getTexture(0);
 	}
 
 	public abstract BitmapData getTexture(int id);

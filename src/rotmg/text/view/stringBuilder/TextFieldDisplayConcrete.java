@@ -1,10 +1,11 @@
 package rotmg.text.view.stringBuilder;
 
+import org.osflash.signals.Signal;
+
 import flash.display.Sprite;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextLineMetrics;
-import org.osflash.signals.Signal;
 import rotmg.language.model.StringMap;
 import rotmg.text.model.FontInfo;
 
@@ -181,7 +182,7 @@ public class TextFieldDisplayConcrete extends Sprite implements TextFieldDisplay
 		this.updateTextOfInjectedTextField(param1);
 		this.textField = param1;
 		this.setProperties();
-		addChild(this.textField);
+		this.addChild(this.textField);
 	}
 
 	private void setPropertiesIfHasTextField() {
@@ -226,7 +227,7 @@ public class TextFieldDisplayConcrete extends Sprite implements TextFieldDisplay
 	private void updateTextOfInjectedTextField(TextField param1) {
 		if (this.textField != null) {
 			param1.text = this.textField.text;
-			removeChild(this.textField);
+			this.removeChild(this.textField);
 		}
 	}
 
@@ -270,7 +271,7 @@ public class TextFieldDisplayConcrete extends Sprite implements TextFieldDisplay
 		TextFormat loc1 = this.textField.getTextFormat();
 		double loc2 = this.getSpecificXHeight(loc1);
 		double loc3 = this.getSpecificVerticalSpace(loc1);
-		this.textField.y = -(this.textField.height - (loc2 / 2 + loc3 + GUTTER));
+		this.textField.y = -(this.textField.height - ((loc2 / 2) + loc3 + GUTTER));
 	}
 
 	private double getSpecificXHeight(TextFormat param1) {
@@ -282,7 +283,7 @@ public class TextFieldDisplayConcrete extends Sprite implements TextFieldDisplay
 	}
 
 	public void setTextFormat(TextFormat param1) {
-		setTextFormat(param1, 0, 0);
+		this.setTextFormat(param1, 0, 0);
 	}
 
 	public void setTextFormat(TextFormat param1, int param2, int param3) {
@@ -291,7 +292,7 @@ public class TextFieldDisplayConcrete extends Sprite implements TextFieldDisplay
 	}
 
 	private boolean isAble() {
-		return this.stringMap != null && this.stringBuilder != null && this.textField != null;
+		return (this.stringMap != null) && (this.stringBuilder != null) && (this.textField != null);
 	}
 
 	public double getVerticalSpace() {

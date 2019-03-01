@@ -1,12 +1,12 @@
 package rotmg.util;
 
-import alde.flash.utils.StaticAssetLoaderUtility;
-import flash.display.BitmapData;
-import rotmg.objects.animation.AnimatedChar;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import alde.flash.utils.StaticAssetLoaderUtility;
+import flash.display.BitmapData;
+import rotmg.objects.animation.AnimatedChar;
 
 public class AnimatedChars {
 
@@ -14,7 +14,7 @@ public class AnimatedChars {
 
 	public static AnimatedChar getAnimatedChar(String name, int id) {
 		List<AnimatedChar> chars = nameMap.get(name);
-		if (chars == null || id >= chars.size()) {
+		if ((chars == null) || (id >= chars.size())) {
 			System.err.println("Null texture");
 			return null;
 		}
@@ -22,8 +22,8 @@ public class AnimatedChars {
 	}
 
 	public static void add(String name, BitmapData images, BitmapData masks, int charWidth, int charHeight,
-	                       int sheetWidth, int sheetHeight, int firstDir) {
-		List<AnimatedChar> chars = new ArrayList<AnimatedChar>();
+			int sheetWidth, int sheetHeight, int firstDir) {
+		List<AnimatedChar> chars = new ArrayList<>();
 		MaskedImageSet charImages = new MaskedImageSet();
 
 		//System.out.println(name);
@@ -39,7 +39,7 @@ public class AnimatedChars {
 	 * Utility method to load images using path
 	 */
 	public static void add(String name, String imagePath, String masksPath, int charWidth, int charHeight, int sheetWidth,
-	                       int sheetHeight, int firstDir) {
+			int sheetHeight, int firstDir) {
 
 		BitmapData images = StaticAssetLoaderUtility.getEmbeddedImage(imagePath);
 

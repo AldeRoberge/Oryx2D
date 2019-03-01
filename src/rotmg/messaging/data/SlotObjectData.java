@@ -1,10 +1,10 @@
 package rotmg.messaging.data;
 
-import alde.flash.utils.IData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.IData;
 
 
 public class SlotObjectData implements IData {
@@ -16,17 +16,17 @@ public class SlotObjectData implements IData {
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 
-		objectId = in.readInt();
-		slotId = in.readUnsignedByte();
-		objectType = in.readInt();
+		this.objectId = in.readInt();
+		this.slotId = in.readUnsignedByte();
+		this.objectType = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
 
-		out.writeInt(objectId);
-		out.writeByte(slotId);
-		out.writeInt(objectType);
+		out.writeInt(this.objectId);
+		out.writeByte(this.slotId);
+		out.writeInt(this.objectType);
 	}
 
 }

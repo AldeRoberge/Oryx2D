@@ -1,17 +1,16 @@
 package rotmg.map.partyoverlay;
 
-import rotmg.ui.tooltip.PortraitToolTip;
+import static flash.utils.timer.getTimer.getTimer;
+
 import flash.events.MouseEvent;
 import rotmg.map.Camera;
 import rotmg.map.Map;
 import rotmg.map.Quest;
 import rotmg.objects.GameObject;
-import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
+import rotmg.ui.tooltip.PortraitToolTip;
 import rotmg.ui.tooltip.QuestToolTip;
 import rotmg.ui.tooltip.ToolTip;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 public class QuestArrow extends GameObjectArrow {
 
@@ -23,7 +22,7 @@ public class QuestArrow extends GameObjectArrow {
 	}
 
 	public void refreshToolTip() {
-		setToolTip(this.getToolTip(go, getTimer()));
+		this.setToolTip(this.getToolTip(this.go, getTimer()));
 	}
 
 	@Override
@@ -39,11 +38,11 @@ public class QuestArrow extends GameObjectArrow {
 	}
 
 	private ToolTip getToolTip(GameObject param1, int param2) {
-		if (param1 == null || param1.texture == null) {
+		if ((param1 == null) || (param1.texture == null)) {
 			return null;
 		}
 		if (this.shouldShowFullQuest(param2)) {
-			return new QuestToolTip(go);
+			return new QuestToolTip(this.go);
 		}
 		if (Data.showQuestPortraits) {
 			return new PortraitToolTip(param1);
@@ -53,7 +52,7 @@ public class QuestArrow extends GameObjectArrow {
 
 	private boolean shouldShowFullQuest(int param1) {
 		Quest loc2 = this.map.quest;
-		return mouseOver || loc2.isNew(param1);
+		return this.mouseOver || loc2.isNew(param1);
 	}
 
 	@Override
@@ -61,14 +60,14 @@ public class QuestArrow extends GameObjectArrow {
 		Object loc4 = false;
 		boolean loc5 = false;
 		GameObject loc3 = this.map.quest.getObject(param1);
-		if (loc3 != go) {
-			setGameObject(loc3);
-			setToolTip(this.getToolTip(loc3, param1));
-		} else if (go != null) {
-			loc4 = tooltip instanceof QuestToolTip;
+		if (loc3 != this.go) {
+			this.setGameObject(loc3);
+			this.setToolTip(this.getToolTip(loc3, param1));
+		} else if (this.go != null) {
+			loc4 = this.tooltip instanceof QuestToolTip;
 			loc5 = this.shouldShowFullQuest(param1);
 			if (!loc4.equals(loc5)) {
-				setToolTip(this.getToolTip(loc3, param1));
+				this.setToolTip(this.getToolTip(loc3, param1));
 			}
 		}
 		super.draw(param1, param2);

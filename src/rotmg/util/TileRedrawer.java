@@ -111,16 +111,16 @@ public class TileRedrawer {
 			loc8 = true;
 			loc9 = true;
 		}
-		if (!loc6 && loc3.get(0) != loc3.get(4)) {
+		if (!loc6 && (loc3.get(0) != loc3.get(4))) {
 			loc6 = true;
 		}
-		if (!loc7 && loc3.get(2) != loc3.get(4)) {
+		if (!loc7 && (loc3.get(2) != loc3.get(4))) {
 			loc7 = true;
 		}
-		if (!loc8 && loc3.get(6) != loc3.get(4)) {
+		if (!loc8 && (loc3.get(6) != loc3.get(4))) {
 			loc8 = true;
 		}
-		if (!loc9 && loc3.get(8) != loc3.get(4)) {
+		if (!loc9 && (loc3.get(8) != loc3.get(4))) {
 			loc9 = true;
 		}
 		if (!loc6 && !loc7 && !loc8 && !loc9) {
@@ -152,10 +152,10 @@ public class TileRedrawer {
 	private static void redrawRect(BitmapData param1, Rectangle param2, Point param3, Vector<ImageSet> param4, int param5, int param6, int param7, int param8) {
 		BitmapData loc9 = null;
 		BitmapData loc10 = null;
-		if (param5 == param6 && param5 == param8) {
+		if ((param5 == param6) && (param5 == param8)) {
 			loc10 = param4.get(OUTER).random();
 			loc9 = GroundLibrary.getBitmapData(param7);
-		} else if (param5 != param6 && param5 != param8) {
+		} else if ((param5 != param6) && (param5 != param8)) {
 			if (param6 != param8) {
 				param1.copyPixels(GroundLibrary.getBitmapData(param6), param2, param3, param4.get(INNERP1).random(), p0, true);
 				param1.copyPixels(GroundLibrary.getBitmapData(param8), param2, param3, param4.get(INNERP2).random(), p0, true);
@@ -180,14 +180,14 @@ public class TileRedrawer {
 		Map loc3 = param1.map;
 		int loc4 = param1.tileType;
 		int loc5 = param1.y - 1;
-		while (loc5 <= param1.y + 1) {
+		while (loc5 <= (param1.y + 1)) {
 			loc6 = param1.x - 1;
-			while (loc6 <= param1.x + 1) {
-				if (loc6 < 0 || loc6 >= loc3.width || loc5 < 0 || loc5 >= loc3.height || loc6 == param1.x && loc5 == param1.y) {
+			while (loc6 <= (param1.x + 1)) {
+				if ((loc6 < 0) || (loc6 >= loc3.width) || (loc5 < 0) || (loc5 >= loc3.height) || ((loc6 == param1.x) && (loc5 == param1.y))) {
 					loc2.add(loc4);
 				} else {
-					loc7 = AbstractMap.squares.get(loc6 + loc5 * loc3.width);
-					if (loc7 == null || loc7.props.blendPriority <= param1.props.blendPriority) {
+					loc7 = AbstractMap.squares.get(loc6 + (loc5 * loc3.width));
+					if ((loc7 == null) || (loc7.props.blendPriority <= param1.props.blendPriority)) {
 						loc2.add(loc4);
 					} else {
 						loc2.add(loc7.tileType);
@@ -241,33 +241,33 @@ public class TileRedrawer {
 		int loc11 = loc7 != null ? loc7.props.compositePriority : -1;
 		int loc12 = loc8 != null ? loc8.props.compositePriority : -1;
 		int loc13 = loc9 != null ? loc9.props.compositePriority : -1;
-		if (loc10 < 0 && loc11 < 0) {
+		if ((loc10 < 0) && (loc11 < 0)) {
 			loc14 = loc3.lookupSquare(loc4 - 1, loc5 - 1);
-			loc2.put(0, loc14 == null || loc14.props.compositePriority < 0 ? 255 : loc14.tileType);
+			loc2.put(0, (loc14 == null) || (loc14.props.compositePriority < 0) ? 255 : loc14.tileType);
 		} else if (loc10 < loc11) {
 			loc2.put(0, loc7.tileType);
 		} else {
 			loc2.put(0, loc6.tileType);
 		}
-		if (loc10 < 0 && loc12 < 0) {
+		if ((loc10 < 0) && (loc12 < 0)) {
 			loc15 = loc3.lookupSquare(loc4 + 1, loc5 - 1);
-			loc2.put(1, loc15 == null || loc15.props.compositePriority < 0 ? 255 : loc15.tileType);
+			loc2.put(1, (loc15 == null) || (loc15.props.compositePriority < 0) ? 255 : loc15.tileType);
 		} else if (loc10 < loc12) {
 			loc2.put(1, loc8.tileType);
 		} else {
 			loc2.put(1, loc6.tileType);
 		}
-		if (loc11 < 0 && loc13 < 0) {
+		if ((loc11 < 0) && (loc13 < 0)) {
 			loc16 = loc3.lookupSquare(loc4 - 1, loc5 + 1);
-			loc2.put(2, loc16 == null || loc16.props.compositePriority < 0 ? 255 : loc16.tileType);
+			loc2.put(2, (loc16 == null) || (loc16.props.compositePriority < 0) ? 255 : loc16.tileType);
 		} else if (loc11 < loc13) {
 			loc2.put(2, loc9.tileType);
 		} else {
 			loc2.put(2, loc7.tileType);
 		}
-		if (loc12 < 0 && loc13 < 0) {
+		if ((loc12 < 0) && (loc13 < 0)) {
 			loc17 = loc3.lookupSquare(loc4 + 1, loc5 + 1);
-			loc2.put(3, loc17 == null || loc17.props.compositePriority < 0 ? 255 : loc17.tileType);
+			loc2.put(3, (loc17 == null) || (loc17.props.compositePriority < 0) ? 255 : loc17.tileType);
 		} else if (loc12 < loc13) {
 			loc2.put(3, loc9.tileType);
 		} else {
@@ -307,17 +307,17 @@ public class TileRedrawer {
 		boolean loc4 = false;
 		boolean loc5 = param1.props.sameTypeEdgeMode;
 		int loc6 = param1.y - 1;
-		while (loc6 <= param1.y + 1) {
+		while (loc6 <= (param1.y + 1)) {
 			loc7 = param1.x - 1;
-			while (loc7 <= param1.x + 1) {
+			while (loc7 <= (param1.x + 1)) {
 				loc8 = loc3.lookupSquare(loc7, loc6);
-				if (loc7 == param1.x && loc6 == param1.y) {
+				if ((loc7 == param1.x) && (loc6 == param1.y)) {
 					loc2.add(loc8.tileType);
 				} else {
 					if (loc5) {
-						loc9 = loc8 == null || loc8.tileType == param1.tileType;
+						loc9 = (loc8 == null) || (loc8.tileType == param1.tileType);
 					} else {
-						loc9 = loc8 == null || loc8.tileType != 255;
+						loc9 = (loc8 == null) || (loc8.tileType != 255);
 					}
 					loc2.add(loc9);
 					loc4 = loc4 || !loc9;

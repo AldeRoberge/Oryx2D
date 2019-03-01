@@ -1,20 +1,20 @@
 package alde.flash.utils;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.incoming.IncomingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.incoming.IncomingMessage;
+
 /**
  * Unused class kept from Realm-Relay
  */
 public class UnknownPacket extends IncomingMessage {
 
-	private final List<Byte> bytes = new LinkedList<Byte>();
+	private final List<Byte> bytes = new LinkedList<>();
 	private byte id;
 
 	public UnknownPacket(int id, MessageConsumer callback) {

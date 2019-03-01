@@ -1,10 +1,11 @@
 package rotmg.classes.model;
 
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.utils.Dictionary;
+import java.util.ArrayList;
+
 import org.osflash.signals.Signal;
 
-import java.util.ArrayList;
+import alde.flash.utils.consumer.SignalConsumer;
+import flash.utils.Dictionary;
 
 /**
  * The Class selection model for the UI (create new character)
@@ -64,7 +65,7 @@ public class ClassesModel {
 
 	private CharacterClass makeCharacterClass() {
 		CharacterClass _loc1 = new CharacterClass();
-		_loc1.selected.add(new SignalConsumer<CharacterClass>(this::onClassSelected));
+		_loc1.selected.add(new SignalConsumer<>(this::onClassSelected));
 		this.classes.add(_loc1);
 		this.count = this.classes.size();
 		return _loc1;

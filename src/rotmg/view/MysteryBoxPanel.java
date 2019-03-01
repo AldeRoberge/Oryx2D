@@ -1,12 +1,13 @@
 package rotmg.view;
 
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import org.osflash.signals.Signal;
 import rotmg.GameSprite;
 import rotmg.objects.SellableObject;
 import rotmg.parameters.Parameters;
@@ -77,14 +78,14 @@ public class MysteryBoxPanel extends Panel {
 	}
 
 	private void onAddedToStage(Event param1) {
-		stage.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
+		this.stage.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
 		this.icon.x = -4;
 		this.icon.y = -8;
 		this.nameText.x = 44;
 	}
 
 	private void onRemovedFromStage(Event param1) {
-		stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
+		this.stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
 		this.infoButton.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onInfoButtonClick));
 	}
 
@@ -112,7 +113,7 @@ public class MysteryBoxPanel extends Panel {
 	}
 
 	private void onKeyDown(KeyboardEvent param1) {
-		if (param1.keyCode == Parameters.data.interact && stage.focus == null) {
+		if ((param1.keyCode == Parameters.data.interact) && (this.stage.focus == null)) {
 			this.onInfoButton();
 		}
 	}
@@ -120,10 +121,10 @@ public class MysteryBoxPanel extends Panel {
 	@Override
 	public void draw() {
 		this.nameText.y = this.nameText.height > 30 ? 0 : 12;
-		this.infoButton.x = WIDTH / 2 - this.infoButton.width / 2;
-		this.infoButton.y = HEIGHT - this.infoButton.height / 2 - this.BUTTON_OFFSET;
-		if (!contains(this.infoButton)) {
-			addChild(this.infoButton);
+		this.infoButton.x = (WIDTH / 2) - (this.infoButton.width / 2);
+		this.infoButton.y = HEIGHT - (this.infoButton.height / 2) - this.BUTTON_OFFSET;
+		if (!this.contains(this.infoButton)) {
+			this.addChild(this.infoButton);
 		}
 	}
 }

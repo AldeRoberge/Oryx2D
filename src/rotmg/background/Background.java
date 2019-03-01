@@ -18,19 +18,19 @@ public class Background extends Sprite {
 
 	public Background() {
 		super();
-		visible = false;
+		this.visible = false;
 	}
 
 	public static Background getBackground(int param1) {
 		switch (param1) {
-			case NO_BACKGROUND:
-				return null;
-			case STAR_BACKGROUND:
-				return new StarBackground();
-			case NEXUS_BACKGROUND:
-				return new NexusBackground();
-			default:
-				return null;
+		case NO_BACKGROUND:
+			return null;
+		case STAR_BACKGROUND:
+			return new StarBackground();
+		case NEXUS_BACKGROUND:
+			return new NexusBackground();
+		default:
+			return null;
 		}
 	}
 

@@ -24,24 +24,24 @@ public class WebMain extends Sprite {
 
 	public WebMain() {
 		super();
-		if (stage != null) {
+		if (this.stage != null) {
 			this.setup();
 		} else {
-			addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
+			this.addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
 		}
 	}
 
 	private void onAddedToStage(Event param1) {
-		removeEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
+		this.removeEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
 		this.setup();
 	}
 
 	private void setup() {
-		STAGE = stage;
+		STAGE = this.stage;
 		this.hackParameters();
 		this.createContext();
 		new AssetLoader().load();
-		stage.scaleMode = StageScaleMode.EXACT_FIT;
+		this.stage.scaleMode = StageScaleMode.EXACT_FIT;
 		StartupSignal.getInstance().dispatch();
 		this.configureForAirIfDesktopPlayer();
 		UIUtils.toggleQuality(Parameters.data.uiQuality);
@@ -65,7 +65,7 @@ public class WebMain extends Sprite {
 	}
 
 	private void hackParameters() {
-		Parameters.root = stage.root;
+		Parameters.root = this.stage.root;
 	}
 
 	private void createContext() {

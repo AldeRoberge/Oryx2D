@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.ObjectStatusData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.ObjectStatusData;
 
 public class NewTick extends IncomingMessage {
 
@@ -19,22 +19,22 @@ public class NewTick extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		tickId = in.readInt();
-		tickTime = in.readInt();
-		statuses = new ObjectStatusData[in.readShort()];
-		for (int i = 0; i < statuses.length; i++) {
+		this.tickId = in.readInt();
+		this.tickTime = in.readInt();
+		this.statuses = new ObjectStatusData[in.readShort()];
+		for (int i = 0; i < this.statuses.length; i++) {
 			ObjectStatusData ObjectStatusData = new ObjectStatusData();
 			ObjectStatusData.parseFromInput(in);
-			statuses[i] = ObjectStatusData;
+			this.statuses[i] = ObjectStatusData;
 		}
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(tickId);
-		out.writeInt(tickTime);
-		out.writeShort(statuses.length);
-		for (ObjectStatusData ObjectStatusData : statuses) {
+		out.writeInt(this.tickId);
+		out.writeInt(this.tickTime);
+		out.writeShort(this.statuses.length);
+		for (ObjectStatusData ObjectStatusData : this.statuses) {
 			ObjectStatusData.writeToOutput(out);
 		}
 	}

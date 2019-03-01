@@ -1,10 +1,10 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class EditAccountList extends OutgoingMessage {
 
@@ -18,16 +18,16 @@ public class EditAccountList extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		accountListId = in.readInt();
-		add = in.readBoolean();
-		objectId = in.readInt();
+		this.accountListId = in.readInt();
+		this.add = in.readBoolean();
+		this.objectId = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(accountListId);
-		out.writeBoolean(add);
-		out.writeInt(objectId);
+		out.writeInt(this.accountListId);
+		out.writeBoolean(this.add);
+		out.writeInt(this.objectId);
 	}
 
 }

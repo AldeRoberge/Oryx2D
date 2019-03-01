@@ -20,7 +20,7 @@ public class BloodComposition {
 		if (loc5 != null) {
 			return loc5;
 		}
-		loc5 = new Vector<Integer>();
+		loc5 = new Vector<>();
 		Vector<Integer> loc6 = getColors(param2);
 		int loc7 = 0;
 		while (loc7 < loc6.length) {
@@ -46,7 +46,7 @@ public class BloodComposition {
 	private static Vector<Integer> buildColors(BitmapData param1) {
 		int loc4 = 0;
 		int loc5 = 0;
-		Vector<Integer> loc2 = new Vector<Integer>();
+		Vector<Integer> loc2 = new Vector<>();
 		int loc3 = 0;
 		while (loc3 < param1.width) {
 			loc4 = 0;

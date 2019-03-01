@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Damage extends IncomingMessage {
 
@@ -22,30 +22,30 @@ public class Damage extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		targetId = in.readInt();
-		effects = new int[in.readUnsignedByte()];
-		for (int i = 0; i < effects.length; i++) {
-			effects[i] = in.readUnsignedByte();
+		this.targetId = in.readInt();
+		this.effects = new int[in.readUnsignedByte()];
+		for (int i = 0; i < this.effects.length; i++) {
+			this.effects[i] = in.readUnsignedByte();
 		}
-		damageAmount = in.readUnsignedShort();
-		kill = in.readBoolean();
-		armorPierce = in.readBoolean();
-		bulletId = in.readUnsignedByte();
-		objectId = in.readInt();
+		this.damageAmount = in.readUnsignedShort();
+		this.kill = in.readBoolean();
+		this.armorPierce = in.readBoolean();
+		this.bulletId = in.readUnsignedByte();
+		this.objectId = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(targetId);
-		out.writeByte(effects.length);
-		for (int effect : effects) {
+		out.writeInt(this.targetId);
+		out.writeByte(this.effects.length);
+		for (int effect : this.effects) {
 			out.writeByte(effect);
 		}
-		out.writeShort(damageAmount);
-		out.writeBoolean(kill);
-		out.writeBoolean(armorPierce);
-		out.writeByte(bulletId);
-		out.writeInt(objectId);
+		out.writeShort(this.damageAmount);
+		out.writeBoolean(this.kill);
+		out.writeBoolean(this.armorPierce);
+		out.writeByte(this.bulletId);
+		out.writeInt(this.objectId);
 	}
 
 }

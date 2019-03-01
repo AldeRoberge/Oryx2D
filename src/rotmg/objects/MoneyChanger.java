@@ -2,14 +2,14 @@ package rotmg.objects;
 
 import alde.flash.utils.XML;
 import rotmg.GameSprite;
-import rotmg.view.MoneyChangerPanel;
 import rotmg.ui.panels.Panel;
+import rotmg.view.MoneyChangerPanel;
 
 public class MoneyChanger extends GameObject implements IInteractiveObject {
 
 	public MoneyChanger(XML param1) {
 		super(param1);
-		isInteractive = true;
+		this.isInteractive = true;
 	}
 
 	@Override

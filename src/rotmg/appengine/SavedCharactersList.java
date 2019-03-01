@@ -60,9 +60,9 @@ public class SavedCharactersList extends Event {
 		super(SAVED_CHARS_LIST);
 
 		Account loc5 = null;
-		this.savedChars = new Vector<SavedCharacter>();
+		this.savedChars = new Vector<>();
 		this.charStats = new Dictionary<>();
-		this.news = new Vector<SavedNewsItem>();
+		this.news = new Vector<>();
 		this.origData = param1;
 		this.charsXML = new XML(this.origData);
 		XML loc2 = this.charsXML.child("Account");
@@ -113,7 +113,7 @@ public class SavedCharactersList extends Event {
 		this.credits = param1.getIntValue("Credits");
 		this.tokens = param1.getIntValue("FortuneToken");
 		this.nextCharSlotPrice = param1.getIntValue("NextCharSlotPrice");
-		this.isAgeVerified = this.accountId != "" && param1.getIntValue("IsAgeVerified") == 1;
+		this.isAgeVerified = (this.accountId != "") && (param1.getIntValue("IsAgeVerified") == 1);
 		this.hasPlayerDied = true;
 	}
 
@@ -263,7 +263,7 @@ public class SavedCharactersList extends Event {
 					loc10 = ObjectLibrary.idToType.get(loc9.toString());
 					loc11 = loc9.getIntAttribute("level");
 					if (this.bestLevel(loc10) < loc11) {
-						if (loc10 != param1 || loc11 != param2) {
+						if ((loc10 != param1) || (loc11 != param2)) {
 							loc7 = false;
 							break;
 						}

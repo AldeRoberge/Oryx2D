@@ -24,7 +24,7 @@ public class GoogleAnalytics {
 
 
 	public void trackEvent(String param1, String param2) {
-		trackEvent(param1, param2, "", 0);
+		this.trackEvent(param1, param2, "", 0);
 	}
 
 	public void trackEvent(String param1, String param2, String param3, double param4) {

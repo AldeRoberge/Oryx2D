@@ -1,9 +1,15 @@
 package rotmg.util;
 
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import alde.flash.utils.Vector;
 import alde.flash.utils.XML;
 import flash.utils.Dictionary;
-import org.w3c.dom.Document;
 import rotmg.WebMain;
 import rotmg.map.GroundLibrary;
 import rotmg.map.RegionLibrary;
@@ -15,10 +21,6 @@ import rotmg.sound.IMusic;
 import rotmg.sound.SFX;
 import rotmg.sound.SoundEffectLibrary;
 import rotmg.ui.Options;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.InputStream;
 
 public class AssetLoader {
 

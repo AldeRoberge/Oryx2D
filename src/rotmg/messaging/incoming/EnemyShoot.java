@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.WorldPosData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.WorldPosData;
 
 public class EnemyShoot extends IncomingMessage {
 
@@ -20,38 +20,38 @@ public class EnemyShoot extends IncomingMessage {
 
 	public EnemyShoot(int id, MessageConsumer callback) {
 		super(id, callback);
-		startingPos = new WorldPosData();
+		this.startingPos = new WorldPosData();
 	}
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		bulletId = in.readUnsignedByte();
-		ownerId = in.readInt();
-		bulletType = in.readUnsignedByte();
-		startingPos.parseFromInput(in);
-		angle = in.readFloat();
-		damage = in.readShort();
+		this.bulletId = in.readUnsignedByte();
+		this.ownerId = in.readInt();
+		this.bulletType = in.readUnsignedByte();
+		this.startingPos.parseFromInput(in);
+		this.angle = in.readFloat();
+		this.damage = in.readShort();
 
 		try {
-			numShots = in.readUnsignedByte();
-			angleInc = in.readFloat();
+			this.numShots = in.readUnsignedByte();
+			this.angleInc = in.readFloat();
 		} catch (IOException e) {
-			numShots = 1;
-			angleInc = 0;
+			this.numShots = 1;
+			this.angleInc = 0;
 		}
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeByte(bulletId);
-		out.writeInt(ownerId);
-		out.writeByte(bulletType);
-		startingPos.writeToOutput(out);
-		out.writeDouble(angle);
-		out.writeShort(damage);
-		if (numShots != 1) {
-			out.writeByte(numShots);
-			out.writeDouble(angleInc);
+		out.writeByte(this.bulletId);
+		out.writeInt(this.ownerId);
+		out.writeByte(this.bulletType);
+		this.startingPos.writeToOutput(out);
+		out.writeDouble(this.angle);
+		out.writeShort(this.damage);
+		if (this.numShots != 1) {
+			out.writeByte(this.numShots);
+			out.writeDouble(this.angleInc);
 		}
 	}
 

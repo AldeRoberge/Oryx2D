@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class EvolvedPetMessage extends IncomingMessage {
 
@@ -18,16 +18,16 @@ public class EvolvedPetMessage extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		petID = in.readInt();
-		initialSkin = in.readInt();
-		finalSkin = in.readInt();
+		this.petID = in.readInt();
+		this.initialSkin = in.readInt();
+		this.finalSkin = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(petID);
-		out.writeInt(initialSkin);
-		out.writeInt(finalSkin);
+		out.writeInt(this.petID);
+		out.writeInt(this.initialSkin);
+		out.writeInt(this.finalSkin);
 	}
 
 }

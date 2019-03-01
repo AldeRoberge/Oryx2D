@@ -1,5 +1,7 @@
 package rotmg.view;
 
+import static flash.utils.timer.getTimer.getTimer;
+
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
 import robotlegs.bender.bundles.mvcs.Mediator;
@@ -40,8 +42,6 @@ import rotmg.ui.popups.signals.ShowPopupSignal;
 import rotmg.ui.signals.HUDModelInitialized;
 import rotmg.ui.signals.HUDSetupStarted;
 import rotmg.ui.signals.UpdateHUDSignal;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 
 public class GameSpriteMediator extends Mediator {
@@ -116,7 +116,7 @@ public class GameSpriteMediator extends Mediator {
 
 	public static void sleepForMs(int param1) {
 		int loc2 = getTimer();
-		while (getTimer() - loc2 < param1) {
+		while ((getTimer() - loc2) < param1) {
 		}
 	}
 
@@ -125,7 +125,7 @@ public class GameSpriteMediator extends Mediator {
 		this.showLoadingViewSignal.dispatch();
 		this.view.packageModel = this.packageModel;
 		this.setWorldInteraction.add(new SignalConsumer<>(this::onSetWorldInteraction));
-		addViewListener(ReconnectEvent.RECONNECT, new EventConsumer<>(this::onReconnect));
+		this.addViewListener(ReconnectEvent.RECONNECT, new EventConsumer<>(this::onReconnect));
 		this.view.modelInitialized.add(new SignalConsumer<>(this::onGameSpriteModelInitialized));
 		this.view.drawCharacterWindow.add(new SignalConsumer<>(this::onStatusPanelDraw));
 		this.hudModelInitialized.add(new SignalConsumer<>(this::onHUDModelInitialized));
@@ -161,7 +161,7 @@ public class GameSpriteMediator extends Mediator {
 	public void destroy() {
 		this.view.showPackage.remove(new SignalConsumer<>(this::onShowPackage));
 		this.setWorldInteraction.remove(new SignalConsumer<>(this::onSetWorldInteraction));
-		removeViewListener(ReconnectEvent.RECONNECT, new SignalConsumer<>(this::onReconnect));
+		this.removeViewListener(ReconnectEvent.RECONNECT, new SignalConsumer<>(this::onReconnect));
 		this.view.modelInitialized.remove(new SignalConsumer<>(this::onGameSpriteModelInitialized));
 		this.view.drawCharacterWindow.remove(new SignalConsumer<>(this::onStatusPanelDraw));
 		this.hudModelInitialized.remove(new SignalConsumer<>(this::onHUDModelInitialized));

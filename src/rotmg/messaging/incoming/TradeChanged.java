@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class TradeChanged extends IncomingMessage {
 
@@ -16,16 +16,16 @@ public class TradeChanged extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		offers = new boolean[in.readShort()];
-		for (int i = 0; i < offers.length; i++) {
-			offers[i] = in.readBoolean();
+		this.offers = new boolean[in.readShort()];
+		for (int i = 0; i < this.offers.length; i++) {
+			this.offers[i] = in.readBoolean();
 		}
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeShort(offers.length);
-		for (boolean b : offers) {
+		out.writeShort(this.offers.length);
+		for (boolean b : this.offers) {
 			out.writeBoolean(b);
 		}
 	}

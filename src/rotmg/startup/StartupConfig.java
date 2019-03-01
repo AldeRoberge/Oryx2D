@@ -1,6 +1,7 @@
 package rotmg.startup;
 
 import org.swiftsuspenders.Injector;
+
 import robotlegs.bender.extensions.signalCommandMap.api.ISignalCommandMap;
 import robotlegs.bender.framework.api.IConfig;
 

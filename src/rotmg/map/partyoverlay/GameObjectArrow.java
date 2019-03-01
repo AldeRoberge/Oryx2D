@@ -1,7 +1,7 @@
 package rotmg.map.partyoverlay;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.airglobal.Graphics;
 import flash.airglobal.Shape;
 import flash.display.DisplayObjectContainer;
@@ -45,19 +45,19 @@ public class GameObjectArrow extends Sprite {
 
 	public GameObjectArrow(int param1, int param2, boolean param3) {
 		super();
-		this.extraGOs = new Vector<GameObject>();
+		this.extraGOs = new Vector<>();
 		this.arrow = new Shape();
 		this.tempPoint = new Point();
 		this.lineColor = param1;
 		this.fillColor = param2;
 		this.big = param3;
-		addChild(this.arrow);
+		this.addChild(this.arrow);
 		this.drawArrow();
-		addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
-		addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
-		addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-		filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 8, 8));
-		visible = false;
+		this.addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
+		this.addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
+		this.addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
+		this.filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 8, 8));
+		this.visible = false;
 	}
 
 	public static void removeMenu() {
@@ -87,7 +87,7 @@ public class GameObjectArrow extends Sprite {
 		this.removeTooltip();
 		this.tooltip = param1;
 		if (this.tooltip != null) {
-			addChild(this.tooltip);
+			this.addChild(this.tooltip);
 			this.positionTooltip(this.tooltip);
 		}
 	}
@@ -113,7 +113,7 @@ public class GameObjectArrow extends Sprite {
 		}
 		this.extraGOs.length = 0;
 		if (this.go == null) {
-			visible = false;
+			this.visible = false;
 		}
 	}
 
@@ -126,7 +126,7 @@ public class GameObjectArrow extends Sprite {
 		double loc4 = 0;
 		double loc5 = 0;
 		if (this.go == null) {
-			visible = false;
+			this.visible = false;
 			return;
 		}
 		this.go.computeSortVal(param2);
@@ -135,20 +135,20 @@ public class GameObjectArrow extends Sprite {
 		loc5 = this.go.posS.get(1);
 		if (!RectangleUtil.lineSegmentIntersectXY(param2.clipRect, 0, 0, loc4, loc5, this.tempPoint)) {
 			this.go = null;
-			visible = false;
+			this.visible = false;
 			return;
 		}
-		x = this.tempPoint.x;
-		y = this.tempPoint.y;
-		double loc6 = Trig.boundTo180(270 - Trig.toDegrees * Math.atan2(loc4, loc5));
-		if (this.tempPoint.x < loc3.left + 5) {
+		this.x = this.tempPoint.x;
+		this.y = this.tempPoint.y;
+		double loc6 = Trig.boundTo180(270 - (Trig.toDegrees * Math.atan2(loc4, loc5)));
+		if (this.tempPoint.x < (loc3.left + 5)) {
 			if (loc6 > 45) {
 				loc6 = 45;
 			}
 			if (loc6 < -45) {
 				loc6 = -45;
 			}
-		} else if (this.tempPoint.x > loc3.right - 5) {
+		} else if (this.tempPoint.x > (loc3.right - 5)) {
 			if (loc6 > 0) {
 				if (loc6 < 135) {
 					loc6 = 135;
@@ -157,14 +157,14 @@ public class GameObjectArrow extends Sprite {
 				loc6 = -135;
 			}
 		}
-		if (this.tempPoint.y < loc3.top + 5) {
+		if (this.tempPoint.y < (loc3.top + 5)) {
 			if (loc6 < 45) {
 				loc6 = 45;
 			}
 			if (loc6 > 135) {
 				loc6 = 135;
 			}
-		} else if (this.tempPoint.y > loc3.bottom - 5) {
+		} else if (this.tempPoint.y > (loc3.bottom - 5)) {
 			if (loc6 > -45) {
 				loc6 = -45;
 			}
@@ -176,7 +176,7 @@ public class GameObjectArrow extends Sprite {
 		if (this.tooltip != null) {
 			this.positionTooltip(this.tooltip);
 		}
-		visible = true;
+		this.visible = true;
 	}
 
 	private void positionTooltip(ToolTip param1) {
@@ -189,22 +189,22 @@ public class GameObjectArrow extends Sprite {
 		loc5 = loc3 * Math.sin(loc2 * Trig.toRadians);
 		double loc6 = param1.contentWidth;
 		double loc7 = param1.contentHeight;
-		if (loc2 >= 45 && loc2 <= 135) {
-			loc8 = loc4 + loc6 / Math.tan(loc2 * Trig.toRadians);
-			param1.x = (loc4 + loc8) / 2 - loc6 / 2;
+		if ((loc2 >= 45) && (loc2 <= 135)) {
+			loc8 = loc4 + (loc6 / Math.tan(loc2 * Trig.toRadians));
+			param1.x = ((loc4 + loc8) / 2) - (loc6 / 2);
 			param1.y = loc5;
-		} else if (loc2 <= -45 && loc2 >= -135) {
-			loc8 = loc4 - loc6 / Math.tan(loc2 * Trig.toRadians);
-			param1.x = (loc4 + loc8) / 2 - loc6 / 2;
+		} else if ((loc2 <= -45) && (loc2 >= -135)) {
+			loc8 = loc4 - (loc6 / Math.tan(loc2 * Trig.toRadians));
+			param1.x = ((loc4 + loc8) / 2) - (loc6 / 2);
 			param1.y = loc5 - loc7;
-		} else if (loc2 < 45 && loc2 > -45) {
+		} else if ((loc2 < 45) && (loc2 > -45)) {
 			param1.x = loc4;
-			loc9 = loc5 + loc7 * Math.tan(loc2 * Trig.toRadians);
-			param1.y = (loc5 + loc9) / 2 - loc7 / 2;
+			loc9 = loc5 + (loc7 * Math.tan(loc2 * Trig.toRadians));
+			param1.y = ((loc5 + loc9) / 2) - (loc7 / 2);
 		} else {
 			param1.x = loc4 - loc6;
-			loc9 = loc5 - loc7 * Math.tan(loc2 * Trig.toRadians);
-			param1.y = (loc5 + loc9) / 2 - loc7 / 2;
+			loc9 = loc5 - (loc7 * Math.tan(loc2 * Trig.toRadians));
+			param1.y = ((loc5 + loc9) / 2) - (loc7 / 2);
 		}
 	}
 

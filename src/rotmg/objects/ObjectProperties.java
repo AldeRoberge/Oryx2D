@@ -112,34 +112,34 @@ public class ObjectProperties {
 			this.projectiles.put(projectile.getIntAttribute("id"), new ProjectileProperties(projectile));
 		}
 		this.angleCorrection = param1.hasOwnProperty("AngleCorrection")
-				? (double) (param1.getDoubleValue("AngleCorrection") * Math.PI / 4)
-				: 0;
+				? (double) ((param1.getDoubleValue("AngleCorrection") * Math.PI) / 4)
+						: 0;
 
-		this.rotation = param1.hasOwnProperty("Rotation") ? param1.getDoubleValue("Rotation") : 0;
+				this.rotation = param1.hasOwnProperty("Rotation") ? param1.getDoubleValue("Rotation") : 0;
 
-		if (param1.hasOwnProperty("BloodProb")) {
-			this.bloodProb = param1.getDoubleValue("BloodProb");
-		}
-		if (param1.hasOwnProperty("BloodColor")) {
-			this.bloodColor = param1.getIntValue("BloodColor");
-		}
-		if (param1.hasOwnProperty("ShadowColor")) {
-			this.shadowColor = param1.getIntValue("ShadowColor");
-		}
+				if (param1.hasOwnProperty("BloodProb")) {
+					this.bloodProb = param1.getDoubleValue("BloodProb");
+				}
+				if (param1.hasOwnProperty("BloodColor")) {
+					this.bloodColor = param1.getIntValue("BloodColor");
+				}
+				if (param1.hasOwnProperty("ShadowColor")) {
+					this.shadowColor = param1.getIntValue("ShadowColor");
+				}
 
-		for (XML loc : param1.children("Sound")) {
-			if (this.sounds == null) {
-				this.sounds = new Dictionary<>();
-			}
-			this.sounds.put(loc.getIntAttribute("id"), loc.element.getNodeValue());
-		}
+				for (XML loc : param1.children("Sound")) {
+					if (this.sounds == null) {
+						this.sounds = new Dictionary<>();
+					}
+					this.sounds.put(loc.getIntAttribute("id"), loc.element.getNodeValue());
+				}
 
-		if (param1.hasOwnProperty("Portrait")) {
-			this.portrait = new TextureDataConcrete(param1.child("Portrait"));
-		}
-		if (param1.hasOwnProperty("WhileMoving")) {
-			this.whileMoving = new WhileMovingProperties(param1.child("WhileMoving"));
-		}
+				if (param1.hasOwnProperty("Portrait")) {
+					this.portrait = new TextureDataConcrete(param1.child("Portrait"));
+				}
+				if (param1.hasOwnProperty("WhileMoving")) {
+					this.whileMoving = new WhileMovingProperties(param1.child("WhileMoving"));
+				}
 	}
 
 	// Load sounds from RotMG API
@@ -157,15 +157,15 @@ public class ObjectProperties {
 			return this.minSize;
 		}
 		int size = (this.maxSize - this.minSize) / this.sizeStep;
-		return this.minSize + (int) (Math.random() * size) * this.sizeStep;
+		return this.minSize + ((int) (Math.random() * size) * this.sizeStep);
 	}
 
 
 	@Override
 	public String toString() {
 		return "ObjectProperties{" +
-				"type=" + type +
-				", id='" + id + '\'' +
+				"type=" + this.type +
+				", id='" + this.id + '\'' +
 				'}';
 	}
 }

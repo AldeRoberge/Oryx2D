@@ -1,10 +1,10 @@
 package rotmg.messaging.data;
 
-import alde.flash.utils.IData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.IData;
 
 public class TradeItem implements IData {
 
@@ -23,10 +23,10 @@ public class TradeItem implements IData {
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(item);
-		out.writeInt(slotType);
-		out.writeBoolean(tradeable);
-		out.writeBoolean(included);
+		out.writeInt(this.item);
+		out.writeInt(this.slotType);
+		out.writeBoolean(this.tradeable);
+		out.writeBoolean(this.included);
 	}
 
 }

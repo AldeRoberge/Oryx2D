@@ -1,7 +1,7 @@
 package rotmg.objects.particles;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.BitmapData;
 import flash.events.TimerEvent;
 import flash.geom.Point;
@@ -52,7 +52,7 @@ public class ShockerEffect extends ParticleEffect {
 
 	private void parseBitmapDataFromImageSet() {
 		int loc2 = 0;
-		images = new Vector<BitmapData>();
+		images = new Vector<>();
 		ImageSet loc1 = AssetLibrary.getImageSet("lofiParticlesShocker");
 		int loc3 = 9;
 		loc2 = 0;
@@ -70,8 +70,8 @@ public class ShockerEffect extends ParticleEffect {
 		if (this.timer == null) {
 			this.initialize();
 		}
-		x = this.go.x;
-		y = this.go.y;
+		this.x = this.go.x;
+		this.y = this.go.y;
 		return true;
 	}
 
@@ -84,11 +84,11 @@ public class ShockerEffect extends ParticleEffect {
 	}
 
 	public void onTimer() {
-		if (map != null) {
+		if (this.map != null) {
 			this.radians = Math.random() * 360 * (Math.PI / 180);
-			this.start = new Point(this.go.x + Math.sin(this.radians) * this.innerRadius, this.go.y + Math.cos(this.radians) * this.innerRadius);
-			this.end = new Point(this.go.x + Math.sin(this.radians) * this.outerRadius, this.go.y + Math.cos(this.radians) * this.outerRadius);
-			map.addObj(new ShockParticle(this.objectId, 25, this.particleScale, this.start, this.end, this.radians, this.go, images), this.start.x, this.start.y);
+			this.start = new Point(this.go.x + (Math.sin(this.radians) * this.innerRadius), this.go.y + (Math.cos(this.radians) * this.innerRadius));
+			this.end = new Point(this.go.x + (Math.sin(this.radians) * this.outerRadius), this.go.y + (Math.cos(this.radians) * this.outerRadius));
+			this.map.addObj(new ShockParticle(this.objectId, 25, this.particleScale, this.start, this.end, this.radians, this.go, images), this.start.x, this.start.y);
 		}
 	}
 

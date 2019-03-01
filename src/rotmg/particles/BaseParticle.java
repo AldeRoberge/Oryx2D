@@ -34,7 +34,7 @@ public class BaseParticle extends BasicObject {
 		this.path = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, null);
 		this.bitmapFill = new GraphicsBitmapFill(null, null, false, false);
 		this.bitmapFill.bitmapData = bitmapData;
-		objectId = getNextFakeObjectId();
+		this.objectId = getNextFakeObjectId();
 	}
 
 	public void initialize(double totalTime, double speedX, double speedY, double speedZ, int zPos) {
@@ -42,7 +42,7 @@ public class BaseParticle extends BasicObject {
 		this.spdX = speedX;
 		this.spdY = speedY;
 		this.spdZ = speedZ;
-		z = zPos;
+		this.z = zPos;
 	}
 
 	@Override
@@ -50,17 +50,17 @@ public class BaseParticle extends BasicObject {
 		double halfW = this.bitmapFill.bitmapData.width / 2;
 		double halfH = this.bitmapFill.bitmapData.height / 2;
 
-		this.vS.put(6, posS.get(3) - halfW);
-		this.vS.put(0, posS.get(3) - halfW);
+		this.vS.put(6, this.posS.get(3) - halfW);
+		this.vS.put(0, this.posS.get(3) - halfW);
 
-		this.vS.put(3, posS.get(4) - halfH);
-		this.vS.put(1, posS.get(4) - halfH);
+		this.vS.put(3, this.posS.get(4) - halfH);
+		this.vS.put(1, this.posS.get(4) - halfH);
 
-		this.vS.put(4, posS.get(3) + halfW);
-		this.vS.put(2, posS.get(3) + halfW);
+		this.vS.put(4, this.posS.get(3) + halfW);
+		this.vS.put(2, this.posS.get(3) + halfW);
 
-		this.vS.put(7, posS.get(4) + halfH);
-		this.vS.put(5, posS.get(4) + halfH);
+		this.vS.put(7, this.posS.get(4) + halfH);
+		this.vS.put(5, this.posS.get(4) + halfH);
 
 		this.path.data = this.vS;
 		this.fillMatrix.identity();
@@ -73,8 +73,8 @@ public class BaseParticle extends BasicObject {
 
 	@Override
 	public void removeFromMap() {
-		map = null;
-		square = null;
+		this.map = null;
+		this.square = null;
 	}
 
 

@@ -1,13 +1,5 @@
 package rotmg.net;
 
-import com.hurlant.crypto.symmetric.ICipher;
-import rotmg.AGameSprite;
-import rotmg.messaging.GameServerConnectionConcrete;
-import rotmg.net.impl.Message;
-import rotmg.net.impl.MessageCenter;
-import rotmg.parameters.Parameters;
-import rotmg.util.AssetLoader;
-
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,6 +8,15 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import com.hurlant.crypto.symmetric.ICipher;
+
+import rotmg.AGameSprite;
+import rotmg.messaging.GameServerConnectionConcrete;
+import rotmg.net.impl.Message;
+import rotmg.net.impl.MessageCenter;
+import rotmg.parameters.Parameters;
+import rotmg.util.AssetLoader;
 
 /**
  * This class is a very loose implementation of WildShadow's SocketServer,
@@ -40,7 +41,7 @@ public class SocketServer {
 	private DataInputStream inputStream = null;
 	private DataOutputStream outputStream = null;
 	private byte[] buffer = new byte[100000];
-	private BlockingDeque<Message> packetQueue = new LinkedBlockingDeque<Message>();
+	private BlockingDeque<Message> packetQueue = new LinkedBlockingDeque<>();
 
 	public static SocketServer getInstance() {
 		if (instance == null) {
@@ -76,9 +77,9 @@ public class SocketServer {
 	}
 
 	public void connect(String server, int port) {
-		bufferIndex = 0;
-		buffer = new byte[100000];
-		packetQueue.clear();
+		this.bufferIndex = 0;
+		this.buffer = new byte[100000];
+		this.packetQueue.clear();
 
 		this.server = server;
 		this.port = port;
@@ -86,14 +87,14 @@ public class SocketServer {
 		System.out.println("Connecting to " + server + ":" + port + ".");
 
 		try {
-			socket = new Socket(server, port);
-			socket.setReuseAddress(true);
+			this.socket = new Socket(server, port);
+			this.socket.setReuseAddress(true);
 
-			inputStream = new DataInputStream(socket.getInputStream());
-			outputStream = new DataOutputStream(socket.getOutputStream());
-			startTime = System.currentTimeMillis();
-			startThreadedListener();
-			startThreadedWriter();
+			this.inputStream = new DataInputStream(this.socket.getInputStream());
+			this.outputStream = new DataOutputStream(this.socket.getOutputStream());
+			this.startTime = System.currentTimeMillis();
+			this.startThreadedListener();
+			this.startThreadedWriter();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -104,45 +105,45 @@ public class SocketServer {
 
 	private void startThreadedListener() {
 
-		read = true;
+		this.read = true;
 		new Thread("threadedListenner") {
 
 			@Override
 			public void run() {
-				Socket sock = socket;
+				Socket sock = SocketServer.this.socket;
 				try {
-					while (sock != null && sock.isConnected() && read && !sock.isClosed()) {
+					while ((sock != null) && sock.isConnected() && SocketServer.this.read && !sock.isClosed()) {
 						Thread.sleep(20);
-						int bytesRead = inputStream.read(buffer, bufferIndex, buffer.length - bufferIndex);
+						int bytesRead = SocketServer.this.inputStream.read(SocketServer.this.buffer, SocketServer.this.bufferIndex, SocketServer.this.buffer.length - SocketServer.this.bufferIndex);
 						if (bytesRead == -1) {
-							if (packetQueue != null && packetQueue.size() > 0) {
-								packetQueue.clear();
+							if ((SocketServer.this.packetQueue != null) && (SocketServer.this.packetQueue.size() > 0)) {
+								SocketServer.this.packetQueue.clear();
 								System.err.println("EOF");
 							}
 							break;
 						} else if (bytesRead > 0) {
 
-							lastTimePacketReceived = System.currentTimeMillis();
-							bufferIndex += bytesRead;
-							while (bufferIndex >= 5) {
-								int packetLength = ((ByteBuffer) ByteBuffer.allocate(4).put(buffer[0]).put(buffer[1])
-										.put(buffer[2]).put(buffer[3]).rewind()).getInt();
-								if (buffer.length < packetLength) {
-									buffer = Arrays.copyOf(buffer, packetLength);
+							SocketServer.this.lastTimePacketReceived = System.currentTimeMillis();
+							SocketServer.this.bufferIndex += bytesRead;
+							while (SocketServer.this.bufferIndex >= 5) {
+								int packetLength = ((ByteBuffer) ByteBuffer.allocate(4).put(SocketServer.this.buffer[0]).put(SocketServer.this.buffer[1])
+										.put(SocketServer.this.buffer[2]).put(SocketServer.this.buffer[3]).rewind()).getInt();
+								if (SocketServer.this.buffer.length < packetLength) {
+									SocketServer.this.buffer = Arrays.copyOf(SocketServer.this.buffer, packetLength);
 								}
-								if (bufferIndex < packetLength) {
+								if (SocketServer.this.bufferIndex < packetLength) {
 									break;
 								}
-								byte packetId = buffer[4];
+								byte packetId = SocketServer.this.buffer[4];
 								byte[] packetBytes = new byte[packetLength - 5];
-								System.arraycopy(buffer, 5, packetBytes, 0, packetLength - 5);
-								if (bufferIndex > packetLength) {
-									System.arraycopy(buffer, packetLength, buffer, 0, bufferIndex - packetLength);
+								System.arraycopy(SocketServer.this.buffer, 5, packetBytes, 0, packetLength - 5);
+								if (SocketServer.this.bufferIndex > packetLength) {
+									System.arraycopy(SocketServer.this.buffer, packetLength, SocketServer.this.buffer, 0, SocketServer.this.bufferIndex - packetLength);
 								}
-								bufferIndex -= packetLength;
-								incomingCipher.cipher(packetBytes);
+								SocketServer.this.bufferIndex -= packetLength;
+								SocketServer.this.incomingCipher.cipher(packetBytes);
 
-								Message m = messages.require(packetId);
+								Message m = SocketServer.this.messages.require(packetId);
 
 								if (m == null) {
 									System.err.println("FATAL: Null packet... Id : " + packetId);
@@ -156,7 +157,7 @@ public class SocketServer {
 							}
 						}
 
-						int lastPacket = (int) ((System.currentTimeMillis() - lastTimePacketReceived));
+						int lastPacket = (int) ((System.currentTimeMillis() - SocketServer.this.lastTimePacketReceived));
 
 						/* if (lastPacket > 2000 && !packetQueue.isEmpty()) {
 						    reconnect(
@@ -174,21 +175,22 @@ public class SocketServer {
 	}
 
 	private void startThreadedWriter() {
-		write = true;
+		this.write = true;
 		new Thread("threadedWriter") {
 			@Override
 			public void run() {
-				while (socket != null && socket.isConnected() && write) {
+				while ((SocketServer.this.socket != null) && SocketServer.this.socket.isConnected() && SocketServer.this.write) {
 					long start = System.currentTimeMillis();
-					while (!packetQueue.isEmpty()) {
-						if (packetQueue != null && packetQueue.size() > 0) {
+					while (!SocketServer.this.packetQueue.isEmpty()) {
+						if ((SocketServer.this.packetQueue != null) && (SocketServer.this.packetQueue.size() > 0)) {
 							Message p = null;
-							p = packetQueue.peekLast();
+							p = SocketServer.this.packetQueue.peekLast();
 							if (p != null) {
-								sendMessage(p);
-								packetQueue.removeLast();
-							} else
+								SocketServer.this.sendMessage(p);
+								SocketServer.this.packetQueue.removeLast();
+							} else {
 								break;
+							}
 						}
 					}
 					int time = (int) (System.currentTimeMillis() - start);
@@ -208,13 +210,13 @@ public class SocketServer {
 	 */
 	public void sendMessage(Message packet) {
 		try {
-			if (write) {
+			if (this.write) {
 				byte[] packetBytes = packet.getBytes();
-				outgoingCipher.cipher(packetBytes);
+				this.outgoingCipher.cipher(packetBytes);
 				int packetLength = packetBytes.length + 5;
-				outputStream.writeInt(packetLength);
-				outputStream.writeByte(packet.id);
-				outputStream.write(packetBytes);
+				this.outputStream.writeInt(packetLength);
+				this.outputStream.writeByte(packet.id);
+				this.outputStream.write(packetBytes);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -1,7 +1,12 @@
 package rotmg.engine3d;
 
 import alde.flash.utils.Vector;
-import flash.display.*;
+import flash.display.BitmapData;
+import flash.display.GraphicsBitmapFill;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsPathCommand;
+import flash.display.GraphicsSolidFill;
+import flash.display.IGraphicsData;
 import flash.geom.Utils3D;
 import flash.geom.Vector3D;
 import rotmg.map.Camera;
@@ -36,7 +41,7 @@ public class Face3D {
 
 	public Face3D(BitmapData param1, Vector<Double> param2, Vector<Double> param3, boolean param4, boolean param5) {
 		Vector3D loc7 = null;
-		this.vout = new Vector<Double>();
+		this.vout = new Vector<>();
 		this.bitmapFill = new GraphicsBitmapFill(null, null, false, false);
 		this.path = new GraphicsPath(new Vector<Integer>(), null);
 		this.origTexture = param1;
@@ -109,7 +114,7 @@ public class Face3D {
 			loc12 = loc10.get(3) - loc10.get(1);
 			loc13 = loc10.get(4) - loc10.get(0);
 			loc14 = loc10.get(5) - loc10.get(1);
-			if (loc11 * loc14 - loc12 * loc13 > 0) {
+			if (((loc11 * loc14) - (loc12 * loc13)) > 0) {
 				return false;
 			}
 		}
@@ -122,7 +127,7 @@ public class Face3D {
 		int loc9 = 0;
 		while (loc9 < loc8) {
 			loc15 = loc9 + 1;
-			if (this.vout.get(loc9) >= loc3 && this.vout.get(loc9) <= loc5 && this.vout.get(loc15) >= loc4 && this.vout.get(loc15) <= loc6) {
+			if ((this.vout.get(loc9) >= loc3) && (this.vout.get(loc9) <= loc5) && (this.vout.get(loc15) >= loc4) && (this.vout.get(loc15) <= loc6)) {
 				loc7 = false;
 				break;
 			}
@@ -153,7 +158,7 @@ public class Face3D {
 		if (Triangle.containsXY(this.vout.get(0), this.vout.get(1), this.vout.get(2), this.vout.get(3), this.vout.get(4), this.vout.get(5), param1, param2)) {
 			return true;
 		}
-		if (this.vout.length == 8 && Triangle.containsXY(this.vout.get(0), this.vout.get(1), this.vout.get(4), this.vout.get(5), this.vout.get(6), this.vout.get(7), param1, param2)) {
+		if ((this.vout.length == 8) && Triangle.containsXY(this.vout.get(0), this.vout.get(1), this.vout.get(4), this.vout.get(5), this.vout.get(6), this.vout.get(7), param1, param2)) {
 			return true;
 		}
 		return false;

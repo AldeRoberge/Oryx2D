@@ -72,14 +72,14 @@ public class XML {
 
 	@Override
 	public String toString() {
-		return getTextValue();
+		return this.getTextValue();
 	}
 
 	public String name() {
-		if (element.getTagName() == null) {
-			return element.getParentNode().getNodeName();
+		if (this.element.getTagName() == null) {
+			return this.element.getParentNode().getNodeName();
 		} else {
-			return element.getTagName();
+			return this.element.getTagName();
 		}
 	}
 
@@ -87,7 +87,7 @@ public class XML {
 	 * Can be a substitute to .name()
 	 */
 	public String getTextValue() {
-		return element.getTextContent();
+		return this.element.getTextContent();
 	}
 
 	/**
@@ -96,11 +96,11 @@ public class XML {
 	public List<XML> children(String name) {
 		List<XML> xmls = new ArrayList<>();
 
-		NodeList childs = element.getChildNodes();
+		NodeList childs = this.element.getChildNodes();
 		for (int i = 0; i < childs.getLength(); i++) {
 			Node child = childs.item(i);
 
-			if (child instanceof Element && name.equals(child.getNodeName())) {
+			if ((child instanceof Element) && name.equals(child.getNodeName())) {
 				xmls.add(new XML((Element) child));
 			}
 		}
@@ -113,7 +113,7 @@ public class XML {
 	public List<XML> children() {
 		List<XML> xmls = new ArrayList<>();
 
-		NodeList list = element.getChildNodes();
+		NodeList list = this.element.getChildNodes();
 		for (int i = 0; i < list.getLength(); i++) {
 			if (list.item(i) instanceof Element) {
 				Element root = (Element) list.item(i);
@@ -125,8 +125,8 @@ public class XML {
 	}
 
 	public XML child(String name) {
-		for (Node child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
-			if (child instanceof Element && name.equals(child.getNodeName())) {
+		for (Node child = this.element.getFirstChild(); child != null; child = child.getNextSibling()) {
+			if ((child instanceof Element) && name.equals(child.getNodeName())) {
 				return new XML((Element) child);
 			}
 		}
@@ -134,7 +134,7 @@ public class XML {
 	}
 
 	public boolean hasOwnProperty(String tag) {
-		for (XML x : children(tag)) {
+		for (XML x : this.children(tag)) {
 			if (x.name().contains(tag)) {
 				return true;
 			}
@@ -147,19 +147,19 @@ public class XML {
 	 */
 
 	public String getValue(String tag) {
-		return child(tag).element.getTextContent();
+		return this.child(tag).element.getTextContent();
 		//return element.getElementsByTagName(tag).item(0).getTextContent();
 	}
 
 	public boolean getBooleanValue(String tag) {
-		return getBooleanValue(tag, false);
+		return this.getBooleanValue(tag, false);
 	}
 
 	/**
 	 * Boolean (0 or 1)
 	 */
 	public boolean getBooleanValue(String tag, boolean defaultValue) {
-		int value = getIntValue(tag, -1);
+		int value = this.getIntValue(tag, -1);
 
 		if (value == -1) {
 			log.error("Error : Could not get boolean value '" + tag + "' from int value.");
@@ -172,12 +172,12 @@ public class XML {
 	}
 
 	public int getIntValue(String tag) {
-		return getIntValue(tag, 0);
+		return this.getIntValue(tag, 0);
 	}
 
 	public int getIntValue(String tag, int defaultValue) {
 		try {
-			return hexToInt(checkIfHasZero(getValue(tag)));
+			return hexToInt(checkIfHasZero(this.getValue(tag)));
 		} catch (Exception e) {
 			log.error(e.getMessage() + " with getting integer value " + tag + ", returning " + defaultValue + ".");
 			return defaultValue;
@@ -185,20 +185,20 @@ public class XML {
 	}
 
 	public double getDoubleValue(String tag) {
-		return Double.parseDouble(checkIfHasZero(getValue(tag)));
+		return Double.parseDouble(checkIfHasZero(this.getValue(tag)));
 	}
 
 	public String getAttribute(String name) {
-		return element.getAttribute(name);
+		return this.element.getAttribute(name);
 	}
 
 	public int getIntAttribute(String name) {
-		return getIntAttribute(name, 0);
+		return this.getIntAttribute(name, 0);
 	}
 
 	public int getIntAttribute(String name, int defaultValue) {
 		try {
-			return hexToInt(checkIfHasZero(getAttribute(name)));
+			return hexToInt(checkIfHasZero(this.getAttribute(name)));
 		} catch (Exception e) {
 			log.error(e.getMessage() + " with getting double attribute '" + name + "', returning " + defaultValue + ".");
 			return defaultValue;
@@ -206,7 +206,7 @@ public class XML {
 	}
 
 	public double getDoubleAttribute(String name) {
-		return getDoubleAttribute(name, 0);
+		return this.getDoubleAttribute(name, 0);
 	}
 
 	/**
@@ -220,10 +220,10 @@ public class XML {
 	 */
 	public double getDoubleAttribute(String name, double defaultValue) {
 		try {
-			return Float.parseFloat(checkIfHasZero(getAttribute(name)));
+			return Float.parseFloat(checkIfHasZero(this.getAttribute(name)));
 		} catch (Exception e) {
 			try {
-				return Double.parseDouble(checkIfHasZero(getAttribute(name)));
+				return Double.parseDouble(checkIfHasZero(this.getAttribute(name)));
 			} catch (Exception a) {
 				log.error(a.getMessage() + " with getting double attribute " + name
 						+ ", returning " + defaultValue + "F.");

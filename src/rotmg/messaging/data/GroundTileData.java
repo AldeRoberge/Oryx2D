@@ -1,10 +1,10 @@
 package rotmg.messaging.data;
 
-import alde.flash.utils.IData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.IData;
 
 public class GroundTileData implements IData {
 
@@ -14,16 +14,16 @@ public class GroundTileData implements IData {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		x = in.readShort();
-		y = in.readShort();
-		type = in.readUnsignedShort();
+		this.x = in.readShort();
+		this.y = in.readShort();
+		this.type = in.readUnsignedShort();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeShort(x);
-		out.writeShort(y);
-		out.writeShort(type);
+		out.writeShort(this.x);
+		out.writeShort(this.y);
+		out.writeShort(this.type);
 	}
 
 }

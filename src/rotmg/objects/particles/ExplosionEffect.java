@@ -13,7 +13,7 @@ public class ExplosionEffect extends ParticleEffect {
 	public ExplosionEffect(Vector<Integer> param1, int param2, int param3) {
 		super();
 		this.colors = param1;
-		size = param2;
+		this.size = param2;
 		if (ExplosionParticle.total >= 250) {
 			this.numParts = 2;
 		} else if (ExplosionParticle.total >= 150) {
@@ -37,8 +37,8 @@ public class ExplosionEffect extends ParticleEffect {
 		int loc3 = 0;
 		while (loc3 < this.numParts) {
 			loc4 = this.colors.get((int) (this.colors.length * Math.random()));
-			loc5 = new ExplosionParticle(loc4, 0.5, size, (int) (200 + Math.random() * 100), Math.random() - 0.5, Math.random() - 0.5, 0);
-			map.addObj(loc5, x, y);
+			loc5 = new ExplosionParticle(loc4, 0.5, this.size, (int) (200 + (Math.random() * 100)), Math.random() - 0.5, Math.random() - 0.5, 0);
+			this.map.addObj(loc5, this.x, this.y);
 			loc3++;
 		}
 		return false;
@@ -57,8 +57,8 @@ public class ExplosionEffect extends ParticleEffect {
 		int loc3 = 0;
 		while (loc3 < this.numParts) {
 			loc4 = this.colors.get((int) (this.colors.length * Math.random()));
-			loc5 = new ExplosionParticle(loc4, 0.5, size, (int) (50 + Math.random() * 100), Math.random() - 0.5, Math.random() - 0.5, 0);
-			map.addObj(loc5, x, y);
+			loc5 = new ExplosionParticle(loc4, 0.5, this.size, (int) (50 + (Math.random() * 100)), Math.random() - 0.5, Math.random() - 0.5, 0);
+			this.map.addObj(loc5, this.x, this.y);
 			loc3++;
 		}
 		return false;
@@ -98,9 +98,9 @@ class ExplosionParticle extends Particle {
 			}
 			return false;
 		}
-		x = x + this.moveVec.x * param2 * 0.008;
-		y = y + this.moveVec.y * param2 * 0.008;
-		z = z + this.moveVec.z * param2 * 0.008;
+		this.x = this.x + (this.moveVec.x * param2 * 0.008);
+		this.y = this.y + (this.moveVec.y * param2 * 0.008);
+		this.z = this.z + (this.moveVec.z * param2 * 0.008);
 		return true;
 	}
 

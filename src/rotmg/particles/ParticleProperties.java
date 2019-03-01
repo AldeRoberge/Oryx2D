@@ -39,12 +39,12 @@ public class ParticleProperties {
 	@Override
 	public String toString() {
 		return "ParticleProperties{" +
-				"id='" + id + '\'' +
-				", textureData=" + textureData +
-				", size=" + size +
-				", z=" + z +
-				", duration=" + duration +
-				", animationsData=" + animationsData +
+				"id='" + this.id + '\'' +
+				", textureData=" + this.textureData +
+				", size=" + this.size +
+				", z=" + this.z +
+				", duration=" + this.duration +
+				", animationsData=" + this.animationsData +
 				'}';
 	}
 }

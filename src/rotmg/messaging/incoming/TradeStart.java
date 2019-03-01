@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.TradeItem;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.TradeItem;
 
 public class TradeStart extends IncomingMessage {
 
@@ -21,30 +21,30 @@ public class TradeStart extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		myItems = new TradeItem[in.readShort()];
-		for (int i = 0; i < myItems.length; i++) {
+		this.myItems = new TradeItem[in.readShort()];
+		for (int i = 0; i < this.myItems.length; i++) {
 			TradeItem item = new TradeItem();
 			item.parseFromInput(in);
-			myItems[i] = item;
+			this.myItems[i] = item;
 		}
-		yourName = in.readUTF();
-		yourItems = new TradeItem[in.readShort()];
-		for (int i = 0; i < yourItems.length; i++) {
+		this.yourName = in.readUTF();
+		this.yourItems = new TradeItem[in.readShort()];
+		for (int i = 0; i < this.yourItems.length; i++) {
 			TradeItem item = new TradeItem();
 			item.parseFromInput(in);
-			yourItems[i] = item;
+			this.yourItems[i] = item;
 		}
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeShort(myItems.length);
-		for (TradeItem item : myItems) {
+		out.writeShort(this.myItems.length);
+		for (TradeItem item : this.myItems) {
 			item.writeToOutput(out);
 		}
-		out.writeUTF(yourName);
-		out.writeShort(yourItems.length);
-		for (TradeItem item : yourItems) {
+		out.writeUTF(this.yourName);
+		out.writeShort(this.yourItems.length);
+		for (TradeItem item : this.yourItems) {
 			item.writeToOutput(out);
 		}
 	}

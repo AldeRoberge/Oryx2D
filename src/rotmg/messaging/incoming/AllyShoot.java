@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class AllyShoot extends IncomingMessage {
 
@@ -19,18 +19,18 @@ public class AllyShoot extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		bulletId = in.readUnsignedByte();
-		ownerId = in.readInt();
-		containerType = in.readShort();
-		angle = in.readFloat();
+		this.bulletId = in.readUnsignedByte();
+		this.ownerId = in.readInt();
+		this.containerType = in.readShort();
+		this.angle = in.readFloat();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeByte(bulletId);
-		out.writeInt(ownerId);
-		out.writeShort(containerType);
-		out.writeDouble(angle);
+		out.writeByte(this.bulletId);
+		out.writeInt(this.ownerId);
+		out.writeShort(this.containerType);
+		out.writeDouble(this.angle);
 	}
 
 }

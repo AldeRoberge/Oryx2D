@@ -36,7 +36,7 @@ public class FameUtil {
 
 	public static int numStars(int param1) {
 		int loc2 = 0;
-		while (loc2 < STARS.length && param1 >= STARS[loc2]) {
+		while ((loc2 < STARS.length) && (param1 >= STARS[loc2])) {
 			loc2++;
 		}
 		return loc2;
@@ -99,8 +99,8 @@ public class FameUtil {
 		loc2 = numStarsToImage(param1);
 		Sprite loc3 = new Sprite();
 		loc3.graphics.beginFill(0, 0.4);
-		int loc4 = loc2.width / 2 + 2;
-		int loc5 = loc2.height / 2 + 2;
+		int loc4 = (loc2.width / 2) + 2;
+		int loc5 = (loc2.height / 2) + 2;
 		loc3.graphics.drawCircle(loc4, loc5, loc4);
 		loc2.x = 2;
 		loc2.y = 1;

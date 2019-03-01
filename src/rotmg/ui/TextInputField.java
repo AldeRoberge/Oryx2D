@@ -1,8 +1,8 @@
 package rotmg.ui;
 
+import alde.flash.utils.Vector;
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.Vector;
 import flash.display.CapsStyle;
 import flash.display.JointStyle;
 import flash.display.LineScaleMode;
@@ -38,7 +38,7 @@ public class TextInputField extends Sprite {
 			this.nameText.setBold(true);
 			this.nameText.setStringBuilder(new LineBuilder().setParams(param1));
 			this.nameText.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-			addChild(this.nameText);
+			this.addChild(this.nameText);
 			this.inputText.y = 30;
 		} else {
 			this.inputText.y = 0;
@@ -52,7 +52,7 @@ public class TextInputField extends Sprite {
 		this.nameText.setBold(true);
 		this.nameText.setStringBuilder(new LineBuilder().setParams(param1));
 		this.nameText.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-		addChild(this.nameText);
+		this.addChild(this.nameText);
 		this.inputText = new BaseSimpleText(20, 11776947, true, 238, 30);
 		this.inputText.y = 30;
 		this.inputText.x = 6;
@@ -63,19 +63,19 @@ public class TextInputField extends Sprite {
 		if (param6 > 1) {
 			this.inputText.maxChars = param6;
 		}
-		addChild(this.inputText);
-		graphics.lineStyle(2, 4539717, 1, false, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
-		graphics.beginFill(3355443, 1);
-		graphics.drawRect(0, this.inputText.y, param3, param4);
-		graphics.endFill();
-		graphics.lineStyle();
+		this.addChild(this.inputText);
+		this.graphics.lineStyle(2, 4539717, 1, false, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
+		this.graphics.beginFill(3355443, 1);
+		this.graphics.drawRect(0, this.inputText.y, param3, param4);
+		this.graphics.endFill();
+		this.graphics.lineStyle();
 		this.drawInputBorders(false);
 		this.inputText.addEventListener(Event.CHANGE, new EventConsumer<>(this::onInputChange));
 		this.errorText = new TextFieldDisplayConcrete().setSize(12).setColor(16549442);
 		this.errorText.setMultiLine(true);
 		this.errorText.y = this.inputText.y + param4 + 1;
 		this.errorText.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
-		addChild(this.errorText);
+		this.addChild(this.errorText);
 	}
 
 	public String text() {
@@ -92,12 +92,12 @@ public class TextInputField extends Sprite {
 
 	private void drawInputBorders(boolean param1) {
 		int loc2 = param1 ? ERROR_BORDER_COLOR : NORMAL_BORDER_COLOR;
-		graphics.clear();
-		graphics.lineStyle(2, loc2, 1, false, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
-		graphics.beginFill(BACKGROUND_COLOR, 1);
-		graphics.drawRect(0, this.inputText.y, 238, 30);
-		graphics.endFill();
-		graphics.lineStyle();
+		this.graphics.clear();
+		this.graphics.lineStyle(2, loc2, 1, false, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
+		this.graphics.beginFill(BACKGROUND_COLOR, 1);
+		this.graphics.drawRect(0, this.inputText.y, 238, 30);
+		this.graphics.endFill();
+		this.graphics.lineStyle();
 	}
 
 	public void setErrorHighlight(boolean param1) {

@@ -1,15 +1,15 @@
 package rotmg.classes.model;
 
-import org.osflash.signals.Signal;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.osflash.signals.Signal;
 
 public class CharacterClass {
 
 	public final Signal<CharacterClass> selected = new Signal<>();
 
-	public final List<CharacterClassUnlock> unlocks = new ArrayList<CharacterClassUnlock>(0);
+	public final List<CharacterClassUnlock> unlocks = new ArrayList<>(0);
 	public final CharacterSkins skins = new CharacterSkins();
 	public int id;
 	public String name;

@@ -28,8 +28,8 @@ public class ParticleGenerator extends ParticleEffect {
 	public ParticleGenerator(EffectProperties effectProperties, GameObject go) {
 		super();
 		this.targetGO = go;
-		this.particlePool = new Vector<BaseParticle>();
-		this.liveParticles = new Vector<BaseParticle>();
+		this.particlePool = new Vector<>();
+		this.liveParticles = new Vector<>();
 		this.effectProps = effectProperties;
 		if (this.effectProps.bitmapFile != null) {
 			this.bitmapData = AssetLibrary.getImageFromSet(this.effectProps.bitmapFile, this.effectProps.bitmapIndex);
@@ -52,9 +52,9 @@ public class ParticleGenerator extends ParticleEffect {
 		if (this.targetGO.map == null) {
 			return false;
 		}
-		x = this.targetGO.x;
-		y = this.targetGO.y;
-		z = this.targetGO.z + this.effectProps.zOffset;
+		this.x = this.targetGO.x;
+		this.y = this.targetGO.y;
+		this.z = this.targetGO.z + this.effectProps.zOffset;
 		this.totalTime = this.totalTime + tDelta;
 		double projectedTotal = this.effectProps.rate * this.totalTime;
 		double particlesToGen = projectedTotal - this.generatedParticles;
@@ -64,8 +64,8 @@ public class ParticleGenerator extends ParticleEffect {
 			} else {
 				newParticle = new BaseParticle(this.bitmapData);
 			}
-			newParticle.initialize(this.effectProps.life + this.effectProps.lifeVariance * (2 * Math.random() - 1), this.effectProps.speed + this.effectProps.speedVariance * (2 * Math.random() - 1), this.effectProps.speed + this.effectProps.speedVariance * (2 * Math.random() - 1), this.effectProps.rise + this.effectProps.riseVariance * (2 * Math.random() - 1), (int) z);
-			map.addObj(newParticle, x + this.effectProps.rangeX * (2 * Math.random() - 1), y + this.effectProps.rangeY * (2 * Math.random() - 1));
+			newParticle.initialize(this.effectProps.life + (this.effectProps.lifeVariance * ((2 * Math.random()) - 1)), this.effectProps.speed + (this.effectProps.speedVariance * ((2 * Math.random()) - 1)), this.effectProps.speed + (this.effectProps.speedVariance * ((2 * Math.random()) - 1)), this.effectProps.rise + (this.effectProps.riseVariance * ((2 * Math.random()) - 1)), (int) this.z);
+			this.map.addObj(newParticle, this.x + (this.effectProps.rangeX * ((2 * Math.random()) - 1)), this.y + (this.effectProps.rangeY * ((2 * Math.random()) - 1)));
 			this.liveParticles.add(newParticle);
 		}
 		this.generatedParticles = this.generatedParticles + particlesToGen;
@@ -73,13 +73,13 @@ public class ParticleGenerator extends ParticleEffect {
 			particle.timeLeft = particle.timeLeft - tDelta;
 			if (particle.timeLeft <= 0) {
 				this.liveParticles.remove(particle);
-				map.removeObj(particle.objectId);
+				this.map.removeObj(particle.objectId);
 				this.particlePool.add(particle);
 			} else {
-				particle.spdZ = particle.spdZ + this.effectProps.riseAcc * tDelta;
-				particle.x = particle.x + particle.spdX * tDelta;
-				particle.y = particle.y + particle.spdY * tDelta;
-				particle.z = particle.z + particle.spdZ * tDelta;
+				particle.spdZ = particle.spdZ + (this.effectProps.riseAcc * tDelta);
+				particle.x = particle.x + (particle.spdX * tDelta);
+				particle.y = particle.y + (particle.spdY * tDelta);
+				particle.z = particle.z + (particle.spdZ * tDelta);
 			}
 		}
 		return true;
@@ -88,7 +88,7 @@ public class ParticleGenerator extends ParticleEffect {
 	@Override
 	public void removeFromMap() {
 		for (BaseParticle particle : this.liveParticles) {
-			map.removeObj(particle.objectId);
+			this.map.removeObj(particle.objectId);
 		}
 		this.liveParticles = null;
 		this.particlePool = null;

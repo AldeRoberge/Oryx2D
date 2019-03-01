@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Failure extends IncomingMessage {
 
@@ -22,21 +22,21 @@ public class Failure extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		errorId = in.readInt();
-		errorDescription = in.readUTF();
+		this.errorId = in.readInt();
+		this.errorDescription = in.readUTF();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(errorId);
-		out.writeUTF(errorDescription);
+		out.writeInt(this.errorId);
+		out.writeUTF(this.errorDescription);
 	}
 
 	@Override
 	public String toString() {
 		return "Failure{" +
-				"errorId=" + errorId +
-				", errorDescription='" + errorDescription + '\'' +
+				"errorId=" + this.errorId +
+				", errorDescription='" + this.errorDescription + '\'' +
 				'}';
 	}
 }

@@ -32,7 +32,7 @@ public class XMLEffect extends ParticleEffect {
 			return true;
 		}
 		this.cooldownLeft = this.cooldown;
-		map.addObj(new XMLParticle(this.partProps), this.go.x, this.go.y);
+		this.map.addObj(new XMLParticle(this.partProps), this.go.x, this.go.y);
 		return true;
 	}
 

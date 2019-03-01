@@ -1,11 +1,11 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Hello extends OutgoingMessage {
 
@@ -42,9 +42,9 @@ public class Hello extends OutgoingMessage {
 		out.writeUTF(this.buildVersion);
 		out.writeInt(this.gameId);
 		out.writeUTF(this.guid);
-		out.writeInt(random1);
+		out.writeInt(this.random1);
 		out.writeUTF(this.password);
-		out.writeInt(random2);
+		out.writeInt(this.random2);
 		out.writeUTF(this.secret);
 		out.writeInt(this.keyTime);
 		out.writeShort(this.key.length);
@@ -84,22 +84,22 @@ public class Hello extends OutgoingMessage {
 	@Override
 	public String toString() {
 		return "Hello{" +
-				"buildVersion='" + buildVersion + '\'' +
-				", gameId=" + gameId +
-				", guid='" + guid + '\'' +
-				", random1=" + random1 +
-				", password='" + password + '\'' +
-				", random2=" + random2 +
-				", secret='" + secret + '\'' +
-				", keyTime=" + keyTime +
-				", key=" + Arrays.toString(key) +
-				", mapJSON=" + Arrays.toString(mapJSON) +
-				", entrytag='" + entrytag + '\'' +
-				", gameNet='" + gameNet + '\'' +
-				", gameNetUserId='" + gameNetUserId + '\'' +
-				", playPlatform='" + playPlatform + '\'' +
-				", platformToken='" + platformToken + '\'' +
-				", userToken='" + userToken + '\'' +
+				"buildVersion='" + this.buildVersion + '\'' +
+				", gameId=" + this.gameId +
+				", guid='" + this.guid + '\'' +
+				", random1=" + this.random1 +
+				", password='" + this.password + '\'' +
+				", random2=" + this.random2 +
+				", secret='" + this.secret + '\'' +
+				", keyTime=" + this.keyTime +
+				", key=" + Arrays.toString(this.key) +
+				", mapJSON=" + Arrays.toString(this.mapJSON) +
+				", entrytag='" + this.entrytag + '\'' +
+				", gameNet='" + this.gameNet + '\'' +
+				", gameNetUserId='" + this.gameNetUserId + '\'' +
+				", playPlatform='" + this.playPlatform + '\'' +
+				", platformToken='" + this.platformToken + '\'' +
+				", userToken='" + this.userToken + '\'' +
 				'}';
 	}
 }

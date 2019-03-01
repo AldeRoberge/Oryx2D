@@ -59,18 +59,18 @@ public class PopupWindowBackground extends Sprite {
 	}
 
 	private void divideHorizontally(int param1) {
-		graphics.lineStyle();
-		graphics.endFill();
-		graphics.moveTo(1, param1);
-		graphics.beginFill(6710886, 1);
-		graphics.drawRect(1, param1, width - 2, 2);
+		this.graphics.lineStyle();
+		this.graphics.endFill();
+		this.graphics.moveTo(1, param1);
+		this.graphics.beginFill(6710886, 1);
+		this.graphics.drawRect(1, param1, this.width - 2, 2);
 	}
 
 	private void divideVertically(int param1) {
-		graphics.lineStyle();
-		graphics.moveTo(param1, 1);
-		graphics.lineStyle(2, 6710886);
-		graphics.lineTo(param1, height - 1);
+		this.graphics.lineStyle();
+		this.graphics.moveTo(param1, 1);
+		this.graphics.lineStyle(2, 6710886);
+		this.graphics.lineTo(param1, this.height - 1);
 	}
 
 

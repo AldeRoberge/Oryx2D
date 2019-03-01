@@ -1,10 +1,10 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class ShootAck extends OutgoingMessage {
 
@@ -16,12 +16,12 @@ public class ShootAck extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		time = in.readInt();
+		this.time = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(time);
+		out.writeInt(this.time);
 	}
 
 }

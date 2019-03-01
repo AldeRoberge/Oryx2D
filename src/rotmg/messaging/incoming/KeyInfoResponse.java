@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class KeyInfoResponse extends IncomingMessage {
 
@@ -25,9 +25,9 @@ public class KeyInfoResponse extends IncomingMessage {
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeUTF(name);
-		out.writeUTF(description);
-		out.writeUTF(creator);
+		out.writeUTF(this.name);
+		out.writeUTF(this.description);
+		out.writeUTF(this.creator);
 	}
 
 }

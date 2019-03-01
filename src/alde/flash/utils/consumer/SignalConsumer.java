@@ -16,18 +16,18 @@ public class SignalConsumer<T> {
 	}
 
 	public void dispatch(T event) {
-		if (runnable != null) {
-			runnable.run();
+		if (this.runnable != null) {
+			this.runnable.run();
 		} else {
-			consumer.accept(event);
+			this.consumer.accept(event);
 		}
 	}
 
 	public void dispatch() {
-		if (runnable != null) {
-			runnable.run();
+		if (this.runnable != null) {
+			this.runnable.run();
 		} else {
-			consumer.accept(null);
+			this.consumer.accept(null);
 		}
 	}
 

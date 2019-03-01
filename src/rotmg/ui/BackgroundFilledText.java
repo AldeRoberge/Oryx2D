@@ -33,7 +33,7 @@ public class BackgroundFilledText extends Sprite {
 		this.disabledFill = new GraphicsSolidFill(8355711, 1);
 		this.path = new GraphicsPath(new Vector<Integer>(), new Vector<Double>());
 
-		graphicsData = new Vector<IGraphicsData>(this.enabledFill, this.path, GraphicsUtil.END_FILL);
+		this.graphicsData = new Vector<>(this.enabledFill, this.path, GraphicsUtil.END_FILL);
 		this.bWidth = param1;
 	}
 
@@ -41,7 +41,7 @@ public class BackgroundFilledText extends Sprite {
 		this.w = this.bWidth != 0 ? this.bWidth : (int) (this.text.width + 12);
 		this.text.x = this.w / 2;
 		GraphicsUtil.clearPath(this.path);
-		GraphicsUtil.drawCutEdgeRect(0, 0, this.w, this.text.height + MARGIN * 2, 4, new Vector<>(1, 1, 1, 1), this.path);
+		GraphicsUtil.drawCutEdgeRect(0, 0, this.w, this.text.height + (MARGIN * 2), 4, new Vector<>(1, 1, 1, 1), this.path);
 	}
 
 	public void addText(int param1) {
@@ -49,7 +49,7 @@ public class BackgroundFilledText extends Sprite {
 		this.text.setBold(true);
 		this.text.setAutoSize(TextFieldAutoSize.CENTER);
 		this.text.y = MARGIN;
-		addChild(this.text);
+		this.addChild(this.text);
 	}
 
 	protected TextFieldDisplayConcrete makeText() {

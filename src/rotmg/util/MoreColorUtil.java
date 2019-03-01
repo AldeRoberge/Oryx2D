@@ -62,41 +62,41 @@ public class MoreColorUtil {
 		double loc9 = 0;
 		double loc10 = 0;
 		double loc11 = 0;
-		int loc4 = (int) (param1 / 60 % 6);
-		double loc5 = param1 / 60 - Math.floor(param1 / 60);
+		int loc4 = (int) ((param1 / 60) % 6);
+		double loc5 = (param1 / 60) - Math.floor(param1 / 60);
 		double loc6 = param3 * (1 - param2);
-		double loc7 = param3 * (1 - loc5 * param2);
-		double loc8 = param3 * (1 - (1 - loc5) * param2);
+		double loc7 = param3 * (1 - (loc5 * param2));
+		double loc8 = param3 * (1 - ((1 - loc5) * param2));
 		switch (loc4) {
-			case 0:
-				loc9 = param3;
-				loc10 = loc8;
-				loc11 = loc6;
-				break;
-			case 1:
-				loc9 = loc7;
-				loc10 = param3;
-				loc11 = loc6;
-				break;
-			case 2:
-				loc9 = loc6;
-				loc10 = param3;
-				loc11 = loc8;
-				break;
-			case 3:
-				loc9 = loc6;
-				loc10 = loc7;
-				loc11 = param3;
-				break;
-			case 4:
-				loc9 = loc8;
-				loc10 = loc6;
-				loc11 = param3;
-				break;
-			case 5:
-				loc9 = param3;
-				loc10 = loc6;
-				loc11 = loc7;
+		case 0:
+			loc9 = param3;
+			loc10 = loc8;
+			loc11 = loc6;
+			break;
+		case 1:
+			loc9 = loc7;
+			loc10 = param3;
+			loc11 = loc6;
+			break;
+		case 2:
+			loc9 = loc6;
+			loc10 = param3;
+			loc11 = loc8;
+			break;
+		case 3:
+			loc9 = loc6;
+			loc10 = loc7;
+			loc11 = param3;
+			break;
+		case 4:
+			loc9 = loc8;
+			loc10 = loc6;
+			loc11 = param3;
+			break;
+		case 5:
+			loc9 = param3;
+			loc10 = loc6;
+			loc11 = loc7;
 		}
 
 		return 0; // TODO
@@ -114,13 +114,13 @@ public class MoreColorUtil {
 	}
 
 	public static int transformColor(ColorTransform param1, int param2) {
-		int loc3 = ((param2 & 16711680) >> 16) * param1.redMultiplier + param1.redOffset;
+		int loc3 = (((param2 & 16711680) >> 16) * param1.redMultiplier) + param1.redOffset;
 		loc3 = loc3 < 0 ? 0 : loc3 > 255 ? 255 : loc3;
-		int loc4 = ((param2 & 65280) >> 8) * param1.greenMultiplier + param1.greenOffset;
+		int loc4 = (((param2 & 65280) >> 8) * param1.greenMultiplier) + param1.greenOffset;
 		loc4 = loc4 < 0 ? 0 : loc4 > 255 ? 255 : loc4;
-		int loc5 = (param2 & 255) * param1.blueMultiplier + param1.blueOffset;
+		int loc5 = ((param2 & 255) * param1.blueMultiplier) + param1.blueOffset;
 		loc5 = loc5 < 0 ? 0 : loc5 > 255 ? 255 : loc5;
-		return loc3 << 16 | loc4 << 8 | loc5;
+		return (loc3 << 16) | (loc4 << 8) | loc5;
 	}
 
 	public static ColorTransform copyColorTransform(ColorTransform param1) {
@@ -135,31 +135,31 @@ public class MoreColorUtil {
 			param2 = identity;
 		}
 		double loc4 = 1 - param3;
-		ColorTransform loc5 = new ColorTransform(param1.redMultiplier * loc4 + param2.redMultiplier * param3, param1.greenMultiplier * loc4 + param2.greenMultiplier * param3, param1.blueMultiplier * loc4 + param2.blueMultiplier * param3, param1.alphaMultiplier * loc4 + param2.alphaMultiplier * param3, param1.redOffset * loc4 + param2.redOffset * param3, param1.greenOffset * loc4 + param2.greenOffset * param3, param1.blueOffset * loc4 + param2.blueOffset * param3, param1.alphaOffset * loc4 + param2.alphaOffset * param3);
+		ColorTransform loc5 = new ColorTransform((param1.redMultiplier * loc4) + (param2.redMultiplier * param3), (param1.greenMultiplier * loc4) + (param2.greenMultiplier * param3), (param1.blueMultiplier * loc4) + (param2.blueMultiplier * param3), (param1.alphaMultiplier * loc4) + (param2.alphaMultiplier * param3), (param1.redOffset * loc4) + (param2.redOffset * param3), (param1.greenOffset * loc4) + (param2.greenOffset * param3), (param1.blueOffset * loc4) + (param2.blueOffset * param3), (param1.alphaOffset * loc4) + (param2.alphaOffset * param3));
 		return loc5;
 	}
 
 	public static int lerpColor(int param1, int param2, double param3) {
 		double loc4 = 1 - param3;
-		int loc5 = param1 >> 24 & 255;
-		int loc6 = param1 >> 16 & 255;
-		int loc7 = param1 >> 8 & 255;
+		int loc5 = (param1 >> 24) & 255;
+		int loc6 = (param1 >> 16) & 255;
+		int loc7 = (param1 >> 8) & 255;
 		int loc8 = param1 & 255;
-		int loc9 = param2 >> 24 & 255;
-		int loc10 = param2 >> 16 & 255;
-		int loc11 = param2 >> 8 & 255;
+		int loc9 = (param2 >> 24) & 255;
+		int loc10 = (param2 >> 16) & 255;
+		int loc11 = (param2 >> 8) & 255;
 		int loc12 = param2 & 255;
-		int loc13 = (int) (loc5 * loc4 + loc9 * param3);
-		int loc14 = (int) (loc6 * loc4 + loc10 * param3);
-		int loc15 = (int) (loc7 * loc4 + loc11 * param3);
-		int loc16 = (int) (loc8 * loc4 + loc12 * param3);
-		int loc17 = loc13 << 24 | loc14 << 16 | loc15 << 8 | loc16;
+		int loc13 = (int) ((loc5 * loc4) + (loc9 * param3));
+		int loc14 = (int) ((loc6 * loc4) + (loc10 * param3));
+		int loc15 = (int) ((loc7 * loc4) + (loc11 * param3));
+		int loc16 = (int) ((loc8 * loc4) + (loc12 * param3));
+		int loc17 = (loc13 << 24) | (loc14 << 16) | (loc15 << 8) | loc16;
 		return loc17;
 	}
 
 	public static double transformAlpha(ColorTransform param1, double param2) {
 		int loc3 = (int) (param2 * 255);
-		int loc4 = loc3 * param1.alphaMultiplier + param1.alphaOffset;
+		int loc4 = (loc3 * param1.alphaMultiplier) + param1.alphaOffset;
 		loc4 = loc4 < 0 ? 0 : loc4 > 255 ? 255 : loc4;
 		return loc4 / 255;
 	}
@@ -171,7 +171,7 @@ public class MoreColorUtil {
 		loc4 = loc4 < 0 ? 0 : loc4 > 255 ? 255 : loc4;
 		int loc5 = (int) ((param1 & 255) * param2);
 		loc5 = loc5 < 0 ? 0 : loc5 > 255 ? 255 : loc5;
-		return loc3 << 16 | loc4 << 8 | loc5;
+		return (loc3 << 16) | (loc4 << 8) | loc5;
 	}
 
 	public static int adjustBrightness(int param1, double param2) {
@@ -189,8 +189,8 @@ public class MoreColorUtil {
 	}
 
 	public static Vector colorToShaderParameter(int param1) {
-		double loc2 = (param1 >> 24 & 255) / 256;
-		return new Vector<Double>(loc2 * ((param1 >> 16 & 255) / 256), loc2 * ((param1 >> 8 & 255) / 256), loc2 * ((param1 & 255) / 256), loc2);
+		double loc2 = ((param1 >> 24) & 255) / 256;
+		return new Vector<>(loc2 * (((param1 >> 16) & 255) / 256), loc2 * (((param1 >> 8) & 255) / 256), loc2 * ((param1 & 255) / 256), loc2);
 	}
 
 	public static int rgbToGreyscale(int param1) {
@@ -201,6 +201,6 @@ public class MoreColorUtil {
 	}
 
 	public static Vector singleColorFilterMatrix(int param1) {
-		return new Vector<Integer>(0, 0, 0, 0, (param1 & 16711680) >> 16, 0, 0, 0, 0, (param1 & 65280) >> 8, 0, 0, 0, 0, param1 & 255, 0, 0, 0, 1, 0);
+		return new Vector<>(0, 0, 0, 0, (param1 & 16711680) >> 16, 0, 0, 0, 0, (param1 & 65280) >> 8, 0, 0, 0, 0, param1 & 255, 0, 0, 0, 1, 0);
 	}
 }

@@ -1,7 +1,11 @@
 package rotmg.messaging;
 
-import flash.display.DisplayObject;
+import java.util.List;
+import java.util.Random;
+
 import org.osflash.signals.Signal;
+
+import flash.display.DisplayObject;
 import rotmg.AGameSprite;
 import rotmg.messaging.data.SlotObjectData;
 import rotmg.net.Server;
@@ -9,9 +13,6 @@ import rotmg.net.SocketServer;
 import rotmg.objects.GameObject;
 import rotmg.objects.Player;
 import rotmg.objects.Projectile;
-
-import java.util.List;
-import java.util.Random;
 
 public class GameServerConnection {
 
@@ -230,17 +231,17 @@ public class GameServerConnection {
 	}
 
 	public boolean invSwap(Player player, GameObject sourceObj, int slotId1, int itemId1, GameObject targetObj,
-	                       int slotId2, int itemId2) {
+			int slotId2, int itemId2) {
 		return false;
 	}
 
 	public boolean invSwapRaw(Player player, int objectId1, int slotId1, int objectType1, int objectId2, int slotId2,
-	                          int objectType2) {
+			int objectType2) {
 		return false;
 	}
 
 	public boolean invSwapPotion(Player param1, GameObject param2, int param3, int param4, GameObject param5,
-	                             int param6, int param7) {
+			int param6, int param7) {
 		return false;
 	}
 

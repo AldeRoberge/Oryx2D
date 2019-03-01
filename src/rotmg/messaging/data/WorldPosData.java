@@ -1,10 +1,10 @@
 package rotmg.messaging.data;
 
-import alde.flash.utils.IData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.IData;
 
 /**
  * Formelly known as 'Location' in RealmRelay 1.0
@@ -32,40 +32,40 @@ public class WorldPosData implements IData {
 	}
 
 	public WorldPosData(WorldPosData loc) {
-		x = loc.x;
-		y = loc.y;
+		this.x = loc.x;
+		this.y = loc.y;
 	}
 
 	@Override
 	public WorldPosData clone() {
-		return new WorldPosData(x, y);
+		return new WorldPosData(this.x, this.y);
 	}
 
 	public double distanceSquaredTo(WorldPosData location) {
-		double dx = location.x - x;
-		double dy = location.y - y;
-		return dx * dx + dy * dy;
+		double dx = location.x - this.x;
+		double dy = location.y - this.y;
+		return (dx * dx) + (dy * dy);
 	}
 
 	public double distanceTo(WorldPosData location) {
-		return Math.sqrt(distanceSquaredTo(location));
+		return Math.sqrt(this.distanceSquaredTo(location));
 	}
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		x = in.readFloat();
-		y = in.readFloat();
+		this.x = in.readFloat();
+		this.y = in.readFloat();
 	}
 
 	@Override
 	public String toString() {
-		return x + " " + y;
+		return this.x + " " + this.y;
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeFloat((float) x);
-		out.writeFloat((float) y);
+		out.writeFloat((float) this.x);
+		out.writeFloat((float) this.y);
 	}
 
 }

@@ -1,7 +1,7 @@
 package rotmg.ui.menu;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;
@@ -36,16 +36,16 @@ public class MenuOption extends Sprite {
 		this.icon.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
 		this.icon.x = -12;
 		this.icon.y = -15;
-		addChild(this.icon);
+		this.addChild(this.icon);
 		this.text = new TextFieldDisplayConcrete().setSize(18).setColor(param2);
 		this.text.setBold(true);
 		this.text.setStringBuilder(new LineBuilder().setParams(param3));
 		this.text.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
 		this.text.x = 20;
 		this.text.y = -6;
-		addChild(this.text);
-		addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
-		addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
+		this.addChild(this.text);
+		this.addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
+		this.addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
 	}
 
 	public void setColorTransform(ColorTransform param1) {

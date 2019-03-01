@@ -1,5 +1,19 @@
 package oryx2D;
 
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import oryx2D.entity.mob.Player;
 import oryx2D.graphics.Screen;
 import oryx2D.input.Keyboard;
@@ -8,13 +22,6 @@ import oryx2D.level.Level;
 import oryx2D.level.TileCoordinate;
 import rotmg.WebMain;
 import rotmg.account.core.WebAccount;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
 
@@ -27,8 +34,8 @@ public class Game extends Canvas implements Runnable {
 
 	private static final float UI_SCALING = 1.25F;
 
-	private static final int width = (int) (800 / scale * UI_SCALING);
-	private static final int height = (int) (600 / scale * UI_SCALING);
+	private static final int width = (int) ((800 / scale) * UI_SCALING);
+	private static final int height = (int) ((600 / scale) * UI_SCALING);
 
 	//
 
@@ -52,20 +59,20 @@ public class Game extends Canvas implements Runnable {
 
 	public Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
-		setPreferredSize(size);
+		this.setPreferredSize(size);
 
-		screen = new Screen(width, height);
-		frame = new JFrame();
-		key = new Keyboard();
+		this.screen = new Screen(width, height);
+		this.frame = new JFrame();
+		this.key = new Keyboard();
 		TileCoordinate playerSpawn = new TileCoordinate(113, 159);
-		player = new Player(playerSpawn.x(), playerSpawn.y(), key);
-		player.init(level);
+		this.player = new Player(playerSpawn.x(), playerSpawn.y(), this.key);
+		this.player.init(this.level);
 
-		addKeyListener(key);
+		this.addKeyListener(this.key);
 
 		try {
 			BufferedImage image = ImageIO.read(Game.class.getResource("/oryx2D/cursor/cursor.png"));
-			frame.setCursor(frame.getToolkit().createCustomCursor(
+			this.frame.setCursor(this.frame.getToolkit().createCustomCursor(
 					image, new Point(image.getHeight() / 2, image.getWidth() / 2),
 					"null"));
 		} catch (IOException e) {
@@ -73,8 +80,8 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Mouse mouse = new Mouse();
-		addMouseListener(mouse);
-		addMouseMotionListener(mouse);
+		this.addMouseListener(mouse);
+		this.addMouseMotionListener(mouse);
 	}
 
 	public static int getWindowWidth() {
@@ -103,18 +110,19 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public synchronized void start() {
-		if (running)
+		if (this.running) {
 			return;
+		}
 
-		running = true;
-		thread = new Thread(this, "Render thread");
-		thread.start();
+		this.running = true;
+		this.thread = new Thread(this, "Render thread");
+		this.thread.start();
 	}
 
 	public synchronized void stop() {
-		running = false;
+		this.running = false;
 		try {
-			thread.join();
+			this.thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -128,34 +136,34 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 		int updates = 0;
 
-		requestFocus();
+		this.requestFocus();
 
-		while (running) {
+		while (this.running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 
 			while (delta >= 1) { //Only happens 60 times a second
-				update();
-				render();
+				this.update();
+				this.render();
 
 				updates++;
 				delta--;
 			}
 
-			if (System.currentTimeMillis() - timer > 1000) {
+			if ((System.currentTimeMillis() - timer) > 1000) {
 				timer += 1000;
-				currentFPS = updates;
+				this.currentFPS = updates;
 				updates = 0;
 			}
 		}
-		stop();
+		this.stop();
 	}
 
 	public void update() {
 		//System.out.println("Squares : " + AbstractMap.squares.length + ", BO : " + AbstractMap.boDict.size() + ", GO : " + AbstractMap.goDict.size());
-		key.update();
-		player.update();
+		this.key.update();
+		this.player.update();
 	}
 
 	public void render() {
@@ -164,26 +172,26 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
-		BufferStrategy bs = getBufferStrategy();
+		BufferStrategy bs = this.getBufferStrategy();
 
 		if (bs == null) {
-			createBufferStrategy(3);
+			this.createBufferStrategy(3);
 			return;
 		}
 
-		screen.clear();
+		this.screen.clear();
 
-		int xscroll = player.x - screen.width / 2;
-		int yscroll = player.y - screen.height / 2;
+		int xscroll = this.player.x - (this.screen.width / 2);
+		int yscroll = this.player.y - (this.screen.height / 2);
 
-		screen.setOffset(xscroll, yscroll);
+		this.screen.setOffset(xscroll, yscroll);
 
-		level.render(screen);
-		player.render(screen);
+		this.level.render(this.screen);
+		this.player.render(this.screen);
 
 		Graphics g = bs.getDrawGraphics();
-		screen.drawPixels(g, getWidth(), getHeight());
-		drawDebug(g);
+		this.screen.drawPixels(g, this.getWidth(), this.getHeight());
+		this.drawDebug(g);
 		g.dispose(); //Release the memory
 
 		bs.show(); //Show the buffer
@@ -196,10 +204,10 @@ public class Game extends Canvas implements Runnable {
 			g.setFont(new Font("Verdana", Font.PLAIN, 20));
 
 			if (showFPS) {
-				g.drawString("frameRate : " + currentFPS, 80, 40);
+				g.drawString("frameRate : " + this.currentFPS, 80, 40);
 			}
 
-				/*g.fillRect(Mouse.getX() - 10, Mouse.getY() - 10, 10, 10);
+			/*g.fillRect(Mouse.getX() - 10, Mouse.getY() - 10, 10, 10);
 				if (Mouse.getButton() != -1)
 					g.drawString("Button: " + Mouse.getButton(), 80, 80);*/
 

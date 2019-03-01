@@ -1,5 +1,7 @@
 package rotmg.view;
 
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
 import flash.display.Sprite;
@@ -7,7 +9,6 @@ import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.text.TextFormatAlign;
-import org.osflash.signals.Signal;
 import rotmg.GameSprite;
 import rotmg.objects.Player;
 import rotmg.parameters.Parameters;
@@ -40,7 +41,7 @@ public class NameChangerPanel extends Panel {
 		String loc4 = null;
 		this.chooseName = new Signal();
 		if (this.hasMapAndPlayer()) {
-			loc3 = gs.map.player;
+			loc3 = this.gs.map.player;
 			this.buy = loc3.nameChosen;
 			loc4 = this.createNameText();
 			if (this.buy) {
@@ -51,23 +52,23 @@ public class NameChangerPanel extends Panel {
 				this.handleNoName();
 			}
 		}
-		addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
+		this.addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
 	}
 
 	private void onAddedToStage(Event param1) {
 		if (this.button != null) {
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
+			this.stage.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
 		}
-		addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+		this.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
 	}
 
 	private boolean hasMapAndPlayer() {
-		return gs.map != null && gs.map.player != null;
+		return (this.gs.map != null) && (this.gs.map.player != null);
 	}
 
 	private String createNameText() {
 		String loc1 = null;
-		loc1 = gs.model.getName();
+		loc1 = this.gs.model.getName();
 		this.title = new TextFieldDisplayConcrete().setSize(18).setColor(16777215).setTextWidth(WIDTH);
 		this.title.setBold(true).setWordWrap(true).setMultiLine(true).setHorizontalAlign(TextFormatAlign.CENTER);
 		this.title.filters.add(new DropShadowFilter(0, 0, 0));
@@ -77,32 +78,32 @@ public class NameChangerPanel extends Panel {
 	private void handleAlreadyHasName(String param1) {
 		this.title.setStringBuilder(this.makeNameText(param1));
 		this.title.y = 0;
-		addChild(this.title);
+		this.addChild(this.title);
 		LegacyBuyButton loc2 = new LegacyBuyButton(TextKey.NAME_CHANGER_CHANGE, 16, Parameters.NAME_CHANGE_PRICE, Currency.GOLD);
 		loc2.readyForPlacement.addOnce(new SignalConsumer<>(this::positionButton));
 		this.button = loc2;
-		addChild(this.button);
+		this.addChild(this.button);
 		this.addListeners();
 	}
 
 	private void positionButton() {
-		this.button.x = WIDTH / 2 - this.button.width / 2;
-		this.button.y = HEIGHT - this.button.height / 2 - 17;
+		this.button.x = (WIDTH / 2) - (this.button.width / 2);
+		this.button.y = HEIGHT - (this.button.height / 2) - 17;
 	}
 
 	private void handleNoName() {
 		this.title.setStringBuilder(new LineBuilder().setParams(TextKey.NAME_CHANGER_TEXT));
 		this.title.y = 6;
-		addChild(this.title);
+		this.addChild(this.title);
 		/**DeprecatedTextButton loc1 = new DeprecatedTextButton(16, TextKey.NAME_CHANGER_CHOOSE);
 		 loc1.textChanged.addOnce(this.positionTextButton);
 		 this.button = loc1;*/
-		addChild(this.button);
+		this.addChild(this.button);
 		this.addListeners();
 	}
 
 	private void positionTextButton() {
-		this.button.x = WIDTH / 2 - this.button.width / 2;
+		this.button.x = (WIDTH / 2) - (this.button.width / 2);
 		this.button.y = HEIGHT - this.button.height - 4;
 	}
 
@@ -114,7 +115,7 @@ public class NameChangerPanel extends Panel {
 		Sprite loc2 = null;
 		Sprite loc4 = null;
 		this.title.setStringBuilder(new LineBuilder().setParams(TextKey.NAME_CHANGER_TEXT));
-		addChild(this.title);
+		this.addChild(this.title);
 		loc2 = new Sprite();
 		TextFieldDisplayConcrete loc3 = new TextFieldDisplayConcrete().setSize(16).setColor(16777215);
 		loc3.setBold(true);
@@ -123,15 +124,15 @@ public class NameChangerPanel extends Panel {
 		loc2.addChild(loc3);
 		loc4 = new RankText(param1, false, false);
 		loc4.x = loc3.width + 4;
-		loc4.y = loc3.height / 2 - loc4.height / 2;
+		loc4.y = (loc3.height / 2) - (loc4.height / 2);
 		loc2.addChild(loc4);
-		loc2.x = WIDTH / 2 - loc2.width / 2;
-		loc2.y = HEIGHT - loc2.height / 2 - 20;
-		addChild(loc2);
+		loc2.x = (WIDTH / 2) - (loc2.width / 2);
+		loc2.y = HEIGHT - (loc2.height / 2) - 20;
+		this.addChild(loc2);
 	}
 
 	private void onRemovedFromStage(Event param1) {
-		stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
+		this.stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
 	}
 
 	private StringBuilder makeNameText(String param1) {
@@ -139,7 +140,7 @@ public class NameChangerPanel extends Panel {
 	}
 
 	private void onKeyDown(KeyboardEvent param1) {
-		if (param1.keyCode == Parameters.data.interact && stage.focus == null) {
+		if ((param1.keyCode == Parameters.data.interact) && (this.stage.focus == null)) {
 			this.performAction();
 		}
 	}

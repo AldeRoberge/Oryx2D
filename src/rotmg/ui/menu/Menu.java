@@ -1,8 +1,15 @@
 package rotmg.ui.menu;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
-import flash.display.*;
+import alde.flash.utils.consumer.EventConsumer;
+import flash.display.CapsStyle;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsSolidFill;
+import flash.display.GraphicsStroke;
+import flash.display.IGraphicsData;
+import flash.display.JointStyle;
+import flash.display.LineScaleMode;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
@@ -28,40 +35,40 @@ public class Menu extends Sprite implements UnFocusAble {
 		this.outlineFill = new GraphicsSolidFill(0, 1);
 		this.lineStyle = new GraphicsStroke(1, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND, 3, this.outlineFill);
 		this.path = new GraphicsPath(new Vector<Integer>(), new Vector<Double>());
-		this.graphicsData = new Vector<IGraphicsData>(this.lineStyle, this.backgroundFill, this.path, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE);
+		this.graphicsData = new Vector<>(this.lineStyle, this.backgroundFill, this.path, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE);
 		this.background = param1;
 		this.outline = param2;
 		this.yOffset = 40;
-		filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
-		addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
-		addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+		this.filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
+		this.addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
+		this.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
 	}
 
 	protected void addOption(MenuOption param1) {
 		param1.x = 8;
 		param1.y = this.yOffset;
-		addChild(param1);
+		this.addChild(param1);
 		this.yOffset = this.yOffset + 28;
 	}
 
 	protected void onAddedToStage(Event param1) {
 		this.draw();
 		this.position();
-		addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
-		addEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
+		this.addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
+		this.addEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
 	}
 
 	protected void onRemovedFromStage(Event param1) {
-		removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
-		removeEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
+		this.removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
+		this.removeEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
 	}
 
 	protected void onEnterFrame(Event param1) {
-		if (stage == null) {
+		if (this.stage == null) {
 			return;
 		}
-		Rectangle loc2 = getRect(stage);
-		double loc3 = RectangleUtil.pointDist(loc2, stage.mouseX, stage.mouseY);
+		Rectangle loc2 = this.getRect(this.stage);
+		double loc3 = RectangleUtil.pointDist(loc2, this.stage.mouseX, this.stage.mouseY);
 		if (loc3 > 40) {
 			this.remove();
 		}
@@ -69,24 +76,24 @@ public class Menu extends Sprite implements UnFocusAble {
 
 
 	private void position() {
-		if (stage == null) {
+		if (this.stage == null) {
 			return;
 		}
-		if (stage.mouseX < stage.stageWidth / 2) {
-			x = stage.mouseX + 12;
+		if (this.stage.mouseX < (this.stage.stageWidth / 2)) {
+			this.x = this.stage.mouseX + 12;
 		} else {
-			x = stage.mouseX - width - 1;
+			this.x = this.stage.mouseX - this.width - 1;
 		}
-		if (x < 12) {
-			x = 12;
+		if (this.x < 12) {
+			this.x = 12;
 		}
-		if (stage.mouseY < stage.stageHeight / 3) {
-			y = stage.mouseY + 12;
+		if (this.stage.mouseY < (this.stage.stageHeight / 3)) {
+			this.y = this.stage.mouseY + 12;
 		} else {
-			y = stage.mouseY - height - 1;
+			this.y = this.stage.mouseY - this.height - 1;
 		}
-		if (y < 12) {
-			y = 12;
+		if (this.y < 12) {
+			this.y = 12;
 		}
 	}
 
@@ -95,17 +102,17 @@ public class Menu extends Sprite implements UnFocusAble {
 	}
 
 	public void remove() {
-		if (parent != null) {
-			parent.removeChild(this);
+		if (this.parent != null) {
+			this.parent.removeChild(this);
 		}
 	}
 
 	protected void draw() {
 		this.backgroundFill.color = this.background;
 		this.outlineFill.color = this.outline;
-		graphics.clear();
+		this.graphics.clear();
 		GraphicsUtil.clearPath(this.path);
-		GraphicsUtil.drawCutEdgeRect(-6, -6, Math.max(154, width + 12), height + 12, 4, new Vector<>(1, 1, 1, 1), this.path);
-		graphics.drawGraphicsData(this.graphicsData);
+		GraphicsUtil.drawCutEdgeRect(-6, -6, Math.max(154, this.width + 12), this.height + 12, 4, new Vector<>(1, 1, 1, 1), this.path);
+		this.graphics.drawGraphicsData(this.graphicsData);
 	}
 }

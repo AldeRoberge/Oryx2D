@@ -1,7 +1,7 @@
 package rotmg.map.partyoverlay;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Sprite;
 import flash.events.Event;
 import rotmg.map.Camera;
@@ -21,17 +21,17 @@ public class PartyOverlay extends Sprite {
 		super();
 		PlayerArrow loc3 = null;
 		this.map = param1;
-		this.partyMemberArrows = new Vector<PlayerArrow>(Party.NUM_MEMBERS, true);
+		this.partyMemberArrows = new Vector<>(Party.NUM_MEMBERS, true);
 		int loc2 = 0;
 		while (loc2 < Party.NUM_MEMBERS) {
 			loc3 = new PlayerArrow();
 			this.partyMemberArrows.put(loc2, loc3);
-			addChild(loc3);
+			this.addChild(loc3);
 			loc2++;
 		}
 		this.questArrow = new QuestArrow(this.map);
-		addChild(this.questArrow);
-		addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+		this.addChild(this.questArrow);
+		this.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
 	}
 
 	private void onRemovedFromStage(Event param1) {
@@ -58,7 +58,7 @@ public class PartyOverlay extends Sprite {
 					loc6.setGameObject(null);
 				} else {
 					loc7 = loc3.members.get(loc5);
-					if (loc7.drawn || loc7.map == null || loc7.dead) {
+					if (loc7.drawn || (loc7.map == null) || loc7.dead) {
 						loc6.setGameObject(null);
 					} else {
 						loc6.setGameObject(loc7);
@@ -67,7 +67,7 @@ public class PartyOverlay extends Sprite {
 							loc9 = this.partyMemberArrows.get(loc8);
 							loc10 = loc6.x - loc9.x;
 							loc11 = loc6.y - loc9.y;
-							if (loc10 * loc10 + loc11 * loc11 < 64) {
+							if (((loc10 * loc10) + (loc11 * loc11)) < 64) {
 								if (!loc9.mouseOver) {
 									loc9.addGameObject(loc7);
 								}

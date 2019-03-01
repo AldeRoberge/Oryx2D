@@ -25,11 +25,11 @@ public class SimpleText extends TextField {
 		super();
 		this.inputWidth = param4;
 		if (this.inputWidth != 0) {
-			width = param4;
+			this.width = param4;
 		}
 		this.inputHeight = param5;
 		if (this.inputHeight != 0) {
-			height = param5;
+			this.height = param5;
 		}
 		/**Font.registerFont(MyriadPro);
 		 Font loc6 = new MyriadPro();

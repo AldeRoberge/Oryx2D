@@ -1,7 +1,8 @@
 package rotmg.ui;
 
-import alde.flash.utils.consumer.SignalConsumer;
 import org.osflash.signals.Signal;
+
+import alde.flash.utils.consumer.SignalConsumer;
 import rotmg.text.view.stringBuilder.LineBuilder;
 import rotmg.text.view.stringBuilder.StaticStringBuilder;
 
@@ -19,17 +20,17 @@ public class DeprecatedTextButton extends TextButtonBase {
 
 	public DeprecatedTextButton(int param1, String param2, int param3, boolean param4) {
 		super(param3);
-		addText(param1);
+		this.addText(param1);
 		if (param4) {
-			text.setStringBuilder(new StaticStringBuilder(param2));
+			this.text.setStringBuilder(new StaticStringBuilder(param2));
 		} else {
-			text.setStringBuilder(new LineBuilder().setParams(param2));
+			this.text.setStringBuilder(new LineBuilder().setParams(param2));
 		}
-		text.textChanged.addOnce(new SignalConsumer<>(this::onTextChanged));
+		this.text.textChanged.addOnce(new SignalConsumer<>(this::onTextChanged));
 	}
 
 	protected void onTextChanged() {
-		initText();
+		this.initText();
 		this.textChanged.dispatch();
 	}
 }

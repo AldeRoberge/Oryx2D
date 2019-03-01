@@ -45,14 +45,14 @@ public class XMLParticle extends BasicObject {
 
 		this.bitmapFill = new GraphicsBitmapFill(null, null, false, false);
 		this.path = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, null);
-		this.vS = new Vector<Double>();
-		this.uvt = new Vector<Double>();
+		this.vS = new Vector<>();
+		this.uvt = new Vector<>();
 		this.fillMatrix = new Matrix();
-		objectId = getNextFakeObjectId();
+		this.objectId = getNextFakeObjectId();
 		this.size = param1.size;
-		z = param1.z;
+		this.z = param1.z;
 		this.durationLeft = param1.duration;
-		this.texture = param1.textureData.getTexture(objectId);
+		this.texture = param1.textureData.getTexture(this.objectId);
 		if (param1.animationsData != null) {
 			this.animations = new Animations(param1.animationsData);
 		}
@@ -63,13 +63,13 @@ public class XMLParticle extends BasicObject {
 	}
 
 	public boolean moveTo(double param1, double param2) {
-		Square loc3 = map.getSquare(param1, param2);
+		Square loc3 = this.map.getSquare(param1, param2);
 		if (loc3 == null) {
 			return false;
 		}
-		x = param1;
-		y = param2;
-		square = loc3;
+		this.x = param1;
+		this.y = param2;
+		this.square = loc3;
 		return true;
 	}
 
@@ -81,8 +81,8 @@ public class XMLParticle extends BasicObject {
 		if (this.durationLeft <= 0) {
 			return false;
 		}
-		x = x + this.moveVec.x * loc3;
-		y = y + this.moveVec.y * loc3;
+		this.x = this.x + (this.moveVec.x * loc3);
+		this.y = this.y + (this.moveVec.y * loc3);
 		return true;
 	}
 
@@ -100,7 +100,7 @@ public class XMLParticle extends BasicObject {
 		int loc5 = loc4.width;
 		int loc6 = loc4.height;
 		this.vS.length = 0;
-		this.vS.add(posS.get(3) - loc5 / 2, posS.get(4) - loc6, posS.get(3) + loc5 / 2, posS.get(4) - loc6, posS.get(3) + loc5 / 2, posS.get(4), posS.get(3) - loc5 / 2, posS.get(4));
+		this.vS.add(this.posS.get(3) - (loc5 / 2), this.posS.get(4) - loc6, this.posS.get(3) + (loc5 / 2), this.posS.get(4) - loc6, this.posS.get(3) + (loc5 / 2), this.posS.get(4), this.posS.get(3) - (loc5 / 2), this.posS.get(4));
 		this.path.data = this.vS;
 		this.bitmapFill.bitmapData = loc4;
 		this.fillMatrix.identity();

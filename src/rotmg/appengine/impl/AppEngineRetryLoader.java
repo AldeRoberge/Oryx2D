@@ -1,11 +1,16 @@
 package rotmg.appengine.impl;
 
-import alde.flash.utils.consumer.EventConsumer;
+import org.osflash.OnceSignal;
+
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.EventConsumer;
 import flash.events.Event;
 import flash.events.IOErrorEvent;
-import flash.net.*;
-import org.osflash.OnceSignal;
+import flash.net.URLLoader;
+import flash.net.URLLoaderDataFormat;
+import flash.net.URLRequest;
+import flash.net.URLRequestMethod;
+import flash.net.URLVariables;
 import rotmg.appengine.api.RetryLoader;
 import rotmg.packages.models.SecurityErrorEvent;
 
@@ -136,7 +141,7 @@ public class AppEngineRetryLoader implements RetryLoader {
 	}
 
 	private void cleanUpAndComplete(boolean param1, String param2) {
-		if (!param1 && param2 instanceof String) {
+		if (!param1 && (param2 instanceof String)) {
 			param2 = this.parseXML(param2);
 		}
 		this.cancelPendingRequest();

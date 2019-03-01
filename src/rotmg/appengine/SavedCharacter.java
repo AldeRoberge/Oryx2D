@@ -11,7 +11,6 @@ import rotmg.constants.GeneralConstants;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
 import rotmg.objects.animation.AnimatedChar;
-import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
@@ -45,7 +44,7 @@ public class SavedCharacter {
 	}
 
 	public static BitmapData getImage(SavedCharacter param1, XML param2, int param3, int param4, double param5,
-	                                  boolean param6, boolean param7) {
+			boolean param6, boolean param7) {
 		AnimatedChar loc8 = AnimatedChars.getAnimatedChar(param2.child("AnimatedTexture").getValue("File"),
 				param2.child("AnimatedTexture").getIntValue("Index"));
 		MaskedImage loc9 = loc8.imageFromDir(param3, param4, param5);
@@ -65,14 +64,14 @@ public class SavedCharacter {
 	public static double compare(SavedCharacter param1, SavedCharacter param2) {
 		double loc3 = !!Data.charIdUseMap.hasOwnProperty(param1.charId())
 				? Data.charIdUseMap.get(param1.charId())
-				: 0F;
-		double loc4 = !!Data.charIdUseMap.hasOwnProperty(param2.charId())
-				? Data.charIdUseMap.get(param2.charId())
-				: 0F;
-		if (loc3 != loc4) {
-			return loc4 - loc3;
-		}
-		return param2.xp() - param1.xp();
+						: 0F;
+				double loc4 = !!Data.charIdUseMap.hasOwnProperty(param2.charId())
+						? Data.charIdUseMap.get(param2.charId())
+								: 0F;
+						if (loc3 != loc4) {
+							return loc4 - loc3;
+						}
+						return param2.xp() - param1.xp();
 	}
 
 	public int charId() {
@@ -86,11 +85,11 @@ public class SavedCharacter {
 		int loc2 = 0;
 		int loc3 = 0;
 		while (loc3 < GeneralConstants.NUM_EQUIPMENT_SLOTS) {
-			if (loc1.equipment != null && loc1.equipment.length > loc3) {
+			if ((loc1.equipment != null) && (loc1.equipment.length > loc3)) {
 				loc4 = loc1.equipment.get(loc3);
 				if (loc4 != -1) {
 					loc5 = ObjectLibrary.xmlLibrary.get(loc4);
-					if (loc5 != null && loc5.hasOwnProperty("FameBonus")) {
+					if ((loc5 != null) && loc5.hasOwnProperty("FameBonus")) {
 						loc2 = loc2 + loc5.getIntValue("FameBonus");
 					}
 				}

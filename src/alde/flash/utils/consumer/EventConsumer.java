@@ -1,8 +1,8 @@
 package alde.flash.utils.consumer;
 
-import flash.events.Event;
-
 import java.util.function.Consumer;
+
+import flash.events.Event;
 
 /**
  * A method that accepts an Event
@@ -21,10 +21,10 @@ public class EventConsumer<T extends Event> {
 	}
 
 	public void accept(T event) {
-		if (runnable != null) {
-			runnable.run();
+		if (this.runnable != null) {
+			this.runnable.run();
 		} else {
-			consumer.accept(event);
+			this.consumer.accept(event);
 		}
 	}
 

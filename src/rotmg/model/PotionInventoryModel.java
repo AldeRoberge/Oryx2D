@@ -1,12 +1,13 @@
 package rotmg.model;
 
-import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.XML;
-import flash.utils.Dictionary;
-import org.osflash.signals.Signal;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.osflash.signals.Signal;
+
+import alde.flash.utils.XML;
+import alde.flash.utils.consumer.SignalConsumer;
+import flash.utils.Dictionary;
 
 public class PotionInventoryModel {
 
@@ -21,7 +22,7 @@ public class PotionInventoryModel {
 	public PotionInventoryModel() {
 		super();
 		this.potionModels = new Dictionary<>();
-		this.updatePosition = new Signal<Integer>();
+		this.updatePosition = new Signal<>();
 	}
 
 	public static PotionInventoryModel getInstance() {
@@ -34,12 +35,12 @@ public class PotionInventoryModel {
 
 	public static int getPotionSlot(int param1) {
 		switch (param1) {
-			case HEALTH_POTION_ID:
-				return HEALTH_POTION_SLOT;
-			case MAGIC_POTION_ID:
-				return MAGIC_POTION_SLOT;
-			default:
-				return -1;
+		case HEALTH_POTION_ID:
+			return HEALTH_POTION_SLOT;
+		case MAGIC_POTION_ID:
+			return MAGIC_POTION_SLOT;
+		default:
+			return -1;
 		}
 	}
 

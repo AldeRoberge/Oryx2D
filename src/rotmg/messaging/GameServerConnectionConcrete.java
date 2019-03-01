@@ -1,10 +1,17 @@
 package rotmg.messaging;
 
-import alde.flash.utils.consumer.EventConsumer;
-import alde.flash.utils.consumer.MessageConsumer;
+import static flash.utils.timer.getTimer.getTimer;
+
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import com.hurlant.crypto.symmetric.ICipher;
+
 import alde.flash.utils.RSA;
 import alde.flash.utils.XML;
-import com.hurlant.crypto.symmetric.ICipher;
+import alde.flash.utils.consumer.EventConsumer;
+import alde.flash.utils.consumer.MessageConsumer;
 import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.utils.timer.Timer;
@@ -40,10 +47,88 @@ import rotmg.messaging.data.GroundTileData;
 import rotmg.messaging.data.ObjectData;
 import rotmg.messaging.data.ObjectStatusData;
 import rotmg.messaging.data.StatData;
-import rotmg.messaging.impl.*;
-import rotmg.messaging.incoming.*;
+import rotmg.messaging.impl.ActivePet;
+import rotmg.messaging.impl.HatchPetMessage;
+import rotmg.messaging.impl.PetUpgradeRequest;
+import rotmg.messaging.impl.PetYard;
+import rotmg.messaging.impl.ReskinPet;
+import rotmg.messaging.incoming.AccountList;
+import rotmg.messaging.incoming.AllyShoot;
+import rotmg.messaging.incoming.Aoe;
+import rotmg.messaging.incoming.BuyResult;
+import rotmg.messaging.incoming.ClientStat;
+import rotmg.messaging.incoming.CreateSuccess;
+import rotmg.messaging.incoming.Damage;
+import rotmg.messaging.incoming.Death;
+import rotmg.messaging.incoming.EnemyShoot;
+import rotmg.messaging.incoming.EvolvedPetMessage;
+import rotmg.messaging.incoming.Failure;
+import rotmg.messaging.incoming.File;
+import rotmg.messaging.incoming.GlobalNotification;
+import rotmg.messaging.incoming.Goto;
+import rotmg.messaging.incoming.GuildResult;
+import rotmg.messaging.incoming.InvResult;
+import rotmg.messaging.incoming.InvitedToGuild;
+import rotmg.messaging.incoming.MapInfo;
+import rotmg.messaging.incoming.NameResult;
+import rotmg.messaging.incoming.NewAbilityMessage;
+import rotmg.messaging.incoming.NewTick;
+import rotmg.messaging.incoming.Notification;
+import rotmg.messaging.incoming.Ping;
+import rotmg.messaging.incoming.PlaySound;
+import rotmg.messaging.incoming.QuestObjId;
+import rotmg.messaging.incoming.Reconnect;
+import rotmg.messaging.incoming.ServerPlayerShoot;
+import rotmg.messaging.incoming.ShowEffect;
+import rotmg.messaging.incoming.Text;
+import rotmg.messaging.incoming.TradeAccepted;
+import rotmg.messaging.incoming.TradeChanged;
+import rotmg.messaging.incoming.TradeDone;
+import rotmg.messaging.incoming.TradeRequested;
+import rotmg.messaging.incoming.TradeStart;
+import rotmg.messaging.incoming.Update;
 import rotmg.messaging.incoming.pets.DeletePetMessage;
-import rotmg.messaging.outgoing.*;
+import rotmg.messaging.outgoing.AcceptTrade;
+import rotmg.messaging.outgoing.ActivePetUpdateRequest;
+import rotmg.messaging.outgoing.AoeAck;
+import rotmg.messaging.outgoing.Buy;
+import rotmg.messaging.outgoing.CancelTrade;
+import rotmg.messaging.outgoing.ChangeGuildRank;
+import rotmg.messaging.outgoing.ChangeTrade;
+import rotmg.messaging.outgoing.CheckCredits;
+import rotmg.messaging.outgoing.ChooseName;
+import rotmg.messaging.outgoing.ClaimDailyRewardMessage;
+import rotmg.messaging.outgoing.Create;
+import rotmg.messaging.outgoing.CreateGuild;
+import rotmg.messaging.outgoing.EditAccountList;
+import rotmg.messaging.outgoing.EnemyHit;
+import rotmg.messaging.outgoing.Escape;
+import rotmg.messaging.outgoing.GoToQuestRoom;
+import rotmg.messaging.outgoing.GotoAck;
+import rotmg.messaging.outgoing.GroundDamage;
+import rotmg.messaging.outgoing.GuildInvite;
+import rotmg.messaging.outgoing.GuildRemove;
+import rotmg.messaging.outgoing.Hello;
+import rotmg.messaging.outgoing.InvDrop;
+import rotmg.messaging.outgoing.InvSwap;
+import rotmg.messaging.outgoing.JoinGuild;
+import rotmg.messaging.outgoing.KeyInfoRequest;
+import rotmg.messaging.outgoing.Load;
+import rotmg.messaging.outgoing.Move;
+import rotmg.messaging.outgoing.OtherHit;
+import rotmg.messaging.outgoing.OutgoingMessage;
+import rotmg.messaging.outgoing.PlayerHit;
+import rotmg.messaging.outgoing.PlayerShoot;
+import rotmg.messaging.outgoing.PlayerText;
+import rotmg.messaging.outgoing.Pong;
+import rotmg.messaging.outgoing.RequestTrade;
+import rotmg.messaging.outgoing.Reskin;
+import rotmg.messaging.outgoing.SetCondition;
+import rotmg.messaging.outgoing.ShootAck;
+import rotmg.messaging.outgoing.SquareHit;
+import rotmg.messaging.outgoing.Teleport;
+import rotmg.messaging.outgoing.UseItem;
+import rotmg.messaging.outgoing.UsePortal;
 import rotmg.messaging.outgoing.arena.EnterArena;
 import rotmg.messaging.outgoing.arena.QuestRedeem;
 import rotmg.minimap.control.UpdateGameObjectTileSignal;
@@ -54,7 +139,12 @@ import rotmg.net.Server;
 import rotmg.net.SocketServer;
 import rotmg.net.impl.Message;
 import rotmg.net.impl.MessageCenter;
-import rotmg.objects.*;
+import rotmg.objects.GameObject;
+import rotmg.objects.Merchant;
+import rotmg.objects.ObjectLibrary;
+import rotmg.objects.Player;
+import rotmg.objects.Projectile;
+import rotmg.objects.SellableObject;
 import rotmg.parameters.Parameters;
 import rotmg.pets.controller.PetFeedResultSignal;
 import rotmg.pets.controller.UpdateActivePet;
@@ -74,12 +164,6 @@ import rotmg.util.ConditionEffect;
 import rotmg.util.ConversionUtil;
 import rotmg.util.Currency;
 import rotmg.util.TextKey;
-
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 public class GameServerConnectionConcrete extends GameServerConnection {
 
@@ -121,7 +205,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 
 	public GameServerConnectionConcrete(AGameSprite gs, Server server, int gameId, boolean createCharacter, int charId,
-	                                    int keyTime, byte[] key, byte[] mapJSON, boolean isFromArena) {
+			int keyTime, byte[] key, byte[] mapJSON, boolean isFromArena) {
 		super();
 
 		System.out.println("GameSprite : " + gs);
@@ -146,7 +230,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.zombify = ZombifySignal.getInstance();
 		this.setGameFocus = SetGameFocusSignal.getInstance();
 		this.classesModel = ClassesModel.getInstance();
-		serverConnection = SocketServer.getInstance();
+		this.serverConnection = SocketServer.getInstance();
 		this.messages = MessageCenter.getInstance();
 		this.model = GameModel.getInstance();
 		/*this.currentArenaRun = CurrentArenaRunModel.getInstance();*/
@@ -164,16 +248,16 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	private static boolean isStatPotion(int param1) {
-		return param1 == 2591 || param1 == 5465 || param1 == 9064
-				|| (param1 == 2592 || param1 == 5466 || param1 == 9065)
-				|| (param1 == 2593 || param1 == 5467 || param1 == 9066)
-				|| (param1 == 2612 || param1 == 5468 || param1 == 9067)
-				|| (param1 == 2613 || param1 == 5469 || param1 == 9068)
-				|| (param1 == 2636 || param1 == 5470 || param1 == 9069)
-				|| (param1 == 2793 || param1 == 5471 || param1 == 9070)
-				|| (param1 == 2794 || param1 == 5472 || param1 == 9071)
-				|| (param1 == 9724 || param1 == 9725 || param1 == 9726 || param1 == 9727 || param1 == 9728
-				|| param1 == 9729 || param1 == 9730 || param1 == 9731);
+		return (param1 == 2591) || (param1 == 5465) || (param1 == 9064)
+				|| ((param1 == 2592) || (param1 == 5466) || (param1 == 9065))
+				|| ((param1 == 2593) || (param1 == 5467) || (param1 == 9066))
+				|| ((param1 == 2612) || (param1 == 5468) || (param1 == 9067))
+				|| ((param1 == 2613) || (param1 == 5469) || (param1 == 9068))
+				|| ((param1 == 2636) || (param1 == 5470) || (param1 == 9069))
+				|| ((param1 == 2793) || (param1 == 5471) || (param1 == 9070))
+				|| ((param1 == 2794) || (param1 == 5472) || (param1 == 9071))
+				|| ((param1 == 9724) || (param1 == 9725) || (param1 == 9726) || (param1 == 9727) || (param1 == 9728)
+						|| (param1 == 9729) || (param1 == 9730) || (param1 == 9731));
 	}
 
 	//private function getPetUpdater()
@@ -189,13 +273,13 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.name = Parameters.CLIENT_CHAT_NAME;
 		chatMessage.text = TextKey.CHAT_CONNECTING_TO;
-		String loc2 = server.name;
+		String loc2 = this.server.name;
 
-		System.out.println("Connecting to " + server.name + ".");
+		System.out.println("Connecting to " + this.server.name + ".");
 
-		serverConnection.connect(server.address, server.port);
+		this.serverConnection.connect(this.server.address, this.server.port);
 
-		onConnected();
+		this.onConnected();
 	}
 
 	/**
@@ -257,12 +341,12 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		loc1.map(FAILURE).toMessage(Failure.class).toMethod(new MessageConsumer<>(this::onFailure));
 		loc1.map(CREATE_SUCCESS).toMessage(CreateSuccess.class).toMethod(new MessageConsumer<>(this::onCreateSuccess));
 		loc1.map(SERVERPLAYERSHOOT).toMessage(ServerPlayerShoot.class)
-				.toMethod(new MessageConsumer<>(this::onServerPlayerShoot));
+		.toMethod(new MessageConsumer<>(this::onServerPlayerShoot));
 		loc1.map(DAMAGE).toMessage(Damage.class).toMethod(new MessageConsumer<>(this::onDamage));
 		loc1.map(UPDATE).toMessage(Update.class).toMethod(new MessageConsumer<>(this::onUpdate));
 		loc1.map(NOTIFICATION).toMessage(Notification.class).toMethod(new MessageConsumer<>(this::onNotification));
 		loc1.map(GLOBAL_NOTIFICATION).toMessage(GlobalNotification.class)
-				.toMethod(new MessageConsumer<>(this::onGlobalNotification));
+		.toMethod(new MessageConsumer<>(this::onGlobalNotification));
 		loc1.map(NEWTICK).toMessage(NewTick.class).toMethod(new MessageConsumer<>(this::onNewTick));
 		loc1.map(SHOWEFFECT).toMessage(ShowEffect.class).toMethod(new MessageConsumer<>(this::onShowEffect));
 		loc1.map(GOTO).toMessage(Goto.class).toMethod(new MessageConsumer<>(this::onGoto));
@@ -281,7 +365,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		loc1.map(ALLYSHOOT).toMessage(AllyShoot.class).toMethod(new MessageConsumer<>(this::onAllyShoot));
 		loc1.map(ENEMYSHOOT).toMessage(EnemyShoot.class).toMethod(new MessageConsumer<>(this::onEnemyShoot));
 		loc1.map(TRADEREQUESTED).toMessage(TradeRequested.class)
-				.toMethod(new MessageConsumer<>(this::onTradeRequested));
+		.toMethod(new MessageConsumer<>(this::onTradeRequested));
 		loc1.map(TRADESTART).toMessage(TradeStart.class).toMethod(new MessageConsumer<>(this::onTradeStart));
 		loc1.map(TRADECHANGED).toMessage(TradeChanged.class).toMethod(new MessageConsumer<>(this::onTradeChanged));
 		loc1.map(TRADEDONE).toMessage(TradeDone.class).toMethod(new MessageConsumer<>(this::onTradeDone));
@@ -289,7 +373,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		loc1.map(CLIENTSTAT).toMessage(ClientStat.class).toMethod(new MessageConsumer<>(this::onClientStat));
 		loc1.map(FILE).toMessage(File.class).toMethod(new MessageConsumer<>(this::onFile));
 		loc1.map(INVITEDTOGUILD).toMessage(InvitedToGuild.class)
-				.toMethod(new MessageConsumer<>(this::onInvitedToGuild));
+		.toMethod(new MessageConsumer<>(this::onInvitedToGuild));
 		loc1.map(PLAYSOUND).toMessage(PlaySound.class).toMethod(new MessageConsumer<>(this::onPlaySound));
 		loc1.map(ACTIVEPETUPDATE).toMessage(ActivePet.class).toMethod(new MessageConsumer<>(this::onActivePetUpdate));
 		loc1.map(NEW_ABILITY).toMessage(NewAbilityMessage.class).toMethod(new MessageConsumer<>(this::onNewAbility));
@@ -339,8 +423,8 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	private void encryptConnection() {
-		serverConnection.setOutgoingCipher(new ICipher("6a39570cc9de4ec71d64821894"));
-		serverConnection.setIncomingCipher(new ICipher("c79332b197f92ba85ed281a023"));
+		this.serverConnection.setOutgoingCipher(new ICipher("6a39570cc9de4ec71d64821894"));
+		this.serverConnection.setIncomingCipher(new ICipher("c79332b197f92ba85ed281a023"));
 
 	}
 
@@ -358,19 +442,19 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		Create create = (Create) this.messages.require(CREATE);
 		create.classType = selectedClass.id;
 		create.skinType = selectedClass.skins.getSelectedSkin().id;
-		serverConnection.sendMessage(create);
+		this.serverConnection.sendMessage(create);
 	}
 
 	private void load() {
-		System.out.println("Loading character '" + charId + "'...");
+		System.out.println("Loading character '" + this.charId + "'...");
 
 		Load load = (Load) this.messages.require(LOAD);
-		load.charId = charId;
-		load.isFromArena = isFromArena;
+		load.charId = this.charId;
+		load.isFromArena = this.isFromArena;
 
 		System.out.println(load);
 
-		serverConnection.sendMessage(load);
+		this.serverConnection.sendMessage(load);
 
 		/*if (isFromArena) {
 		 this.openDialog.dispatch(new BattleSummaryDialog());
@@ -458,7 +542,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	@Override
 	public boolean invSwap(Player player, GameObject sourceObj, int slotId1, int itemId, GameObject targetObj,
-	                       int slotId2, int objectType2) {
+			int slotId2, int objectType2) {
 		if (this.gs == null) {
 			return false;
 		}
@@ -482,7 +566,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	@Override
 	public boolean invSwapPotion(Player player, GameObject sourceObj, int slotId1, int itemId, GameObject targetObj,
-	                             int slotId2, int objectType2) {
+			int slotId2, int objectType2) {
 		if (this.gs == null) {
 			return false;
 		}
@@ -509,13 +593,13 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	@Override
 	public boolean invSwapRaw(Player player, int objectId1, int slotId1, int objectType1, int objectId2,
-	                          int slotId2,
-	                          int objectType2) {
+			int slotId2,
+			int objectType2) {
 		if (this.gs == null) {
 			return false;
 		}
 		InvSwap loc8 = (InvSwap) this.messages.require(INVSWAP);
-		loc8.time = gs.lastUpdate;
+		loc8.time = this.gs.lastUpdate;
 		loc8.position.x = player.x;
 		loc8.position.y = player.y;
 		loc8.slotObject1.objectId = objectId1;
@@ -525,7 +609,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		loc8.slotObject2.slotId = slotId2;
 		loc8.slotObject2.objectType = objectType2;
 		//this.addTextLine.dispatch(ChatMessage.make("",  "INVSWAP;
-		serverConnection.sendMessage(loc8);
+		this.serverConnection.sendMessage(loc8);
 		SoundEffectLibrary.play("inventory_move_item");
 		return true;
 	}
@@ -537,7 +621,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		invDrop.slotObject.slotId = slotId;
 		invDrop.slotObject.objectType = objectType;
 		this.serverConnection.sendMessage(invDrop);
-		if (slotId != PotionInventoryModel.HEALTH_POTION_SLOT && slotId != PotionInventoryModel.MAGIC_POTION_SLOT) {
+		if ((slotId != PotionInventoryModel.HEALTH_POTION_SLOT) && (slotId != PotionInventoryModel.MAGIC_POTION_SLOT)) {
 			object.equipment.put(slotId, ItemConstants.NO_ITEM);
 		}
 	}
@@ -598,7 +682,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		int i = 0;
 		double x = -1;
 		double y = -1;
-		if (player != null && !player.isPaused()) {
+		if ((player != null) && !player.isPaused()) {
 			x = player.x;
 			y = player.y;
 		}
@@ -609,10 +693,10 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		move.newPosition.y = y;
 		int lastMove = this.gs.moveRecords.lastClearTime;
 		move.records.clear();
-		if (lastMove >= 0 && move.time - lastMove > 125) {
+		if ((lastMove >= 0) && ((move.time - lastMove) > 125)) {
 			len = Math.min(10, this.gs.moveRecords.records.size());
 			for (i = 0; i < len; i++) {
-				if (this.gs.moveRecords.records.get(i).time >= move.time - 25) {
+				if (this.gs.moveRecords.records.get(i).time >= (move.time - 25)) {
 					break;
 				}
 				move.records.add(this.gs.moveRecords.records.get(i));
@@ -620,8 +704,9 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		}
 		this.gs.moveRecords.clear(move.time);
 		this.serverConnection.sendMessage(move);
-		if (player != null)
+		if (player != null) {
 			player.onMove();
+		}
 	}
 
 	@Override
@@ -649,7 +734,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		}
 		boolean converted = false;
 		if (sObj.currency == Currency.GOLD) {
-			converted = this.gs.model.getConverted() || this.player.credits > 100 || sObj.price > this.player.credits;
+			converted = this.gs.model.getConverted() || (this.player.credits > 100) || (sObj.price > this.player.credits);
 		}
 		this.outstandingBuy = new OutstandingBuy(sObj.soldObjectInternalName(), sObj.price, sObj.currency, converted);
 		Buy buyMesssage = (Buy) this.messages.require(BUY);
@@ -768,18 +853,18 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.encryptConnection();
 		Hello hello = (Hello) this.messages.require(HELLO);
 		hello.buildVersion = Parameters.BUILD_VERSION + "." + Parameters.MINOR_VERSION;
-		hello.gameId = gameId;
+		hello.gameId = this.gameId;
 		hello.guid = this.rsaEncrypt(loc1.userId);
 		hello.password = this.rsaEncrypt(loc1.password);
 		hello.secret = this.rsaEncrypt(loc1.secret);
-		hello.keyTime = keyTime;
-		if (key != null) {
-			hello.key = key;
+		hello.keyTime = this.keyTime;
+		if (this.key != null) {
+			hello.key = this.key;
 		} else {
 			hello.key = new byte[0];
 		}
-		if (mapJSON != null) {
-			hello.mapJSON = mapJSON;
+		if (this.mapJSON != null) {
+			hello.mapJSON = this.mapJSON;
 		} else {
 			hello.mapJSON = new byte[0];
 		}
@@ -792,7 +877,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 		System.out.println("Sending hello packet...");
 
-		serverConnection.sendMessage(hello);
+		this.serverConnection.sendMessage(hello);
 	}
 
 	public void onCreateSuccess(CreateSuccess createSuccess) {
@@ -808,10 +893,10 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		int projId = 0;
 		Map map = (Map) this.gs.map;
 		Projectile proj = null;
-		if (damage.objectId >= 0 && damage.bulletId > 0) {
+		if ((damage.objectId >= 0) && (damage.bulletId > 0)) {
 			projId = Projectile.findObjId(damage.objectId, damage.bulletId);
 			proj = (Projectile) AbstractMap.boDict.get(projId);
-			if (proj != null && !proj.projProps.multiHit) {
+			if ((proj != null) && !proj.projProps.multiHit) {
 				map.removeObj(projId);
 			}
 		}
@@ -824,7 +909,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	public void onServerPlayerShoot(ServerPlayerShoot serverPlayerShoot) {
 		boolean needsAck = (serverPlayerShoot.ownerId == this.playerId);
 		GameObject owner = AbstractMap.goDict.get(serverPlayerShoot.ownerId);
-		if (owner == null || owner.dead) {
+		if ((owner == null) || owner.dead) {
 			if (needsAck) {
 				this.shootAck(-1);
 			}
@@ -842,7 +927,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	void onAllyShoot(AllyShoot allyShoot) {
 		GameObject owner = AbstractMap.goDict.get(allyShoot.ownerId);
-		if (owner == null || owner.dead) {
+		if ((owner == null) || owner.dead) {
 			return;
 		}
 		Projectile proj = new Projectile();
@@ -854,20 +939,20 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	void onEnemyShoot(EnemyShoot enemyShoot) {
 		GameObject owner = AbstractMap.goDict.get(enemyShoot.ownerId);
-		if (owner == null || owner.dead) {
+		if ((owner == null) || owner.dead) {
 			this.shootAck(-1);
 			return;
 		}
 		for (int i = 0; i < enemyShoot.numShots; i++) {
 			Projectile proj = new Projectile();
-			double angle = enemyShoot.angle + enemyShoot.angleInc * i;
+			double angle = enemyShoot.angle + (enemyShoot.angleInc * i);
 			proj.reset(owner.objectType, enemyShoot.bulletType, enemyShoot.ownerId, (enemyShoot.bulletId + i) % 256,
 					angle, this.gs.lastUpdate);
 			proj.setDamage(enemyShoot.damage);
 			this.gs.map.addObj(proj, enemyShoot.startingPos.x, enemyShoot.startingPos.y);
 		}
 		this.shootAck(this.gs.lastUpdate);
-		owner.setAttack(owner.objectType, enemyShoot.angle + enemyShoot.angleInc * ((enemyShoot.numShots - 1) / 2));
+		owner.setAttack(owner.objectType, enemyShoot.angle + (enemyShoot.angleInc * ((enemyShoot.numShots - 1) / 2)));
 	}
 
 	public void onTradeRequested(TradeRequested tradeRequested) {
@@ -929,11 +1014,11 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		int loc3 = 0;
 		GroundTileData loc4 = null;
 		Message loc2 = this.messages.require(UPDATEACK);
-		serverConnection.sendMessage(loc2);
+		this.serverConnection.sendMessage(loc2);
 		loc3 = 0;
 		while (loc3 < update.tiles.length) {
 			loc4 = update.tiles[loc3];
-			gs.map.setGroundTile(loc4.x, loc4.y, loc4.type);
+			this.gs.map.setGroundTile(loc4.x, loc4.y, loc4.type);
 			this.updateGroundTileSignal.dispatch(new UpdateGroundTileVO(loc4.x, loc4.y, loc4.type));
 			loc3++;
 		}
@@ -944,7 +1029,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		}
 		loc3 = 0;
 		while (loc3 < update.drops.length) {
-			gs.map.removeObj(update.drops[loc3]);
+			this.gs.map.removeObj(update.drops[loc3]);
 			loc3++;
 		}
 	}
@@ -956,7 +1041,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 			/*StringBuilder b = new StringBuilder(notification.message); // Workaround
 			text = new QueuedStatusText(go, b, notification.color, 2000);
 			this.gs.map.mapOverlay.addQueuedText(text);**/
-			if (go == this.player && notification.message.equals("Quest Complete!")) {
+			if ((go == this.player) && notification.message.equals("Quest Complete!")) {
 				this.gs.map.quest.completed();
 			}
 		}
@@ -964,28 +1049,28 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	private void onGlobalNotification(GlobalNotification notification) {
 		switch (notification.text) {
-			case "yellow":
-				ShowKeySignal.getInstance().dispatch(Key.YELLOW);
-				break;
-			case "red":
-				ShowKeySignal.getInstance().dispatch(Key.RED);
-				break;
-			case "green":
-				ShowKeySignal.getInstance().dispatch(Key.GREEN);
-				break;
-			case "purple":
-				ShowKeySignal.getInstance().dispatch(Key.PURPLE);
-				break;
-			case "showKeyUI":
-				ShowKeyUISignal.getInstance().dispatch();
-				break;
-			case "giftChestOccupied":
-				this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_GIFT);
-				break;
-			case "giftChestEmpty":
-				this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_NO_GIFT);
-				break;
-			case "beginnersPackage":
+		case "yellow":
+			ShowKeySignal.getInstance().dispatch(Key.YELLOW);
+			break;
+		case "red":
+			ShowKeySignal.getInstance().dispatch(Key.RED);
+			break;
+		case "green":
+			ShowKeySignal.getInstance().dispatch(Key.GREEN);
+			break;
+		case "purple":
+			ShowKeySignal.getInstance().dispatch(Key.PURPLE);
+			break;
+		case "showKeyUI":
+			ShowKeyUISignal.getInstance().dispatch();
+			break;
+		case "giftChestOccupied":
+			this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_GIFT);
+			break;
+		case "giftChestEmpty":
+			this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_NO_GIFT);
+			break;
+		case "beginnersPackage":
 		}
 	}
 
@@ -1029,223 +1114,223 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		for (StatData stat : stats) {
 			int value = stat.statValue;
 			switch (stat.statType) {
-				case StatData.MAX_HP_STAT:
-					go.maxHP = value;
-					continue;
-				case StatData.HP_STAT:
-					go.hp = value;
-					continue;
-				case StatData.SIZE_STAT:
-					go.size = value;
-					continue;
-				case StatData.MAX_MP_STAT:
-					player.maxMP = value;
-					continue;
-				case StatData.MP_STAT:
-					player.mp = value;
-					continue;
-				case StatData.NEXT_LEVEL_EXP_STAT:
-					player.nextLevelExp = value;
-					continue;
-				case StatData.EXP_STAT:
-					player.exp = value;
-					continue;
-				case StatData.LEVEL_STAT:
-					go.level = value;
-					continue;
-				case StatData.ATTACK_STAT:
-					player.attack = value;
-					continue;
-				case StatData.DEFENSE_STAT:
-					go.defense = value;
-					continue;
-				case StatData.SPEED_STAT:
-					player.speed = value;
-					continue;
-				case StatData.DEXTERITY_STAT:
-					player.dexterity = value;
-					continue;
-				case StatData.VITALITY_STAT:
-					player.vitality = value;
-					continue;
-				case StatData.WISDOM_STAT:
-					player.wisdom = value;
-					continue;
-				case StatData.CONDITION_STAT:
-					go.condition.put(ConditionEffect.CE_FIRST_BATCH, value);
-					continue;
-				case StatData.INVENTORY_0_STAT:
-				case StatData.INVENTORY_1_STAT:
-				case StatData.INVENTORY_2_STAT:
-				case StatData.INVENTORY_3_STAT:
-				case StatData.INVENTORY_4_STAT:
-				case StatData.INVENTORY_5_STAT:
-				case StatData.INVENTORY_6_STAT:
-				case StatData.INVENTORY_7_STAT:
-				case StatData.INVENTORY_8_STAT:
-				case StatData.INVENTORY_9_STAT:
-				case StatData.INVENTORY_10_STAT:
-				case StatData.INVENTORY_11_STAT:
-					go.equipment.put(stat.statType - StatData.INVENTORY_0_STAT, value);
-					continue;
-				case StatData.NUM_STARS_STAT:
-					player.numStars = value;
-					continue;
-				case StatData.NAME_STAT:
-					if (!go.name.equals(stat.strStatValue)) {
-						go.name = stat.strStatValue;
-						go.nameBitmapData = null;
-					}
-					continue;
-				case StatData.TEX1_STAT:
-					go.setTexture(value);
-					continue;
-				case StatData.TEX2_STAT:
-					go.setAltTexture(value);
-					continue;
-				case StatData.MERCHANDISE_TYPE_STAT:
-					merchant.setMerchandiseType(value);
-					continue;
-				case StatData.CREDITS_STAT:
-					player.setCredits(value);
-					continue;
-				case StatData.MERCHANDISE_PRICE_STAT:
-					//(SellableObject) go.setPrice(value);
-					continue;
-				case StatData.ACTIVE_STAT:
-					//(Portal) go.active = value != 0;
-					continue;
-				case StatData.ACCOUNT_ID_STAT:
-					player.accountId = stat.strStatValue;
-					continue;
-				case StatData.FAME_STAT:
-					player.fame = value;
-					continue;
-				case StatData.MERCHANDISE_CURRENCY_STAT:
-					//(SellableObject) go.setCurrency(value);
-					continue;
-				case StatData.CONNECT_STAT:
-					go.connectType = value;
-					continue;
-				case StatData.MERCHANDISE_COUNT_STAT:
-					merchant.count = value;
-					merchant.untilNextMessage = 0;
-					continue;
-				case StatData.MERCHANDISE_MINS_LEFT_STAT:
-					merchant.minsLeft = value;
-					merchant.untilNextMessage = 0;
-					continue;
-				case StatData.MERCHANDISE_DISCOUNT_STAT:
-					merchant.discount = value;
-					merchant.untilNextMessage = 0;
-					continue;
-				case StatData.MERCHANDISE_RANK_REQ_STAT:
-					//(SellableObject) go.setRankReq(value);
-					continue;
-				case StatData.MAX_HP_BOOST_STAT:
-					player.maxHPBoost = value;
-					continue;
-				case StatData.MAX_MP_BOOST_STAT:
-					player.maxMPBoost = value;
-					continue;
-				case StatData.ATTACK_BOOST_STAT:
-					player.attackBoost = value;
-					continue;
-				case StatData.DEFENSE_BOOST_STAT:
-					player.defenseBoost = value;
-					continue;
-				case StatData.SPEED_BOOST_STAT:
-					player.speedBoost = value;
-					continue;
-				case StatData.VITALITY_BOOST_STAT:
-					player.vitalityBoost = value;
-					continue;
-				case StatData.WISDOM_BOOST_STAT:
-					player.wisdomBoost = value;
-					continue;
-				case StatData.DEXTERITY_BOOST_STAT:
-					player.dexterityBoost = value;
-					continue;
-				case StatData.OWNER_ACCOUNT_ID_STAT:
-					//(Container) go.setOwnerId(value);
-					continue;
-				case StatData.RANK_REQUIRED_STAT:
-					//(NameChanger) go.setRankRequired(value);
-					continue;
-				case StatData.NAME_CHOSEN_STAT:
-					player.nameChosen = value != 0;
+			case StatData.MAX_HP_STAT:
+				go.maxHP = value;
+				continue;
+			case StatData.HP_STAT:
+				go.hp = value;
+				continue;
+			case StatData.SIZE_STAT:
+				go.size = value;
+				continue;
+			case StatData.MAX_MP_STAT:
+				player.maxMP = value;
+				continue;
+			case StatData.MP_STAT:
+				player.mp = value;
+				continue;
+			case StatData.NEXT_LEVEL_EXP_STAT:
+				player.nextLevelExp = value;
+				continue;
+			case StatData.EXP_STAT:
+				player.exp = value;
+				continue;
+			case StatData.LEVEL_STAT:
+				go.level = value;
+				continue;
+			case StatData.ATTACK_STAT:
+				player.attack = value;
+				continue;
+			case StatData.DEFENSE_STAT:
+				go.defense = value;
+				continue;
+			case StatData.SPEED_STAT:
+				player.speed = value;
+				continue;
+			case StatData.DEXTERITY_STAT:
+				player.dexterity = value;
+				continue;
+			case StatData.VITALITY_STAT:
+				player.vitality = value;
+				continue;
+			case StatData.WISDOM_STAT:
+				player.wisdom = value;
+				continue;
+			case StatData.CONDITION_STAT:
+				go.condition.put(ConditionEffect.CE_FIRST_BATCH, value);
+				continue;
+			case StatData.INVENTORY_0_STAT:
+			case StatData.INVENTORY_1_STAT:
+			case StatData.INVENTORY_2_STAT:
+			case StatData.INVENTORY_3_STAT:
+			case StatData.INVENTORY_4_STAT:
+			case StatData.INVENTORY_5_STAT:
+			case StatData.INVENTORY_6_STAT:
+			case StatData.INVENTORY_7_STAT:
+			case StatData.INVENTORY_8_STAT:
+			case StatData.INVENTORY_9_STAT:
+			case StatData.INVENTORY_10_STAT:
+			case StatData.INVENTORY_11_STAT:
+				go.equipment.put(stat.statType - StatData.INVENTORY_0_STAT, value);
+				continue;
+			case StatData.NUM_STARS_STAT:
+				player.numStars = value;
+				continue;
+			case StatData.NAME_STAT:
+				if (!go.name.equals(stat.strStatValue)) {
+					go.name = stat.strStatValue;
 					go.nameBitmapData = null;
-					continue;
-				case StatData.CURR_FAME_STAT:
-					player.currFame = value;
-					continue;
-				case StatData.NEXT_CLASS_QUEST_FAME_STAT:
-					player.nextClassQuestFame = value;
-					continue;
-				case StatData.LEGENDARY_RANK_STAT:
-					player.legendaryRank = value;
-					continue;
-				case StatData.SINK_LEVEL_STAT:
-					if (!isMyObject) {
-						player.sinkLevel = value;
-					}
-					continue;
-				case StatData.ALT_TEXTURE_STAT:
-					go.setAltTexture(value);
-					continue;
-				case StatData.GUILD_NAME_STAT:
-					player.setGuildName(stat.strStatValue);
-					continue;
-				case StatData.GUILD_RANK_STAT:
-					player.guildRank = value;
-					continue;
-				case StatData.BREATH_STAT:
-					player.breath = value;
-					continue;
-				case StatData.XP_BOOSTED_STAT:
-					player.xpBoost = value;
-					continue;
-				case StatData.XP_TIMER_STAT:
-					player.xpTimer = value * TO_MILLISECONDS;
-					continue;
-				case StatData.LD_TIMER_STAT:
-					player.dropBoost = value * TO_MILLISECONDS;
-					continue;
-				case StatData.LT_TIMER_STAT:
-					player.tierBoost = value * TO_MILLISECONDS;
-					continue;
-				case StatData.HEALTH_POTION_STACK_STAT:
-					player.healthPotionCount = value;
-					continue;
-				case StatData.MAGIC_POTION_STACK_STAT:
-					player.magicPotionCount = value;
-					continue;
-				case StatData.TEXTURE_STAT:
-					if (player != null && player.skinId != value) {
-						this.setPlayerSkinTemplate(player, value);
-					}
-					continue;
-				case StatData.HASBACKPACK_STAT:
-					//(Player) go.hasBackpack = value;
-					if (isMyObject) {
-						//this.updateBackpackTab.dispatch(value);
-					}
-					continue;
-				case StatData.BACKPACK_0_STAT:
-				case StatData.BACKPACK_1_STAT:
-				case StatData.BACKPACK_2_STAT:
-				case StatData.BACKPACK_3_STAT:
-				case StatData.BACKPACK_4_STAT:
-				case StatData.BACKPACK_5_STAT:
-				case StatData.BACKPACK_6_STAT:
-				case StatData.BACKPACK_7_STAT:
-					index = stat.statType - StatData.BACKPACK_0_STAT + GeneralConstants.NUM_EQUIPMENT_SLOTS
-							+ GeneralConstants.NUM_INVENTORY_SLOTS;
-					Player o = (Player) go;
-					o.equipment.put(index, value);
-					continue;
-				default:
-					continue;
+				}
+				continue;
+			case StatData.TEX1_STAT:
+				go.setTexture(value);
+				continue;
+			case StatData.TEX2_STAT:
+				go.setAltTexture(value);
+				continue;
+			case StatData.MERCHANDISE_TYPE_STAT:
+				merchant.setMerchandiseType(value);
+				continue;
+			case StatData.CREDITS_STAT:
+				player.setCredits(value);
+				continue;
+			case StatData.MERCHANDISE_PRICE_STAT:
+				//(SellableObject) go.setPrice(value);
+				continue;
+			case StatData.ACTIVE_STAT:
+				//(Portal) go.active = value != 0;
+				continue;
+			case StatData.ACCOUNT_ID_STAT:
+				player.accountId = stat.strStatValue;
+				continue;
+			case StatData.FAME_STAT:
+				player.fame = value;
+				continue;
+			case StatData.MERCHANDISE_CURRENCY_STAT:
+				//(SellableObject) go.setCurrency(value);
+				continue;
+			case StatData.CONNECT_STAT:
+				go.connectType = value;
+				continue;
+			case StatData.MERCHANDISE_COUNT_STAT:
+				merchant.count = value;
+				merchant.untilNextMessage = 0;
+				continue;
+			case StatData.MERCHANDISE_MINS_LEFT_STAT:
+				merchant.minsLeft = value;
+				merchant.untilNextMessage = 0;
+				continue;
+			case StatData.MERCHANDISE_DISCOUNT_STAT:
+				merchant.discount = value;
+				merchant.untilNextMessage = 0;
+				continue;
+			case StatData.MERCHANDISE_RANK_REQ_STAT:
+				//(SellableObject) go.setRankReq(value);
+				continue;
+			case StatData.MAX_HP_BOOST_STAT:
+				player.maxHPBoost = value;
+				continue;
+			case StatData.MAX_MP_BOOST_STAT:
+				player.maxMPBoost = value;
+				continue;
+			case StatData.ATTACK_BOOST_STAT:
+				player.attackBoost = value;
+				continue;
+			case StatData.DEFENSE_BOOST_STAT:
+				player.defenseBoost = value;
+				continue;
+			case StatData.SPEED_BOOST_STAT:
+				player.speedBoost = value;
+				continue;
+			case StatData.VITALITY_BOOST_STAT:
+				player.vitalityBoost = value;
+				continue;
+			case StatData.WISDOM_BOOST_STAT:
+				player.wisdomBoost = value;
+				continue;
+			case StatData.DEXTERITY_BOOST_STAT:
+				player.dexterityBoost = value;
+				continue;
+			case StatData.OWNER_ACCOUNT_ID_STAT:
+				//(Container) go.setOwnerId(value);
+				continue;
+			case StatData.RANK_REQUIRED_STAT:
+				//(NameChanger) go.setRankRequired(value);
+				continue;
+			case StatData.NAME_CHOSEN_STAT:
+				player.nameChosen = value != 0;
+				go.nameBitmapData = null;
+				continue;
+			case StatData.CURR_FAME_STAT:
+				player.currFame = value;
+				continue;
+			case StatData.NEXT_CLASS_QUEST_FAME_STAT:
+				player.nextClassQuestFame = value;
+				continue;
+			case StatData.LEGENDARY_RANK_STAT:
+				player.legendaryRank = value;
+				continue;
+			case StatData.SINK_LEVEL_STAT:
+				if (!isMyObject) {
+					player.sinkLevel = value;
+				}
+				continue;
+			case StatData.ALT_TEXTURE_STAT:
+				go.setAltTexture(value);
+				continue;
+			case StatData.GUILD_NAME_STAT:
+				player.setGuildName(stat.strStatValue);
+				continue;
+			case StatData.GUILD_RANK_STAT:
+				player.guildRank = value;
+				continue;
+			case StatData.BREATH_STAT:
+				player.breath = value;
+				continue;
+			case StatData.XP_BOOSTED_STAT:
+				player.xpBoost = value;
+				continue;
+			case StatData.XP_TIMER_STAT:
+				player.xpTimer = value * TO_MILLISECONDS;
+				continue;
+			case StatData.LD_TIMER_STAT:
+				player.dropBoost = value * TO_MILLISECONDS;
+				continue;
+			case StatData.LT_TIMER_STAT:
+				player.tierBoost = value * TO_MILLISECONDS;
+				continue;
+			case StatData.HEALTH_POTION_STACK_STAT:
+				player.healthPotionCount = value;
+				continue;
+			case StatData.MAGIC_POTION_STACK_STAT:
+				player.magicPotionCount = value;
+				continue;
+			case StatData.TEXTURE_STAT:
+				if ((player != null) && (player.skinId != value)) {
+					this.setPlayerSkinTemplate(player, value);
+				}
+				continue;
+			case StatData.HASBACKPACK_STAT:
+				//(Player) go.hasBackpack = value;
+				if (isMyObject) {
+					//this.updateBackpackTab.dispatch(value);
+				}
+				continue;
+			case StatData.BACKPACK_0_STAT:
+			case StatData.BACKPACK_1_STAT:
+			case StatData.BACKPACK_2_STAT:
+			case StatData.BACKPACK_3_STAT:
+			case StatData.BACKPACK_4_STAT:
+			case StatData.BACKPACK_5_STAT:
+			case StatData.BACKPACK_6_STAT:
+			case StatData.BACKPACK_7_STAT:
+				index = (stat.statType - StatData.BACKPACK_0_STAT) + GeneralConstants.NUM_EQUIPMENT_SLOTS
+				+ GeneralConstants.NUM_INVENTORY_SLOTS;
+				Player o = (Player) go;
+				o.equipment.put(index, value);
+				continue;
+			default:
+				continue;
 			}
 		}
 	}
@@ -1269,7 +1354,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 			return;
 		}
 		boolean isMyObject = objectStatus.objectId == this.playerId;
-		if (tickTime != 0 && !isMyObject) {
+		if ((tickTime != 0) && !isMyObject) {
 			go.onTickPos(objectStatus.pos.x, objectStatus.pos.y, tickTime, tickId);
 		}
 
@@ -1394,16 +1479,16 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		}
 		this.outstandingBuy = null;
 		switch (buyResult.result) {
-			case BuyResult.NOT_ENOUGH_GOLD_BRID:
-				OpenDialogSignal.getInstance().dispatch(new NotEnoughGoldDialog());
-				break;
-			case BuyResult.NOT_ENOUGH_FAME_BRID:
-				OpenDialogSignal.getInstance().dispatch(new NotEnoughFameDialog());
-				break;
-			default:
-				this.addTextLine
-						.dispatch(ChatMessage.make(buyResult.result == BuyResult.SUCCESS_BRID ? Parameters.SERVER_CHAT_NAME
-								: Parameters.ERROR_CHAT_NAME, buyResult.resultString));
+		case BuyResult.NOT_ENOUGH_GOLD_BRID:
+			OpenDialogSignal.getInstance().dispatch(new NotEnoughGoldDialog());
+			break;
+		case BuyResult.NOT_ENOUGH_FAME_BRID:
+			OpenDialogSignal.getInstance().dispatch(new NotEnoughFameDialog());
+			break;
+		default:
+			this.addTextLine
+			.dispatch(ChatMessage.make(buyResult.result == BuyResult.SUCCESS_BRID ? Parameters.SERVER_CHAT_NAME
+					: Parameters.ERROR_CHAT_NAME, buyResult.resultString));
 		}
 	}
 
@@ -1450,7 +1535,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		 }*/
 		this.addTextLine.dispatch(ChatMessage.make("",
 				"You have been invited by " + invitedToGuild.name + " to join the guild " + invitedToGuild.guildName
-						+ ".\n  If you wish to join type \"/join " + invitedToGuild.guildName + "\""));
+				+ ".\n  If you wish to join type \"/join " + invitedToGuild.guildName + "\""));
 
 		System.out.println("Invited to guild");
 
@@ -1471,7 +1556,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 			if (this.delayBeforeReconect < 10) {
 				this.retry(this.delayBeforeReconect++);
 				this.addTextLine
-						.dispatch(ChatMessage.make(Parameters.ERROR_CHAT_NAME, "Connection failed!  Retrying..."));
+				.dispatch(ChatMessage.make(Parameters.ERROR_CHAT_NAME, "Connection failed!  Retrying..."));
 			} else {
 				this.gs.closed.dispatch();
 			}
@@ -1497,17 +1582,17 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		System.err.println("Received Failure : " + event);
 
 		switch (event.errorId) {
-			case Failure.INCORRECT_VERSION:
-				this.handleIncorrectVersionFailure(event);
-				break;
-			case Failure.BAD_KEY:
-				this.handleBadKeyFailure(event);
-				break;
-			case Failure.INVALID_TELEPORT_TARGET:
-				this.handleInvalidTeleportTarget(event);
-				break;
-			default:
-				this.handleDefaultFailure(event);
+		case Failure.INCORRECT_VERSION:
+			this.handleIncorrectVersionFailure(event);
+			break;
+		case Failure.BAD_KEY:
+			this.handleBadKeyFailure(event);
+			break;
+		case Failure.INVALID_TELEPORT_TARGET:
+			this.handleInvalidTeleportTarget(event);
+			break;
+		default:
+			this.handleDefaultFailure(event);
 		}
 	}
 

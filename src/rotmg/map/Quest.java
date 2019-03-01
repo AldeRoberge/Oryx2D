@@ -1,8 +1,8 @@
 package rotmg.map;
 
-import rotmg.objects.GameObject;
-
 import static flash.utils.timer.getTimer.getTimer;
+
+import rotmg.objects.GameObject;
 
 
 public class Quest {
@@ -21,7 +21,7 @@ public class Quest {
 	}
 
 	public void setObject(int param1) {
-		if (this.objectId == -1 && param1 != -1) {
+		if ((this.objectId == -1) && (param1 != -1)) {
 			this.questAvailableAt = getTimer() + 200;
 			this.questOldAt = this.questAvailableAt;
 		}

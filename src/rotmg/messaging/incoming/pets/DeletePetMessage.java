@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming.pets;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.outgoing.OutgoingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.outgoing.OutgoingMessage;
 
 public class DeletePetMessage extends OutgoingMessage {
 
@@ -17,12 +17,12 @@ public class DeletePetMessage extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		petID = in.readInt();
+		this.petID = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(petID);
+		out.writeInt(this.petID);
 	}
 
 }

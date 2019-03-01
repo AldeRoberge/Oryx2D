@@ -1,9 +1,9 @@
 package flash.events;
 
+import java.util.function.Consumer;
+
 import alde.flash.utils.consumer.EventConsumer;
 import flash.utils.Dictionary;
-
-import java.util.function.Consumer;
 
 
 public abstract class EventDispatcher implements IEventDispatcher {
@@ -13,14 +13,14 @@ public abstract class EventDispatcher implements IEventDispatcher {
 	public boolean mouseEnabled;
 
 	public EventDispatcher() {
-		listeners = new Dictionary<>();
+		this.listeners = new Dictionary<>();
 	}
 
 	public native void removeEventListener(String type, EventConsumer listener, Boolean useCapture);
 
 	public boolean dispatchEvent(Event event) {
-		for (EventConsumer c : listeners.keySet()) {
-			if (listeners.get(c).equals(event.type)) {
+		for (EventConsumer c : this.listeners.keySet()) {
+			if (this.listeners.get(c).equals(event.type)) {
 				c.accept(event);
 			}
 		}
@@ -40,7 +40,7 @@ public abstract class EventDispatcher implements IEventDispatcher {
 	}
 
 	public void addEventListener(String event, EventConsumer listener, boolean useCapture, int priority, Boolean useWeakReference) {
-		listeners.put(listener, event);
+		this.listeners.put(listener, event);
 	}
 
 
@@ -52,8 +52,8 @@ public abstract class EventDispatcher implements IEventDispatcher {
 	}
 
 	protected void trigger(String EVENT_TYPE) {
-		for (EventConsumer c : listeners.keySet()) {
-			if (listeners.get(c).equals(EVENT_TYPE)) {
+		for (EventConsumer c : this.listeners.keySet()) {
+			if (this.listeners.get(c).equals(EVENT_TYPE)) {
 				c.accept(new Event(EVENT_TYPE));
 			}
 		}
@@ -62,15 +62,15 @@ public abstract class EventDispatcher implements IEventDispatcher {
 	//TODO link these methods with engine render cycle
 
 	void onAddedToStage(Integer param1) {
-		trigger(Event.ADDED_TO_STAGE);
+		this.trigger(Event.ADDED_TO_STAGE);
 	}
 
 	void onRemovedFromStage(Integer param1) {
-		trigger(Event.REMOVED_FROM_STAGE);
+		this.trigger(Event.REMOVED_FROM_STAGE);
 	}
 
 	void onEnterFrame(Integer param1) {
-		trigger(Event.ENTER_FRAME);
+		this.trigger(Event.ENTER_FRAME);
 	}
 
 }

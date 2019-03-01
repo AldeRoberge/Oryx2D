@@ -7,9 +7,9 @@ public class PackageAvailableSignal extends Signal {
 	PackageAvailableSignal instance;
 
 	public PackageAvailableSignal getInstance() {
-		if (instance == null) {
-			instance = new PackageAvailableSignal();
+		if (this.instance == null) {
+			this.instance = new PackageAvailableSignal();
 		}
-		return instance;
+		return this.instance;
 	}
 }

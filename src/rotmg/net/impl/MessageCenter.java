@@ -1,12 +1,12 @@
 package rotmg.net.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import alde.flash.utils.consumer.MessageConsumer;
 import flash.utils.Dictionary;
 import rotmg.net.api.MessageMap;
 import rotmg.net.api.MessageMapping;
 import rotmg.net.api.MessageProvider;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class MessageCenter implements MessageMap, MessageProvider {
 
@@ -44,7 +44,7 @@ public class MessageCenter implements MessageMap, MessageProvider {
 
 	@Override
 	public Message require(int id) {
-		MessageCenterMapping m = maps.get(id);
+		MessageCenterMapping m = this.maps.get(id);
 
 		if (m != null) {
 			Class classToLoad = m.messageType;

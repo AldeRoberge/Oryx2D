@@ -23,7 +23,7 @@ public class LatLong {
 		double theta = TO_RADIANS * (param1.longitude - param2.longitude);
 		double lat1 = TO_RADIANS * param1.latitude;
 		double lat2 = TO_RADIANS * param2.latitude;
-		double dist = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(theta);
+		double dist = (Math.sin(lat1) * Math.sin(lat2)) + (Math.cos(lat1) * Math.cos(lat2) * Math.cos(theta));
 		dist = TO_DEGREES * Math.acos(dist) * DISTANCE_SCALAR;
 		return dist;
 	}

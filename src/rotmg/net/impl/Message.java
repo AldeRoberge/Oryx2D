@@ -1,9 +1,13 @@
 package rotmg.net.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import alde.flash.utils.IData;
 import alde.flash.utils.consumer.MessageConsumer;
-
-import java.io.*;
 
 public class Message implements IData {
 
@@ -31,7 +35,7 @@ public class Message implements IData {
 	public byte[] getBytes() throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(baos);
-		writeToOutput(out);
+		this.writeToOutput(out);
 		return baos.toByteArray();
 	}
 

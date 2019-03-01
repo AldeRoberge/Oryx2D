@@ -1,11 +1,11 @@
 package rotmg.messaging.outgoing.arena;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.outgoing.OutgoingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.outgoing.OutgoingMessage;
 
 public class EnterArena extends OutgoingMessage {
 
@@ -17,12 +17,12 @@ public class EnterArena extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		currency = in.readInt();
+		this.currency = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(currency);
+		out.writeInt(this.currency);
 	}
 
 }

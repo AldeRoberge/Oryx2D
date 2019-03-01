@@ -32,7 +32,7 @@ public class Offers {
 	}
 
 	private void makeOfferList(XML param1) {
-		this.offerList = new Vector<Offer>(0);
+		this.offerList = new Vector<>(0);
 		for (XML loc2 : param1.children("Offer")) {
 			this.offerList.add(this.makeOffer(loc2));
 		}

@@ -30,9 +30,9 @@ public class Particle extends BasicObject {
 		super();
 		this.bitmapFill = new GraphicsBitmapFill(null, null, false, false);
 		this.path = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, null);
-		this.vS = new Vector<Double>();
+		this.vS = new Vector<>();
 		this.fillMatrix = new Matrix();
-		objectId = getNextFakeObjectId();
+		this.objectId = getNextFakeObjectId();
 		this.setZ(param2);
 		this.setColor(param1);
 		this.setSize(param3);
@@ -40,19 +40,19 @@ public class Particle extends BasicObject {
 
 	public boolean moveTo(double param1, double param2) {
 		Square loc3 = null;
-		loc3 = map.getSquare(param1, param2);
+		loc3 = this.map.getSquare(param1, param2);
 		if (loc3 == null) {
 			return false;
 		}
-		x = param1;
-		y = param2;
-		square = loc3;
+		this.x = param1;
+		this.y = param2;
+		this.square = loc3;
 		return true;
 	}
 
 	public boolean moveToInModal(double param1, double param2) {
-		x = param1;
-		y = param2;
+		this.x = param1;
+		this.y = param2;
 		return true;
 	}
 
@@ -61,11 +61,11 @@ public class Particle extends BasicObject {
 	}
 
 	public void setZ(double param1) {
-		z = param1;
+		this.z = param1;
 	}
 
 	public void setSize(int param1) {
-		this.size = param1 / 100 * 5;
+		this.size = (param1 / 100) * 5;
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class Particle extends BasicObject {
 		int loc5 = loc4.width;
 		int loc6 = loc4.height;
 		this.vS.length = 0;
-		this.vS.add(posS.get(3) - loc5 / 2, posS.get(4) - loc6 / 2, posS.get(3) + loc5 / 2, posS.get(4) - loc6 / 2, posS.get(3) + loc5 / 2, posS.get(4) + loc6 / 2, posS.get(3) - loc5 / 2, posS.get(4) + loc6 / 2);
+		this.vS.add(this.posS.get(3) - (loc5 / 2), this.posS.get(4) - (loc6 / 2), this.posS.get(3) + (loc5 / 2), this.posS.get(4) - (loc6 / 2), this.posS.get(3) + (loc5 / 2), this.posS.get(4) + (loc6 / 2), this.posS.get(3) - (loc5 / 2), this.posS.get(4) + (loc6 / 2));
 		this.path.data = this.vS;
 		this.bitmapFill.bitmapData = loc4;
 		this.fillMatrix.identity();

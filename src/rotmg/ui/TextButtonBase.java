@@ -11,37 +11,37 @@ public class TextButtonBase extends BackgroundFilledText {
 	}
 
 	protected void initText() {
-		centerTextAndDrawButton();
+		this.centerTextAndDrawButton();
 		this.draw();
-		addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
-		addEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
+		this.addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
+		this.addEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
 	}
 
 	public void setText(String param1) {
-		text.setStringBuilder(new LineBuilder().setParams(param1));
+		this.text.setStringBuilder(new LineBuilder().setParams(param1));
 	}
 
 	public void setEnabled(boolean param1) {
-		if (param1 == mouseEnabled) {
+		if (param1 == this.mouseEnabled) {
 			return;
 		}
-		mouseEnabled = param1;
-		graphicsData.put(0, !!param1 ? enabledFill : disabledFill);
+		this.mouseEnabled = param1;
+		this.graphicsData.put(0, !!param1 ? this.enabledFill : this.disabledFill);
 		this.draw();
 	}
 
 	private void onMouseOver(MouseEvent param1) {
-		enabledFill.color = 16768133;
+		this.enabledFill.color = 16768133;
 		this.draw();
 	}
 
 	private void onRollOut(MouseEvent param1) {
-		enabledFill.color = 16777215;
+		this.enabledFill.color = 16777215;
 		this.draw();
 	}
 
 	private void draw() {
-		graphics.clear();
-		graphics.drawGraphicsData(graphicsData);
+		this.graphics.clear();
+		this.graphics.drawGraphicsData(this.graphicsData);
 	}
 }

@@ -101,13 +101,13 @@ public class Map extends AbstractMap {
 		this.visibleUnder = new Vector<>();
 		this.visibleSquares = new Vector<>();
 		this.topSquares = new Vector<>();
-		gs = param1;
-		hurtOverlay = new HurtOverlay();
-		gradientOverlay = new GradientOverlay();
-		mapOverlay = new MapOverlay();
-		partyOverlay = new PartyOverlay(this);
-		party = new Party(this);
-		quest = new Quest(this);
+		this.gs = param1;
+		this.hurtOverlay = new HurtOverlay();
+		this.gradientOverlay = new GradientOverlay();
+		this.mapOverlay = new MapOverlay();
+		this.partyOverlay = new PartyOverlay(this);
+		this.party = new Party(this);
+		this.quest = new Quest(this);
 		//this.loopMonitor = RollingMeanLoopMonitor.getInstance();
 		GameModel.getInstance().gameObjects = goDict;
 		this.forceSoftwareMap.put(PET_YARD_1, true);
@@ -125,63 +125,63 @@ public class Map extends AbstractMap {
 		this.forceSoftwareMap.put("Guild Hall 4", true);
 		this.forceSoftwareMap.put("Cloth Bazaar", true);
 		this.forceSoftwareMap.put("Santa Workshop", true);
-		wasLastFrameGpu = Parameters.isGpuRender();
+		this.wasLastFrameGpu = Parameters.isGpuRender();
 	}
 
 	@Override
 	public void setProps(int param1, int param2, String param3, int param4, boolean param5, boolean param6) {
-		width = param1;
-		height = param2;
-		name = param3;
-		back = param4;
-		allowPlayerTeleport = param5;
-		showDisplays = param6;
-		this.forceSoftwareRenderCheck(name);
+		this.width = param1;
+		this.height = param2;
+		this.name = param3;
+		this.back = param4;
+		this.allowPlayerTeleport = param5;
+		this.showDisplays = param6;
+		this.forceSoftwareRenderCheck(this.name);
 	}
 
 	private void forceSoftwareRenderCheck(String param1) {
-		forceSoftwareRender = this.forceSoftwareMap.get(param1) != null || WebMain.STAGE != null /*&& WebMain.STAGE.stage3Ds[0].context3D == null*/;
+		forceSoftwareRender = (this.forceSoftwareMap.get(param1) != null) || (WebMain.STAGE != null /*&& WebMain.STAGE.stage3Ds[0].context3D == null*/);
 	}
 
 	@Override
 	public void initialize() {
 
 		//squares.length = width * height;
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = 0; x < this.width; x++) {
+			for (int y = 0; y < this.height; y++) {
 				squares.add(new Square(this, x, y));
 			}
 		}
 
-		addChild(this.bgCont);
-		background = Background.getBackground(back);
+		this.addChild(this.bgCont);
+		this.background = Background.getBackground(this.back);
 		if (!Parameters.isGpuRender()) {
-			if (background != null) {
-				this.bgCont.addChild(background);
+			if (this.background != null) {
+				this.bgCont.addChild(this.background);
 			}
 		}
-		addChild(map);
-		addChild(hurtOverlay);
-		addChild(gradientOverlay);
-		addChild(mapOverlay);
-		addChild(partyOverlay);
-		isPetYard = name.substring(0, 8).equals("Pet Yard");
+		this.addChild(this.map);
+		this.addChild(this.hurtOverlay);
+		this.addChild(this.gradientOverlay);
+		this.addChild(this.mapOverlay);
+		this.addChild(this.partyOverlay);
+		this.isPetYard = this.name.substring(0, 8).equals("Pet Yard");
 	}
 
 	@Override
 	public void dispose() {
-		gs = null;
-		background = null;
-		map = null;
-		hurtOverlay = null;
-		gradientOverlay = null;
-		mapOverlay = null;
-		partyOverlay = null;
-		for (Square loc1 : squareList) {
+		this.gs = null;
+		this.background = null;
+		this.map = null;
+		this.hurtOverlay = null;
+		this.gradientOverlay = null;
+		this.mapOverlay = null;
+		this.partyOverlay = null;
+		for (Square loc1 : this.squareList) {
 			loc1.dispose();
 		}
-		squareList.length = 0;
-		squareList = null;
+		this.squareList.length = 0;
+		this.squareList = null;
 		squares.length = 0;
 		squares.clear();
 		for (GameObject loc2 : goDict) {
@@ -192,10 +192,10 @@ public class Map extends AbstractMap {
 			loc3.dispose();
 		}
 		boDict.clear();
-		merchLookup = null;
-		player = null;
-		party = null;
-		quest = null;
+		this.merchLookup = null;
+		this.player = null;
+		this.party = null;
+		this.quest = null;
 		this.objsToAdd = null;
 		this.idsToRemove = null;
 		TextureFactory.disposeTextures();
@@ -225,13 +225,13 @@ public class Map extends AbstractMap {
 			this.internalRemoveObj(loc4);
 		}
 		this.idsToRemove.length = 0;
-		party.update(param1, param2);
+		this.party.update(param1, param2);
 	}
 
 	@Override
 	public Point pSTopW(double param1, double param2) {
 		for (Square loc3 : this.visibleSquares) {
-			if (loc3.faces.length != 0 && loc3.faces.get(0).face.contains(param1, param2)) {
+			if ((loc3.faces.length != 0) && loc3.faces.get(0).face.contains(param1, param2)) {
 				return new Point(loc3.center.x, loc3.center.y);
 			}
 		}
@@ -248,13 +248,13 @@ public class Map extends AbstractMap {
 		Square n = null;
 		Square square = this.getSquare(x, y);
 		square.setTileType(tileType);
-		int xend = x < this.width - 1 ? x + 1 : x;
-		int yend = y < this.height - 1 ? y + 1 : y;
+		int xend = x < (this.width - 1) ? x + 1 : x;
+		int yend = y < (this.height - 1) ? y + 1 : y;
 		for (int xi = x > 0 ? x - 1 : x; xi <= xend; xi++) {
 			for (yi = y > 0 ? y - 1 : y; yi <= yend; yi++) {
-				ind = xi + yi * this.width;
+				ind = xi + (yi * this.width);
 				n = AbstractMap.squares.get(ind);
-				if (n != null && (n.props.hasEdge || n.tileType != tileType)) {
+				if ((n != null) && (n.props.hasEdge || (n.tileType != tileType))) {
 					n.faces.length = 0;
 				}
 			}
@@ -282,7 +282,7 @@ public class Map extends AbstractMap {
 		}
 		Dictionary loc2 = param1 instanceof GameObject ? goDict : boDict;
 		if (loc2.get(param1.objectId) != null) {
-			if (!isPetYard) {
+			if (!this.isPetYard) {
 				return;
 			}
 		}
@@ -315,24 +315,24 @@ public class Map extends AbstractMap {
 		int param1 = (int) par1;
 		int param2 = (int) par2;
 
-		if (param1 < 0 || param1 >= width || param2 < 0 || param2 >= height) {
+		if ((param1 < 0) || (param1 >= this.width) || (param2 < 0) || (param2 >= this.height)) {
 			return null;
 		}
-		int loc3 = param1 + param2 * width;
+		int loc3 = param1 + (param2 * this.width);
 		Square loc4 = squares.get(loc3);
 		if (loc4 == null) {
 			loc4 = new Square(this, param1, param2);
 			squares.put(loc3, loc4);
-			squareList.add(loc4);
+			this.squareList.add(loc4);
 		}
 		return loc4;
 	}
 
 	public Square lookupSquare(double param1, double param2) {
-		if (param1 < 0 || param1 >= width || param2 < 0 || param2 >= height) {
+		if ((param1 < 0) || (param1 >= this.width) || (param2 < 0) || (param2 >= this.height)) {
 			return null;
 		}
-		return squares.get((int) (param1 + param2 * width));
+		return squares.get((int) (param1 + (param2 * this.width)));
 	}
 
 	@Override
@@ -350,12 +350,12 @@ public class Map extends AbstractMap {
 		Vector<BaseFilter> loc24 = null;
 		double loc25 = 0;
 		Rectangle loc3 = param1.clipRect;
-		x = -loc3.x;
-		y = -loc3.y;
-		double loc4 = (-loc3.y - loc3.height / 2) / 50;
-		Point loc5 = new Point(param1.x + loc4 * Math.cos(param1.angleRad - Math.PI / 2), param1.y + loc4 * Math.sin(param1.angleRad - Math.PI / 2));
-		if (background != null && this.bgCont.contains(background)) {
-			background.draw(param1, param2);
+		this.x = -loc3.x;
+		this.y = -loc3.y;
+		double loc4 = (-loc3.y - (loc3.height / 2)) / 50;
+		Point loc5 = new Point(param1.x + (loc4 * Math.cos(param1.angleRad - (Math.PI / 2))), param1.y + (loc4 * Math.sin(param1.angleRad - (Math.PI / 2))));
+		if ((this.background != null) && this.bgCont.contains(this.background)) {
+			this.background.draw(param1, param2);
 		}
 		this.visible.clear();
 		this.visibleUnder.clear();
@@ -363,9 +363,9 @@ public class Map extends AbstractMap {
 		this.topSquares.clear();
 		double loc7 = param1.maxDist;
 		double loc8 = Math.max(0, loc5.x - loc7);
-		double loc9 = Math.min(width - 1, loc5.x + loc7);
+		double loc9 = Math.min(this.width - 1, loc5.x + loc7);
 		double loc10 = Math.max(0, loc5.y - loc7);
-		double loc11 = Math.min(height - 1, loc5.y + loc7);
+		double loc11 = Math.min(this.height - 1, loc5.y + loc7);
 		this.graphicsData.clear();
 		this.graphicsDataStageSoftware.clear();
 		this.graphicsData3d.clear();
@@ -373,11 +373,11 @@ public class Map extends AbstractMap {
 		while (loc12 <= loc9) {
 			loc15 = loc10;
 			while (loc15 <= loc11) {
-				loc6 = squares.get((int) (loc12 + loc15 * width));
+				loc6 = squares.get((int) (loc12 + (loc15 * this.width)));
 				if (loc6 != null) {
 					loc16 = loc5.x - loc6.center.x;
 					loc17 = loc5.y - loc6.center.y;
-					loc18 = loc16 * loc16 + loc17 * loc17;
+					loc18 = (loc16 * loc16) + (loc17 * loc17);
 					if (loc18 <= param1.maxDistSq) {
 						loc6.lastVisible = param2;
 						loc6.draw(this.graphicsData, param1, param2);
@@ -395,7 +395,7 @@ public class Map extends AbstractMap {
 			loc13.drawn = false;
 			if (!loc13.dead) {
 				loc6 = loc13.square;
-				if (!(loc6 == null || loc6.lastVisible != param2)) {
+				if (!((loc6 == null) || (loc6.lastVisible != param2))) {
 					loc13.drawn = true;
 					loc13.computeSortVal(param1);
 					if (loc13.props.drawUnder) {
@@ -413,7 +413,7 @@ public class Map extends AbstractMap {
 		for (BasicObject loc14 : boDict) {
 			loc14.drawn = false;
 			loc6 = loc14.square;
-			if (!(loc6 == null || loc6.lastVisible != param2)) {
+			if (!((loc6 == null) || (loc6.lastVisible != param2))) {
 				loc14.drawn = true;
 				loc14.computeSortVal(param1);
 				this.visible.add(loc14);
@@ -444,23 +444,23 @@ public class Map extends AbstractMap {
 				z.drawTop(this.graphicsData, param1, param2);
 			}
 		}
-		if (player != null && player.breath >= 0 && player.breath < Parameters.BREATH_THRESH) {
-			loc19 = (Parameters.BREATH_THRESH - player.breath) / Parameters.BREATH_THRESH;
+		if ((this.player != null) && (this.player.breath >= 0) && (this.player.breath < Parameters.BREATH_THRESH)) {
+			loc19 = (Parameters.BREATH_THRESH - this.player.breath) / Parameters.BREATH_THRESH;
 			loc20 = Math.abs(Math.sin(param2 / 300)) * 0.75;
 			BREATH_CT.alphaMultiplier = (int) (loc19 * loc20);
-			hurtOverlay.transform.colorTransform = BREATH_CT;
-			hurtOverlay.visible = true;
-			hurtOverlay.x = loc3.left;
-			hurtOverlay.y = loc3.top;
+			this.hurtOverlay.transform.colorTransform = BREATH_CT;
+			this.hurtOverlay.visible = true;
+			this.hurtOverlay.x = loc3.left;
+			this.hurtOverlay.y = loc3.top;
 		} else {
-			hurtOverlay.visible = false;
+			this.hurtOverlay.visible = false;
 		}
-		if (player != null && !Parameters.screenShotMode) {
-			gradientOverlay.visible = true;
-			gradientOverlay.x = loc3.right - 10;
-			gradientOverlay.y = loc3.top;
+		if ((this.player != null) && !Parameters.screenShotMode) {
+			this.gradientOverlay.visible = true;
+			this.gradientOverlay.x = loc3.right - 10;
+			this.gradientOverlay.y = loc3.top;
 		} else {
-			gradientOverlay.visible = false;
+			this.gradientOverlay.visible = false;
 		}
 		/*if (Parameters.isGpuRender() && Renderer.inGame) {
 			loc21 = this.getFilterIndex();
@@ -493,46 +493,46 @@ public class Map extends AbstractMap {
 				GraphicsFillExtra.manageSize();
 			}
 		} else {*/
-		map.graphics.clear();
-		map.graphics.drawGraphicsData(this.graphicsData);
+		this.map.graphics.clear();
+		this.map.graphics.drawGraphicsData(this.graphicsData);
 		/*}*/
 
 		System.out.println("Drew");
 
-		map.filters.clear();
-		if (player != null && (player.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.MAP_FILTER_BITMASK) != 0) {
+		this.map.filters.clear();
+		if ((this.player != null) && ((this.player.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.MAP_FILTER_BITMASK) != 0)) {
 			loc24 = new Vector<>();
-			if (player.isDrunk()) {
-				loc25 = 20 + 10 * Math.sin(param2 / 1000);
+			if (this.player.isDrunk()) {
+				loc25 = 20 + (10 * Math.sin(param2 / 1000));
 				loc24.add(new BlurFilter(loc25, loc25));
 			}
-			if (player.isBlind()) {
+			if (this.player.isBlind()) {
 				loc24.add(BLIND_FILTER);
 			}
-			map.filters = loc24;
-		} else if (map.filters.length > 0) {
-			map.filters = new Vector<>();
+			this.map.filters = loc24;
+		} else if (this.map.filters.length > 0) {
+			this.map.filters = new Vector<>();
 		}
-		mapOverlay.draw(param1, param2);
-		partyOverlay.draw(param1, param2);
-		if (player != null && player.isDarkness()) {
+		this.mapOverlay.draw(param1, param2);
+		this.partyOverlay.draw(param1, param2);
+		if ((this.player != null) && this.player.isDarkness()) {
 			this.darkness.x = -300;
 			this.darkness.y = !!Data.centerOnPlayer ? -525 : -515;
 			this.darkness.alpha = 0.95;
-			addChild(this.darkness);
-		} else if (contains(this.darkness)) {
-			removeChild(this.darkness);
+			this.addChild(this.darkness);
+		} else if (this.contains(this.darkness)) {
+			this.removeChild(this.darkness);
 		}
 	}
 
 	private int getFilterIndex() {
 		int loc1 = 0;
-		if (player != null && (player.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.MAP_FILTER_BITMASK) != 0) {
-			if (player.isPaused()) {
+		if ((this.player != null) && ((this.player.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.MAP_FILTER_BITMASK) != 0)) {
+			if (this.player.isPaused()) {
 				loc1 = Renderer.STAGE3D_FILTER_PAUSE;
-			} else if (player.isBlind()) {
+			} else if (this.player.isBlind()) {
 				loc1 = Renderer.STAGE3D_FILTER_BLIND;
-			} else if (player.isDrunk()) {
+			} else if (this.player.isDrunk()) {
 				loc1 = Renderer.STAGE3D_FILTER_DRUNK;
 			}
 		}

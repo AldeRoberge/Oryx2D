@@ -18,16 +18,16 @@ public class Currency {
 
 	public static String typeToName(int param1) {
 		switch (param1) {
-			case GOLD:
-				return "Gold";
-			case FAME:
-				return "Fame";
-			case GUILD_FAME:
-				return "Guild Fame";
-			case FORTUNE:
-				return "Fortune Token";
-			default:
-				return "";
+		case GOLD:
+			return "Gold";
+		case FAME:
+			return "Fame";
+		case GUILD_FAME:
+			return "Guild Fame";
+		case FORTUNE:
+			return "Fortune Token";
+		default:
+			return "";
 		}
 	}
 

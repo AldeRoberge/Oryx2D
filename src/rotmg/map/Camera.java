@@ -105,8 +105,8 @@ public class Camera {
 		this.r.x = Math.cos(this.angleRad);
 		this.r.y = Math.sin(this.angleRad);
 		this.r.z = 0;
-		this.u.x = Math.cos(this.angleRad + Math.PI / 2);
-		this.u.y = Math.sin(this.angleRad + Math.PI / 2);
+		this.u.x = Math.cos(this.angleRad + (Math.PI / 2));
+		this.u.y = Math.sin(this.angleRad + (Math.PI / 2));
 		this.u.z = 0;
 		this.rd[0] = this.r.x;
 		this.rd[1] = this.u.x;
@@ -139,7 +139,7 @@ public class Camera {
 		} else {
 			w = this.clipRect.width / (2 * 50);
 			h = this.clipRect.height / (2 * 50);
-			this.maxDist = Math.sqrt(w * w + h * h) + 1;
+			this.maxDist = Math.sqrt((w * w) + (h * h)) + 1;
 		}
 		this.maxDistSq = this.maxDist * this.maxDist;
 	}

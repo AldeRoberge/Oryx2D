@@ -50,7 +50,7 @@ public class GlowRedrawer {
 		TextureRedrawer.OUTLINE_FILTER.color = param5;
 		loc7.applyFilter(loc7, loc7.rect, PointUtil.ORIGIN, TextureRedrawer.OUTLINE_FILTER);
 		if (param2 != 4294967295.0) {
-			if (Parameters.isGpuRender() && param2 != 0) {
+			if (Parameters.isGpuRender() && (param2 != 0)) {
 				GLOW_FILTER_ALT.color = param2;
 				loc7.applyFilter(loc7, loc7.rect, PointUtil.ORIGIN, GLOW_FILTER_ALT);
 			} else {

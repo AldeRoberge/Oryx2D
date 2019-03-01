@@ -1,5 +1,9 @@
 package rotmg.objects;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
 import alde.flash.utils.Vector;
 import alde.flash.utils.XML;
 import flash.display.BitmapData;
@@ -13,10 +17,6 @@ import rotmg.util.AssetLibrary;
 import rotmg.util.ConversionUtil;
 import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -44,10 +44,10 @@ public class ObjectLibrary {
 	public static final String TILE_FILTER_LIST[] = new String[]{"ALL", "Walkable", "Unwalkable", "Slow", "Speed=1"};
 	public static final ObjectProperties defaultProps = new ObjectProperties(null);
 	public static TextureDataFactory textureDataFactory = new TextureDataFactory();
-	public static Vector<XML> playerChars = new Vector<XML>();
-	public static Vector<XML> hexTransforms = new Vector<XML>();
+	public static Vector<XML> playerChars = new Vector<>();
+	public static Vector<XML> hexTransforms = new Vector<>();
 	public static Dictionary<Object, Object> playerClassAbbr = new Dictionary<>();
-	public static Dictionary<String, Class> TYPE_MAP = new Dictionary<String, Class>();
+	public static Dictionary<String, Class> TYPE_MAP = new Dictionary<>();
 	private static String currentDungeon = "";
 
 	static {
@@ -273,7 +273,7 @@ public class ObjectLibrary {
 
 	public static BitmapData getRedrawnTextureFromType(int param1, int param2, boolean param3, boolean param4, double param5) {
 		BitmapData loc6 = getBitmapData(param1);
-		if (Parameters.itemTypes16.contains(param1) || loc6.height == 16) {
+		if (Parameters.itemTypes16.contains(param1) || (loc6.height == 16)) {
 			param2 = (int) (param2 * 0.5);
 		}
 		TextureData loc7 = typeToTextureData.get(param1);
@@ -340,15 +340,15 @@ public class ObjectLibrary {
 	}
 
 	public static boolean isUsableByPlayer(int objectType, Player player) {
-		if (player == null || player.slotTypes == null) {
+		if ((player == null) || (player.slotTypes == null)) {
 			return true;
 		}
 		XML objectXML = xmlLibrary.get(objectType);
-		if (objectXML == null || !objectXML.hasOwnProperty("SlotType")) {
+		if ((objectXML == null) || !objectXML.hasOwnProperty("SlotType")) {
 			return false;
 		}
 		int slotType = objectXML.getIntValue("SlotType");
-		if (slotType == ItemConstants.POTION_TYPE || slotType == ItemConstants.EGG_TYPE) {
+		if ((slotType == ItemConstants.POTION_TYPE) || (slotType == ItemConstants.EGG_TYPE)) {
 			return true;
 		}
 
@@ -363,12 +363,12 @@ public class ObjectLibrary {
 
 	public static boolean isDropTradable(int objectType) {
 		XML objectXML = xmlLibrary.get(objectType);
-		return objectXML != null && objectXML.hasOwnProperty("DropTradable");
+		return (objectXML != null) && objectXML.hasOwnProperty("DropTradable");
 	}
 
 	public static boolean isSoulbound(int objectType) {
 		XML objectXML = xmlLibrary.get(objectType);
-		return objectXML != null && objectXML.hasOwnProperty("Soulbound");
+		return (objectXML != null) && objectXML.hasOwnProperty("Soulbound");
 	}
 
 	/**
@@ -377,14 +377,14 @@ public class ObjectLibrary {
 	public static List<String> usableBy(int objectType) {
 		int i = 0;
 		XML objectXML = xmlLibrary.get(objectType);
-		if (objectXML == null || !objectXML.hasOwnProperty("SlotType")) {
+		if ((objectXML == null) || !objectXML.hasOwnProperty("SlotType")) {
 			return null;
 		}
 		int slotType = objectXML.getIntValue("SlotType");
-		if (slotType == ItemConstants.POTION_TYPE || slotType == ItemConstants.RING_TYPE) {
+		if ((slotType == ItemConstants.POTION_TYPE) || (slotType == ItemConstants.RING_TYPE)) {
 			return null;
 		}
-		List<String> usable = new ArrayList<String>();
+		List<String> usable = new ArrayList<>();
 		for (XML playerXML : playerChars) {
 			for (int s : ConversionUtil.toIntVector(playerXML.getValue("SlotTypes"))) {
 				if (s == slotType) {
@@ -414,24 +414,24 @@ public class ObjectLibrary {
 		if (reqXML.toString().equals("Stat")) {
 			val = reqXML.getIntAttribute("value");
 			switch (reqXML.getIntAttribute("stat")) {
-				case StatData.MAX_HP_STAT:
-					return player.maxHP >= val;
-				case StatData.MAX_MP_STAT:
-					return player.maxMP >= val;
-				case StatData.LEVEL_STAT:
-					return player.level >= val;
-				case StatData.ATTACK_STAT:
-					return player.attack >= val;
-				case StatData.DEFENSE_STAT:
-					return player.defense >= val;
-				case StatData.SPEED_STAT:
-					return player.speed >= val;
-				case StatData.VITALITY_STAT:
-					return player.vitality >= val;
-				case StatData.WISDOM_STAT:
-					return player.wisdom >= val;
-				case StatData.DEXTERITY_STAT:
-					return player.dexterity >= val;
+			case StatData.MAX_HP_STAT:
+				return player.maxHP >= val;
+			case StatData.MAX_MP_STAT:
+				return player.maxMP >= val;
+			case StatData.LEVEL_STAT:
+				return player.level >= val;
+			case StatData.ATTACK_STAT:
+				return player.attack >= val;
+			case StatData.DEFENSE_STAT:
+				return player.defense >= val;
+			case StatData.SPEED_STAT:
+				return player.speed >= val;
+			case StatData.VITALITY_STAT:
+				return player.vitality >= val;
+			case StatData.WISDOM_STAT:
+				return player.wisdom >= val;
+			case StatData.DEXTERITY_STAT:
+				return player.dexterity >= val;
 			}
 		}
 		return false;

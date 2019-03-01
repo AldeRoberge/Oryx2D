@@ -19,7 +19,7 @@ public class QueuedStatusText extends CharacterStatusText {
 	public QueuedStatusText(GameObject param1, StringBuilder param2, int param3, int param4, int param5) {
 		super(param1, param3, param4, param5);
 		this.stringBuilder = param2;
-		setStringBuilder(param2);
+		this.setStringBuilder(param2);
 	}
 
 	@Override

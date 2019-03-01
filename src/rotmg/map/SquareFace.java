@@ -25,7 +25,7 @@ public class SquareFace {
 		this.face = new Face3D(param1, param2, Square.UVT.concat());
 		this.xOffset = param3;
 		this.yOffset = param4;
-		if (this.xOffset != 0 || this.yOffset != 0) {
+		if ((this.xOffset != 0) || (this.yOffset != 0)) {
 			this.face.bitmapFill.repeat = true;
 		}
 		this.animate = param5;
@@ -46,13 +46,13 @@ public class SquareFace {
 		double loc5 = 0;
 		if (this.animate != AnimateProperties.NO_ANIMATE) {
 			switch (this.animate) {
-				case AnimateProperties.WAVE_ANIMATE:
-					loc4 = this.xOffset + Math.sin(this.animateDx * param3 / 1000);
-					loc5 = this.yOffset + Math.sin(this.animateDy * param3 / 1000);
-					break;
-				case AnimateProperties.FLOW_ANIMATE:
-					loc4 = this.xOffset + this.animateDx * param3 / 1000;
-					loc5 = this.yOffset + this.animateDy * param3 / 1000;
+			case AnimateProperties.WAVE_ANIMATE:
+				loc4 = this.xOffset + Math.sin((this.animateDx * param3) / 1000);
+				loc5 = this.yOffset + Math.sin((this.animateDy * param3) / 1000);
+				break;
+			case AnimateProperties.FLOW_ANIMATE:
+				loc4 = this.xOffset + ((this.animateDx * param3) / 1000);
+				loc5 = this.yOffset + ((this.animateDy * param3) / 1000);
 			}
 		} else {
 			loc4 = this.xOffset;

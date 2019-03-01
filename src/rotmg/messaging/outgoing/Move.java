@@ -1,14 +1,14 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.MoveRecord;
-import rotmg.messaging.data.WorldPosData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.MoveRecord;
+import rotmg.messaging.data.WorldPosData;
 
 public class Move extends OutgoingMessage {
 
@@ -19,29 +19,29 @@ public class Move extends OutgoingMessage {
 
 	public Move(int param1, MessageConsumer param2) {
 		super(param1, param2);
-		newPosition = new WorldPosData();
-		records = new ArrayList<MoveRecord>();
+		this.newPosition = new WorldPosData();
+		this.records = new ArrayList<>();
 	}
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		tickId = in.readInt();
-		time = in.readInt();
-		newPosition.parseFromInput(in);
+		this.tickId = in.readInt();
+		this.time = in.readInt();
+		this.newPosition.parseFromInput(in);
 		for (int i = 0; i < in.readShort(); i++) {
 			MoveRecord record = new MoveRecord();
 			record.parseFromInput(in);
-			records.add(record);
+			this.records.add(record);
 		}
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(tickId);
-		out.writeInt(time);
-		newPosition.writeToOutput(out);
-		out.writeShort(records.size());
-		for (MoveRecord record : records) {
+		out.writeInt(this.tickId);
+		out.writeInt(this.time);
+		this.newPosition.writeToOutput(out);
+		out.writeShort(this.records.size());
+		for (MoveRecord record : this.records) {
 			record.writeToOutput(out);
 		}
 	}

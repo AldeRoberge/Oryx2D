@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class AccountList extends IncomingMessage {
 
@@ -14,27 +14,27 @@ public class AccountList extends IncomingMessage {
 
 	public AccountList(int param1, MessageConsumer param2) {
 		super(param1, param2);
-		accountIds = new String[0];
+		this.accountIds = new String[0];
 	}
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		accountListId = in.readInt();
-		accountIds = new String[in.readShort()];
-		for (int i = 0; i < accountIds.length; i++) {
-			accountIds[i] = in.readUTF();
+		this.accountListId = in.readInt();
+		this.accountIds = new String[in.readShort()];
+		for (int i = 0; i < this.accountIds.length; i++) {
+			this.accountIds[i] = in.readUTF();
 		}
-		lockAction = in.readInt();
+		this.lockAction = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(accountListId);
-		out.writeShort(accountIds.length);
-		for (String accountId : accountIds) {
+		out.writeInt(this.accountListId);
+		out.writeShort(this.accountIds.length);
+		for (String accountId : this.accountIds) {
 			out.writeUTF(accountId);
 		}
-		out.writeInt(lockAction);
+		out.writeInt(this.lockAction);
 	}
 
 }

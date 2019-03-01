@@ -1,7 +1,7 @@
 package rotmg.appengine;
 
-import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.SignalConsumer;
 import flash.display.BitmapData;
 import flash.utils.Date;
 import ion.utils.png.PNGDecoder;
@@ -66,7 +66,7 @@ public class RemoteTexture {
 
 	public void reportError(String param1) {
 		param1 = ERROR_PATTERN.replace("{ERROR}", param1).replace("{ID}", this.id).replace("{INSTANCE}", this.instance);
-		this.logger.warn("RemoteTexture.reportError: {0}", new Vector<String>(param1));
+		this.logger.warn("RemoteTexture.reportError: {0}", new Vector<>(param1));
 		BitmapData loc2 = new BitmapDataSpy(1, 1);
 		this.callback.dispatch(loc2);
 	}

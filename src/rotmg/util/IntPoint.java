@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import java.awt.*;
+import java.awt.Point;
 
 public class IntPoint {
 
@@ -44,29 +44,29 @@ public class IntPoint {
 	}
 
 	public boolean same(IntPoint param1) {
-		return this.x == param1.x && this.y == param1.y;
+		return (this.x == param1.x) && (this.y == param1.y);
 	}
 
 	public int distanceAsInt(IntPoint param1) {
 		int loc2 = param1.x - this.x;
 		int loc3 = param1.y - this.y;
-		return (int) Math.round(Math.sqrt(loc2 * loc2 + loc3 * loc3));
+		return (int) Math.round(Math.sqrt((loc2 * loc2) + (loc3 * loc3)));
 	}
 
 	public double distanceAsNumber(IntPoint param1) {
 		int loc2 = param1.x - this.x;
 		int loc3 = param1.y - this.y;
-		return Math.sqrt(loc2 * loc2 + loc3 * loc3);
+		return Math.sqrt((loc2 * loc2) + (loc3 * loc3));
 	}
 
 	public double distanceToPoint(Point param1) {
 		int loc2 = param1.x - this.x;
 		int loc3 = param1.y - this.y;
-		return Math.sqrt(loc2 * loc2 + loc3 * loc3);
+		return Math.sqrt((loc2 * loc2) + (loc3 * loc3));
 	}
 
 	public IntPoint trunc1000() {
-		return new IntPoint(this.x / 1000 * 1000, this.y / 1000 * 1000);
+		return new IntPoint((this.x / 1000) * 1000, (this.y / 1000) * 1000);
 	}
 
 	public IntPoint round1000() {
@@ -76,7 +76,7 @@ public class IntPoint {
 	public int distanceSquared(IntPoint param1) {
 		int loc2 = param1.x() - this.x;
 		int loc3 = param1.y() - this.y;
-		return loc2 * loc2 + loc3 * loc3;
+		return (loc2 * loc2) + (loc3 * loc3);
 	}
 
 	public Point toPoint() {

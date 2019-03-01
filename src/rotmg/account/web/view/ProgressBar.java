@@ -20,8 +20,8 @@ public class ProgressBar extends Sprite {
 		this._h = param2;
 		this.backbar = new Sprite();
 		this.fillbar = new Sprite();
-		addChild(this.backbar);
-		addChild(this.fillbar);
+		this.addChild(this.backbar);
+		this.addChild(this.fillbar);
 		this.update(0);
 	}
 

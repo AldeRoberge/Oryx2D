@@ -1,10 +1,10 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Load extends OutgoingMessage {
 
@@ -17,21 +17,21 @@ public class Load extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		charId = in.readInt();
-		isFromArena = in.readBoolean();
+		this.charId = in.readInt();
+		this.isFromArena = in.readBoolean();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(charId);
-		out.writeBoolean(isFromArena);
+		out.writeInt(this.charId);
+		out.writeBoolean(this.isFromArena);
 	}
 
 	@Override
 	public String toString() {
 		return "Load{" +
-				"charId=" + charId +
-				", isFromArena=" + isFromArena +
+				"charId=" + this.charId +
+				", isFromArena=" + this.isFromArena +
 				'}';
 	}
 }

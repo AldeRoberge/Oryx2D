@@ -1,11 +1,11 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.objects.Player;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.objects.Player;
 
 public class Reskin extends OutgoingMessage {
 
@@ -18,7 +18,7 @@ public class Reskin extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		skinID = in.readInt();
+		this.skinID = in.readInt();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class Reskin extends OutgoingMessage {
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(skinID);
+		out.writeInt(this.skinID);
 	}
 
 }

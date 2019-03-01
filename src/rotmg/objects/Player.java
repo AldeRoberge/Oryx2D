@@ -1,10 +1,15 @@
 package rotmg.objects;
 
+import static flash.utils.timer.getTimer.getTimer;
+
+import java.util.List;
+
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.XML;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.utils.Dictionary;
-import org.osflash.signals.Signal;
 import rotmg.assets.services.CharacterFactory;
 import rotmg.constants.GeneralConstants;
 import rotmg.messaging.data.StatData;
@@ -14,10 +19,6 @@ import rotmg.particles.HealingEffect;
 import rotmg.signals.AddTextLineSignal;
 import rotmg.util.ConversionUtil;
 import rotmg.util.IntPoint;
-
-import java.util.List;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 
 public class Player extends Character {
@@ -147,7 +148,7 @@ public class Player extends Character {
 		this.wisdomMax = param1.child("MpRegen").getIntAttribute("max");
 		this.maxHPMax = param1.child("MaxHitPoints").getIntAttribute("max");
 		this.maxMPMax = param1.child("MaxMagicPoints").getIntAttribute("max");
-		texturingCache = new Dictionary<>();
+		this.texturingCache = new Dictionary<>();
 	}
 
 	/**
@@ -189,11 +190,11 @@ public class Player extends Character {
 		int loc1 = 0;
 		int loc2 = 0;
 		while (loc2 < GeneralConstants.NUM_EQUIPMENT_SLOTS) {
-			if (equipment != null && equipment.length > loc2) {
-				loc3 = equipment.get(loc2);
+			if ((this.equipment != null) && (this.equipment.length > loc2)) {
+				loc3 = this.equipment.get(loc2);
 				if (loc3 != -1) {
 					loc4 = ObjectLibrary.xmlLibrary.get(loc3);
-					if (loc4 != null && loc4.hasOwnProperty("FameBonus")) {
+					if ((loc4 != null) && loc4.hasOwnProperty("FameBonus")) {
 						loc1 = loc1 + loc4.getIntValue("FameBonus");
 					}
 				}
@@ -217,38 +218,38 @@ public class Player extends Character {
 			int equipment = this.equipment.get(i);
 			if (equipment != -1) {
 				XML objectXML = ObjectLibrary.xmlLibrary.get(equipment);
-				if (objectXML != null && objectXML.hasOwnProperty("ActivateOnEquip")) {
+				if ((objectXML != null) && objectXML.hasOwnProperty("ActivateOnEquip")) {
 					for (XML loc4 : objectXML.children("ActivateOnEquip")) {
 						if (loc4.name().equals("IncrementStat")) {
 							int loc5 = loc4.getIntAttribute("stat");
 							int loc6 = loc4.getIntAttribute("amount");
 							switch (loc5) {
-								case StatData.MAX_HP_STAT:
-									this.maxHPBoost = this.maxHPBoost + loc6;
-									continue;
-								case StatData.MAX_MP_STAT:
-									this.maxMPBoost = this.maxMPBoost + loc6;
-									continue;
-								case StatData.ATTACK_STAT:
-									this.attackBoost = this.attackBoost + loc6;
-									continue;
-								case StatData.DEFENSE_STAT:
-									this.defenseBoost = this.defenseBoost + loc6;
-									continue;
-								case StatData.SPEED_STAT:
-									this.speedBoost = this.speedBoost + loc6;
-									continue;
-								case StatData.VITALITY_STAT:
-									this.vitalityBoost = this.vitalityBoost + loc6;
-									continue;
-								case StatData.WISDOM_STAT:
-									this.wisdomBoost = this.wisdomBoost + loc6;
-									continue;
-								case StatData.DEXTERITY_STAT:
-									this.dexterityBoost = this.dexterityBoost + loc6;
-									continue;
-								default:
-									continue;
+							case StatData.MAX_HP_STAT:
+								this.maxHPBoost = this.maxHPBoost + loc6;
+								continue;
+							case StatData.MAX_MP_STAT:
+								this.maxMPBoost = this.maxMPBoost + loc6;
+								continue;
+							case StatData.ATTACK_STAT:
+								this.attackBoost = this.attackBoost + loc6;
+								continue;
+							case StatData.DEFENSE_STAT:
+								this.defenseBoost = this.defenseBoost + loc6;
+								continue;
+							case StatData.SPEED_STAT:
+								this.speedBoost = this.speedBoost + loc6;
+								continue;
+							case StatData.VITALITY_STAT:
+								this.vitalityBoost = this.vitalityBoost + loc6;
+								continue;
+							case StatData.WISDOM_STAT:
+								this.wisdomBoost = this.wisdomBoost + loc6;
+								continue;
+							case StatData.DEXTERITY_STAT:
+								this.dexterityBoost = this.dexterityBoost + loc6;
+								continue;
+							default:
+								continue;
 							}
 						} else {
 							continue;
@@ -268,7 +269,7 @@ public class Player extends Character {
 		this.rotate = param1;
 		this.relMoveVec.x = param2;
 		this.relMoveVec.y = param3;
-		if (isConfused()) {
+		if (this.isConfused()) {
 			loc4 = this.relMoveVec.x;
 			this.relMoveVec.x = -this.relMoveVec.y;
 			this.relMoveVec.y = -loc4;
@@ -305,11 +306,11 @@ public class Player extends Character {
 	}
 
 	private double getMoveSpeed() {
-		if (isSlowed()) {
+		if (this.isSlowed()) {
 			return MIN_MOVE_SPEED * this.moveMultiplier;
 		}
-		double loc1 = MIN_MOVE_SPEED + this.speed / 75 * (MAX_MOVE_SPEED - MIN_MOVE_SPEED);
-		if (isSpeedy() || isNinjaSpeedy()) {
+		double loc1 = MIN_MOVE_SPEED + ((this.speed / 75) * (MAX_MOVE_SPEED - MIN_MOVE_SPEED));
+		if (this.isSpeedy() || this.isNinjaSpeedy()) {
 			loc1 = loc1 * 1.5;
 		}
 		loc1 = loc1 * this.moveMultiplier;
@@ -317,45 +318,45 @@ public class Player extends Character {
 	}
 
 	public double attackFrequency() {
-		if (isDazed()) {
+		if (this.isDazed()) {
 			return MIN_ATTACK_FREQ;
 		}
-		double loc1 = MIN_ATTACK_FREQ + this.dexterity / 75 * (MAX_ATTACK_FREQ - MIN_ATTACK_FREQ);
-		if (isBerserk()) {
+		double loc1 = MIN_ATTACK_FREQ + ((this.dexterity / 75) * (MAX_ATTACK_FREQ - MIN_ATTACK_FREQ));
+		if (this.isBerserk()) {
 			loc1 = loc1 * 1.5;
 		}
 		return loc1;
 	}
 
 	private double attackMultiplier() {
-		if (isWeak()) {
+		if (this.isWeak()) {
 			return MIN_ATTACK_MULT;
 		}
-		double loc1 = MIN_ATTACK_MULT + this.attack / 75 * (MAX_ATTACK_MULT - MIN_ATTACK_MULT);
-		if (isDamaging()) {
+		double loc1 = MIN_ATTACK_MULT + ((this.attack / 75) * (MAX_ATTACK_MULT - MIN_ATTACK_MULT));
+		if (this.isDamaging()) {
 			loc1 = loc1 * 1.5;
 		}
 		return loc1;
 	}
 
 	public int getTex1() {
-		return tex1Id;
+		return this.tex1Id;
 	}
 
 	public int getTex2() {
-		return tex2Id;
+		return this.tex2Id;
 	}
 
 	public void onMove() {
-		if (map == null) {
+		if (this.map == null) {
 			return;
 		}
-		Square loc1 = map.getSquare(x, y);
+		Square loc1 = this.map.getSquare(this.x, this.y);
 		if (loc1.props.sinking) {
-			sinkLevel = (int) Math.min(sinkLevel + 1, Parameters.MAX_SINK_LEVEL);
-			this.moveMultiplier = 0.1 + (1 - sinkLevel / Parameters.MAX_SINK_LEVEL) * (loc1.props.speed - 0.1);
+			this.sinkLevel = (int) Math.min(this.sinkLevel + 1, Parameters.MAX_SINK_LEVEL);
+			this.moveMultiplier = 0.1 + ((1 - (this.sinkLevel / Parameters.MAX_SINK_LEVEL)) * (loc1.props.speed - 0.1));
 		} else {
-			sinkLevel = 0;
+			this.sinkLevel = 0;
 			this.moveMultiplier = loc1.props.speed;
 		}
 

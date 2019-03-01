@@ -11,7 +11,7 @@ public class NameChanger extends GameObject implements IInteractiveObject {
 
 	public NameChanger(XML param1) {
 		super(param1);
-		isInteractive = true;
+		this.isInteractive = true;
 	}
 
 	public void setRankRequired(int param1) {

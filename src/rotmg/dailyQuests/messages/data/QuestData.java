@@ -1,10 +1,10 @@
 package rotmg.dailyQuests.messages.data;
 
-import alde.flash.utils.IData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.IData;
 
 /**
  * 100% match
@@ -39,13 +39,13 @@ public class QuestData implements IData {
 
 		this.requirements = new int[in.readShort()];
 
-		for (int i = 0; i < requirements.length; i++) {
+		for (int i = 0; i < this.requirements.length; i++) {
 			this.requirements[i] = in.readInt();
 		}
 
 		this.rewards = new int[in.readShort()];
 
-		for (int j = 0; j < rewards.length; j++) {
+		for (int j = 0; j < this.rewards.length; j++) {
 			this.rewards[j] = in.readInt();
 		}
 

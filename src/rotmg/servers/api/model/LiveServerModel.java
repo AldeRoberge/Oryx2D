@@ -14,7 +14,7 @@ import rotmg.servers.api.ServerModel;
 public class LiveServerModel implements ServerModel {
 
 	public static LiveServerModel instance;
-	private final Vector<Server> servers = new Vector<Server>(0);
+	private final Vector<Server> servers = new Vector<>(0);
 	public PlayerModel model = PlayerModel.getInstance();
 
 	private boolean _descendingFlag;
@@ -61,7 +61,7 @@ public class LiveServerModel implements ServerModel {
 				}
 				loc7 = loc6.priority();
 				loc8 = LatLong.distance(loc2, loc6.latLong);
-				if (loc7 < loc5 || loc7 == loc5 && loc8 < loc4) {
+				if ((loc7 < loc5) || ((loc7 == loc5) && (loc8 < loc4))) {
 					loc3 = loc6;
 					loc4 = loc8;
 					loc5 = loc7;

@@ -22,16 +22,16 @@ public class Layers extends Sprite {
 
 	public Layers() {
 		super();
-		addChild(this.menu = new ScreensView());
-		addChild(this.overlay = new Sprite());
-		addChild(this.top = new Sprite());
-		addChild(this.mouseDisabledTop = new Sprite());
+		this.addChild(this.menu = new ScreensView());
+		this.addChild(this.overlay = new Sprite());
+		this.addChild(this.top = new Sprite());
+		this.addChild(this.mouseDisabledTop = new Sprite());
 		this.mouseDisabledTop.mouseEnabled = false;
-		addChild(this.popups = new PopupView());
-		addChild(this.dialogs = new DialogsView());
-		addChild(this.tooltips = new TooltipsView());
-		addChild(this.api = new Sprite());
-		addChild(this.console = new Sprite());
+		this.addChild(this.popups = new PopupView());
+		this.addChild(this.dialogs = new DialogsView());
+		this.addChild(this.tooltips = new TooltipsView());
+		this.addChild(this.api = new Sprite());
+		this.addChild(this.console = new Sprite());
 	}
 
 	public static Layers getInstance() {

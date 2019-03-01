@@ -1,5 +1,7 @@
 package rotmg.util;
 
+import java.util.Arrays;
+
 import alde.flash.utils.Vector;
 import flash.airglobal.BitmapFilterQuality;
 import flash.display.BitmapData;
@@ -7,8 +9,6 @@ import flash.geom.Matrix;
 import flash.utils.Dictionary;
 import rotmg.util.redrawers.GlowRedrawer;
 import spark.filters.GlowFilter;
-
-import java.util.Arrays;
 
 /**
  * This is a very close match to the original source code.
@@ -68,56 +68,56 @@ public class ConditionEffect {
 	public static final int SILENCED = 48;
 	public static final int EXPOSED = 49;
 	public static final int GROUND_DAMAGE = 99;
-	public static final int DEAD_BIT = 1 << DEAD - 1;
-	public static final int QUIET_BIT = 1 << QUIET - 1;
-	public static final int WEAK_BIT = 1 << WEAK - 1;
-	public static final int SLOWED_BIT = 1 << SLOWED - 1;
-	public static final int SICK_BIT = 1 << SICK - 1;
-	public static final int DAZED_BIT = 1 << DAZED - 1;
-	public static final int STUNNED_BIT = 1 << STUNNED - 1;
-	public static final int BLIND_BIT = 1 << BLIND - 1;
-	public static final int HALLUCINATING_BIT = 1 << HALLUCINATING - 1;
-	public static final int DRUNK_BIT = 1 << DRUNK - 1;
-	public static final int CONFUSED_BIT = 1 << CONFUSED - 1;
-	public static final int STUN_IMMUNE_BIT = 1 << STUN_IMMUNE - 1;
-	public static final int INVISIBLE_BIT = 1 << INVISIBLE - 1;
-	public static final int PARALYZED_BIT = 1 << PARALYZED - 1;
-	public static final int SPEEDY_BIT = 1 << SPEEDY - 1;
-	public static final int BLEEDING_BIT = 1 << BLEEDING - 1;
-	public static final int ARMORBROKEN_IMMUNE_BIT = 1 << ARMORBROKENIMMUNE - 1;
-	public static final int HEALING_BIT = 1 << HEALING - 1;
-	public static final int DAMAGING_BIT = 1 << DAMAGING - 1;
-	public static final int BERSERK_BIT = 1 << BERSERK - 1;
-	public static final int PAUSED_BIT = 1 << PAUSED - 1;
-	public static final int STASIS_BIT = 1 << STASIS - 1;
-	public static final int STASIS_IMMUNE_BIT = 1 << STASIS_IMMUNE - 1;
-	public static final int INVINCIBLE_BIT = 1 << INVINCIBLE - 1;
-	public static final int INVULNERABLE_BIT = 1 << INVULNERABLE - 1;
-	public static final int ARMORED_BIT = 1 << ARMORED - 1;
-	public static final int ARMORBROKEN_BIT = 1 << ARMORBROKEN - 1;
-	public static final int HEXED_BIT = 1 << HEXED - 1;
-	public static final int NINJA_SPEEDY_BIT = 1 << NINJA_SPEEDY - 1;
-	public static final int UNSTABLE_BIT = 1 << UNSTABLE - 1;
-	public static final int DARKNESS_BIT = 1 << DARKNESS - 1;
+	public static final int DEAD_BIT = 1 << (DEAD - 1);
+	public static final int QUIET_BIT = 1 << (QUIET - 1);
+	public static final int WEAK_BIT = 1 << (WEAK - 1);
+	public static final int SLOWED_BIT = 1 << (SLOWED - 1);
+	public static final int SICK_BIT = 1 << (SICK - 1);
+	public static final int DAZED_BIT = 1 << (DAZED - 1);
+	public static final int STUNNED_BIT = 1 << (STUNNED - 1);
+	public static final int BLIND_BIT = 1 << (BLIND - 1);
+	public static final int HALLUCINATING_BIT = 1 << (HALLUCINATING - 1);
+	public static final int DRUNK_BIT = 1 << (DRUNK - 1);
+	public static final int CONFUSED_BIT = 1 << (CONFUSED - 1);
+	public static final int STUN_IMMUNE_BIT = 1 << (STUN_IMMUNE - 1);
+	public static final int INVISIBLE_BIT = 1 << (INVISIBLE - 1);
+	public static final int PARALYZED_BIT = 1 << (PARALYZED - 1);
+	public static final int SPEEDY_BIT = 1 << (SPEEDY - 1);
+	public static final int BLEEDING_BIT = 1 << (BLEEDING - 1);
+	public static final int ARMORBROKEN_IMMUNE_BIT = 1 << (ARMORBROKENIMMUNE - 1);
+	public static final int HEALING_BIT = 1 << (HEALING - 1);
+	public static final int DAMAGING_BIT = 1 << (DAMAGING - 1);
+	public static final int BERSERK_BIT = 1 << (BERSERK - 1);
+	public static final int PAUSED_BIT = 1 << (PAUSED - 1);
+	public static final int STASIS_BIT = 1 << (STASIS - 1);
+	public static final int STASIS_IMMUNE_BIT = 1 << (STASIS_IMMUNE - 1);
+	public static final int INVINCIBLE_BIT = 1 << (INVINCIBLE - 1);
+	public static final int INVULNERABLE_BIT = 1 << (INVULNERABLE - 1);
+	public static final int ARMORED_BIT = 1 << (ARMORED - 1);
+	public static final int ARMORBROKEN_BIT = 1 << (ARMORBROKEN - 1);
+	public static final int HEXED_BIT = 1 << (HEXED - 1);
+	public static final int NINJA_SPEEDY_BIT = 1 << (NINJA_SPEEDY - 1);
+	public static final int UNSTABLE_BIT = 1 << (UNSTABLE - 1);
+	public static final int DARKNESS_BIT = 1 << (DARKNESS - 1);
 	public static final int NEW_CON_THREASHOLD = 32;
-	public static final int SLOWED_IMMUNE_BIT = 1 << SLOWED_IMMUNE - NEW_CON_THREASHOLD;
-	public static final int DAZED_IMMUNE_BIT = 1 << DAZED_IMMUNE - NEW_CON_THREASHOLD;
-	public static final int PARALYZED_IMMUNE_BIT = 1 << PARALYZED_IMMUNE - NEW_CON_THREASHOLD;
-	public static final int PETRIFIED_BIT = 1 << PETRIFIED - NEW_CON_THREASHOLD;
-	public static final int PETRIFIED_IMMUNE_BIT = 1 << PETRIFIED_IMMUNE - NEW_CON_THREASHOLD;
-	public static final int PET_EFFECT_ICON_BIT = 1 << PET_EFFECT_ICON - NEW_CON_THREASHOLD;
-	public static final int CURSE_BIT = 1 << CURSE - NEW_CON_THREASHOLD;
-	public static final int CURSE_IMMUNE_BIT = 1 << CURSE_IMMUNE - NEW_CON_THREASHOLD;
-	public static final int HP_BOOST_BIT = 1 << HP_BOOST - NEW_CON_THREASHOLD;
-	public static final int MP_BOOST_BIT = 1 << MP_BOOST - NEW_CON_THREASHOLD;
-	public static final int ATT_BOOST_BIT = 1 << ATT_BOOST - NEW_CON_THREASHOLD;
-	public static final int DEF_BOOST_BIT = 1 << DEF_BOOST - NEW_CON_THREASHOLD;
-	public static final int SPD_BOOST_BIT = 1 << SPD_BOOST - NEW_CON_THREASHOLD;
-	public static final int VIT_BOOST_BIT = 1 << VIT_BOOST - NEW_CON_THREASHOLD;
-	public static final int WIS_BOOST_BIT = 1 << WIS_BOOST - NEW_CON_THREASHOLD;
-	public static final int DEX_BOOST_BIT = 1 << DEX_BOOST - NEW_CON_THREASHOLD;
-	public static final int SILENCED_BIT = 1 << SILENCED - NEW_CON_THREASHOLD;
-	public static final int EXPOSED_BIT = 1 << EXPOSED - NEW_CON_THREASHOLD;
+	public static final int SLOWED_IMMUNE_BIT = 1 << (SLOWED_IMMUNE - NEW_CON_THREASHOLD);
+	public static final int DAZED_IMMUNE_BIT = 1 << (DAZED_IMMUNE - NEW_CON_THREASHOLD);
+	public static final int PARALYZED_IMMUNE_BIT = 1 << (PARALYZED_IMMUNE - NEW_CON_THREASHOLD);
+	public static final int PETRIFIED_BIT = 1 << (PETRIFIED - NEW_CON_THREASHOLD);
+	public static final int PETRIFIED_IMMUNE_BIT = 1 << (PETRIFIED_IMMUNE - NEW_CON_THREASHOLD);
+	public static final int PET_EFFECT_ICON_BIT = 1 << (PET_EFFECT_ICON - NEW_CON_THREASHOLD);
+	public static final int CURSE_BIT = 1 << (CURSE - NEW_CON_THREASHOLD);
+	public static final int CURSE_IMMUNE_BIT = 1 << (CURSE_IMMUNE - NEW_CON_THREASHOLD);
+	public static final int HP_BOOST_BIT = 1 << (HP_BOOST - NEW_CON_THREASHOLD);
+	public static final int MP_BOOST_BIT = 1 << (MP_BOOST - NEW_CON_THREASHOLD);
+	public static final int ATT_BOOST_BIT = 1 << (ATT_BOOST - NEW_CON_THREASHOLD);
+	public static final int DEF_BOOST_BIT = 1 << (DEF_BOOST - NEW_CON_THREASHOLD);
+	public static final int SPD_BOOST_BIT = 1 << (SPD_BOOST - NEW_CON_THREASHOLD);
+	public static final int VIT_BOOST_BIT = 1 << (VIT_BOOST - NEW_CON_THREASHOLD);
+	public static final int WIS_BOOST_BIT = 1 << (WIS_BOOST - NEW_CON_THREASHOLD);
+	public static final int DEX_BOOST_BIT = 1 << (DEX_BOOST - NEW_CON_THREASHOLD);
+	public static final int SILENCED_BIT = 1 << (SILENCED - NEW_CON_THREASHOLD);
+	public static final int EXPOSED_BIT = 1 << (EXPOSED - NEW_CON_THREASHOLD);
 	public static final int MAP_FILTER_BITMASK = DRUNK_BIT | BLIND_BIT | PAUSED_BIT;
 	public static final int CE_FIRST_BATCH = 0;
 	public static final int CE_SECOND_BATCH = 1;
@@ -174,7 +174,7 @@ public class ConditionEffect {
 			new ConditionEffect("Dex Boost", DEX_BOOST_BIT, new int[]{37}, "Dex Boost", true),
 			new ConditionEffect("Silenced", SILENCED_BIT, new int[]{33}, "Silenced"),
 			new ConditionEffect("Exposed", EXPOSED_BIT, new int[]{41}, "Exposed", true)
-	);
+			);
 	private static Dictionary<String, Integer> conditionEffectFromName = null;
 	private static Vector<BitmapData> effectIconCache = null;
 	private static Vector<Vector<BitmapData>> bitToIcon = null;
@@ -234,7 +234,7 @@ public class ConditionEffect {
 		int loc5 = 0;
 		Vector<BitmapData> loc6 = null;
 		while (param1 != 0) {
-			loc4 = param1 & param1 - 1;
+			loc4 = param1 & (param1 - 1);
 			loc5 = param1 ^ loc4;
 			loc6 = getIconsFromBit(loc5);
 			if (loc6 != null) {
@@ -249,7 +249,7 @@ public class ConditionEffect {
 		int loc5 = 0;
 		Vector<BitmapData> loc6 = null;
 		while (param1 != 0) {
-			loc4 = param1 & param1 - 1;
+			loc4 = param1 & (param1 - 1);
 			loc5 = param1 ^ loc4;
 			loc6 = getIconsFromBit2(loc5);
 			if (loc6 != null) {
@@ -301,7 +301,7 @@ public class ConditionEffect {
 			while (loc3 < 32) {
 				loc4 = null;
 				if (effects.get(loc3).iconOffsets != null) {
-					loc4 = new Vector<BitmapData>();
+					loc4 = new Vector<>();
 					loc5 = 0;
 					while (loc5 < effects.get(loc3).iconOffsets.length) {
 						loc6 = new BitmapDataSpy(16, 16, true, 0);
@@ -328,7 +328,7 @@ public class ConditionEffect {
 		int loc7 = 0;
 		if (bitToIcon2 == null) {
 			bitToIcon2 = new Vector<>();
-			loc2 = new Vector<BitmapData>();
+			loc2 = new Vector<>();
 			loc4 = new Matrix();
 			loc4.translate(4, 4);
 			loc5 = new Matrix();
@@ -337,7 +337,7 @@ public class ConditionEffect {
 			while (loc6 < effects.length) {
 				loc2 = null;
 				if (effects.get(loc6).iconOffsets != null) {
-					loc2 = new Vector<BitmapData>();
+					loc2 = new Vector<>();
 					loc7 = 0;
 					while (loc7 < effects.get(loc6).iconOffsets.length) {
 						if (effects.get(loc6).icon16Bit) {
@@ -357,7 +357,7 @@ public class ConditionEffect {
 				loc6++;
 			}
 		}
-		if (bitToIcon2 != null && bitToIcon2.get(param1) != null) {
+		if ((bitToIcon2 != null) && (bitToIcon2.get(param1) != null)) {
 			return bitToIcon2.get(param1);
 		}
 		return null;
@@ -366,11 +366,11 @@ public class ConditionEffect {
 	@Override
 	public String toString() {
 		return "ConditionEffect{" +
-				"name='" + name + '\'' +
-				", bit=" + bit +
-				", iconOffsets=" + Arrays.toString(iconOffsets) +
-				", localizationKey='" + localizationKey + '\'' +
-				", icon16Bit=" + icon16Bit +
+				"name='" + this.name + '\'' +
+				", bit=" + this.bit +
+				", iconOffsets=" + Arrays.toString(this.iconOffsets) +
+				", localizationKey='" + this.localizationKey + '\'' +
+				", icon16Bit=" + this.icon16Bit +
 				'}';
 	}
 

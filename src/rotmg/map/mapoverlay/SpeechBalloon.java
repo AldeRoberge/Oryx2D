@@ -1,8 +1,16 @@
 package rotmg.map.mapoverlay;
 
-import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.Vector;
-import flash.display.*;
+import alde.flash.utils.consumer.EventConsumer;
+import flash.display.CapsStyle;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsPathCommand;
+import flash.display.GraphicsSolidFill;
+import flash.display.GraphicsStroke;
+import flash.display.IGraphicsData;
+import flash.display.JointStyle;
+import flash.display.LineScaleMode;
+import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.text.TextField;
@@ -10,7 +18,6 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import rotmg.map.Camera;
 import rotmg.objects.GameObject;
-import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.util.GraphicsUtil;
 import spark.filters.DropShadowFilter;
@@ -53,7 +60,7 @@ public class SpeechBalloon extends Sprite implements IMapOverlayElement {
 		this.lineStyle = new GraphicsStroke(2, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND, 3, this.outlineFill);
 		this.path = new GraphicsPath(new Vector<Integer>(), new Vector<Double>());
 
-		graphicsData = new Vector<IGraphicsData>(this.lineStyle, this.backgroundFill, this.path, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE);
+		this.graphicsData = new Vector<>(this.lineStyle, this.backgroundFill, this.path, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE);
 
 		this.go = param1;
 		this.senderName = param3;
@@ -76,24 +83,24 @@ public class SpeechBalloon extends Sprite implements IMapOverlayElement {
 		this.text.multiline = true;
 		this.text.wordWrap = true;
 		this.text.text = param2;
-		addChild(this.text);
+		this.addChild(this.text);
 		int loc15 = this.text.textWidth + 4;
 		this.offset.x = -loc15 / 2;
 		this.backgroundFill.color = param6;
 		this.backgroundFill.alpha = param7;
 		this.outlineFill.color = param8;
 		this.outlineFill.alpha = param9;
-		graphics.clear();
+		this.graphics.clear();
 		GraphicsUtil.clearPath(this.path);
-		GraphicsUtil.drawCutEdgeRect(-6, -6, loc15 + 12, height + 12, 4, new Vector<Integer>(1, 1, 1, 1), this.path);
+		GraphicsUtil.drawCutEdgeRect(-6, -6, loc15 + 12, this.height + 12, 4, new Vector<>(1, 1, 1, 1), this.path);
 		this.path.commands.splice(6, 0, GraphicsPathCommand.LINE_TO, GraphicsPathCommand.LINE_TO, GraphicsPathCommand.LINE_TO);
-		int loc16 = height;
-		this.path.data.splice(12, 0, loc15 / 2 + 8, loc16 + 6, loc15 / 2, loc16 + 18, loc15 / 2 - 8, loc16 + 6);
-		graphics.drawGraphicsData(this.graphicsData);
-		filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
-		this.offset.y = -height - this.go.texture.height * (param1.size / 100) * 5 - 2;
-		visible = false;
-		addEventListener(MouseEvent.RIGHT_CLICK, new EventConsumer<>(this::onSpeechBalloonRightClicked));
+		int loc16 = this.height;
+		this.path.data.splice(12, 0, (loc15 / 2) + 8, loc16 + 6, loc15 / 2, loc16 + 18, (loc15 / 2) - 8, loc16 + 6);
+		this.graphics.drawGraphicsData(this.graphicsData);
+		this.filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
+		this.offset.y = -this.height - (this.go.texture.height * (param1.size / 100) * 5) - 2;
+		this.visible = false;
+		this.addEventListener(MouseEvent.RIGHT_CLICK, new EventConsumer<>(this::onSpeechBalloonRightClicked));
 	}
 
 	private void onSpeechBalloonRightClicked(MouseEvent param1) {
@@ -123,20 +130,20 @@ public class SpeechBalloon extends Sprite implements IMapOverlayElement {
 			this.startTime = param2;
 		}
 		int loc3 = param2 - this.startTime;
-		if (loc3 > this.lifetime || this.go != null && this.go.map == null) {
+		if ((loc3 > this.lifetime) || ((this.go != null) && (this.go.map == null))) {
 			return false;
 		}
-		if (this.go == null || !this.go.drawn) {
-			visible = false;
+		if ((this.go == null) || !this.go.drawn) {
+			this.visible = false;
 			return true;
 		}
 		if (this.hideable && !Data.textBubbles) {
-			visible = false;
+			this.visible = false;
 			return true;
 		}
-		visible = true;
-		x = this.go.posS.get(0) + this.offset.x;
-		y = this.go.posS.get(1) + this.offset.y;
+		this.visible = true;
+		this.x = this.go.posS.get(0) + this.offset.x;
+		this.y = this.go.posS.get(1) + this.offset.y;
 		return true;
 	}
 
@@ -147,7 +154,7 @@ public class SpeechBalloon extends Sprite implements IMapOverlayElement {
 
 	@Override
 	public void dispose() {
-		parent.removeChild(this);
+		this.parent.removeChild(this);
 	}
 
 

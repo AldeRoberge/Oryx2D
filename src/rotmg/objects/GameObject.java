@@ -1,8 +1,16 @@
 package rotmg.objects;
 
+import static flash.utils.timer.getTimer.getTimer;
+
 import alde.flash.utils.Vector;
 import alde.flash.utils.XML;
-import flash.display.*;
+import flash.display.BitmapData;
+import flash.display.GradientType;
+import flash.display.GraphicsBitmapFill;
+import flash.display.GraphicsGradientFill;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsSolidFill;
+import flash.display.IGraphicsData;
 import flash.filters.ColorMatrixFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
@@ -33,10 +41,18 @@ import rotmg.text.view.BitmapTextFactory;
 import rotmg.text.view.stringBuilder.LineBuilder;
 import rotmg.text.view.stringBuilder.StaticStringBuilder;
 import rotmg.text.view.stringBuilder.StringBuilder;
-import rotmg.util.*;
+import rotmg.util.AssetLibrary;
+import rotmg.util.BitmapUtil;
+import rotmg.util.BloodComposition;
+import rotmg.util.CachingColorTransformer;
+import rotmg.util.ConditionEffect;
+import rotmg.util.ConversionUtil;
+import rotmg.util.GraphicsUtil;
+import rotmg.util.MaskedImage;
+import rotmg.util.MoreColorUtil;
+import rotmg.util.TextKey;
+import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 
 public class GameObject extends BasicObject {
@@ -125,21 +141,21 @@ public class GameObject extends BasicObject {
 		super();
 		int loc4 = 0;
 		this.props = ObjectLibrary.defaultProps;
-		this.condition = new Vector<Integer>(0, 0);
+		this.condition = new Vector<>(0, 0);
 		this.posAtTick = new Point();
 		this.tickPosition = new Point();
 		this.moveVec = new Vector3D();
 		this.bitmapFill = new GraphicsBitmapFill(null, null, false, false);
 		this.path = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, null);
-		this.vS = new Vector<Double>();
-		this.uvt = new Vector<Double>();
+		this.vS = new Vector<>();
+		this.uvt = new Vector<>();
 		this.fillMatrix = new Matrix();
 		if (param1 == null) {
 			return;
 		}
 		this.objectType = param1.getIntAttribute("type");
 		this.props = ObjectLibrary.propsLibrary.get(this.objectType);
-		hasShadow = this.props.shadowSize > 0;
+		this.hasShadow = this.props.shadowSize > 0;
 		TextureData loc2 = ObjectLibrary.typeToTextureData.get(this.objectType);
 		this.texture = loc2.texture;
 		this.mask = loc2.mask;
@@ -162,7 +178,7 @@ public class GameObject extends BasicObject {
 		if (loc3 != null) {
 			this.animations = new Animations(loc3);
 		}
-		z = this.props.z;
+		this.z = this.props.z;
 		this.flying = this.props.flying;
 		if (param1.hasOwnProperty("MaxHitPoints")) {
 			this.hp = this.maxHP = param1.getIntValue("MaxHitPoints");
@@ -172,13 +188,13 @@ public class GameObject extends BasicObject {
 		}
 		if (param1.hasOwnProperty("SlotTypes")) {
 			this.slotTypes = ConversionUtil.toIntVector(param1.getValue("SlotTypes"));
-			this.equipment = new Vector<Integer>(this.slotTypes.length);
+			this.equipment = new Vector<>(this.slotTypes.length);
 			loc4 = 0;
 			while (loc4 < this.equipment.length) {
 				this.equipment.put(loc4, -1);
 				loc4++;
 			}
-			this.lockedSlot = new Vector<Integer>(this.slotTypes.length);
+			this.lockedSlot = new Vector<>(this.slotTypes.length);
 		}
 		if (param1.hasOwnProperty("Tex1")) {
 			this.tex1Id = param1.getIntValue("Tex1");
@@ -203,12 +219,12 @@ public class GameObject extends BasicObject {
 
 	public static int damageWithDefense(int param1, int param2, boolean param3, Vector<Integer> param4) {
 		int loc5 = param2;
-		if (param3 || (param4.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.ARMORBROKEN_BIT) != 0) {
+		if (param3 || ((param4.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.ARMORBROKEN_BIT) != 0)) {
 			loc5 = 0;
 		} else if ((param4.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.ARMORED_BIT) != 0) {
 			loc5 = loc5 * 2;
 		}
-		int loc6 = param1 * 3 / 20;
+		int loc6 = (param1 * 3) / 20;
 		int loc7 = Math.max(loc6, param1 - loc5);
 		if ((param4.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.INVULNERABLE_BIT) != 0) {
 			loc7 = 0;
@@ -224,7 +240,7 @@ public class GameObject extends BasicObject {
 
 	public void setObjectId(int param1) {
 		TextureData loc2 = null;
-		objectId = param1;
+		this.objectId = param1;
 		if (this.randomTextureData != null) {
 			loc2 = this.randomTextureData.get(0); //objectId % this.randomTextureData.length
 			this.texture = loc2.texture;
@@ -262,13 +278,13 @@ public class GameObject extends BasicObject {
 		this.mask = loc3.mask;
 		this.animatedChar = loc3.animatedChar;
 		if (this.effect != null) {
-			map.removeObj(this.effect.objectId);
+			this.map.removeObj(this.effect.objectId);
 			this.effect = null;
 		}
-		if (!Data.noParticlesMaster && loc3.effectProps != null) {
+		if (!Data.noParticlesMaster && (loc3.effectProps != null)) {
 			this.effect = ParticleEffect.fromProps(loc3.effectProps, this);
-			if (map != null) {
-				map.addObj(this.effect, x, y);
+			if (this.map != null) {
+				this.map.addObj(this.effect, this.x, this.y);
 			}
 		}
 	}
@@ -393,7 +409,7 @@ public class GameObject extends BasicObject {
 	}
 
 	public boolean isStunImmune() {
-		return (this.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.STUN_IMMUNE_BIT) != 0 || this.isStunImmune;
+		return ((this.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.STUN_IMMUNE_BIT) != 0) || this.isStunImmune;
 	}
 
 	public boolean isInvisible() {
@@ -437,7 +453,7 @@ public class GameObject extends BasicObject {
 	}
 
 	public boolean isStasisImmune() {
-		return this.isStasisImmune || (this.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.STASIS_IMMUNE_BIT) != 0;
+		return this.isStasisImmune || ((this.condition.get(ConditionEffect.CE_FIRST_BATCH) & ConditionEffect.STASIS_IMMUNE_BIT) != 0);
 	}
 
 	public boolean isInvincible() {
@@ -477,11 +493,11 @@ public class GameObject extends BasicObject {
 	}
 
 	public boolean isParalyzeImmune() {
-		return this.isParalyzeImmune || (this.condition.get(ConditionEffect.CE_SECOND_BATCH) & ConditionEffect.PARALYZED_IMMUNE_BIT) != 0;
+		return this.isParalyzeImmune || ((this.condition.get(ConditionEffect.CE_SECOND_BATCH) & ConditionEffect.PARALYZED_IMMUNE_BIT) != 0);
 	}
 
 	public boolean isDazedImmune() {
-		return this.isDazedImmune || (this.condition.get(ConditionEffect.CE_SECOND_BATCH) & ConditionEffect.DAZED_IMMUNE_BIT) != 0;
+		return this.isDazedImmune || ((this.condition.get(ConditionEffect.CE_SECOND_BATCH) & ConditionEffect.DAZED_IMMUNE_BIT) != 0);
 	}
 
 	public boolean isPetrified() {
@@ -506,7 +522,7 @@ public class GameObject extends BasicObject {
 
 
 	public String getName() {
-		return this.name == null || this.name.equals("") ? ObjectLibrary.typeToDisplayId.get(this.objectType) : this.name;
+		return (this.name == null) || this.name.equals("") ? ObjectLibrary.typeToDisplayId.get(this.objectType) : this.name;
 	}
 
 	public int getColor() {
@@ -523,9 +539,9 @@ public class GameObject extends BasicObject {
 	}
 
 	public double distTo(WorldPosData param1) {
-		double loc2 = param1.x - x;
-		double loc3 = param1.y - y;
-		return Math.sqrt(loc2 * loc2 + loc3 * loc3);
+		double loc2 = param1.x - this.x;
+		double loc3 = param1.y - this.y;
+		return Math.sqrt((loc2 * loc2) + (loc3 * loc3));
 	}
 
 	public void toggleShockEffect(boolean param1) {
@@ -548,53 +564,53 @@ public class GameObject extends BasicObject {
 
 	@Override
 	public boolean addTo(Map param1, double param2, double param3) {
-		map = param1;
+		this.map = param1;
 		this.posAtTick.x = this.tickPosition.x = param2;
 		this.posAtTick.y = this.tickPosition.y = param3;
 		if (!this.moveTo(param2, param3)) {
-			map = null;
+			this.map = null;
 			return false;
 		}
 		if (this.effect != null) {
-			map.addObj(this.effect, param2, param3);
+			this.map.addObj(this.effect, param2, param3);
 		}
 		return true;
 	}
 
 	@Override
 	public void removeFromMap() {
-		if (this.props.isStatic && square != null) {
-			if (square.obj == this) {
-				square.obj = null;
+		if (this.props.isStatic && (this.square != null)) {
+			if (this.square.obj == this) {
+				this.square.obj = null;
 			}
-			square = null;
+			this.square = null;
 		}
 		if (this.effect != null) {
-			map.removeObj(this.effect.objectId);
+			this.map.removeObj(this.effect.objectId);
 		}
 		super.removeFromMap();
 		this.dispose();
 	}
 
 	public boolean moveTo(double param1, double param2) {
-		Square loc3 = map.getSquare(param1, param2);
+		Square loc3 = this.map.getSquare(param1, param2);
 		if (loc3 == null) {
 			return false;
 		}
-		x = param1;
-		y = param2;
+		this.x = param1;
+		this.y = param2;
 		if (this.props.isStatic) {
-			if (square != null) {
-				square.obj = null;
+			if (this.square != null) {
+				this.square.obj = null;
 			}
 			loc3.obj = this;
 		}
-		square = loc3;
+		this.square = loc3;
 		if (this.obj3D != null) {
-			this.obj3D.setPosition(x, y, 0, this.props.rotation);
+			this.obj3D.setPosition(this.x, this.y, 0, this.props.rotation);
 		}
 		if (this.object3d != null) {
-			this.object3d.setPosition(x, y, 0, this.props.rotation);
+			this.object3d.setPosition(this.x, this.y, 0, this.props.rotation);
 		}
 		return true;
 	}
@@ -605,25 +621,25 @@ public class GameObject extends BasicObject {
 		double pX = 0;
 		double pY = 0;
 		boolean moving = false;
-		if (!(this.moveVec.x == 0 && this.moveVec.y == 0)) {
-			if (this.myLastTickId < map.gs.gsc.lastTickId) {
+		if (!((this.moveVec.x == 0) && (this.moveVec.y == 0))) {
+			if (this.myLastTickId < this.map.gs.gsc.lastTickId) {
 				this.moveVec.x = 0;
 				this.moveVec.y = 0;
 				this.moveTo(this.tickPosition.x, this.tickPosition.y);
 			} else {
 				tickDT = time - this.lastTickUpdateTime;
-				pX = this.posAtTick.x + tickDT * this.moveVec.x;
-				pY = this.posAtTick.y + tickDT * this.moveVec.y;
+				pX = this.posAtTick.x + (tickDT * this.moveVec.x);
+				pY = this.posAtTick.y + (tickDT * this.moveVec.y);
 				this.moveTo(pX, pY);
 				moving = true;
 			}
 		}
 		if (this.props.whileMoving != null) {
 			if (!moving) {
-				z = this.props.z;
+				this.z = this.props.z;
 				this.flying = this.props.flying;
 			} else {
-				z = this.props.whileMoving.z;
+				this.z = this.props.whileMoving.z;
 				this.flying = this.props.whileMoving.flying;
 			}
 		}
@@ -643,10 +659,10 @@ public class GameObject extends BasicObject {
 
 	public void onTickPos(double x, double y, int tickTime, int tickId) {
 		try {
-			if (this.myLastTickId < map.gs.gsc.lastTickId) {
+			if (this.myLastTickId < this.map.gs.gsc.lastTickId) {
 				this.moveTo(this.tickPosition.x, this.tickPosition.y);
 			}
-			this.lastTickUpdateTime = map.gs.lastUpdate;
+			this.lastTickUpdateTime = this.map.gs.lastUpdate;
 			this.tickPosition.x = x;
 			this.tickPosition.y = y;
 			this.posAtTick.x = this.x;
@@ -661,7 +677,7 @@ public class GameObject extends BasicObject {
 	}
 
 	public void damage(boolean param1, int param2, Vector<Integer> param3, boolean param4, Projectile param5) {
-		damage(param1, param2, param3, param4, param5, false);
+		this.damage(param1, param2, param3, param4, param5, false);
 	}
 
 	public void damage(boolean param1, int param2, Vector<Integer> param3, boolean param4, Projectile param5, boolean param6) {
@@ -680,7 +696,7 @@ public class GameObject extends BasicObject {
 			loc8 = 0;
 			for (int loc9 : param3) {
 				loc10 = null;
-				if (param5 != null && param5.projProps.isPetEffect != null && param5.projProps.isPetEffect.get(loc9) != null) {
+				if ((param5 != null) && (param5.projProps.isPetEffect != null) && (param5.projProps.isPetEffect.get(loc9) != null)) {
 					loc12 = PetsModel.getInstance();
 					loc13 = loc12.getActivePet();
 					if (loc13 != null) {
@@ -690,106 +706,106 @@ public class GameObject extends BasicObject {
 					}
 				} else {
 					switch (loc9) {
-						case ConditionEffect.NOTHING:
-							break;
-						case ConditionEffect.WEAK:
-						case ConditionEffect.SICK:
-						case ConditionEffect.BLIND:
-						case ConditionEffect.HALLUCINATING:
-						case ConditionEffect.DRUNK:
-						case ConditionEffect.CONFUSED:
-						case ConditionEffect.STUN_IMMUNE:
-						case ConditionEffect.INVISIBLE:
-						case ConditionEffect.SPEEDY:
-						case ConditionEffect.BLEEDING:
-						case ConditionEffect.STASIS_IMMUNE:
-						case ConditionEffect.NINJA_SPEEDY:
-						case ConditionEffect.UNSTABLE:
-						case ConditionEffect.DARKNESS:
-						case ConditionEffect.PETRIFIED_IMMUNE:
-						case ConditionEffect.SILENCED:
+					case ConditionEffect.NOTHING:
+						break;
+					case ConditionEffect.WEAK:
+					case ConditionEffect.SICK:
+					case ConditionEffect.BLIND:
+					case ConditionEffect.HALLUCINATING:
+					case ConditionEffect.DRUNK:
+					case ConditionEffect.CONFUSED:
+					case ConditionEffect.STUN_IMMUNE:
+					case ConditionEffect.INVISIBLE:
+					case ConditionEffect.SPEEDY:
+					case ConditionEffect.BLEEDING:
+					case ConditionEffect.STASIS_IMMUNE:
+					case ConditionEffect.NINJA_SPEEDY:
+					case ConditionEffect.UNSTABLE:
+					case ConditionEffect.DARKNESS:
+					case ConditionEffect.PETRIFIED_IMMUNE:
+					case ConditionEffect.SILENCED:
+						loc10 = ConditionEffect.effects.get(loc9);
+						break;
+					case ConditionEffect.QUIET:
+						if (this.map.player == this) {
+							this.map.player.mp = 0;
+						}
+						loc10 = ConditionEffect.effects.get(loc9);
+						break;
+					case ConditionEffect.STASIS:
+						if (this.isStasisImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
 							loc10 = ConditionEffect.effects.get(loc9);
-							break;
-						case ConditionEffect.QUIET:
-							if (map.player == this) {
-								map.player.mp = 0;
-							}
+						}
+						break;
+					case ConditionEffect.SLOWED:
+						if (this.isSlowedImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
 							loc10 = ConditionEffect.effects.get(loc9);
-							break;
-						case ConditionEffect.STASIS:
-							if (this.isStasisImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.SLOWED:
-							if (this.isSlowedImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.ARMORBROKEN:
-							if (this.isArmorBrokenImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.STUNNED:
-							if (this.isStunImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.DAZED:
-							if (this.isDazedImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.PARALYZED:
-							if (this.isParalyzeImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.PETRIFIED:
-							if (this.isPetrifiedImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.CURSE:
-							if (this.isCursedImmune()) {
-								loc11 = new CharacterStatusText(this, 16711680, 3000);
-								loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-								map.mapOverlay.addStatusText(loc11);
-							} else {
-								loc10 = ConditionEffect.effects.get(loc9);
-							}
-							break;
-						case ConditionEffect.GROUND_DAMAGE:
-							loc7 = true;
+						}
+						break;
+					case ConditionEffect.ARMORBROKEN:
+						if (this.isArmorBrokenImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
+							loc10 = ConditionEffect.effects.get(loc9);
+						}
+						break;
+					case ConditionEffect.STUNNED:
+						if (this.isStunImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
+							loc10 = ConditionEffect.effects.get(loc9);
+						}
+						break;
+					case ConditionEffect.DAZED:
+						if (this.isDazedImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
+							loc10 = ConditionEffect.effects.get(loc9);
+						}
+						break;
+					case ConditionEffect.PARALYZED:
+						if (this.isParalyzeImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
+							loc10 = ConditionEffect.effects.get(loc9);
+						}
+						break;
+					case ConditionEffect.PETRIFIED:
+						if (this.isPetrifiedImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
+							loc10 = ConditionEffect.effects.get(loc9);
+						}
+						break;
+					case ConditionEffect.CURSE:
+						if (this.isCursedImmune()) {
+							loc11 = new CharacterStatusText(this, 16711680, 3000);
+							loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
+							this.map.mapOverlay.addStatusText(loc11);
+						} else {
+							loc10 = ConditionEffect.effects.get(loc9);
+						}
+						break;
+					case ConditionEffect.GROUND_DAMAGE:
+						loc7 = true;
 					}
 					if (loc10 != null) {
 						if (loc9 < ConditionEffect.NEW_CON_THREASHOLD) {
@@ -813,18 +829,18 @@ public class GameObject extends BasicObject {
 		if (!(this.props.isEnemy && Data.disableEnemyParticles) && !(!this.props.isEnemy && Data.disablePlayersHitParticles)) {
 			loc15 = BloodComposition.getBloodComposition(this.objectType, this.texture, this.props.bloodProb, this.props.bloodColor);
 			if (this.dead) {
-				map.addObj(new ExplosionEffect(loc15, this.size, 30), x, y);
+				this.map.addObj(new ExplosionEffect(loc15, this.size, 30), this.x, this.y);
 			} else if (param5 != null) {
-				map.addObj(new HitEffect(loc15, this.size, 10, param5.angle, param5.projProps.speed), x, y);
+				this.map.addObj(new HitEffect(loc15, this.size, 10, param5.angle, param5.projProps.speed), this.x, this.y);
 			} else {
-				map.addObj(new ExplosionEffect(loc15, this.size, 10), x, y);
+				this.map.addObj(new ExplosionEffect(loc15, this.size, 10), this.x, this.y);
 			}
 		}
-		if (!param1 && (Data.noEnemyDamage && this.props.isEnemy || Data.noAllyDamage && this.props.isPlayer)) {
+		if (!param1 && ((Data.noEnemyDamage && this.props.isEnemy) || (Data.noAllyDamage && this.props.isPlayer))) {
 			return;
 		}
 		if (param2 > 0) {
-			loc16 = this.isArmorBroken() || param5 != null && param5.projProps.armorPiercing || loc7 || param6;
+			loc16 = this.isArmorBroken() || ((param5 != null) && param5.projProps.armorPiercing) || loc7 || param6;
 			this.showDamageText(param2, loc16);
 		}
 	}
@@ -832,20 +848,20 @@ public class GameObject extends BasicObject {
 	public void showConditionEffect(int param1, String param2) {
 		CharacterStatusText loc3 = new CharacterStatusText(this, 16711680, 3000, param1);
 		loc3.setStringBuilder(new LineBuilder().setParams(param2));
-		map.mapOverlay.addStatusText(loc3);
+		this.map.mapOverlay.addStatusText(loc3);
 	}
 
 	public void showConditionEffectPet(int param1, String param2) {
 		CharacterStatusText loc3 = new CharacterStatusText(this, 16711680, 3000, param1);
 		loc3.setStringBuilder(new StaticStringBuilder("Pet " + param2));
-		map.mapOverlay.addStatusText(loc3);
+		this.map.mapOverlay.addStatusText(loc3);
 	}
 
 	public void showDamageText(int param1, boolean param2) {
 		String loc3 = "-" + param1;
 		CharacterStatusText loc4 = new CharacterStatusText(this, param2 ? 9437439 : 16711680, 1000);
 		loc4.setStringBuilder(new StaticStringBuilder(loc3));
-		map.mapOverlay.addStatusText(loc4);
+		this.map.mapOverlay.addStatusText(loc4);
 	}
 
 	protected BitmapData makeNameBitmapData() {
@@ -860,11 +876,11 @@ public class GameObject extends BasicObject {
 			this.nameFill = new GraphicsBitmapFill(null, new Matrix(), false, false);
 			this.namePath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
 		}
-		int loc3 = this.nameBitmapData.width / 2 + 1;
+		int loc3 = (this.nameBitmapData.width / 2) + 1;
 		int loc4 = 30;
 		Vector<Double> loc5 = this.namePath.data;
 		loc5.length = 0;
-		loc5.add(posS.get(0) - loc3, posS.get(1), posS.get(0) + loc3, posS.get(1), posS.get(0) + loc3, posS.get(1) + loc4, posS.get(0) - loc3, posS.get(1) + loc4);
+		loc5.add(this.posS.get(0) - loc3, this.posS.get(1), this.posS.get(0) + loc3, this.posS.get(1), this.posS.get(0) + loc3, this.posS.get(1) + loc4, this.posS.get(0) - loc3, this.posS.get(1) + loc4);
 		this.nameFill.bitmapData = this.nameBitmapData;
 		Matrix loc6 = this.nameFill.matrix;
 		loc6.identity();
@@ -892,7 +908,7 @@ public class GameObject extends BasicObject {
 		BitmapData loc13 = null;
 		if (this instanceof Pet) {
 			pet = (Pet) this;
-			if (this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0 && !this.isPaused()) {
+			if ((this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0) && !this.isPaused()) {
 				if (pet.skinId != 32912) {
 					pet.setSkin(32912);
 				}
@@ -906,16 +922,16 @@ public class GameObject extends BasicObject {
 		if (this.animatedChar != null) {
 			loc7 = 0;
 			loc8 = AnimatedChar.STAND;
-			if (param2 < this.attackStart + ATTACK_PERIOD) {
+			if (param2 < (this.attackStart + ATTACK_PERIOD)) {
 				if (!this.props.dontFaceAttacks) {
 					this.facing = this.attackAngle;
 				}
-				loc7 = (param2 - this.attackStart) % ATTACK_PERIOD / ATTACK_PERIOD;
+				loc7 = ((param2 - this.attackStart) % ATTACK_PERIOD) / ATTACK_PERIOD;
 				loc8 = AnimatedChar.ATTACK;
-			} else if (this.moveVec.x != 0 || this.moveVec.y != 0) {
+			} else if ((this.moveVec.x != 0) || (this.moveVec.y != 0)) {
 				loc10 = (int) (0.5 / this.moveVec.length);
-				loc10 = loc10 + (400 - loc10 % 400);
-				if (this.moveVec.x > ZERO_LIMIT || this.moveVec.x < NEGATIVE_ZERO_LIMIT || this.moveVec.y > ZERO_LIMIT || this.moveVec.y < NEGATIVE_ZERO_LIMIT) {
+				loc10 = loc10 + (400 - (loc10 % 400));
+				if ((this.moveVec.x > ZERO_LIMIT) || (this.moveVec.x < NEGATIVE_ZERO_LIMIT) || (this.moveVec.y > ZERO_LIMIT) || (this.moveVec.y < NEGATIVE_ZERO_LIMIT)) {
 					if (!this.props.dontFaceMovement) {
 						this.facing = Math.atan2(this.moveVec.y, this.moveVec.x);
 					}
@@ -923,7 +939,7 @@ public class GameObject extends BasicObject {
 				} else {
 					loc8 = AnimatedChar.STAND;
 				}
-				loc7 = param2 % loc10 / loc10;
+				loc7 = (param2 % loc10) / loc10;
 			}
 			maskedImage = this.animatedChar.imageFromFacing(this.facing, param1, loc8, loc7);
 			loc3 = maskedImage.image;
@@ -934,7 +950,7 @@ public class GameObject extends BasicObject {
 				loc3 = loc11;
 			}
 		}
-		if (this.props.drawOnGround || this.obj3D != null) {
+		if (this.props.drawOnGround || (this.obj3D != null)) {
 			return loc3;
 		}
 		if (param1.isHallucinating) {
@@ -948,7 +964,7 @@ public class GameObject extends BasicObject {
 				loc3 = CachingColorTransformer.filterBitmapData(loc3, PAUSED_FILTER);
 			}
 		}
-		if (this.tex1Id == 0 && this.tex2Id == 0) {
+		if ((this.tex1Id == 0) && (this.tex2Id == 0)) {
 			if (this.isCursed() && Data.curseIndication) {
 				loc3 = TextureRedrawer.redraw(loc3, loc4, false, 16711680);
 			} else {
@@ -982,7 +998,7 @@ public class GameObject extends BasicObject {
 			int loc2 = 0;
 			if (this.portrait == null) {
 				loc1 = this.props.portrait != null ? this.props.portrait.getTexture() : this.texture;
-				loc2 = 4 / loc1.width * 100;
+				loc2 = (4 / loc1.width) * 100;
 				this.portrait = TextureRedrawer.resize(loc1, this.mask, loc2, true, this.tex1Id, this.tex2Id);
 				this.portrait = GlowRedrawer.outlineGlow(this.portrait, 0);
 			}
@@ -1025,7 +1041,7 @@ public class GameObject extends BasicObject {
 		int loc4 = 5;
 		this.hpbarBackPath.data.length = 0;
 		double loc5 = 1.2;
-		this.hpbarBackPath.data.add(posS.get(0) - loc3 - loc5, posS.get(1) + param2 - loc5, posS.get(0) + loc3 + loc5, posS.get(1) + param2 - loc5, posS.get(0) + loc3 + loc5, posS.get(1) + param2 + loc4 + loc5, posS.get(0) - loc3 - loc5, posS.get(1) + param2 + loc4 + loc5);
+		this.hpbarBackPath.data.add(this.posS.get(0) - loc3 - loc5, (this.posS.get(1) + param2) - loc5, this.posS.get(0) + loc3 + loc5, (this.posS.get(1) + param2) - loc5, this.posS.get(0) + loc3 + loc5, this.posS.get(1) + param2 + loc4 + loc5, this.posS.get(0) - loc3 - loc5, this.posS.get(1) + param2 + loc4 + loc5);
 		param1.add(this.hpbarBackFill);
 		param1.add(this.hpbarBackPath);
 		param1.add(GraphicsUtil.END_FILL);
@@ -1033,7 +1049,7 @@ public class GameObject extends BasicObject {
 			loc6 = this.hp / this.maxHP;
 			loc7 = loc6 * 2 * loc3;
 			this.hpbarPath.data.length = 0;
-			this.hpbarPath.data.add(posS.get(0) - loc3, posS.get(1) + param2, posS.get(0) - loc3 + loc7, posS.get(1) + param2, posS.get(0) - loc3 + loc7, posS.get(1) + param2 + loc4, posS.get(0) - loc3, posS.get(1) + param2 + loc4);
+			this.hpbarPath.data.add(this.posS.get(0) - loc3, this.posS.get(1) + param2, (this.posS.get(0) - loc3) + loc7, this.posS.get(1) + param2, (this.posS.get(0) - loc3) + loc7, this.posS.get(1) + param2 + loc4, this.posS.get(0) - loc3, this.posS.get(1) + param2 + loc4);
 			this.hpbarFill.color = loc6 < 0.5 ? loc6 < 0.2 ? 14684176 : 16744464 : 1113856;
 			param1.add(this.hpbarFill);
 			param1.add(this.hpbarPath);
@@ -1051,21 +1067,21 @@ public class GameObject extends BasicObject {
 		int loc12 = 0;
 		BitmapData loc4 = this.getTexture(param2, param3);
 		if (this.props.drawOnGround) {
-			if (square.faces.length == 0) {
+			if (this.square.faces.length == 0) {
 				return;
 			}
-			this.path.data = square.faces.get(0).face.vout;
+			this.path.data = this.square.faces.get(0).face.vout;
 			this.bitmapFill.bitmapData = loc4;
-			square.baseTexMatrix.calculateTextureMatrix(this.path.data);
-			this.bitmapFill.matrix = square.baseTexMatrix.tToS;
+			this.square.baseTexMatrix.calculateTextureMatrix(this.path.data);
+			this.bitmapFill.matrix = this.square.baseTexMatrix.tToS;
 			param1.add(this.bitmapFill);
 			param1.add(this.path);
 			param1.add(GraphicsUtil.END_FILL);
 			return;
 		}
-		boolean loc5 = this.props != null && (this.props.isEnemy || this.props.isPlayer) && !this.isInvincible() && (this.props.isPlayer || !this.isInvulnerable()) && !this.props.noMiniMap;
+		boolean loc5 = (this.props != null) && (this.props.isEnemy || this.props.isPlayer) && !this.isInvincible() && (this.props.isPlayer || !this.isInvulnerable()) && !this.props.noMiniMap;
 		if (this.obj3D != null) {
-			if (loc5 && this.bHPBarParamCheck() && this.props.healthBar != 0) {
+			if (loc5 && this.bHPBarParamCheck() && (this.props.healthBar != 0)) {
 				this.drawHpBar(param1, this.props.healthBar);
 			}
 			if (!Parameters.isGpuRender()) {
@@ -1079,20 +1095,20 @@ public class GameObject extends BasicObject {
 		}
 		int loc6 = loc4.width;
 		int loc7 = loc4.height;
-		int loc8 = square.sink + this.sinkLevel;
-		if (loc8 > 0 && (this.flying || square.obj != null && square.obj.props.protectFromSink)) {
+		int loc8 = this.square.sink + this.sinkLevel;
+		if ((loc8 > 0) && (this.flying || ((this.square.obj != null) && this.square.obj.props.protectFromSink))) {
 			loc8 = 0;
 		}
 		if (Parameters.isGpuRender()) {
 			if (loc8 != 0) {
-				GraphicsFillExtra.setSinkLevel(this.bitmapFill, Math.max(loc8 / loc7 * 1.65 - 0.02, 0));
+				GraphicsFillExtra.setSinkLevel(this.bitmapFill, Math.max(((loc8 / loc7) * 1.65) - 0.02, 0));
 				loc8 = (int) (-loc8 + 0.02);
 			} else if (GraphicsFillExtra.getSinkLevel(this.bitmapFill) != 0) {
 				GraphicsFillExtra.clearSink(this.bitmapFill);
 			}
 		}
 		this.vS.length = 0;
-		this.vS.add(posS.get(3) - loc6 / 2, posS.get(4) - loc7 + loc8, posS.get(3) + loc6 / 2, posS.get(4) - loc7 + loc8, posS.get(3) + loc6 / 2, posS.get(4), posS.get(3) - loc6 / 2, posS.get(4));
+		this.vS.add(this.posS.get(3) - (loc6 / 2), (this.posS.get(4) - loc7) + loc8, this.posS.get(3) + (loc6 / 2), (this.posS.get(4) - loc7) + loc8, this.posS.get(3) + (loc6 / 2), this.posS.get(4), this.posS.get(3) - (loc6 / 2), this.posS.get(4));
 		this.path.data = this.vS;
 		if (this.flash != null) {
 			if (!this.flash.doneAt(param3)) {
@@ -1133,29 +1149,29 @@ public class GameObject extends BasicObject {
 		param1.add(this.bitmapFill);
 		param1.add(this.path);
 		param1.add(GraphicsUtil.END_FILL);
-		if (!this.isPaused() && (this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0 || this.condition.get(ConditionEffect.CE_SECOND_BATCH) != 0) && !Parameters.screenShotMode && !(this instanceof Pet)) {
+		if (!this.isPaused() && ((this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0) || (this.condition.get(ConditionEffect.CE_SECOND_BATCH) != 0)) && !Parameters.screenShotMode && !(this instanceof Pet)) {
 			this.drawConditionIcons(param1, param2, param3);
 		}
-		if (this.props.showName && this.name != null && this.name.length() != 0) {
+		if (this.props.showName && (this.name != null) && (this.name.length() != 0)) {
 			this.drawName(param1, param2);
 		}
 		if (loc5) {
-			loc10 = loc4.getPixel32(loc4.width / 4, loc4.height / 4) | loc4.getPixel32(loc4.width / 2, loc4.height / 2) | loc4.getPixel32(loc4.width * 3 / 4, loc4.height * 3 / 4);
+			loc10 = loc4.getPixel32(loc4.width / 4, loc4.height / 4) | loc4.getPixel32(loc4.width / 2, loc4.height / 2) | loc4.getPixel32((loc4.width * 3) / 4, (loc4.height * 3) / 4);
 			loc11 = loc10 >> 24;
 			if (loc11 != 0) {
-				hasShadow = true;
-				loc12 = this.props.isPlayer && this != map.player ? 12 : 0;
-				if (this.bHPBarParamCheck() && this.props.healthBar != -1) {
+				this.hasShadow = true;
+				loc12 = this.props.isPlayer && (this != this.map.player) ? 12 : 0;
+				if (this.bHPBarParamCheck() && (this.props.healthBar != -1)) {
 					this.drawHpBar(param1, this.props.healthBar != 0 ? this.props.healthBar : loc12 + DEFAULT_HP_BAR_Y_OFFSET);
 				}
 			} else {
-				hasShadow = false;
+				this.hasShadow = false;
 			}
 		}
 	}
 
 	private boolean bHPBarParamCheck() {
-		return Parameters.data.HPBar != 0 && (Parameters.data.HPBar == 1 || Parameters.data.HPBar == 2 && this.props.isEnemy || Parameters.data.HPBar == 3 && (this == map.player || this.props.isEnemy) || Parameters.data.HPBar == 4 && this == map.player || Parameters.data.HPBar == 5 && this.props.isPlayer);
+		return (Parameters.data.HPBar != 0) && ((Parameters.data.HPBar == 1) || ((Parameters.data.HPBar == 2) && this.props.isEnemy) || ((Parameters.data.HPBar == 3) && ((this == this.map.player) || this.props.isEnemy)) || ((Parameters.data.HPBar == 4) && (this == this.map.player)) || ((Parameters.data.HPBar == 5) && this.props.isPlayer));
 	}
 
 	public void drawConditionIcons(Vector<IGraphicsData> param1, Camera param2, int param3) {
@@ -1166,15 +1182,15 @@ public class GameObject extends BasicObject {
 		double loc13 = 0;
 		Matrix loc14 = null;
 		if (this.icons == null) {
-			this.icons = new Vector<BitmapData>();
-			this.iconFills = new Vector<GraphicsBitmapFill>();
-			this.iconPaths = new Vector<GraphicsPath>();
+			this.icons = new Vector<>();
+			this.iconFills = new Vector<>();
+			this.iconPaths = new Vector<>();
 		}
 		this.icons.length = 0;
 		int loc4 = param3 / 500;
 		ConditionEffect.getConditionEffectIcons(this.condition.get(ConditionEffect.CE_FIRST_BATCH), this.icons, loc4);
 		ConditionEffect.getConditionEffectIcons2(this.condition.get(ConditionEffect.CE_SECOND_BATCH), this.icons, loc4);
-		double loc5 = posS.get(3);
+		double loc5 = this.posS.get(3);
 		double loc6 = this.vS.get(1);
 		int loc7 = this.icons.length;
 		int loc8 = 0;
@@ -1187,8 +1203,8 @@ public class GameObject extends BasicObject {
 			loc10 = this.iconFills.get(loc8);
 			loc11 = this.iconPaths.get(loc8);
 			loc10.bitmapData = loc9;
-			loc12 = loc5 - loc9.width * loc7 / 2 + loc8 * loc9.width;
-			loc13 = loc6 - loc9.height / 2;
+			loc12 = (loc5 - ((loc9.width * loc7) / 2)) + (loc8 * loc9.width);
+			loc13 = loc6 - (loc9.height / 2);
 			loc11.data.length = 0;
 			loc11.data.add(loc12, loc13, loc12 + loc9.width, loc13, loc12 + loc9.width, loc13 + loc9.height, loc12, loc13 + loc9.height);
 			loc14 = loc10.matrix;
@@ -1205,16 +1221,16 @@ public class GameObject extends BasicObject {
 	@Override
 	public void drawShadow(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		if (this.shadowGradientFill == null) {
-			this.shadowGradientFill = new GraphicsGradientFill(GradientType.RADIAL, new Vector<Integer>(this.props.shadowColor, this.props.shadowColor), new Vector<Double>(0.5, 0.0), null, new Matrix());
+			this.shadowGradientFill = new GraphicsGradientFill(GradientType.RADIAL, new Vector<>(this.props.shadowColor, this.props.shadowColor), new Vector<>(0.5, 0.0), null, new Matrix());
 			this.shadowPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
 		}
-		double loc4 = this.size / 100 * (this.props.shadowSize / 100) * this.sizeMult;
+		double loc4 = (this.size / 100) * (this.props.shadowSize / 100) * this.sizeMult;
 		double loc5 = 30 * loc4;
 		double loc6 = 15 * loc4;
-		this.shadowGradientFill.matrix.createGradientBox(loc5 * 2, loc6 * 2, 0, posS.get(0) - loc5, posS.get(1) - loc6);
+		this.shadowGradientFill.matrix.createGradientBox(loc5 * 2, loc6 * 2, 0, this.posS.get(0) - loc5, this.posS.get(1) - loc6);
 		param1.add(this.shadowGradientFill);
 		this.shadowPath.data.length = 0;
-		this.shadowPath.data.add(posS.get(0) - loc5, posS.get(1) - loc6, posS.get(0) + loc5, posS.get(1) - loc6, posS.get(0) + loc5, posS.get(1) + loc6, posS.get(0) - loc5, posS.get(1) + loc6);
+		this.shadowPath.data.add(this.posS.get(0) - loc5, this.posS.get(1) - loc6, this.posS.get(0) + loc5, this.posS.get(1) - loc6, this.posS.get(0) + loc5, this.posS.get(1) + loc6, this.posS.get(0) - loc5, this.posS.get(1) + loc6);
 		param1.add(this.shadowPath);
 		param1.add(GraphicsUtil.END_FILL);
 	}
@@ -1225,6 +1241,6 @@ public class GameObject extends BasicObject {
 
 	@Override
 	public String toString() {
-		return "[" + this.getClass().getSimpleName() + " id: " + objectId + " type: " + ObjectLibrary.typeToDisplayId.get(this.objectType) + " pos: " + x + ", " + y + "]";
+		return "[" + this.getClass().getSimpleName() + " id: " + this.objectId + " type: " + ObjectLibrary.typeToDisplayId.get(this.objectType) + " pos: " + this.x + ", " + this.y + "]";
 	}
 }

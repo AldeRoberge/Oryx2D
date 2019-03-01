@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.WorldPosData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.WorldPosData;
 
 public class Aoe extends IncomingMessage {
 
@@ -19,29 +19,29 @@ public class Aoe extends IncomingMessage {
 
 	public Aoe(int id, MessageConsumer callback) {
 		super(id, callback);
-		pos = new WorldPosData();
+		this.pos = new WorldPosData();
 	}
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		pos.parseFromInput(in);
-		radius = in.readFloat();
-		damage = in.readUnsignedShort();
-		effect = in.readUnsignedByte();
-		duration = in.readFloat();
-		origType = in.readUnsignedShort();
-		color = in.readInt();
+		this.pos.parseFromInput(in);
+		this.radius = in.readFloat();
+		this.damage = in.readUnsignedShort();
+		this.effect = in.readUnsignedByte();
+		this.duration = in.readFloat();
+		this.origType = in.readUnsignedShort();
+		this.color = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		pos.writeToOutput(out);
-		out.writeDouble(radius);
-		out.writeShort(damage);
-		out.writeByte(effect);
-		out.writeDouble(duration);
-		out.writeShort(origType);
-		out.writeInt(color);
+		this.pos.writeToOutput(out);
+		out.writeDouble(this.radius);
+		out.writeShort(this.damage);
+		out.writeByte(this.effect);
+		out.writeDouble(this.duration);
+		out.writeShort(this.origType);
+		out.writeInt(this.color);
 	}
 
 }

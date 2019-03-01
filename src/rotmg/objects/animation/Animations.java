@@ -1,9 +1,9 @@
 package rotmg.objects.animation;
 
-import flash.display.BitmapData;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import flash.display.BitmapData;
 
 public class Animations {
 
@@ -24,7 +24,7 @@ public class Animations {
 		BitmapData texture = null;
 		int start = 0;
 		if (this.nextRun == null) {
-			this.nextRun = new ArrayList<Integer>();
+			this.nextRun = new ArrayList<>();
 			for (AnimationData loc2 : this.animationsData.animations) {
 				this.nextRun.add(loc2.getLastRun(time));
 			}
@@ -41,7 +41,7 @@ public class Animations {
 				start = this.nextRun.get(i);
 				animationData = this.animationsData.animations.get(i);
 				this.nextRun.set(i, animationData.getNextRun(time));
-				if (!(animationData.prob != 1 && Math.random() > animationData.prob)) {
+				if (!((animationData.prob != 1) && (Math.random() > animationData.prob))) {
 					this.running = new RunningAnimation(animationData, start);
 					return this.running.getTexture(time);
 				}
@@ -73,8 +73,8 @@ class RunningAnimation {
 
 	public BitmapData getTexture(int time) {
 		FrameData frame = this.animationData.frames.get(this.frameId);
-		while (time - this.frameStart > frame.time) {
-			if (this.frameId >= this.animationData.frames.size() - 1) {
+		while ((time - this.frameStart) > frame.time) {
+			if (this.frameId >= (this.animationData.frames.size() - 1)) {
 				return null;
 			}
 			this.frameStart = this.frameStart + frame.time;

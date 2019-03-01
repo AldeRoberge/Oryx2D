@@ -72,7 +72,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		this.ct = new ColorTransform(1, 1, 1, 1);
 		this.addSpeechBalloon = AddSpeechBalloonSignal.getInstance();
 		this.stringMap = StringMap.getInstance();
-		isInteractive = true;
+		this.isInteractive = true;
 	}
 
 	@Override
@@ -92,15 +92,15 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		if (!super.addTo(param1, param2, param3)) {
 			return false;
 		}
-		param1.merchLookup.put(new IntPoint((int) x, (int) y), this);
+		param1.merchLookup.put(new IntPoint((int) this.x, (int) this.y), this);
 		return true;
 	}
 
 	@Override
 	public void removeFromMap() {
-		IntPoint loc1 = new IntPoint((int) x, (int) y);
-		if (map.merchLookup.get(loc1) == this) {
-			map.merchLookup.put(loc1, null);
+		IntPoint loc1 = new IntPoint((int) this.x, (int) this.y);
+		if (this.map.merchLookup.get(loc1) == this) {
+			this.map.merchLookup.put(loc1, null);
 		}
 		super.removeFromMap();
 	}
@@ -111,39 +111,39 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		int loc4 = 0;
 		int loc5 = 0;
 		switch (param1) {
-			case NEW_MESSAGE:
-				loc2 = new LineBuilder().setParams("Merchant.new");
-				loc3 = 15132390;
-				loc4 = 16777215;
-				loc5 = 5931045;
-				break;
-			case MINS_LEFT_MESSAGE:
-				if (this.minsLeft == 0) {
-					loc2 = new LineBuilder().setParams("Merchant.goingSoon");
-				} else if (this.minsLeft == 1) {
-					loc2 = new LineBuilder().setParams("Merchant.goingInOneMinute");
-				} else {
-					loc2 = new LineBuilder().setParams("Merchant.goingInNMinutes", "{\"minutes\":this.minsLeft}");
+		case NEW_MESSAGE:
+			loc2 = new LineBuilder().setParams("Merchant.new");
+			loc3 = 15132390;
+			loc4 = 16777215;
+			loc5 = 5931045;
+			break;
+		case MINS_LEFT_MESSAGE:
+			if (this.minsLeft == 0) {
+				loc2 = new LineBuilder().setParams("Merchant.goingSoon");
+			} else if (this.minsLeft == 1) {
+				loc2 = new LineBuilder().setParams("Merchant.goingInOneMinute");
+			} else {
+				loc2 = new LineBuilder().setParams("Merchant.goingInNMinutes", "{\"minutes\":this.minsLeft}");
 
-				}
-				loc3 = 5973542;
-				loc4 = 16549442;
-				loc5 = 16549442;
-				break;
-			case ITEMS_LEFT_MESSAGE:
-				loc2 = new LineBuilder().setParams("Merchant.limitedStock", " {\"count\":this.count}");
-				loc3 = 5973542;
-				loc4 = 16549442;
-				loc5 = 16549442;
-				break;
-			case DISCOUNT_MESSAGE:
-				loc2 = new LineBuilder().setParams("Merchant.discount", "{\"discount\":this.discount}");
-				loc3 = 6324275;
-				loc4 = 16777103;
-				loc5 = 16777103;
-				break;
-			default:
-				return null;
+			}
+			loc3 = 5973542;
+			loc4 = 16549442;
+			loc5 = 16549442;
+			break;
+		case ITEMS_LEFT_MESSAGE:
+			loc2 = new LineBuilder().setParams("Merchant.limitedStock", " {\"count\":this.count}");
+			loc3 = 5973542;
+			loc4 = 16549442;
+			loc5 = 16549442;
+			break;
+		case DISCOUNT_MESSAGE:
+			loc2 = new LineBuilder().setParams("Merchant.discount", "{\"discount\":this.discount}");
+			loc3 = 6324275;
+			loc4 = 16777103;
+			loc5 = 16777103;
+			break;
+		default:
+			return null;
 		}
 		loc2.setStringMap(this.stringMap);
 		return new AddSpeechBalloonVO(this, loc2.getString(), "", false, false, loc3, 1, loc4, 1, loc5, 6, true, false);
@@ -160,13 +160,13 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 			return true;
 		}
 		this.untilNextMessage = 5000;
-		Vector<Integer> loc3 = new Vector<Integer>();
+		Vector<Integer> loc3 = new Vector<>();
 		if (this.minsLeft == 2147483647) {
 			loc3.add(NEW_MESSAGE);
-		} else if (this.minsLeft >= 0 && this.minsLeft <= 5) {
+		} else if ((this.minsLeft >= 0) && (this.minsLeft <= 5)) {
 			loc3.add(MINS_LEFT_MESSAGE);
 		}
-		if (this.count >= 1 && this.count <= 2) {
+		if ((this.count >= 1) && (this.count <= 2)) {
 			loc3.add(ITEMS_LEFT_MESSAGE);
 		}
 		if (this.discount > 0) {
@@ -193,7 +193,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 	}
 
 	public ToolTip getTooltip() {
-		ToolTip loc1 = new EquipmentToolTip(this.merchandiseType, map.player, -1, InventoryOwnerTypes.NPC);
+		ToolTip loc1 = new EquipmentToolTip(this.merchandiseType, this.map.player, -1, InventoryOwnerTypes.NPC);
 		return loc1;
 	}
 
@@ -249,10 +249,10 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 
 	@Override
 	protected BitmapData getTexture(Camera param1, int param2) {
-		if (this.alpha == 1 && size == 100) {
+		if ((this.alpha == 1) && (this.size == 100)) {
 			return this.merchandiseTexture;
 		}
-		BitmapData loc3 = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType, size, false, false);
+		BitmapData loc3 = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType, this.size, false, false);
 		if (this.alpha != 1) {
 			this.ct.alphaMultiplier = (int) this.alpha;
 			loc3.colorTransform(loc3.rect, this.ct);

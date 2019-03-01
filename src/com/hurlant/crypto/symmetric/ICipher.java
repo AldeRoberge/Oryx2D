@@ -23,7 +23,7 @@ public class ICipher {
 	}
 
 	private static byte[] hexStringToBytes(String key) {
-		if (key.length() % 2 != 0) {
+		if ((key.length() % 2) != 0) {
 			throw new IllegalArgumentException("invalid hex string");
 		}
 		byte[] bytes = new byte[key.length() / 2];

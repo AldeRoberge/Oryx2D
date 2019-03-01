@@ -52,7 +52,7 @@ public class AutoCompleteDocument extends PlainDocument {
 	 * @return the completion or <code>null</code> if completion was found.
 	 */
 	protected String complete(String str) {
-		Object o = completionService.autoComplete(str);
+		Object o = this.completionService.autoComplete(str);
 		return o == null ? null : o.toString();
 	}
 
@@ -61,17 +61,17 @@ public class AutoCompleteDocument extends PlainDocument {
 	 */
 	@Override
 	public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-		if (str == null || str.length() == 0) {
+		if ((str == null) || (str.length() == 0)) {
 			return;
 		}
 
-		String text = getText(0, offs); // Current text.
-		String completion = complete(text + str);
+		String text = this.getText(0, offs); // Current text.
+		String completion = this.complete(text + str);
 		int length = offs + str.length();
-		if (completion != null && text.length() > 0) {
+		if ((completion != null) && (text.length() > 0)) {
 			str = completion.substring(length - 1);
 			super.insertString(offs, str, a);
-			documentOwner.select(length, getLength());
+			this.documentOwner.select(length, this.getLength());
 		} else {
 			super.insertString(offs, str, a);
 		}

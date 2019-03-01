@@ -1,11 +1,12 @@
 package rotmg.ui;
 
+import org.osflash.signals.Signal;
+
+import alde.flash.utils.Vector;
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.Vector;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import org.osflash.signals.Signal;
 import rotmg.map.AbstractMap;
 import rotmg.objects.Player;
 import rotmg.ui.menu.Menu;
@@ -23,7 +24,7 @@ public class PlayerGroupMenu extends Menu {
 
 	public PlayerGroupMenu(AbstractMap param1, Vector<Player> param2) {
 		super(3552822, 16777215);
-		this.playerPanels = new Vector<GameObjectListItem>();
+		this.playerPanels = new Vector<>();
 		this.unableToTeleport = new Signal();
 		this.map = param1;
 		this.players = param2.concat();
@@ -37,7 +38,7 @@ public class PlayerGroupMenu extends Menu {
 			loc2 = new GameObjectListItem(11776947, true, loc1);
 			loc2.x = 0;
 			loc2.y = this.posY;
-			addChild(loc2);
+			this.addChild(loc2);
 			this.playerPanels.add(loc2);
 			loc2.textReady.addOnce(new SignalConsumer<>(this::onTextChanged));
 			this.posY = this.posY + 32;
@@ -45,7 +46,7 @@ public class PlayerGroupMenu extends Menu {
 	}
 
 	private void onTextChanged() {
-		draw();
+		this.draw();
 		for (GameObjectListItem loc1 : this.playerPanels) {
 			loc1.textReady.remove(new SignalConsumer<>(this::onTextChanged));
 		}
@@ -57,11 +58,11 @@ public class PlayerGroupMenu extends Menu {
 			this.teleportOption.x = 8;
 			this.teleportOption.y = 8;
 			this.teleportOption.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onTeleport));
-			addChild(this.teleportOption);
+			this.addChild(this.teleportOption);
 			this.lineBreakDesign = new LineBreakDesign(150, 1842204);
 			this.lineBreakDesign.x = 6;
 			this.lineBreakDesign.y = 40;
-			addChild(this.lineBreakDesign);
+			this.addChild(this.lineBreakDesign);
 			this.posY = 52;
 		}
 	}
@@ -86,7 +87,7 @@ public class PlayerGroupMenu extends Menu {
 		} else {
 			this.unableToTeleport.dispatch();
 		}
-		remove();
+		this.remove();
 	}
 
 }

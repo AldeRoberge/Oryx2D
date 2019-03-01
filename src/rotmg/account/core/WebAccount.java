@@ -119,7 +119,7 @@ public class WebAccount implements Account {
 		//this.updateUser(GUID.create(), null, null);
 		/*Parameters.sendLogin = true;
 		Parameters.stats.charIdUseMap={};
-		
+
 		Parameters.save();**/
 	}
 

@@ -18,8 +18,8 @@ public class PortraitToolTip extends ToolTip {
 		BitmapData loc2 = param1.getPortrait();
 		loc2 = BitmapUtil.cropToBitmapData(loc2, 10, 10, loc2.width - 20, loc2.height - 20);
 		this.portrait.bitmapData = loc2;
-		addChild(this.portrait);
-		filters = new Vector<>();
+		this.addChild(this.portrait);
+		this.filters = new Vector<>();
 	}
 
 }

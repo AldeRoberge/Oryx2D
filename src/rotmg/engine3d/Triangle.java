@@ -47,16 +47,16 @@ public class Triangle {
 		double loc10 = param4 - param2;
 		double loc11 = param5 - param1;
 		double loc12 = param6 - param2;
-		double loc13 = (param7 * loc12 - param8 * loc11 - (param1 * loc12 - param2 * loc11)) / (loc9 * loc12 - loc10 * loc11);
-		double loc14 = -(param7 * loc10 - param8 * loc9 - (param1 * loc10 - param2 * loc9)) / (loc9 * loc12 - loc10 * loc11);
-		return loc13 >= 0 && loc14 >= 0 && loc13 + loc14 <= 1;
+		double loc13 = ((param7 * loc12) - (param8 * loc11) - ((param1 * loc12) - (param2 * loc11))) / ((loc9 * loc12) - (loc10 * loc11));
+		double loc14 = -((param7 * loc10) - (param8 * loc9) - ((param1 * loc10) - (param2 * loc9))) / ((loc9 * loc12) - (loc10 * loc11));
+		return (loc13 >= 0) && (loc14 >= 0) && ((loc13 + loc14) <= 1);
 	}
 
 	public static boolean intersectTriAABB(double param1, double param2, double param3, double param4, double param5, double param6, double param7, double param8, double param9, double param10) {
-		if (param7 > param1 && param7 > param3 && param7 > param5 || param9 < param1 && param9 < param3 && param9 < param5 || param8 > param2 && param8 > param4 && param8 > param6 || param10 < param2 && param10 < param4 && param10 < param6) {
+		if (((param7 > param1) && (param7 > param3) && (param7 > param5)) || ((param9 < param1) && (param9 < param3) && (param9 < param5)) || ((param8 > param2) && (param8 > param4) && (param8 > param6)) || ((param10 < param2) && (param10 < param4) && (param10 < param6))) {
 			return false;
 		}
-		if (param7 < param1 && param1 < param9 && param8 < param2 && param2 < param10 || param7 < param3 && param3 < param9 && param8 < param4 && param4 < param10 || param7 < param5 && param5 < param9 && param8 < param6 && param6 < param10) {
+		if (((param7 < param1) && (param1 < param9) && (param8 < param2) && (param2 < param10)) || ((param7 < param3) && (param3 < param9) && (param8 < param4) && (param4 < param10)) || ((param7 < param5) && (param5 < param9) && (param8 < param6) && (param6 < param10))) {
 			return true;
 		}
 		return lineRectIntersect(param1, param2, param3, param4, param7, param8, param9, param10) || lineRectIntersect(param3, param4, param5, param6, param7, param8, param9, param10) || lineRectIntersect(param5, param6, param1, param2, param7, param8, param9, param10);
@@ -68,13 +68,13 @@ public class Triangle {
 		double loc13 = 0;
 		double loc14 = 0;
 		double loc9 = (param4 - param2) / (param3 - param1);
-		double loc10 = param2 - loc9 * param1;
+		double loc10 = param2 - (loc9 * param1);
 		if (loc9 > 0) {
-			loc11 = loc9 * param5 + loc10;
-			loc12 = loc9 * param7 + loc10;
+			loc11 = (loc9 * param5) + loc10;
+			loc12 = (loc9 * param7) + loc10;
 		} else {
-			loc11 = loc9 * param7 + loc10;
-			loc12 = loc9 * param5 + loc10;
+			loc11 = (loc9 * param7) + loc10;
+			loc12 = (loc9 * param5) + loc10;
 		}
 		if (param2 < param4) {
 			loc13 = param2;
@@ -85,7 +85,7 @@ public class Triangle {
 		}
 		double loc15 = loc11 > loc13 ? loc11 : loc13;
 		double loc16 = loc12 < loc14 ? loc12 : loc14;
-		return loc15 < loc16 && !(loc16 < param6 || loc15 > param8);
+		return (loc15 < loc16) && !((loc16 < param6) || (loc15 > param8));
 	}
 
 	public Rectangle aabb() {
@@ -98,21 +98,21 @@ public class Triangle {
 	}
 
 	public double area() {
-		return Math.abs((this.x0 * (this.y1 - this.y2) + this.x1 * (this.y2 - this.y0) + this.x2 * (this.y0 - this.y1)) / 2);
+		return Math.abs(((this.x0 * (this.y1 - this.y2)) + (this.x1 * (this.y2 - this.y0)) + (this.x2 * (this.y0 - this.y1))) / 2);
 	}
 
 	public void incenter(Point param1) {
 		double loc2 = PointUtil.distanceXY(this.x1, this.y1, this.x2, this.y2);
 		double loc3 = PointUtil.distanceXY(this.x0, this.y0, this.x2, this.y2);
 		double loc4 = PointUtil.distanceXY(this.x0, this.y0, this.x1, this.y1);
-		param1.x = (loc2 * this.x0 + loc3 * this.x1 + loc4 * this.x2) / (loc2 + loc3 + loc4);
-		param1.y = (loc2 * this.y0 + loc3 * this.y1 + loc4 * this.y2) / (loc2 + loc3 + loc4);
+		param1.x = ((loc2 * this.x0) + (loc3 * this.x1) + (loc4 * this.x2)) / (loc2 + loc3 + loc4);
+		param1.y = ((loc2 * this.y0) + (loc3 * this.y1) + (loc4 * this.y2)) / (loc2 + loc3 + loc4);
 	}
 
 	public boolean contains(double param1, double param2) {
-		double loc3 = (param1 * this.vy2 - param2 * this.vx2 - (this.x0 * this.vy2 - this.y0 * this.vx2)) / (this.vx1 * this.vy2 - this.vy1 * this.vx2);
-		double loc4 = -(param1 * this.vy1 - param2 * this.vx1 - (this.x0 * this.vy1 - this.y0 * this.vx1)) / (this.vx1 * this.vy2 - this.vy1 * this.vx2);
-		return loc3 >= 0 && loc4 >= 0 && loc3 + loc4 <= 1;
+		double loc3 = ((param1 * this.vy2) - (param2 * this.vx2) - ((this.x0 * this.vy2) - (this.y0 * this.vx2))) / ((this.vx1 * this.vy2) - (this.vy1 * this.vx2));
+		double loc4 = -((param1 * this.vy1) - (param2 * this.vx1) - ((this.x0 * this.vy1) - (this.y0 * this.vx1))) / ((this.vx1 * this.vy2) - (this.vy1 * this.vx2));
+		return (loc3 >= 0) && (loc4 >= 0) && ((loc3 + loc4) <= 1);
 	}
 
 	public double distance(double param1, double param2) {

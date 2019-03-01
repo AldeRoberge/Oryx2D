@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Death extends IncomingMessage {
 
@@ -21,21 +21,21 @@ public class Death extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		accountId = in.readUTF();
-		charId = in.readInt();
-		killedBy = in.readUTF();
-		zombieId = in.readInt();
-		zombieType = in.readInt();
-		this.isZombie = zombieType != -1;
+		this.accountId = in.readUTF();
+		this.charId = in.readInt();
+		this.killedBy = in.readUTF();
+		this.zombieId = in.readInt();
+		this.zombieType = in.readInt();
+		this.isZombie = this.zombieType != -1;
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeUTF(accountId);
-		out.writeInt(charId);
-		out.writeUTF(killedBy);
-		out.writeInt(zombieId);
-		out.writeInt(zombieType);
+		out.writeUTF(this.accountId);
+		out.writeInt(this.charId);
+		out.writeUTF(this.killedBy);
+		out.writeInt(this.zombieId);
+		out.writeInt(this.zombieType);
 	}
 
 }

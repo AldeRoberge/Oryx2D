@@ -1,10 +1,11 @@
 package rotmg.ui.view;
 
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.utils.Dictionary;
+import java.util.function.Consumer;
+
 import org.osflash.signals.Signal;
 
-import java.util.function.Consumer;
+import alde.flash.utils.consumer.SignalConsumer;
+import flash.utils.Dictionary;
 
 /**
  * 99% match (confirm 'listenTo' is working)
@@ -41,8 +42,8 @@ public class SignalWaiter {
 
 	private void listenTo(Signal value) {
 		Consumer onTextChanged = o -> {
-			texts.remove(value);
-			checkEmpty();
+			this.texts.remove(value);
+			this.checkEmpty();
 		};
 		value.addOnce(new SignalConsumer<>(onTextChanged)); //TODO make sur this works
 	}

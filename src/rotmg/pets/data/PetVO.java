@@ -1,10 +1,11 @@
 package rotmg.pets.data;
 
-import alde.flash.utils.consumer.SignalConsumer;
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.XML;
+import alde.flash.utils.consumer.SignalConsumer;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import org.osflash.signals.Signal;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.util.AnimatedChars;
@@ -136,7 +137,7 @@ public class PetVO {
 
 	public void setName(String param1) {
 		this.name = ObjectLibrary.typeToDisplayId.get(this.skinID);
-		if (this.name == null || this.name.equals("")) {
+		if ((this.name == null) || this.name.equals("")) {
 			this.name = ObjectLibrary.typeToDisplayId.get(this.getType());
 		}
 		PetVO.updated.dispatch(null);

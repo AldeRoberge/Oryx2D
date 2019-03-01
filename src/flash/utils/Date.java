@@ -4,6 +4,6 @@ public class Date {
 	public int time;
 
 	public int getTime() {
-		return time;
+		return this.time;
 	}
 }

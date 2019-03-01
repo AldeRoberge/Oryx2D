@@ -1,9 +1,5 @@
 package alde.flash.utils;
 
-import rotmg.parameters.Parameters;
-
-import javax.crypto.Cipher;
-import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.KeyFactory;
@@ -11,6 +7,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+
+import javax.crypto.Cipher;
+import javax.xml.bind.DatatypeConverter;
+
+import rotmg.parameters.Parameters;
 
 /**
  * Also known as SCry
@@ -66,7 +67,7 @@ public class RSA {
 		for (int j = 0; j < buf.length; j++) {
 			v = buf[j] & 0xFF;
 			hexChars[j * 2] = hexArray[v >>> 4];
-			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+			hexChars[(j * 2) + 1] = hexArray[v & 0x0F];
 		}
 		return new String(hexChars);
 	}

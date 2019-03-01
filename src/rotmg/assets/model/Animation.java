@@ -1,12 +1,12 @@
 package rotmg.assets.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alde.flash.utils.consumer.EventConsumer;
 import flash.display.BitmapData;
 import flash.events.TimerEvent;
 import flash.utils.timer.Timer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * All done. Very simillar to RotMG's Animation,
@@ -16,7 +16,7 @@ import java.util.List;
 public class Animation {
 
 	private final int DEFAULT_SPEED = 200;
-	private final List<BitmapData> frames = new ArrayList<BitmapData>(0);
+	private final List<BitmapData> frames = new ArrayList<>(0);
 	private BitmapData bitmapData = new BitmapData(0, 0);
 	private boolean started;
 	private int index;
@@ -65,7 +65,7 @@ public class Animation {
 	}
 
 	public void start() {
-		if (!this.started && this.count > 0) {
+		if (!this.started && (this.count > 0)) {
 			this.timer.start();
 			this.iterate();
 		}

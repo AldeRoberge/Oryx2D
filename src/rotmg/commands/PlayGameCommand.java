@@ -37,13 +37,13 @@ public class PlayGameCommand {
 
 	public PlayGameCommand() {
 		super();
-		setScreen = SetScreenSignal.getInstance();
-		data = GameInitData.getInstance();
-		model = PlayerModel.getInstance();
-		petsModel = PetsModel.getInstance();
-		servers = ServerModel.getInstance();
-		task = GetCharListTask.getInstance();
-		monitor = TaskMonitor.getInstance();
+		this.setScreen = SetScreenSignal.getInstance();
+		this.data = GameInitData.getInstance();
+		this.model = PlayerModel.getInstance();
+		this.petsModel = PetsModel.getInstance();
+		this.servers = ServerModel.getInstance();
+		this.task = GetCharListTask.getInstance();
+		this.monitor = TaskMonitor.getInstance();
 	}
 
 	public void execute() {
@@ -60,7 +60,7 @@ public class PlayGameCommand {
 		if (loc1 != null) {
 			this.petsModel.setActivePet(loc1.getPetVO());
 		} else {
-			if (this.model.currentCharId != 0 && this.petsModel.getActivePet() != null && !this.data.isNewGame) {
+			if ((this.model.currentCharId != 0) && (this.petsModel.getActivePet() != null) && !this.data.isNewGame) {
 				return;
 			}
 			this.petsModel.setActivePet(null);

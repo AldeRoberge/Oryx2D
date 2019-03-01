@@ -12,7 +12,7 @@ import rotmg.parameters.Parameters;
 
 public class GraphicsFillExtra {
 
-	private static final Vector<Double> DEFAULT_OFFSET = new Vector<Double>(0.0, 0.0, 0.0, 0.0);
+	private static final Vector<Double> DEFAULT_OFFSET = new Vector<>(0.0, 0.0, 0.0, 0.0);
 	private static Dictionary<GraphicsBitmapFill, Vector<Double>> textureOffsets = new Dictionary<>();
 	private static int textureOffsetsSize = 0;
 	private static Dictionary<GraphicsBitmapFill, Double> waterSinks = new Dictionary<>();
@@ -76,7 +76,7 @@ public class GraphicsFillExtra {
 		}
 		if (textureOffsets.get(param1) == null) {
 			textureOffsetsSize++;
-			textureOffsets.put(param1, new Vector<Double>(0.0, 0.0, 0.0, 0.0));
+			textureOffsets.put(param1, new Vector<>(0.0, 0.0, 0.0, 0.0));
 		}
 	}
 
@@ -91,7 +91,7 @@ public class GraphicsFillExtra {
 	}
 
 	public static double getSinkLevel(GraphicsBitmapFill param1) {
-		if (waterSinks.get(param1) != null && waterSinks.get(param1) instanceof Double) {
+		if ((waterSinks.get(param1) != null) && (waterSinks.get(param1) instanceof Double)) {
 			return waterSinks.get(param1);
 		}
 		return 0;
@@ -113,7 +113,7 @@ public class GraphicsFillExtra {
 	}
 
 	public static VertexBuffer3D getVertexBuffer(GraphicsBitmapFill param1) {
-		if (vertexBuffers.get(param1) != null && vertexBuffers.get(param1) instanceof VertexBuffer3D) {
+		if ((vertexBuffers.get(param1) != null) && (vertexBuffers.get(param1) instanceof VertexBuffer3D)) {
 			return vertexBuffers.get(param1);
 		}
 		return null;
@@ -140,7 +140,7 @@ public class GraphicsFillExtra {
 	}
 
 	public static boolean isSoftwareDraw(GraphicsBitmapFill param1) {
-		if (softwareDraw.get(param1) != null && softwareDraw.get(param1) instanceof Boolean) {
+		if ((softwareDraw.get(param1) != null) && (softwareDraw.get(param1) instanceof Boolean)) {
 			return softwareDraw.get(param1);
 		}
 		return false;
@@ -157,7 +157,7 @@ public class GraphicsFillExtra {
 	}
 
 	public static boolean isSoftwareDrawSolid(GraphicsSolidFill param1) {
-		if (softwareDrawSolid.get(param1) != null && softwareDrawSolid.get(param1) != null) {
+		if ((softwareDrawSolid.get(param1) != null) && (softwareDrawSolid.get(param1) != null)) {
 			return softwareDrawSolid.get(param1);
 		}
 		return false;

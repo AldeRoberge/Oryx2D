@@ -17,7 +17,7 @@ public class Point {
 
 	@Override
 	public Point clone() {
-		return new Point(x, y);
+		return new Point(this.x, this.y);
 	}
 
 }

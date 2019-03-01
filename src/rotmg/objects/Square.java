@@ -8,7 +8,12 @@ import flash.display.BitmapData;
 import flash.display.IGraphicsData;
 import flash.geom.Vector3D;
 import rotmg.engine3d.TextureMatrix;
-import rotmg.map.*;
+import rotmg.map.AnimateProperties;
+import rotmg.map.Camera;
+import rotmg.map.GroundLibrary;
+import rotmg.map.GroundProperties;
+import rotmg.map.Map;
+import rotmg.map.SquareFace;
 import rotmg.util.TileRedrawer;
 
 //import flash.display.BitmapData;
@@ -59,12 +64,12 @@ public class Square {
 		this.x = param2;
 		this.y = param3;
 		this.center = new Vector3D(this.x + 0.5, this.y + 0.5, 0);
-		this.vin = new Vector<Double>((double) this.x, (double) this.y, (double) 0, (double) this.x + 1, (double) this.y, (double) 0, (double) this.x + 1, (double) this.y + 1, (double) 0, (double) this.x, (double) this.y + 1, (double) 0);
+		this.vin = new Vector<>((double) this.x, (double) this.y, (double) 0, (double) this.x + 1, (double) this.y, (double) 0, (double) this.x + 1, (double) this.y + 1, (double) 0, (double) this.x, (double) this.y + 1, (double) 0);
 	}
 
 	// Not sure this is a good implementation
 	private int hash(double p1, double p2) {
-		return (int) p1 * 2949 + (int)p2;
+		return ((int) p1 * 2949) + (int)p2;
 	}
 
 	public void dispose() {
@@ -88,7 +93,7 @@ public class Square {
 	public Square setTileType(int tileType) {
 		this.tileType = tileType;
 		this.props = GroundLibrary.propsLibrary.get(this.tileType);
-		this.texture = GroundLibrary.getBitmapData(this.tileType, hash(this.x, this.y));
+		this.texture = GroundLibrary.getBitmapData(this.tileType, this.hash(this.x, this.y));
 		this.baseTexMatrix = new TextureMatrix(this.texture, UVT);
 		this.faces.length = 0;
 
@@ -96,7 +101,7 @@ public class Square {
 	}
 
 	public boolean isWalkable() {
-		return !this.props.noWalk && (this.obj == null || !this.obj.props.occupySquare);
+		return !this.props.noWalk && ((this.obj == null) || !this.obj.props.occupySquare);
 	}
 
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
@@ -141,8 +146,8 @@ public class Square {
 			loc3 = 0;
 			if (loc1 == null) {
 				if (this.props.randomOffset) {
-					loc2 = this.texture.width * Math.random() / this.texture.width;
-					loc3 = this.texture.height * Math.random() / this.texture.height;
+					loc2 = (this.texture.width * Math.random()) / this.texture.width;
+					loc3 = (this.texture.height * Math.random()) / this.texture.height;
 				} else {
 					loc2 = this.props.xOffset;
 					loc3 = this.props.yOffset;

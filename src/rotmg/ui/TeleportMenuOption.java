@@ -34,11 +34,11 @@ public class TeleportMenuOption extends MenuOption {
 		this.barText = new TextFieldDisplayConcrete().setSize(18).setColor(16777215);
 		this.barText.setBold(true);
 		this.barText.setStringBuilder(new LineBuilder().setParams(TextKey.TELEPORTMENUOPTION_TITLE));
-		this.barText.x = this.barMask.x = text.x;
-		this.barText.y = this.barMask.y = text.y;
-		this.barText.textChanged.add(new SignalConsumer<Object>(this::onTextChanged));
-		addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
-		addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+		this.barText.x = this.barMask.x = this.text.x;
+		this.barText.y = this.barMask.y = this.text.y;
+		this.barText.textChanged.add(new SignalConsumer<>(this::onTextChanged));
+		this.addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
+		this.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
 	}
 
 	private void onTextChanged() {
@@ -48,11 +48,11 @@ public class TeleportMenuOption extends MenuOption {
 	}
 
 	private void onAddedToStage(Event param1) {
-		addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
+		this.addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
 	}
 
 	private void onRemovedFromStage(Event param1) {
-		removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
+		this.removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
 	}
 
 	private void onEnterFrame(Event param1) {
@@ -61,22 +61,22 @@ public class TeleportMenuOption extends MenuOption {
 		int loc2 = this.player.msUtilTeleport();
 		if (loc2 > 0) {
 			loc3 = loc2 <= Player.MS_BETWEEN_TELEPORT ? Player.MS_BETWEEN_TELEPORT : Player.MS_REALM_TELEPORT;
-			if (!contains(this.barText)) {
-				addChild(this.barText);
-				addChild(this.barMask);
+			if (!this.contains(this.barText)) {
+				this.addChild(this.barText);
+				this.addChild(this.barMask);
 				this.barText.mask = this.barMask;
 			}
-			loc4 = this.barTextOrigWidth * (1 - loc2 / loc3);
+			loc4 = this.barTextOrigWidth * (1 - (loc2 / loc3));
 			this.barMask.width = loc4;
-			setColorTransform(inactiveCT);
+			this.setColorTransform(inactiveCT);
 		} else {
-			if (contains(this.barText)) {
-				removeChild(this.barText);
+			if (this.contains(this.barText)) {
+				this.removeChild(this.barText);
 			}
 			if (this.mouseOver) {
-				setColorTransform(mouseOverCT);
+				this.setColorTransform(mouseOverCT);
 			} else {
-				setColorTransform(null);
+				this.setColorTransform(null);
 			}
 		}
 	}

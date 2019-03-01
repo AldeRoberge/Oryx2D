@@ -21,17 +21,17 @@ public class PointUtil {
 	public static double distanceSquaredXY(double param1, double param2, double param3, double param4) {
 		double loc5 = param3 - param1;
 		double loc6 = param4 - param2;
-		return loc5 * loc5 + loc6 * loc6;
+		return (loc5 * loc5) + (loc6 * loc6);
 	}
 
 	public static double distanceXY(double param1, double param2, double param3, double param4) {
 		double loc5 = param3 - param1;
 		double loc6 = param4 - param2;
-		return Math.sqrt(loc5 * loc5 + loc6 * loc6);
+		return Math.sqrt((loc5 * loc5) + (loc6 * loc6));
 	}
 
 	public static Point lerpXY(double param1, double param2, double param3, double param4, double param5) {
-		return new Point(param1 + (param3 - param1) * param5, param2 + (param4 - param2) * param5);
+		return new Point(param1 + ((param3 - param1) * param5), param2 + ((param4 - param2) * param5));
 	}
 
 	public static double angleTo(Point param1, Point param2) {
@@ -40,8 +40,8 @@ public class PointUtil {
 
 	public static Point pointAt(Point param1, double param2, double param3) {
 		Point loc4 = new Point();
-		loc4.x = param1.x + param3 * Math.cos(param2);
-		loc4.y = param1.y + param3 * Math.sin(param2);
+		loc4.x = param1.x + (param3 * Math.cos(param2));
+		loc4.y = param1.y + (param3 * Math.sin(param2));
 		return loc4;
 	}
 

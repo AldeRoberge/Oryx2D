@@ -1,7 +1,8 @@
 package rotmg.promotions.model;
 
-import flash.utils.Date;
 import org.osflash.signals.Signal;
+
+import flash.utils.Date;
 import rotmg.account.core.Account;
 import rotmg.account.core.model.OfferModel;
 import rotmg.util.Offer;
@@ -49,7 +50,7 @@ public class BeginnersPackageModel {
 	}
 
 	public double getUserCreatedAt() {
-		return this.getNowTimeSeconds() + this.getBeginnersOfferSecondsLeft() - ONE_WEEK_IN_SECONDS;
+		return (this.getNowTimeSeconds() + this.getBeginnersOfferSecondsLeft()) - ONE_WEEK_IN_SECONDS;
 	}
 
 	public double getDaysRemaining() {

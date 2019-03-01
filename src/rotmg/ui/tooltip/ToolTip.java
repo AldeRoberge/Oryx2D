@@ -1,9 +1,17 @@
 package rotmg.ui.tooltip;
 
+import alde.flash.utils.Vector;
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.Vector;
-import flash.display.*;
+import flash.display.CapsStyle;
+import flash.display.DisplayObject;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsSolidFill;
+import flash.display.GraphicsStroke;
+import flash.display.IGraphicsData;
+import flash.display.JointStyle;
+import flash.display.LineScaleMode;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import rotmg.ui.view.SignalWaiter;
@@ -36,17 +44,17 @@ public class ToolTip extends Sprite {
 		this.lineStyle = new GraphicsStroke(1, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND, 3, this.outlineFill);
 		this.path = new GraphicsPath(new Vector<Integer>(), new Vector<Double>());
 
-		graphicsData = new Vector<IGraphicsData>(this.lineStyle, this.backgroundFill, this.path, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE);
+		this.graphicsData = new Vector<>(this.lineStyle, this.backgroundFill, this.path, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE);
 		this.background = param1;
 		this.backgroundAlpha = param2;
 		this.outline = param3;
 		this.outlineAlpha = param4;
 		this._followMouse = param5;
-		mouseEnabled = false;
-		mouseChildren = false;
-		filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
-		addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
-		addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
+		this.mouseEnabled = false;
+		this.mouseChildren = false;
+		this.filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
+		this.addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
+		this.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
 		this.waiter.complete.add(new SignalConsumer<>(this::alignUIAndDraw));
 	}
 
@@ -69,8 +77,8 @@ public class ToolTip extends Sprite {
 	public void detachFromTarget() {
 		if (this.targetObj != null) {
 			this.targetObj.removeEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onLeaveTarget));
-			if (parent != null) {
-				parent.removeChild(this);
+			if (this.parent != null) {
+				this.parent.removeChild(this);
 			}
 			this.targetObj = null;
 		}
@@ -96,13 +104,13 @@ public class ToolTip extends Sprite {
 		}
 		if (this._followMouse) {
 			this.position();
-			addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
+			this.addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
 		}
 	}
 
 	private void onRemovedFromStage(Event param1) {
 		if (this._followMouse) {
-			removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
+			this.removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
 		}
 	}
 
@@ -111,24 +119,24 @@ public class ToolTip extends Sprite {
 	}
 
 	protected void position() {
-		if (stage == null) {
+		if (this.stage == null) {
 			return;
 		}
-		if (!this.forcePositionLeft && stage.mouseX < stage.stageWidth / 2 || this.forcePositionRight) {
-			x = stage.mouseX + 12;
+		if ((!this.forcePositionLeft && (this.stage.mouseX < (this.stage.stageWidth / 2))) || this.forcePositionRight) {
+			this.x = this.stage.mouseX + 12;
 		} else {
-			x = stage.mouseX - width - 1;
+			this.x = this.stage.mouseX - this.width - 1;
 		}
-		if (x < 12) {
-			x = 12;
+		if (this.x < 12) {
+			this.x = 12;
 		}
-		if (!this.forcePositionLeft && stage.mouseY < stage.stageHeight / 3 || this.forcePositionRight) {
-			y = stage.mouseY + 12;
+		if ((!this.forcePositionLeft && (this.stage.mouseY < (this.stage.stageHeight / 3))) || this.forcePositionRight) {
+			this.y = this.stage.mouseY + 12;
 		} else {
-			y = stage.mouseY - height - 1;
+			this.y = this.stage.mouseY - this.height - 1;
 		}
-		if (y < 12) {
-			y = 12;
+		if (this.y < 12) {
+			this.y = 12;
 		}
 	}
 
@@ -137,12 +145,12 @@ public class ToolTip extends Sprite {
 		this.backgroundFill.alpha = this.backgroundAlpha;
 		this.outlineFill.color = this.outline;
 		this.outlineFill.alpha = this.outlineAlpha;
-		graphics.clear();
-		this.contentWidth = width;
-		this.contentHeight = height;
+		this.graphics.clear();
+		this.contentWidth = this.width;
+		this.contentHeight = this.height;
 		GraphicsUtil.clearPath(this.path);
-		GraphicsUtil.drawCutEdgeRect(-6, -6, this.contentWidth + 12, this.contentHeight + 12, 4, new Vector<Integer>(1, 1, 1, 1), this.path);
-		graphics.drawGraphicsData(this.graphicsData);
+		GraphicsUtil.drawCutEdgeRect(-6, -6, this.contentWidth + 12, this.contentHeight + 12, 4, new Vector<>(1, 1, 1, 1), this.path);
+		this.graphics.drawGraphicsData(this.graphicsData);
 	}
 
 

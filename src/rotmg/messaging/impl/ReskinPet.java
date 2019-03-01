@@ -1,12 +1,12 @@
 package rotmg.messaging.impl;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.SlotObjectData;
-import rotmg.messaging.outgoing.OutgoingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.SlotObjectData;
+import rotmg.messaging.outgoing.OutgoingMessage;
 
 public class ReskinPet extends OutgoingMessage {
 
@@ -23,13 +23,13 @@ public class ReskinPet extends OutgoingMessage {
 	public void writeToOutput(DataOutput in) throws IOException {
 		in.writeInt(this.petInstanceId);
 		in.writeInt(this.pickedNewPetType);
-		item.writeToOutput(in);
+		this.item.writeToOutput(in);
 	}
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		this.petInstanceId = in.readInt();
 		this.pickedNewPetType = in.readInt();
-		item.parseFromInput(in);
+		this.item.parseFromInput(in);
 	}
 }

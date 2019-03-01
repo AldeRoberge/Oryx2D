@@ -19,8 +19,8 @@ public class DialogsView extends Sprite {
 
 	public DialogsView() {
 		super();
-		addChild(this.background = new Sprite());
-		addChild(this.container = new Sprite());
+		this.addChild(this.background = new Sprite());
+		this.addChild(this.container = new Sprite());
 		this.background.visible = false;
 		this.background.mouseEnabled = true;
 	}
@@ -43,8 +43,9 @@ public class DialogsView extends Sprite {
 		this.removeCurrentDialog();
 		this.addDialog(param1);
 
-		if (param2)
+		if (param2) {
 			this.showBackground();
+		}
 	}
 
 	public void hideAll() {
@@ -55,7 +56,7 @@ public class DialogsView extends Sprite {
 	public void push(Sprite param1) {
 		this.current.visible = false;
 		this.pushed = param1;
-		addChild(param1);
+		this.addChild(param1);
 		this.background.visible = true;
 	}
 
@@ -64,7 +65,7 @@ public class DialogsView extends Sprite {
 	}
 
 	public void pop() {
-		removeChild(this.pushed);
+		this.removeChild(this.pushed);
 		this.current.visible = true;
 	}
 
@@ -83,7 +84,7 @@ public class DialogsView extends Sprite {
 	}
 
 	private void removeCurrentDialog() {
-		if (this.current != null && this.container.contains(this.current)) {
+		if ((this.current != null) && this.container.contains(this.current)) {
 			this.current.removeEventListener(Event.REMOVED, new EventConsumer<>(this::onRemoved));
 			this.container.removeChild(this.current);
 			this.background.visible = false;

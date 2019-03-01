@@ -25,7 +25,7 @@ public class GameModel {
 
 	public GameObject getGameObject(int param1) {
 		GameObject loc2 = this.gameObjects.get(param1);
-		if ((loc2 == null) && this.player.objectId == param1) {
+		if ((loc2 == null) && (this.player.objectId == param1)) {
 			loc2 = this.player;
 		}
 		return loc2;

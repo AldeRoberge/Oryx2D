@@ -1,10 +1,11 @@
 package rotmg.pets.view.components;
 
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.consumer.EventConsumer;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import org.osflash.signals.Signal;
 
 public class DialogCloseButton extends Sprite {
 
@@ -26,30 +27,30 @@ public class DialogCloseButton extends Sprite {
 		} else {
 			//loc2 = new CloseButtonLargeAsset();
 			//addChild(new CloseButtonLargeAsset());
-			scaleX = scaleX * param1;
-			scaleY = scaleY * param1;
+			this.scaleX = this.scaleX * param1;
+			this.scaleY = this.scaleY * param1;
 		}
 		//buttonMode = true;
-		addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
+		this.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
 	}
 
 	public void setDisabled(boolean param1) {
 		this.disabled = param1;
 		if (param1) {
-			removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
+			this.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
 		} else {
-			addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
+			this.addEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
 		}
 	}
 
 	public void disableLegacyCloseBehavior() {
 		this.disabled = true;
-		removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
+		this.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
 	}
 
 	private void onClicked(MouseEvent param1) {
 		if (!this.disabled) {
-			removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
+			this.removeEventListener(MouseEvent.CLICK, new EventConsumer<>(this::onClicked));
 			this.closeClicked.dispatch();
 			this.clicked.dispatch();
 		}

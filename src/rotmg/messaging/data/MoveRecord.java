@@ -1,10 +1,10 @@
 package rotmg.messaging.data;
 
-import alde.flash.utils.IData;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.IData;
 
 public class MoveRecord implements IData {
 
@@ -24,17 +24,17 @@ public class MoveRecord implements IData {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		time = in.readInt();
-		x = in.readDouble();
-		y = in.readDouble();
+		this.time = in.readInt();
+		this.x = in.readDouble();
+		this.y = in.readDouble();
 
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(time);
-		out.writeDouble(x);
-		out.writeDouble(y);
+		out.writeInt(this.time);
+		out.writeDouble(this.x);
+		out.writeDouble(this.y);
 	}
 
 }

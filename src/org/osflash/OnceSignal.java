@@ -8,8 +8,8 @@ public class OnceSignal<T> extends Signal<T> {
 
 	@Override
 	public void dispatch(T o) {
-		if (!hasBeenDispatched) {
-			hasBeenDispatched = true;
+		if (!this.hasBeenDispatched) {
+			this.hasBeenDispatched = true;
 			super.dispatch(o);
 		}
 	}

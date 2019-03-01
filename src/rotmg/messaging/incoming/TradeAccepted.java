@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class TradeAccepted extends IncomingMessage {
 
@@ -17,24 +17,24 @@ public class TradeAccepted extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		myOffer = new boolean[in.readShort()];
-		for (int i = 0; i < myOffer.length; i++) {
-			myOffer[i] = in.readBoolean();
+		this.myOffer = new boolean[in.readShort()];
+		for (int i = 0; i < this.myOffer.length; i++) {
+			this.myOffer[i] = in.readBoolean();
 		}
-		yourOffer = new boolean[in.readShort()];
-		for (int i = 0; i < yourOffer.length; i++) {
-			yourOffer[i] = in.readBoolean();
+		this.yourOffer = new boolean[in.readShort()];
+		for (int i = 0; i < this.yourOffer.length; i++) {
+			this.yourOffer[i] = in.readBoolean();
 		}
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeShort(myOffer.length);
-		for (boolean b : myOffer) {
+		out.writeShort(this.myOffer.length);
+		for (boolean b : this.myOffer) {
 			out.writeBoolean(b);
 		}
-		out.writeShort(yourOffer.length);
-		for (boolean b : yourOffer) {
+		out.writeShort(this.yourOffer.length);
+		for (boolean b : this.yourOffer) {
 			out.writeBoolean(b);
 		}
 	}

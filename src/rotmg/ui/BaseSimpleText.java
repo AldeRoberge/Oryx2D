@@ -21,11 +21,11 @@ public class BaseSimpleText extends TextField {
 		super();
 		this.inputWidth = param4;
 		if (this.inputWidth != 0) {
-			width = param4;
+			this.width = param4;
 		}
 		this.inputHeight = param5;
 		if (this.inputHeight != 0) {
-			height = param5;
+			this.height = param5;
 		}
 		//Font.registerFont(MyriadPro);
 		//Font loc6 = new MyriadPro();
@@ -34,10 +34,10 @@ public class BaseSimpleText extends TextField {
 		loc7.bold = false;
 		loc7.size = param1;
 		loc7.color = param2;
-		defaultTextFormat = loc7;
+		this.defaultTextFormat = loc7;
 		if (param3) {
-			selectable = true;
-			mouseEnabled = true;
+			this.selectable = true;
+			this.mouseEnabled = true;
 			/*type = TextFieldType.INPUT;
 			embedFonts = true;
 			border = true;
@@ -45,37 +45,37 @@ public class BaseSimpleText extends TextField {
 			setTextFormat(loc7);
 			addEventListener(Event.CHANGE, new EventConsumer<>(this::onChange));*/
 		} else {
-			selectable = false;
-			mouseEnabled = false;
+			this.selectable = false;
+			this.mouseEnabled = false;
 		}
 	}
 
 	public void setFont(String param1) {
-		TextFormat loc2 = defaultTextFormat;
+		TextFormat loc2 = this.defaultTextFormat;
 		loc2.font = param1;
-		defaultTextFormat = loc2;
+		this.defaultTextFormat = loc2;
 	}
 
 	public void setSize(int param1) {
-		TextFormat loc2 = defaultTextFormat;
+		TextFormat loc2 = this.defaultTextFormat;
 		loc2.size = param1;
 		this.applyFormat(loc2);
 	}
 
 	public void setColor(int param1) {
-		TextFormat loc2 = defaultTextFormat;
+		TextFormat loc2 = this.defaultTextFormat;
 		loc2.color = param1;
 		this.applyFormat(loc2);
 	}
 
 	public void setBold(boolean param1) {
-		TextFormat loc2 = defaultTextFormat;
+		TextFormat loc2 = this.defaultTextFormat;
 		loc2.bold = param1;
 		this.applyFormat(loc2);
 	}
 
 	public void setAlignment(String param1) {
-		TextFormat loc2 = defaultTextFormat;
+		TextFormat loc2 = this.defaultTextFormat;
 		loc2.align = param1;
 		this.applyFormat(loc2);
 	}
@@ -85,13 +85,13 @@ public class BaseSimpleText extends TextField {
 	}
 
 	public void setMultiLine(boolean param1) {
-		multiline = param1;
-		wordWrap = param1;
+		this.multiline = param1;
+		this.wordWrap = param1;
 	}
 
 	private void applyFormat(TextFormat param1) {
-		setTextFormat(param1);
-		defaultTextFormat = param1;
+		this.setTextFormat(param1);
+		this.defaultTextFormat = param1;
 	}
 
 	private void onChange(Event param1) {

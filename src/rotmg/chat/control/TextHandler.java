@@ -50,7 +50,7 @@ public class TextHandler {
 		String loc3 = null;
 		String loc4 = null;
 		String loc5 = null;
-         * loc2 = param1.numStars == -1;
+	 * loc2 = param1.numStars == -1;
 		if (param1.numStars < Parameters.data.chatStarRequirement && param1.name != this.model.player.name && !loc2 && !this.isSpecialRecipientChat(param1.recipient)) {
 			return;
 		}
@@ -206,6 +206,6 @@ public class TextHandler {
 	private boolean  useCleanString(Text param1)  {
 		return Parameters.data.filterLanguage && param1.cleanText.length > 0 && param1.objectId != this.model.player.objectId;
 	}
-*/
+	 */
 
 }

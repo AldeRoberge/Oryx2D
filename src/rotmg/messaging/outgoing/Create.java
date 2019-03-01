@@ -1,10 +1,10 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class Create extends OutgoingMessage {
 
@@ -17,14 +17,14 @@ public class Create extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		classType = in.readUnsignedShort();
-		skinType = in.readUnsignedShort();
+		this.classType = in.readUnsignedShort();
+		this.skinType = in.readUnsignedShort();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeShort(classType);
-		out.writeShort(skinType);
+		out.writeShort(this.classType);
+		out.writeShort(this.skinType);
 	}
 
 }

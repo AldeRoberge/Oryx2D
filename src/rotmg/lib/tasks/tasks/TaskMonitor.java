@@ -1,7 +1,7 @@
 package rotmg.lib.tasks.tasks;
 
-import alde.flash.utils.consumer.SignalConsumer;
 import alde.flash.utils.Vector;
+import alde.flash.utils.consumer.SignalConsumer;
 import rotmg.lib.tasks.Task;
 
 public class TaskMonitor {
@@ -11,7 +11,7 @@ public class TaskMonitor {
 
 	public TaskMonitor() {
 		super();
-		this.tasks = new Vector<Task>(0);
+		this.tasks = new Vector<>(0);
 	}
 
 	public static TaskMonitor getInstance() {

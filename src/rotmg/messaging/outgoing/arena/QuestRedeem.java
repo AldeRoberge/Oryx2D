@@ -1,12 +1,12 @@
 package rotmg.messaging.outgoing.arena;
 
-import alde.flash.utils.consumer.MessageConsumer;
-import rotmg.messaging.data.SlotObjectData;
-import rotmg.messaging.outgoing.OutgoingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
+import rotmg.messaging.data.SlotObjectData;
+import rotmg.messaging.outgoing.OutgoingMessage;
 
 public class QuestRedeem extends OutgoingMessage {
 
@@ -20,25 +20,25 @@ public class QuestRedeem extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		questID = in.readUTF();
-		item = in.readInt();
-		slots = new SlotObjectData[in.readShort()];
-		for (int i = 0; i < slots.length; i++) {
+		this.questID = in.readUTF();
+		this.item = in.readInt();
+		this.slots = new SlotObjectData[in.readShort()];
+		for (int i = 0; i < this.slots.length; i++) {
 			SlotObjectData s = new SlotObjectData();
 			s.parseFromInput(in);
-			slots[i] = s;
+			this.slots[i] = s;
 		}
 
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeUTF(questID);
-		out.writeInt(item);
-		out.writeShort(slots.length);
+		out.writeUTF(this.questID);
+		out.writeInt(this.item);
+		out.writeShort(this.slots.length);
 
-		for (int i = 0; i < slots.length; i++) {
-			slots[i].writeToOutput(out);
+		for (SlotObjectData slot : this.slots) {
+			slot.writeToOutput(out);
 		}
 	}
 

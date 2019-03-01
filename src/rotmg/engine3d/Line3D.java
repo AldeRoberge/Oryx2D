@@ -21,22 +21,22 @@ public class Line3D {
 	}
 
 	public int crossZ(Line3D param1) {
-		double loc2 = (param1.v1.y - param1.v0.y) * (this.v1.x - this.v0.x) - (param1.v1.x - param1.v0.x) * (this.v1.y - this.v0.y);
-		if (loc2 < 0.001 && loc2 > -0.001) {
+		double loc2 = ((param1.v1.y - param1.v0.y) * (this.v1.x - this.v0.x)) - ((param1.v1.x - param1.v0.x) * (this.v1.y - this.v0.y));
+		if ((loc2 < 0.001) && (loc2 > -0.001)) {
 			return Order.NEITHER;
 		}
-		double loc3 = (param1.v1.x - param1.v0.x) * (this.v0.y - param1.v0.y) - (param1.v1.y - param1.v0.y) * (this.v0.x - param1.v0.x);
-		double loc4 = (this.v1.x - this.v0.x) * (this.v0.y - param1.v0.y) - (this.v1.y - this.v0.y) * (this.v0.x - param1.v0.x);
-		if (loc3 < 0.001 && loc3 > -0.001 && loc4 < 0.001 && loc4 > -0.001) {
+		double loc3 = ((param1.v1.x - param1.v0.x) * (this.v0.y - param1.v0.y)) - ((param1.v1.y - param1.v0.y) * (this.v0.x - param1.v0.x));
+		double loc4 = ((this.v1.x - this.v0.x) * (this.v0.y - param1.v0.y)) - ((this.v1.y - this.v0.y) * (this.v0.x - param1.v0.x));
+		if ((loc3 < 0.001) && (loc3 > -0.001) && (loc4 < 0.001) && (loc4 > -0.001)) {
 			return Order.NEITHER;
 		}
 		double loc5 = loc3 / loc2;
 		double loc6 = loc4 / loc2;
-		if (loc5 > 1 || loc5 < 0 || loc6 > 1 || loc6 < 0) {
+		if ((loc5 > 1) || (loc5 < 0) || (loc6 > 1) || (loc6 < 0)) {
 			return Order.NEITHER;
 		}
-		double loc7 = this.v0.z + loc5 * (this.v1.z - this.v0.z) - (param1.v0.z + loc6 * (param1.v1.z - param1.v0.z));
-		if (loc7 < 0.001 && loc7 > -0.001) {
+		double loc7 = (this.v0.z + (loc5 * (this.v1.z - this.v0.z))) - (param1.v0.z + (loc6 * (param1.v1.z - param1.v0.z)));
+		if ((loc7 < 0.001) && (loc7 > -0.001)) {
 			return Order.NEITHER;
 		}
 		if (loc7 > 0) {
@@ -46,7 +46,7 @@ public class Line3D {
 	}
 
 	public Vector3D lerp(double param1) {
-		return new Vector3D(this.v0.x + (this.v1.x - this.v0.x) * param1, this.v0.y + (this.v1.y - this.v0.y) * param1, this.v0.z + (this.v1.z - this.v0.z) * param1);
+		return new Vector3D(this.v0.x + ((this.v1.x - this.v0.x) * param1), this.v0.y + ((this.v1.y - this.v0.y) * param1), this.v0.z + ((this.v1.z - this.v0.z) * param1));
 	}
 
 	@Override

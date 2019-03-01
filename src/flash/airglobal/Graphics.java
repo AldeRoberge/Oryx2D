@@ -1,7 +1,12 @@
 package flash.airglobal;
 
 import alde.flash.utils.Vector;
-import flash.display.*;
+import flash.display.BitmapData;
+import flash.display.IGraphicsData;
+import flash.display.IGraphicsFill;
+import flash.display.IGraphicsPath;
+import flash.display.IGraphicsStroke;
+import flash.display.Shader;
 import flash.geom.Matrix;
 import flash.library.Array;
 

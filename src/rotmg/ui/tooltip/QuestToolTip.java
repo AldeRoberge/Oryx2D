@@ -20,13 +20,13 @@ public class QuestToolTip extends ToolTip {
 		this.text.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
 		this.text.x = 0;
 		this.text.y = 0;
-		waiter.push(this.text.textChanged);
-		addChild(this.text);
+		this.waiter.push(this.text.textChanged);
+		this.addChild(this.text);
 		this.enemyGOLI = new GameObjectListItem(11776947, true, param1);
 		this.enemyGOLI.x = 0;
 		this.enemyGOLI.y = 32;
-		waiter.push(this.enemyGOLI.textReady);
-		addChild(this.enemyGOLI);
-		filters = new Vector<>();
+		this.waiter.push(this.enemyGOLI.textReady);
+		this.addChild(this.enemyGOLI);
+		this.filters = new Vector<>();
 	}
 }

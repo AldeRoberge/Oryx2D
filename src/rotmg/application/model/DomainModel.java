@@ -8,13 +8,13 @@ public class DomainModel {
 
 	private final String LOCALHOST = "localhost";
 
-	private final Vector<String> PRODUCTION_WHITELIST = new Vector<String>("www.realmofthemadgod.com", "realmofthemadgodhrd.appspot.com", "realmofthemadgod.appspot.com");
+	private final Vector<String> PRODUCTION_WHITELIST = new Vector<>("www.realmofthemadgod.com", "realmofthemadgodhrd.appspot.com", "realmofthemadgod.appspot.com");
 
-	private final Vector<String> TESTING_WHITELIST = new Vector<String>("testing.realmofthemadgod.com", "rotmgtesting.appspot.com", "rotmghrdtesting.appspot.com");
+	private final Vector<String> TESTING_WHITELIST = new Vector<>("testing.realmofthemadgod.com", "rotmgtesting.appspot.com", "rotmghrdtesting.appspot.com");
 
-	private final Vector<String> TESTING2_WHITELIST = new Vector<String>("realmtesting2.appspot.com");
+	private final Vector<String> TESTING2_WHITELIST = new Vector<>("realmtesting2.appspot.com");
 
-	private final Vector<String> TRANSLATION_WHITELIST = new Vector<String>("xlate.kabam.com");
+	private final Vector<String> TRANSLATION_WHITELIST = new Vector<>("xlate.kabam.com");
 
 	private final Vector<String> WHITELIST = this.PRODUCTION_WHITELIST.concat(this.TESTING_WHITELIST).concat(this.TRANSLATION_WHITELIST).concat(this.TESTING2_WHITELIST);
 

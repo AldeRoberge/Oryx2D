@@ -17,7 +17,7 @@ public class Portal extends GameObject implements IInteractiveObject {
 
 	public Portal(XML param1) {
 		super(param1);
-		isInteractive = true;
+		this.isInteractive = true;
 		this.nexusPortal = param1.hasOwnProperty("NexusPortal");
 		this.lockedPortal = param1.hasOwnProperty("LockedPortal");
 	}

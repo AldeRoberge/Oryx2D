@@ -35,19 +35,19 @@ public class AnimationData {
 		if (this.periodJitter == 0) {
 			return this.period;
 		}
-		return (int) (this.period - this.periodJitter + 2 * Math.random() * this.periodJitter);
+		return (int) ((this.period - this.periodJitter) + (2 * Math.random() * this.periodJitter));
 	}
 
 	public int getLastRun(int time) {
 		if (this.sync) {
-			return time / this.period * this.period;
+			return (time / this.period) * this.period;
 		}
-		return (int) (time + this.getPeriod() + 200 * Math.random());
+		return (int) (time + this.getPeriod() + (200 * Math.random()));
 	}
 
 	public int getNextRun(int time) {
 		if (this.sync) {
-			return time / this.period * this.period + this.period;
+			return ((time / this.period) * this.period) + this.period;
 		}
 		return time + this.getPeriod();
 	}

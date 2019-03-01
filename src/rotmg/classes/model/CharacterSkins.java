@@ -1,14 +1,14 @@
 package rotmg.classes.model;
 
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.utils.Dictionary;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import alde.flash.utils.consumer.SignalConsumer;
+import flash.utils.Dictionary;
+
 public class CharacterSkins {
 
-	private final List<CharacterSkin> skins = new ArrayList<CharacterSkin>(0);
+	private final List<CharacterSkin> skins = new ArrayList<>(0);
 
 	private final Dictionary<Integer, CharacterSkin> map = new Dictionary<>();
 	private CharacterSkin defaultSkin;
@@ -36,7 +36,7 @@ public class CharacterSkins {
 	}
 
 	public void addSkin(CharacterSkin skin, boolean defaultSkin) {
-		skin.changed.add(new SignalConsumer<CharacterSkin>(this::onSkinChanged));
+		skin.changed.add(new SignalConsumer<>(this::onSkinChanged));
 		this.skins.add(skin);
 		this.map.put(skin.id, skin);
 		this.updateSkinState(skin);
@@ -67,7 +67,7 @@ public class CharacterSkins {
 	}
 
 	public List<CharacterSkin> getListedSkins() {
-		List<CharacterSkin> availableSkins = new ArrayList<CharacterSkin>();
+		List<CharacterSkin> availableSkins = new ArrayList<>();
 		for (CharacterSkin skin : this.skins) {
 			if (skin.getState() != CharacterSkinState.UNLISTED) {
 				availableSkins.add(skin);
@@ -77,7 +77,7 @@ public class CharacterSkins {
 	}
 
 	private void onSkinChanged(CharacterSkin skin) {
-		if (skin.getIsSelected() && this.selectedSkin != skin) {
+		if (skin.getIsSelected() && (this.selectedSkin != skin)) {
 			this.selectedSkin.setIsSelected(false);
 			this.selectedSkin = skin;
 		}
@@ -95,7 +95,7 @@ public class CharacterSkins {
 		if (!param1.skinSelectEnabled) {
 			return CharacterSkinState.UNLISTED;
 		}
-		if (this.maxLevelAchieved >= param1.unlockLevel && param1.unlockSpecial == null) {
+		if ((this.maxLevelAchieved >= param1.unlockLevel) && (param1.unlockSpecial == null)) {
 			return CharacterSkinState.PURCHASABLE;
 		}
 		return CharacterSkinState.LOCKED;

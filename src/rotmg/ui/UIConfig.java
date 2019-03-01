@@ -7,7 +7,7 @@ public class UIConfig implements IConfig {
 	public void configure() {
 
 	}
-/*
+	/*
 
 	public Injector injector = Injector.getInstance();
 

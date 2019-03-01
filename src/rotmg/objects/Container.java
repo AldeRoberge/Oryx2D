@@ -16,7 +16,7 @@ public class Container extends GameObject implements IInteractiveObject {
 
 	public Container(XML param1) {
 		super(param1);
-		isInteractive = true;
+		this.isInteractive = true;
 		this.isLoot = param1.hasOwnProperty("Loot");
 		this.canHaveSoulbound = param1.hasOwnProperty("CanPutSoulboundObjects");
 		this.ownerId = "";
@@ -24,11 +24,11 @@ public class Container extends GameObject implements IInteractiveObject {
 
 	public void setOwnerId(String param1) {
 		this.ownerId = param1;
-		isInteractive = this.ownerId.equals("") || this.isBoundToCurrentAccount();
+		this.isInteractive = this.ownerId.equals("") || this.isBoundToCurrentAccount();
 	}
 
 	public boolean isBoundToCurrentAccount() {
-		return map.player.accountId.equals(this.ownerId);
+		return this.map.player.accountId.equals(this.ownerId);
 	}
 
 	@Override
@@ -36,11 +36,11 @@ public class Container extends GameObject implements IInteractiveObject {
 		if (!super.addTo(param1, param2, param3)) {
 			return false;
 		}
-		if (map.player == null) {
+		if (this.map.player == null) {
 			return true;
 		}
-		double loc4 = PointUtil.distanceXY(map.player.x, map.player.y, param2, param3);
-		if (this.isLoot && loc4 < 10) {
+		double loc4 = PointUtil.distanceXY(this.map.player.x, this.map.player.y, param2, param3);
+		if (this.isLoot && (loc4 < 10)) {
 			SoundEffectLibrary.play("loot_appears");
 		}
 		return true;

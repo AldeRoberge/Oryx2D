@@ -1,10 +1,10 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class OtherHit extends OutgoingMessage {
 
@@ -19,18 +19,18 @@ public class OtherHit extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		time = in.readInt();
-		bulletId = in.readByte();
-		objectId = in.readInt();
-		targetId = in.readInt();
+		this.time = in.readInt();
+		this.bulletId = in.readByte();
+		this.objectId = in.readInt();
+		this.targetId = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(time);
-		out.writeByte(bulletId);
-		out.writeInt(objectId);
-		out.writeInt(targetId);
+		out.writeInt(this.time);
+		out.writeByte(this.bulletId);
+		out.writeInt(this.objectId);
+		out.writeInt(this.targetId);
 	}
 
 }

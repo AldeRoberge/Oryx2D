@@ -12,7 +12,7 @@ public class Lighting3D {
 
 	public static double shadeValue(Vector3D param1, double param2) {
 		double loc3 = Math.max(0, param1.dotProduct(Lighting3D.LIGHT_VECTOR));
-		return param2 + (1 - param2) * loc3;
+		return param2 + ((1 - param2) * loc3);
 	}
 
 	private static Vector3D createLightVector() {

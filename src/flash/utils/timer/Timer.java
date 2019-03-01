@@ -1,10 +1,10 @@
 package flash.utils.timer;
 
+import java.util.TimerTask;
+
 import alde.flash.utils.consumer.EventConsumer;
 import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
-
-import java.util.TimerTask;
 
 /**
  * Representing AS3's Timer
@@ -28,7 +28,7 @@ public class Timer extends EventDispatcher {
 	}
 
 	public void start() {
-		start(delay);
+		this.start(this.delay);
 	}
 
 	private void start(int delay) {
@@ -36,31 +36,31 @@ public class Timer extends EventDispatcher {
 				new java.util.TimerTask() {
 					@Override
 					public void run() {
-						if (repeatCount != -1) {
-							repeatCount--;
+						if (Timer.this.repeatCount != -1) {
+							Timer.this.repeatCount--;
 						}
 
-						for (EventConsumer r : listeners.keySet()) {
-							if (listeners.get(r).equals(TimerEvent.TIMER)) {
+						for (EventConsumer r : Timer.this.listeners.keySet()) {
+							if (Timer.this.listeners.get(r).equals(TimerEvent.TIMER)) {
 								r.accept(null);
-							} else if (listeners.get(r).equals(TimerEvent.TIMER_COMPLETE) && repeatCount == 0) {
+							} else if (Timer.this.listeners.get(r).equals(TimerEvent.TIMER_COMPLETE) && (Timer.this.repeatCount == 0)) {
 								r.accept(null);
 							}
 						}
 
-						if (repeatCount == 0) {
-							stop();
+						if (Timer.this.repeatCount == 0) {
+							Timer.this.stop();
 						} else {
-							start(delay); //re-schedule (delay can be set dynamically)
+							Timer.this.start(delay); //re-schedule (delay can be set dynamically)
 						}
 
 					}
 				},
 				delay
-		);
+				);
 	}
 
 	public boolean stop() {
-		return (t != null && t.cancel());
+		return ((this.t != null) && this.t.cancel());
 	}
 }

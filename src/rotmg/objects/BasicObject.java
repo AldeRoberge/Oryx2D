@@ -1,13 +1,13 @@
 package rotmg.objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alde.flash.utils.Vector;
 import flash.display.IGraphicsData;
 import rotmg.map.Camera;
 import rotmg.map.Map;
 import rotmg.stage3D.graphic3D.Object3DStage3D;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BasicObject {
 
@@ -37,8 +37,8 @@ public class BasicObject {
 
 	public BasicObject() {
 		super();
-		this.posW = new ArrayList<Double>();
-		this.posS = new ArrayList<Double>();
+		this.posW = new ArrayList<>();
+		this.posS = new ArrayList<>();
 		this.clear();
 	}
 

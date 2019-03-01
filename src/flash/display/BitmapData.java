@@ -1,13 +1,14 @@
 package flash.display;
 
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import spark.filters.GlowFilter;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 
 public class BitmapData implements IBitmapDrawable {
 
@@ -25,10 +26,10 @@ public class BitmapData implements IBitmapDrawable {
 			BufferedImage image = ImageIO.read(Sprite.class.getResource(path));
 			this.width = image.getWidth();
 			this.height = image.getHeight();
-			pixels = new int[width * height];
-			image.getRGB(0, 0, width, height, pixels, 0, width); //write rgb pixels to pixels array
+			this.pixels = new int[this.width * this.height];
+			image.getRGB(0, 0, this.width, this.height, this.pixels, 0, this.width); //write rgb pixels to pixels array
 		} catch (Exception e) {
-			System.err.println("Error with file : " + path + ", width : " + width + ", height : " + height + ".");
+			System.err.println("Error with file : " + path + ", width : " + this.width + ", height : " + this.height + ".");
 			e.printStackTrace();
 		}
 	}
@@ -40,11 +41,11 @@ public class BitmapData implements IBitmapDrawable {
 		this.width = image.getWidth();
 		this.height = image.getHeight();
 
-		this.pixels = new int[width * height];
+		this.pixels = new int[this.width * this.height];
 
-		image.getRGB(0, 0, width, height, pixels, 0, width); //write rgb pixels to pixels array
+		image.getRGB(0, 0, this.width, this.height, this.pixels, 0, this.width); //write rgb pixels to pixels array
 
-		updateWidthAndHeight();
+		this.updateWidthAndHeight();
 	}
 
 	/**
@@ -56,7 +57,7 @@ public class BitmapData implements IBitmapDrawable {
 
 	public BitmapData(int width, int height) {
 		this(new BufferedImage(width, height, 1));
-		updateWidthAndHeight();
+		this.updateWidthAndHeight();
 	}
 
 	public BitmapData(int i, int i1, boolean b, double v) {
@@ -64,16 +65,16 @@ public class BitmapData implements IBitmapDrawable {
 	}
 
 	private void updateWidthAndHeight() {
-		width = image.getWidth();
-		height = image.getHeight();
+		this.width = this.image.getWidth();
+		this.height = this.image.getHeight();
 
-		rect = new Rectangle(0,0,width, height);
+		this.rect = new Rectangle(0,0,this.width, this.height);
 	}
 
 
 	@Override
 	public BitmapData clone() {
-		return new BitmapData(image);
+		return new BitmapData(this.image);
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class BitmapData implements IBitmapDrawable {
 	}
 
 	public void dispose() {
-		image = null;
+		this.image = null;
 	}
 
 	public void draw(BitmapData param1, Matrix loc4, Object o, Object o1, Object o2, boolean b) {

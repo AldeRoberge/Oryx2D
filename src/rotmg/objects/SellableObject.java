@@ -13,7 +13,7 @@ public class SellableObject extends GameObject {
 
 	public SellableObject(XML objectXML) {
 		super(objectXML);
-		isInteractive = true;
+		this.isInteractive = true;
 	}
 
 	public void setPrice(int price) {

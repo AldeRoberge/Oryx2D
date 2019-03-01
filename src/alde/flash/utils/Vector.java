@@ -20,17 +20,17 @@ public class Vector<T> implements Iterable<T> {
 	}
 
 	public Vector(int initialCapacity) {
-		map = new ConcurrentHashMap<>(initialCapacity);
+		this.map = new ConcurrentHashMap<>(initialCapacity);
 	}
 
 	@SafeVarargs
 	public Vector(T... addAll) {
-		add(addAll);
+		this.add(addAll);
 	}
 
 	public Vector(List<T> addAll) {
 		for (T t : addAll) {
-			push(t);
+			this.push(t);
 		}
 	}
 
@@ -39,7 +39,7 @@ public class Vector<T> implements Iterable<T> {
 	}
 
 	private void updateLength() {
-		this.length = map.size();
+		this.length = this.map.size();
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class Vector<T> implements Iterable<T> {
 	 * Removes object at index
 	 */
 	public void remove(int i) {
-		map.remove(i);
+		this.map.remove(i);
 	}
 
 	/**
@@ -75,50 +75,50 @@ public class Vector<T> implements Iterable<T> {
 	}
 
 	public boolean contains(T t) {
-		return map.containsValue(t);
+		return this.map.containsValue(t);
 	}
 
 	public void push(T t) {
-		int newSize = map.size() == 0 ? 0 : map.size() + 1;
-		put(newSize, t);
+		int newSize = this.map.size() == 0 ? 0 : this.map.size() + 1;
+		this.put(newSize, t);
 	}
 
 	public void set(int index, T t) {
-		put(index, t);
+		this.put(index, t);
 	}
 
 	public T put(int index, T t) {
-		map.put(index, t);
-		updateLength();
+		this.map.put(index, t);
+		this.updateLength();
 
 		return t;
 	}
 
 	public T get(int index) {
-		return map.get(index);
+		return this.map.get(index);
 	}
 
 	//Removes the last element from the Vector and returns that element.
 	public T pop() {
-		if (length > 0) {
-			length--;
+		if (this.length > 0) {
+			this.length--;
 		}
-		updateLength();
-		return map.remove(map.size());
+		this.updateLength();
+		return this.map.remove(this.map.size());
 	}
 
 	@Override
 	public Iterator<T> iterator() {
-		return map.values().iterator();
+		return this.map.values().iterator();
 	}
 
 	public void add(T t) {
-		push(t);
+		this.push(t);
 	}
 
 	public void add(T... list) {
 		for (T t : list) {
-			push(t);
+			this.push(t);
 		}
 	}
 
@@ -134,14 +134,14 @@ public class Vector<T> implements Iterable<T> {
 			}
 		}
 
-		updateLength();
+		this.updateLength();
 
-		return new Vector<T>(data);
+		return new Vector<>(data);
 	}
 
 
 	public void clear() {
-		map.clear();
+		this.map.clear();
 	}
 
 	public void splice(T i, T i1, T lineTo, T lineTo1, T lineTo2) {
@@ -151,12 +151,12 @@ public class Vector<T> implements Iterable<T> {
 	}
 
 	public boolean hasOwnProperty(T i) {
-		return contains(i);
+		return this.contains(i);
 	}
 
 	public int indexOf(T loc2) {
-		for (int i : map.keySet()) {
-			if (map.get(i).equals(loc2)) {
+		for (int i : this.map.keySet()) {
+			if (this.map.get(i).equals(loc2)) {
 				return i;
 			}
 		}
@@ -164,12 +164,12 @@ public class Vector<T> implements Iterable<T> {
 	}
 
 	public void set(T set) {
-		clear();
-		add(set);
+		this.clear();
+		this.add(set);
 	}
 
 	public int size() {
-		return length;
+		return this.length;
 	}
 
 
@@ -177,7 +177,7 @@ public class Vector<T> implements Iterable<T> {
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		s.append("'");
-		for (T t : map.values()) {
+		for (T t : this.map.values()) {
 			s.append(t);
 			s.append(", ");
 		}

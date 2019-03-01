@@ -1,16 +1,22 @@
 package rotmg.map;
 
 
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.Vector;
 import flash.display.Sprite;
 import flash.geom.Point;
 import flash.utils.Dictionary;
-import org.osflash.signals.Signal;
 import rotmg.AGameSprite;
 import rotmg.background.Background;
 import rotmg.map.mapoverlay.MapOverlay;
 import rotmg.map.partyoverlay.PartyOverlay;
-import rotmg.objects.*;
+import rotmg.objects.BasicObject;
+import rotmg.objects.GameObject;
+import rotmg.objects.Merchant;
+import rotmg.objects.Party;
+import rotmg.objects.Player;
+import rotmg.objects.Square;
 import rotmg.util.IntPoint;
 
 /**
@@ -19,7 +25,7 @@ import rotmg.util.IntPoint;
  */
 public abstract class AbstractMap extends Sprite {
 
-	public static final Vector<Square> squares = new Vector<Square>(); // Tiles
+	public static final Vector<Square> squares = new Vector<>(); // Tiles
 	public static final Dictionary<Integer, BasicObject> boDict = new Dictionary<>(); // Basic Objects
 	public static final Dictionary<Integer, GameObject> goDict = new Dictionary<>(); // Game Objects
 
@@ -47,9 +53,9 @@ public abstract class AbstractMap extends Sprite {
 
 	public AbstractMap() {
 		this.map = new Sprite();
-		this.squareList = new Vector<Square>();
+		this.squareList = new Vector<>();
 		this.merchLookup = new Dictionary<>();
-		this.signalRenderSwitch = new Signal<Boolean>();
+		this.signalRenderSwitch = new Signal<>();
 	}
 
 	public abstract void setProps(int param1, int param2, String param3, int param4, boolean param5, boolean param6);
@@ -73,7 +79,7 @@ public abstract class AbstractMap extends Sprite {
 	public abstract void draw(Camera param1, int param2);
 
 	public boolean allowPlayerTeleport() {
-		return this.name != Map.NEXUS && this.allowPlayerTeleport;
+		return (this.name != Map.NEXUS) && this.allowPlayerTeleport;
 	}
 
 }

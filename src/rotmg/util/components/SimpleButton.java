@@ -1,10 +1,14 @@
 package rotmg.util.components;
 
+import alde.flash.utils.Vector;
 import alde.flash.utils.consumer.EventConsumer;
 import alde.flash.utils.consumer.SignalConsumer;
-import alde.flash.utils.Vector;
 import flash.airglobal.Graphics;
-import flash.display.*;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.GraphicsPath;
+import flash.display.GraphicsSolidFill;
+import flash.display.IGraphicsData;
 import flash.events.MouseEvent;
 import flash.filters.ColorMatrixFilter;
 import flash.text.TextField;
@@ -13,7 +17,6 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.ui.Mouse;
 import rotmg.assets.services.IconFactory;
-import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.ui.view.SignalWaiter;
 import rotmg.util.Currency;
@@ -53,7 +56,7 @@ public class SimpleButton extends BuyButton {
 
 	public SimpleButton(String param1, int param2, int param3, boolean param4) {
 		super();
-		graphicsData = new Vector<IGraphicsData>(this.enabledFill, this.graphicsPath, GraphicsUtil.END_FILL);
+		this.graphicsData = new Vector<>(this.enabledFill, this.graphicsPath, GraphicsUtil.END_FILL);
 		this.prefix = param1;
 		this.text = new TextField();
 		TextFormat loc5 = new TextFormat();
@@ -71,11 +74,11 @@ public class SimpleButton extends BuyButton {
 		this.text.setTextFormat(loc5);
 		this.waiter.complete.add(new SignalConsumer<>(this::updateUI));
 		this.waiter.complete.addOnce(new SignalConsumer<>(this::readyForPlacementDispatch));
-		addChild(this.text);
+		this.addChild(this.text);
 		this.icon = new Bitmap();
-		addChild(this.icon);
-		addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
-		addEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
+		this.addChild(this.icon);
+		this.addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
+		this.addEventListener(MouseEvent.ROLL_OUT, new EventConsumer<>(this::onRollOut));
 		if (param2 != -1) {
 			this.setPrice(param2, param3);
 		} else {
@@ -90,7 +93,7 @@ public class SimpleButton extends BuyButton {
 
 	@Override
 	public void setPrice(int param1, int param2) {
-		if (this.price != param1 || this.currency != param2) {
+		if ((this.price != param1) || (this.currency != param2)) {
 			this.price = param1;
 			this.currency = param2;
 			this.text.text = this.prefix + param1;
@@ -109,9 +112,9 @@ public class SimpleButton extends BuyButton {
 
 	@Override
 	public void setEnabled(boolean param1) {
-		if (param1 != mouseEnabled) {
-			mouseEnabled = param1;
-			filters = new Vector<>(grayfilter);
+		if (param1 != this.mouseEnabled) {
+			this.mouseEnabled = param1;
+			this.filters = new Vector<>(grayfilter);
 			this.draw();
 		}
 	}
@@ -125,25 +128,25 @@ public class SimpleButton extends BuyButton {
 
 	private void readyForPlacementDispatch() {
 		this.updateUI();
-		readyForPlacement.dispatch();
+		this.readyForPlacement.dispatch();
 	}
 
 	private void updateIcon() {
 		switch (this.currency) {
-			case Currency.GOLD:
-				this.icon.bitmapData = coin;
-				break;
-			case Currency.FAME:
-				this.icon.bitmapData = fame;
-				break;
-			case Currency.GUILD_FAME:
-				this.icon.bitmapData = guildFame;
-				break;
-			case Currency.FORTUNE:
-				this.icon.bitmapData = fortune;
-				break;
-			default:
-				this.icon.bitmapData = null;
+		case Currency.GOLD:
+			this.icon.bitmapData = coin;
+			break;
+		case Currency.FAME:
+			this.icon.bitmapData = fame;
+			break;
+		case Currency.GUILD_FAME:
+			this.icon.bitmapData = guildFame;
+			break;
+		case Currency.FORTUNE:
+			this.icon.bitmapData = fortune;
+			break;
+		default:
+			this.icon.bitmapData = null;
 		}
 		this.updateIconPosition();
 	}
@@ -176,16 +179,16 @@ public class SimpleButton extends BuyButton {
 	}
 
 	public void draw() {
-		this.graphicsData.put(0, !!mouseEnabled ? this.enabledFill : this.disabledFill);
-		graphics.clear();
-		graphics.drawGraphicsData(this.graphicsData);
+		this.graphicsData.put(0, !!this.mouseEnabled ? this.enabledFill : this.disabledFill);
+		this.graphics.clear();
+		this.graphics.drawGraphicsData(this.graphicsData);
 		if (this.withOutLine) {
-			this.drawOutline(graphics);
+			this.drawOutline(this.graphics);
 		}
 	}
 
 	private int getWidth() {
-		return this.fixedWidth != -1 ? this.fixedWidth : (int) Math.max(this._width, this.text.width + this.icon.width + 4 * PADDING);
+		return this.fixedWidth != -1 ? this.fixedWidth : (int) Math.max(this._width, this.text.width + this.icon.width + (4 * PADDING));
 	}
 
 	@Override
@@ -195,7 +198,7 @@ public class SimpleButton extends BuyButton {
 	}
 
 	private int getHeight() {
-		return this.fixedHeight != -1 ? this.fixedHeight : (int) (this.text.height + this.textVertMargin * 2);
+		return this.fixedHeight != -1 ? this.fixedHeight : (int) (this.text.height + (this.textVertMargin * 2));
 	}
 
 	public void freezeSize() {

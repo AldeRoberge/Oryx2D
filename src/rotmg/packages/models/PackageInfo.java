@@ -1,15 +1,16 @@
 package rotmg.packages.models;
 
+import java.util.function.Consumer;
+
+import org.osflash.signals.Signal;
+
 import alde.flash.utils.consumer.EventConsumer;
 import flash.display.Loader;
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityError;
 import flash.net.URLRequest;
-import org.osflash.signals.Signal;
 import rotmg.shop.genericBox.data.GenericBoxInfo;
-
-import java.util.function.Consumer;
 
 public class PackageInfo extends GenericBoxInfo {
 
@@ -54,8 +55,8 @@ public class PackageInfo extends GenericBoxInfo {
 	}
 
 	public String getPurchaseType() {
-		if (contents != "") {
-			if (this.charSlot > 0 || this.vaultSlot > 0) {
+		if (this.contents != "") {
+			if ((this.charSlot > 0) || (this.vaultSlot > 0)) {
 				return PURCHASE_TYPE_MIXED;
 			}
 			return PURCHASE_TYPE_CONTENTS_ONLY;
@@ -76,7 +77,7 @@ public class PackageInfo extends GenericBoxInfo {
 	}
 
 	private void unbindLoaderEvents(Loader param1, Consumer<? extends Event> param2) {
-		if (param1 != null && param1.contentLoaderInfo != null) {
+		if ((param1 != null) && (param1.contentLoaderInfo != null)) {
 			param1.contentLoaderInfo.removeEventListener(Event.COMPLETE, new EventConsumer<>(param2));
 			param1.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, new EventConsumer<>(this::onIOError));
 			param1.contentLoaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, new EventConsumer<>(this::onSecurityEventError));

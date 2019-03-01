@@ -22,7 +22,7 @@ public class Pet extends GameObject implements IInteractiveObject {
 
 	public Pet(XML param1) {
 		super(param1);
-		isInteractive = true;
+		this.isInteractive = true;
 		this.textPanelUpdateSignal = TextPanelMessageUpdateSignal.getInstance();
 		this.petsModel = PetsModel.getInstance();
 		this.petsModel.getActivePet();
@@ -54,9 +54,9 @@ public class Pet extends GameObject implements IInteractiveObject {
 		}
 		this.isDefaultAnimatedChar = this.skin == this.defaultSkin;
 		loc5 = this.skin.imageFromAngle(0, AnimatedChar.STAND, 0);
-		animatedChar = this.skin;
-		texture = loc5.image;
-		mask = loc5.mask;
+		this.animatedChar = this.skin;
+		this.texture = loc5.image;
+		this.mask = loc5.mask;
 	}
 
 	public void setDefaultSkin() {
@@ -67,9 +67,9 @@ public class Pet extends GameObject implements IInteractiveObject {
 		}
 		loc1 = this.defaultSkin.imageFromAngle(0, AnimatedChar.STAND, 0);
 		this.isDefaultAnimatedChar = true;
-		animatedChar = this.defaultSkin;
-		texture = loc1.image;
-		mask = loc1.mask;
+		this.animatedChar = this.defaultSkin;
+		this.texture = loc1.image;
+		this.mask = loc1.mask;
 	}
 
 

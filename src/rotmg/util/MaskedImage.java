@@ -27,7 +27,7 @@ public class MaskedImage {
 
 
 	public MaskedImage mirror() {
-		return mirror(0);
+		return this.mirror(0);
 	}
 
 	public MaskedImage mirror(int width) {

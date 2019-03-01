@@ -1,10 +1,10 @@
 package rotmg.messaging.incoming;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class CreateSuccess extends IncomingMessage {
 
@@ -17,14 +17,14 @@ public class CreateSuccess extends IncomingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		objectId = in.readInt();
-		charId = in.readInt();
+		this.objectId = in.readInt();
+		this.charId = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(objectId);
-		out.writeInt(charId);
+		out.writeInt(this.objectId);
+		out.writeInt(this.charId);
 	}
 
 }

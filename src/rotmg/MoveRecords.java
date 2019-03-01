@@ -1,9 +1,9 @@
 package rotmg;
 
-import rotmg.messaging.data.MoveRecord;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import rotmg.messaging.data.MoveRecord;
 
 /**
  * This is a 100% match
@@ -14,7 +14,7 @@ public class MoveRecords {
 	public List<MoveRecord> records;
 
 	public MoveRecords() {
-		this.records = new ArrayList<MoveRecord>();
+		this.records = new ArrayList<>();
 	}
 
 	public void addRecord(int time, double x, double y) {
@@ -22,7 +22,7 @@ public class MoveRecords {
 			return;
 		}
 		int id = this.getId(time);
-		if (id < 1 || id > 10) {
+		if ((id < 1) || (id > 10)) {
 			return;
 		}
 		if (this.records.size() == 0) {
@@ -51,11 +51,11 @@ public class MoveRecords {
 	}
 
 	private int getId(int time) {
-		return (time - this.lastClearTime + 50) / 100;
+		return ((time - this.lastClearTime) + 50) / 100;
 	}
 
 	private int getScore(int id, int time) {
-		return Math.abs(time - this.lastClearTime - id * 100);
+		return Math.abs(time - this.lastClearTime - (id * 100));
 	}
 
 }

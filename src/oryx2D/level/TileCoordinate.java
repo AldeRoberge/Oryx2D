@@ -10,11 +10,11 @@ public class TileCoordinate {
 	}
 
 	public int x() {
-		return x;
+		return this.x;
 	}
 
 	public int y() {
-		return y;
+		return this.y;
 	}
 
 }

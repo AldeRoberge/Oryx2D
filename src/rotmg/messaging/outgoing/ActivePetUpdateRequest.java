@@ -1,10 +1,10 @@
 package rotmg.messaging.outgoing;
 
-import alde.flash.utils.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import alde.flash.utils.consumer.MessageConsumer;
 
 public class ActivePetUpdateRequest extends OutgoingMessage {
 
@@ -17,13 +17,13 @@ public class ActivePetUpdateRequest extends OutgoingMessage {
 
 	@Override
 	public void parseFromInput(DataInput in) throws IOException {
-		commandtype = in.readByte();
-		instanceid = in.readInt();
+		this.commandtype = in.readByte();
+		this.instanceid = in.readInt();
 	}
 
 	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
-		out.writeInt(commandtype);
-		out.writeByte(instanceid);
+		out.writeInt(this.commandtype);
+		out.writeByte(this.instanceid);
 	}
 }

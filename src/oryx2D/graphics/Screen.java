@@ -1,10 +1,10 @@
 package oryx2D.graphics;
 
-import flash.display.BitmapData;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+
+import flash.display.BitmapData;
 
 public class Screen {
 
@@ -20,16 +20,16 @@ public class Screen {
 		this.width = width;
 		this.height = height;
 
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //Image (game view)
-		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData(); // Get data buffer of the image to write pixels to it
+		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //Image (game view)
+		this.pixels = ((DataBufferInt) this.image.getRaster().getDataBuffer()).getData(); // Get data buffer of the image to write pixels to it
 	}
 
 	/*
 	 * Sets all pixels to black
 	 */
 	public void clear() {
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = 0;
+		for (int i = 0; i < this.pixels.length; i++) {
+			this.pixels[i] = 0;
 		}
 	}
 
@@ -50,42 +50,45 @@ public class Screen {
 	 * @param flip flip
 	 */
 	public void render(int xp, int yp, BitmapData image, int flip) {
-		xp -= xOffset;
-		yp -= yOffset;
+		xp -= this.xOffset;
+		yp -= this.yOffset;
 
 		for (int y = 0; y < image.height; y++) {
 			int ya = y + yp;
 			int ys = y;
 
-			if (flip == 2 || flip == 3)
+			if ((flip == 2) || (flip == 3)) {
 				ys = image.height - 1 - y;
+			}
 
 			for (int x = 0; x < image.width; x++) {
 				int xa = x + xp;
 				int xs = x;
 
-				if (flip == 1 || flip == 3)
+				if ((flip == 1) || (flip == 3)) {
 					xs = image.width - 1 - x;
+				}
 
 				// Check if BitmapData is outside of the screen
-				if (xa < -image.width || xa >= this.width || ya < 0 || ya >= this.height) {
+				if ((xa < -image.width) || (xa >= this.width) || (ya < 0) || (ya >= this.height)) {
 					break;
 				}
 
-				if (xa < 0)
+				if (xa < 0) {
 					xa = 0;
+				}
 
-				int pixelColor = image.pixels[xs + ys * image.width];
+				int pixelColor = image.pixels[xs + (ys * image.width)];
 
-				if (pixelColor != 0 && pixelColor != 0xFFFF00FF) { //PINK or transparent
-					pixels[xa + ya * this.width] = pixelColor;
+				if ((pixelColor != 0) && (pixelColor != 0xFFFF00FF)) { //PINK or transparent
+					this.pixels[xa + (ya * this.width)] = pixelColor;
 				}
 			}
 		}
 	}
 
 	public void drawPixels(Graphics g, int width, int height) {
-		g.drawImage(image, 0, 0, width, height, null); //Draw the image
+		g.drawImage(this.image, 0, 0, width, height, null); //Draw the image
 	}
 
 

@@ -39,12 +39,12 @@ public class GuildText extends Sprite {
 	}
 
 	public void draw(String param1, int param2) {
-		if (this.name.equals(param1) && param2 == param2) {
+		if (this.name.equals(param1) && (param2 == param2)) {
 			return;
 		}
 		this.name = param1;
 		this.rank = param2;
-		if (this.name == null || this.name.equals("")) {
+		if ((this.name == null) || this.name.equals("")) {
 			SpriteUtil.safeRemoveChild(this, this.icon);
 			SpriteUtil.safeRemoveChild(this, this.guildName);
 		} else {

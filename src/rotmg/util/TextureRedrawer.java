@@ -74,7 +74,7 @@ public class TextureRedrawer {
 	}
 
 	public static BitmapData resize(BitmapData param1, BitmapData param2, int param3, boolean param4, int param5, int param6, double param7) {
-		if (param2 != null && (param5 != 0 || param6 != 0)) {
+		if ((param2 != null) && ((param5 != 0) || (param6 != 0))) {
 			param1 = retexture(param1, param2, param5, param6);
 			param3 = param3 / 5;
 		}
@@ -142,34 +142,34 @@ public class TextureRedrawer {
 
 	private static BitmapData getTexture(int param1, BitmapData param2) {
 		BitmapData loc3 = null;
-		int loc4 = param1 >> 24 & 255;
+		int loc4 = (param1 >> 24) & 255;
 		int loc5 = param1 & 16777215;
 
 		switch (loc4) {
-			case 0:
-				loc3 = param2;
-				break;
-			case 1:
-				param2.setPixel(0, 0, loc5);
-				loc3 = param2;
-				break;
-			case 4:
-				loc3 = AssetLibrary.getImageFromSet("textile4x4", loc5);
-				break;
-			case 5:
-				loc3 = AssetLibrary.getImageFromSet("textile5x5", loc5);
-				break;
-			case 9:
-				loc3 = AssetLibrary.getImageFromSet("textile9x9", loc5);
-				break;
-			case 10:
-				loc3 = AssetLibrary.getImageFromSet("textile10x10", loc5);
-				break;
-			case 255:
-				loc3 = sharedTexture;
-				break;
-			default:
-				loc3 = param2;
+		case 0:
+			loc3 = param2;
+			break;
+		case 1:
+			param2.setPixel(0, 0, loc5);
+			loc3 = param2;
+			break;
+		case 4:
+			loc3 = AssetLibrary.getImageFromSet("textile4x4", loc5);
+			break;
+		case 5:
+			loc3 = AssetLibrary.getImageFromSet("textile5x5", loc5);
+			break;
+		case 9:
+			loc3 = AssetLibrary.getImageFromSet("textile9x9", loc5);
+			break;
+		case 10:
+			loc3 = AssetLibrary.getImageFromSet("textile10x10", loc5);
+			break;
+		case 255:
+			loc3 = sharedTexture;
+			break;
+		default:
+			loc3 = param2;
 		}
 		return loc3;
 	}
