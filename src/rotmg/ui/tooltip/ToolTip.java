@@ -138,8 +138,8 @@ public class ToolTip extends Sprite {
 		this.outlineFill.color = this.outline;
 		this.outlineFill.alpha = this.outlineAlpha;
 		graphics.clear();
-		this.contentWidth = (int) width;
-		this.contentHeight = (int) height;
+		this.contentWidth = width;
+		this.contentHeight = height;
 		GraphicsUtil.clearPath(this.path);
 		GraphicsUtil.drawCutEdgeRect(-6, -6, this.contentWidth + 12, this.contentHeight + 12, 4, new Vector<Integer>(1, 1, 1, 1), this.path);
 		graphics.drawGraphicsData(this.graphicsData);

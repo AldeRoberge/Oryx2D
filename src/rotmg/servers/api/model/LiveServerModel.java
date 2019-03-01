@@ -5,6 +5,7 @@ import rotmg.core.model.PlayerModel;
 import rotmg.net.LatLong;
 import rotmg.net.Server;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.servers.api.ServerModel;
 
 /**
@@ -29,10 +30,12 @@ public class LiveServerModel implements ServerModel {
 		return instance;
 	}
 
+	@Override
 	public Vector<Server> getServers() {
 		return this.servers;
 	}
 
+	@Override
 	public void setServers(Vector<Server> param1) {
 		this.servers.length = 0;
 		for (Server loc2 : param1) {
@@ -42,6 +45,7 @@ public class LiveServerModel implements ServerModel {
 		this.servers.sort(this::compareServerName);
 	}
 
+	@Override
 	public Server getServer() {
 		int loc7 = 0;
 		double loc8 = 0;
@@ -52,7 +56,7 @@ public class LiveServerModel implements ServerModel {
 		int loc5 = Integer.MAX_VALUE;
 		for (Server loc6 : this.servers) {
 			if (!(loc6.isFull() && !loc1)) {
-				if (loc6.name.equals(Parameters.data.preferredServer)) {
+				if (loc6.name.equals(Data.preferredServer)) {
 					return loc6;
 				}
 				loc7 = loc6.priority();
@@ -61,7 +65,7 @@ public class LiveServerModel implements ServerModel {
 					loc3 = loc6;
 					loc4 = loc8;
 					loc5 = loc7;
-					Parameters.data.bestServer = loc3.name;
+					Data.bestServer = loc3.name;
 					Parameters.save();
 				}
 			}
@@ -78,6 +82,7 @@ public class LiveServerModel implements ServerModel {
 		return "";
 	}
 
+	@Override
 	public boolean isServerAvailable() {
 		return this.servers.length > 0;
 	}

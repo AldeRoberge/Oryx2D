@@ -12,6 +12,7 @@ import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
 import rotmg.util.AnimatedChars;
@@ -62,11 +63,11 @@ public class SavedCharacter {
 	}
 
 	public static double compare(SavedCharacter param1, SavedCharacter param2) {
-		double loc3 = !!Parameters.data.charIdUseMap.hasOwnProperty(param1.charId())
-				? Parameters.data.charIdUseMap.get(param1.charId())
+		double loc3 = !!Data.charIdUseMap.hasOwnProperty(param1.charId())
+				? Data.charIdUseMap.get(param1.charId())
 				: 0F;
-		double loc4 = !!Parameters.data.charIdUseMap.hasOwnProperty(param2.charId())
-				? Parameters.data.charIdUseMap.get(param2.charId())
+		double loc4 = !!Data.charIdUseMap.hasOwnProperty(param2.charId())
+				? Data.charIdUseMap.get(param2.charId())
 				: 0F;
 		if (loc3 != loc4) {
 			return loc4 - loc3;

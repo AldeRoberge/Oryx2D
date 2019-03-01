@@ -30,6 +30,7 @@ public class QuestData implements IData {
 		this.rewards = new int[0];
 	}
 
+	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		this.id = in.readUTF();
 		this.name = in.readUTF();

@@ -79,6 +79,7 @@ public class Event {
 		return;
 	}
 
+	@Override
 	public Event clone() {
 		return null;
 	}

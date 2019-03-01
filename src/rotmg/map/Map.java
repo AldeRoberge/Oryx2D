@@ -24,6 +24,7 @@ import rotmg.objects.GameObject;
 import rotmg.objects.Party;
 import rotmg.objects.Square;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.particles.ParticleEffect;
 import rotmg.stage3D.GraphicsFillExtra;
 import rotmg.stage3D.Render3D;
@@ -127,6 +128,7 @@ public class Map extends AbstractMap {
 		wasLastFrameGpu = Parameters.isGpuRender();
 	}
 
+	@Override
 	public void setProps(int param1, int param2, String param3, int param4, boolean param5, boolean param6) {
 		width = param1;
 		height = param2;
@@ -141,6 +143,7 @@ public class Map extends AbstractMap {
 		forceSoftwareRender = this.forceSoftwareMap.get(param1) != null || WebMain.STAGE != null /*&& WebMain.STAGE.stage3Ds[0].context3D == null*/;
 	}
 
+	@Override
 	public void initialize() {
 
 		//squares.length = width * height;
@@ -165,6 +168,7 @@ public class Map extends AbstractMap {
 		isPetYard = name.substring(0, 8).equals("Pet Yard");
 	}
 
+	@Override
 	public void dispose() {
 		gs = null;
 		background = null;
@@ -199,6 +203,7 @@ public class Map extends AbstractMap {
 		Program3DFactory.getInstance().dispose();
 	}
 
+	@Override
 	public void update(int param1, int param2) {
 		this.inUpdate = true;
 		for (BasicObject loc3 : goDict) {
@@ -223,6 +228,7 @@ public class Map extends AbstractMap {
 		party.update(param1, param2);
 	}
 
+	@Override
 	public Point pSTopW(double param1, double param2) {
 		for (Square loc3 : this.visibleSquares) {
 			if (loc3.faces.length != 0 && loc3.faces.get(0).face.contains(param1, param2)) {
@@ -247,7 +253,7 @@ public class Map extends AbstractMap {
 		for (int xi = x > 0 ? x - 1 : x; xi <= xend; xi++) {
 			for (yi = y > 0 ? y - 1 : y; yi <= yend; yi++) {
 				ind = xi + yi * this.width;
-				n = this.squares.get(ind);
+				n = AbstractMap.squares.get(ind);
 				if (n != null && (n.props.hasEdge || n.tileType != tileType)) {
 					n.faces.length = 0;
 				}
@@ -256,6 +262,7 @@ public class Map extends AbstractMap {
 	}
 
 
+	@Override
 	public void addObj(BasicObject param1, double param2, double param3) {
 		param1.x = param2;
 		param1.y = param3;
@@ -282,6 +289,7 @@ public class Map extends AbstractMap {
 		loc2.put(param1.objectId, param1);
 	}
 
+	@Override
 	public void removeObj(int param1) {
 		if (this.inUpdate) {
 			this.idsToRemove.add(param1);
@@ -310,7 +318,7 @@ public class Map extends AbstractMap {
 		if (param1 < 0 || param1 >= width || param2 < 0 || param2 >= height) {
 			return null;
 		}
-		int loc3 = (int) (param1 + param2 * width);
+		int loc3 = param1 + param2 * width;
 		Square loc4 = squares.get(loc3);
 		if (loc4 == null) {
 			loc4 = new Square(this, param1, param2);
@@ -418,7 +426,7 @@ public class Map extends AbstractMap {
 			}
 		}
 		this.visible.sortOn(VISIBLE_SORT_FIELDS, VISIBLE_SORT_PARAMS);
-		if (Parameters.data.drawShadows) {
+		if (Data.drawShadows) {
 			for (BasicObject x : this.visible) {
 				if (x.hasShadow) {
 					x.drawShadow(this.graphicsData, param1, param2);
@@ -509,7 +517,7 @@ public class Map extends AbstractMap {
 		partyOverlay.draw(param1, param2);
 		if (player != null && player.isDarkness()) {
 			this.darkness.x = -300;
-			this.darkness.y = !!Parameters.data.centerOnPlayer ? -525 : -515;
+			this.darkness.y = !!Data.centerOnPlayer ? -525 : -515;
 			this.darkness.alpha = 0.95;
 			addChild(this.darkness);
 		} else if (contains(this.darkness)) {

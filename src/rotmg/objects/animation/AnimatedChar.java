@@ -33,7 +33,7 @@ public class AnimatedChar {
 	private static final int SEC_TO_DIRS[][] = {{LEFT, UP, DOWN}, {UP, LEFT, DOWN}, {UP, RIGHT, DOWN},
 			{RIGHT, UP, DOWN}, {RIGHT, DOWN}, {DOWN, RIGHT}, {DOWN, LEFT}, {LEFT, DOWN}};
 	public static int NUM_ACTION = 3;
-	private static double PIOVER4 = (double) Math.PI / 4;
+	private static double PIOVER4 = Math.PI / 4;
 
 	public MaskedImage origImage;
 	private int width;

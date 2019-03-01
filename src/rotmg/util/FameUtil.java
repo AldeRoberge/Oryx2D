@@ -99,8 +99,8 @@ public class FameUtil {
 		loc2 = numStarsToImage(param1);
 		Sprite loc3 = new Sprite();
 		loc3.graphics.beginFill(0, 0.4);
-		int loc4 = (int) (loc2.width / 2 + 2);
-		int loc5 = (int) (loc2.height / 2 + 2);
+		int loc4 = loc2.width / 2 + 2;
+		int loc5 = loc2.height / 2 + 2;
 		loc3.graphics.drawCircle(loc4, loc5, loc4);
 		loc2.x = 2;
 		loc2.y = 1;

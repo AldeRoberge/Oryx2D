@@ -120,6 +120,7 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	@Override
 	public void run() {
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();

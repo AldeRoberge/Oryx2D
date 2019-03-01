@@ -20,6 +20,7 @@ import rotmg.dialogs.FlushPopupStartupQueueSignal;
 import rotmg.dialogs.OpenDialogSignal;
 import rotmg.dialogs.model.DialogsModel;
 import rotmg.events.MoneyChangedEvent;
+import rotmg.map.AbstractMap;
 import rotmg.map.Map;
 import rotmg.maploading.signals.HideMapLoadingSignal;
 import rotmg.maploading.signals.MapLoadedSignal;
@@ -149,6 +150,7 @@ public class GameSprite extends AGameSprite {
 		mui.onMouseUp(param1);
 	}
 
+	@Override
 	public void setFocus(GameObject param1) {
 		param1 = map.player;
 		this.focus = param1;
@@ -179,6 +181,7 @@ public class GameSprite extends AGameSprite {
 		}
 	}
 
+	@Override
 	public void applyMapInfo(MapInfo param1) {
 		map.setProps(param1.width, param1.height, param1.name, param1.background, param1.allowPlayerTeleport, param1.showDisplays);
 		dispatchMapLoaded(param1);
@@ -190,6 +193,7 @@ public class GameSprite extends AGameSprite {
 		addChild(hudView);
 	}
 
+	@Override
 	public void initialize() {
 		Account loc1 = null;
 		ShowProTipSignal loc4 = null;
@@ -411,7 +415,7 @@ public class GameSprite extends AGameSprite {
 		IInteractiveObject loc3 = null;
 		double loc5 = loc1.x;
 		double loc6 = loc1.y;
-		for (GameObject loc7 : map.goDict) {
+		for (GameObject loc7 : AbstractMap.goDict) {
 			loc8 = (IInteractiveObject) loc7;
 			if (loc8 != null && (!(loc8 instanceof Pet) || !this.map.isPetYard)) {
 				if (Math.abs(loc5 - loc7.x) < GeneralConstants.MAXIMUM_INTERACTION_DISTANCE || Math.abs(loc6 - loc7.y) < GeneralConstants.MAXIMUM_INTERACTION_DISTANCE) {
@@ -464,6 +468,7 @@ public class GameSprite extends AGameSprite {
 		gsc.checkCredits();
 	}
 
+	@Override
 	public boolean evalIsNotInCombatMapArea() {
 		return map.name.equals(Map.NEXUS) || map.name.equals(Map.VAULT) || map.name.equals(Map.GUILD_HALL) || map.name.equals(Map.CLOTH_BAZAAR) || map.name.equals(Map.NEXUS_EXPLANATION) || map.name.equals(Map.DAILY_QUEST_ROOM);
 	}

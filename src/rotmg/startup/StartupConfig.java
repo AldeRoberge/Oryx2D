@@ -14,6 +14,7 @@ public class StartupConfig implements IConfig {
 		super();
 	}
 
+	@Override
 	public void configure() {
 		/*this.injector.map(StartupSequence).asSingleton();
 		this.commandMap.map(StartupSignal).toCommand(StartupCommand);*/

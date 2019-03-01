@@ -14,16 +14,19 @@ public class PlayerArrow extends GameObjectArrow {
 		super(16777215, 4179794, false);
 	}
 
+	@Override
 	protected void onMouseOver(MouseEvent param1) {
 		super.onMouseOver(param1);
 		setToolTip(new PlayerGroupToolTip(this.getFullPlayerVec(), false));
 	}
 
+	@Override
 	protected void onMouseOut(MouseEvent param1) {
 		super.onMouseOut(param1);
 		setToolTip(null);
 	}
 
+	@Override
 	protected void onMouseDown(MouseEvent param1) {
 		super.onMouseDown(param1);
 		removeMenu();

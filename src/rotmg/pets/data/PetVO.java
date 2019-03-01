@@ -47,7 +47,7 @@ public class PetVO {
 
 	private void listenToAbilities() {
 		for (AbilityVO abilityVO : this.abilityList) {
-			abilityVO.updated.add(new SignalConsumer<>(this::onAbilityUpdate));
+			AbilityVO.updated.add(new SignalConsumer<>(this::onAbilityUpdate));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class PetVO {
 	}
 
 	public void onAbilityUpdate(AbilityVO param1) {
-		this.updated.dispatch();
+		PetVO.updated.dispatch();
 	}
 
 	public void apply(XML param1) {
@@ -127,7 +127,7 @@ public class PetVO {
 	public void setRarity(int param1) {
 		this.rarity = PetRarityEnum.selectByOrdinal(param1).value;
 		this.unlockAbilitiesBasedOnPetRarity(param1);
-		this.updated.dispatch();
+		PetVO.updated.dispatch();
 	}
 
 	public String getName() {
@@ -139,7 +139,7 @@ public class PetVO {
 		if (this.name == null || this.name.equals("")) {
 			this.name = ObjectLibrary.typeToDisplayId.get(this.getType());
 		}
-		this.updated.dispatch(null);
+		PetVO.updated.dispatch(null);
 	}
 
 	public int getMaxAbilityPower() {
@@ -148,7 +148,7 @@ public class PetVO {
 
 	public void setMaxAbilityPower(int param1) {
 		this.maxAbilityPower = param1;
-		this.updated.dispatch();
+		PetVO.updated.dispatch();
 	}
 
 	public int getSkinID() {
@@ -169,7 +169,7 @@ public class PetVO {
 
 	public void setSkin(int param1) {
 		this.skinID = param1;
-		this.updated.dispatch();
+		PetVO.updated.dispatch();
 	}
 
 	public MaskedImage getSkinMaskedImage() {

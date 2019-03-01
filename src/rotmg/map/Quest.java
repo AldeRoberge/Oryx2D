@@ -37,7 +37,7 @@ public class Quest {
 		if (param1 < this.questAvailableAt) {
 			return null;
 		}
-		return this.map.goDict.get(this.objectId);
+		return AbstractMap.goDict.get(this.objectId);
 	}
 
 	public boolean isNew(int param1) {

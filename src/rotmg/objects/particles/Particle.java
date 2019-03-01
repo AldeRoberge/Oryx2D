@@ -68,6 +68,7 @@ public class Particle extends BasicObject {
 		this.size = param1 / 100 * 5;
 	}
 
+	@Override
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		BitmapData loc4 = TextureRedrawer.redrawSolidSquare(this.color, this.size);
 		int loc5 = loc4.width;

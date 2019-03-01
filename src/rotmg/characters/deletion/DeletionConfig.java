@@ -17,6 +17,7 @@ public class DeletionConfig implements IConfig {
 		super();
 	}
 
+	@Override
 	public void configure() {
 		/*this.injector.map(DeleteCharacterTask);
 		this.mediatorMap.map(ConfirmDeleteCharacterDialog).toMediator(ConfirmDeleteCharacterMediator);

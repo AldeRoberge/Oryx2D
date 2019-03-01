@@ -5,6 +5,7 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
+import rotmg.map.AbstractMap;
 import rotmg.map.GroundLibrary;
 import rotmg.map.Map;
 import rotmg.objects.Square;
@@ -178,14 +179,14 @@ public class TileRedrawer {
 		Vector loc2 = new Vector();
 		Map loc3 = param1.map;
 		int loc4 = param1.tileType;
-		int loc5 = (int) (param1.y - 1);
+		int loc5 = param1.y - 1;
 		while (loc5 <= param1.y + 1) {
-			loc6 = (int) (param1.x - 1);
+			loc6 = param1.x - 1;
 			while (loc6 <= param1.x + 1) {
 				if (loc6 < 0 || loc6 >= loc3.width || loc5 < 0 || loc5 >= loc3.height || loc6 == param1.x && loc5 == param1.y) {
 					loc2.add(loc4);
 				} else {
-					loc7 = loc3.squares.get(loc6 + loc5 * loc3.width);
+					loc7 = AbstractMap.squares.get(loc6 + loc5 * loc3.width);
 					if (loc7 == null || loc7.props.blendPriority <= param1.props.blendPriority) {
 						loc2.add(loc4);
 					} else {
@@ -230,8 +231,8 @@ public class TileRedrawer {
 		Vector<Integer> loc2 = new Vector<>();
 		loc2.length = 4;
 		Map loc3 = param1.map;
-		int loc4 = (int) param1.x;
-		int loc5 = (int) param1.y;
+		int loc4 = param1.x;
+		int loc5 = param1.y;
 		Square loc6 = loc3.lookupSquare(loc4, loc5 - 1);
 		Square loc7 = loc3.lookupSquare(loc4 - 1, loc5);
 		Square loc8 = loc3.lookupSquare(loc4 + 1, loc5);
@@ -305,9 +306,9 @@ public class TileRedrawer {
 		Map loc3 = param1.map;
 		boolean loc4 = false;
 		boolean loc5 = param1.props.sameTypeEdgeMode;
-		int loc6 = (int) (param1.y - 1);
+		int loc6 = param1.y - 1;
 		while (loc6 <= param1.y + 1) {
-			loc7 = (int) (param1.x - 1);
+			loc7 = param1.x - 1;
 			while (loc7 <= param1.x + 1) {
 				loc8 = loc3.lookupSquare(loc7, loc6);
 				if (loc7 == param1.x && loc6 == param1.y) {

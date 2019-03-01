@@ -22,6 +22,7 @@ public class ReskinConfig implements IConfig {
 		super();
 	}
 
+	@Override
 	public void configure() {
 		/*this.mediatorMap.map(ReskinCharacterView).toMediator(ReskinCharacterMediator);
 		this.mediatorMap.map(ReskinPanel).toMediator(ReskinPanelMediator);

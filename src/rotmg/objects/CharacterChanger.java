@@ -14,6 +14,7 @@ public class CharacterChanger extends GameObject implements IInteractiveObject {
 	/*
 	TODO this is not implemented
 	 */
+	@Override
 	public Panel getPanel(GameSprite param1) {
 		return new Panel(param1);
 		//return new CharacterChangerPanel(param1);

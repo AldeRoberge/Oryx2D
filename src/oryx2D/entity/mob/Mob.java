@@ -48,6 +48,7 @@ public abstract class Mob extends Entity {
 		return solid;
 	}
 
+	@Override
 	public abstract void render(Screen screen);
 }
 

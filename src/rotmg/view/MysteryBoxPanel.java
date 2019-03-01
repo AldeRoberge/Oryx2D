@@ -117,6 +117,7 @@ public class MysteryBoxPanel extends Panel {
 		}
 	}
 
+	@Override
 	public void draw() {
 		this.nameText.y = this.nameText.height > 30 ? 0 : 12;
 		this.infoButton.x = WIDTH / 2 - this.infoButton.width / 2;

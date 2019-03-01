@@ -12,9 +12,11 @@ public class VerifyEmail extends IncomingMessage {
 		super(id, callback);
 	}
 
+	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 	}
 
+	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
 	}
 }

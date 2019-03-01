@@ -7,11 +7,13 @@ import flash.geom.Point;
 import flash.geom.Vector3D;
 import flash.utils.Dictionary;
 import rotmg.engine3d.Point3D;
+import rotmg.map.AbstractMap;
 import rotmg.map.Camera;
 import rotmg.map.Map;
 import rotmg.objects.particles.HitEffect;
 import rotmg.objects.particles.SparkParticle;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.tutorial.Tutorial;
 import rotmg.util.*;
 
@@ -137,6 +139,7 @@ public class Projectile extends BasicObject {
 		this.damage = param1;
 	}
 
+	@Override
 	public boolean addTo(Map param1, double param2, double param3) {
 		Player loc4 = null;
 		this.startX = param2;
@@ -147,7 +150,7 @@ public class Projectile extends BasicObject {
 		if (!this.containerProps.flying && square.sink != 0) {
 			z = 0.1;
 		} else {
-			loc4 = (Player) param1.goDict.get(this.ownerId);
+			loc4 = (Player) AbstractMap.goDict.get(this.ownerId);
 			if (loc4 != null && loc4.sinkLevel > 0) {
 				z = 0.5 - 0.4 * (loc4.sinkLevel / Parameters.MAX_SINK_LEVEL);
 			}
@@ -166,6 +169,7 @@ public class Projectile extends BasicObject {
 		return true;
 	}
 
+	@Override
 	public void removeFromMap() {
 		super.removeFromMap();
 		removeObjId(this.ownerId, this.bulletId);
@@ -219,6 +223,7 @@ public class Projectile extends BasicObject {
 		}
 	}
 
+	@Override
 	public boolean update(int param1, int param2) {
 		Vector<Integer> loc5 = null;
 		Player loc7 = null;
@@ -237,7 +242,7 @@ public class Projectile extends BasicObject {
 			if (this.damagesPlayers) {
 				map.gs.gsc.squareHit(param1, this.bulletId, this.ownerId);
 			} else if (square.obj != null) {
-				if (!(boolean) Parameters.data.noParticlesMaster) {
+				if (!Data.noParticlesMaster) {
 					loc5 = BloodComposition.getColors(this.texture);
 					map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
 				}
@@ -247,7 +252,7 @@ public class Projectile extends BasicObject {
 		if (square.obj != null && (!square.obj.props.isEnemy || !this.damagesEnemies) && (square.obj.props.enemyOccupySquare || !this.projProps.passesCover && square.obj.props.occupySquare)) {
 			if (this.damagesPlayers) {
 				map.gs.gsc.otherHit(param1, this.bulletId, this.ownerId, square.obj.objectId);
-			} else if (!(boolean) Parameters.data.noParticlesMaster) {
+			} else if (!Data.noParticlesMaster) {
 				loc5 = BloodComposition.getColors(this.texture);
 				map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
 			}
@@ -294,7 +299,7 @@ public class Projectile extends BasicObject {
 		double loc9 = 0;
 		double loc3 = Double.MAX_VALUE;
 		GameObject loc4 = null;
-		for (GameObject loc5 : map.goDict) {
+		for (GameObject loc5 : AbstractMap.goDict) {
 			if (!loc5.isInvincible()) {
 				if (!loc5.isStasis()) {
 					if (this.damagesEnemies && loc5.props.isEnemy || this.damagesPlayers && loc5.props.isPlayer) {
@@ -322,6 +327,7 @@ public class Projectile extends BasicObject {
 		return loc4;
 	}
 
+	@Override
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		int loc8 = 0;
 		int loc9 = 0;
@@ -366,7 +372,7 @@ public class Projectile extends BasicObject {
 		double loc6 = !!this.projProps.faceDir ? this.getDirectionAngle(param3) : this.angle;
 		double loc7 = !!this.projProps.noRotation ? param2.angleRad + this.props.angleCorrection : loc6 - param2.angleRad + this.props.angleCorrection + loc5;
 		this.p.draw(param1, this.staticVector3D, loc7, param2.wToS, param2, loc4);
-		if (!Parameters.data.noParticlesMaster && this.projProps.particleTrail) {
+		if (!Data.noParticlesMaster && this.projProps.particleTrail) {
 			loc10 = this.projProps.particleTrailLifetimeMS != -1 ? this.projProps.particleTrailLifetimeMS : 600;
 			loc11 = 0;
 			for (; loc11 < 3; loc11++) {
@@ -389,6 +395,7 @@ public class Projectile extends BasicObject {
 		return Math.atan2(loc5, loc4);
 	}
 
+	@Override
 	public void drawShadow(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		if (!Parameters.drawProj) {
 			return;

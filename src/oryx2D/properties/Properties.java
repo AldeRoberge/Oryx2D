@@ -5,7 +5,7 @@ import alde.commons.properties.PropertyFileManager;
 
 public class Properties {
 
-	static PropertyFileManager propertyFileManager = new PropertyFileManager("ORYX2D.txt");
+	static PropertyFileManager propertyFileManager = new PropertyFileManager("Oryx2D.properties");
 
 	public static final Property PASSWORD = new Property("PASSWORD", "", propertyFileManager);
 	public static final Property EMAIL = new Property("EMAIL", "", propertyFileManager);

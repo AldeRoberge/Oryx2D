@@ -24,6 +24,7 @@ public class ChatConfig implements IConfig {
 		super();
 	}
 
+	@Override
 	public void configure() {
 		/*this.injector.map(ChatModel.class).asSingleton();
 		this.injector.map(ChatConfig).asSingleton();

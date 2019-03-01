@@ -7,7 +7,6 @@ import alde.flash.utils.Vector;
 import flash.display.BitmapData;
 import flash.display.IGraphicsData;
 import flash.geom.Vector3D;
-import oryx2D.graphics.Screen;
 import rotmg.engine3d.TextureMatrix;
 import rotmg.map.*;
 import rotmg.util.TileRedrawer;
@@ -65,7 +64,7 @@ public class Square {
 
 	// Not sure this is a good implementation
 	private int hash(double p1, double p2) {
-		return (int) ((int) p1 * 2949 + (int)p2);
+		return (int) p1 * 2949 + (int)p2;
 	}
 
 	public void dispose() {

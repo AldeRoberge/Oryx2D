@@ -33,6 +33,7 @@ public class Pet extends GameObject implements IInteractiveObject {
 		return loc1;
 	}*/
 
+	@Override
 	public Panel getPanel(GameSprite param1) {
 		//return new PetPanel(param1, this.vo);
 		return null;

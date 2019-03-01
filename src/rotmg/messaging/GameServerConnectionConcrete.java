@@ -182,6 +182,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	// removeServerConnectionListeners()
 
+	@Override
 	public void connect() {
 		//this.addServerConnectionListeners();
 		this.mapMessages();
@@ -376,6 +377,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		 }*/
 	}
 
+	@Override
 	public void playerShoot(int time, Projectile proj) {
 		PlayerShoot playerShoot = (PlayerShoot) this.messages.require(PLAYERSHOOT);
 		playerShoot.time = time;
@@ -387,6 +389,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(playerShoot);
 	}
 
+	@Override
 	public void playerHit(int bulletId, int objectId) {
 		PlayerHit playerHit = (PlayerHit) this.messages.require(PLAYERHIT);
 		playerHit.bulletId = bulletId;
@@ -394,6 +397,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(playerHit);
 	}
 
+	@Override
 	public void enemyHit(int time, int bulletId, int targetId, boolean kill) {
 		EnemyHit enemyHit = (EnemyHit) this.messages.require(ENEMYHIT);
 		enemyHit.time = time;
@@ -403,6 +407,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(enemyHit);
 	}
 
+	@Override
 	public void otherHit(int time, int bulletId, int objectId, int targetId) {
 		OtherHit otherHit = (OtherHit) this.messages.require(OTHERHIT);
 		otherHit.time = time;
@@ -412,6 +417,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(otherHit);
 	}
 
+	@Override
 	public void squareHit(int time, int bulletId, int objectId) {
 		SquareHit squareHit = (SquareHit) this.messages.require(SQUAREHIT);
 		squareHit.time = time;
@@ -428,6 +434,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(aoeAck);
 	}
 
+	@Override
 	public void groundDamage(int time, double x, double y) {
 		GroundDamage groundDamage = (GroundDamage) this.messages.require(GROUNDDAMAGE);
 		groundDamage.time = time;
@@ -442,12 +449,14 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(shootAck);
 	}
 
+	@Override
 	public void playerText(String textStr) {
 		PlayerText playerTextMessage = (PlayerText) this.messages.require(PLAYERTEXT);
 		playerTextMessage.text = textStr;
 		this.serverConnection.sendMessage(playerTextMessage);
 	}
 
+	@Override
 	public boolean invSwap(Player player, GameObject sourceObj, int slotId1, int itemId, GameObject targetObj,
 	                       int slotId2, int objectType2) {
 		if (this.gs == null) {
@@ -521,6 +530,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		return true;
 	}
 
+	@Override
 	public void invDrop(GameObject object, int slotId, int objectType) {
 		InvDrop invDrop = (InvDrop) this.messages.require(INVDROP);
 		invDrop.slotObject.objectId = object.objectId;
@@ -532,6 +542,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		}
 	}
 
+	@Override
 	public void useItem(int time, int objectId, int slotId, int objectType, double posX, double posY, int useType)
 
 	{
@@ -546,6 +557,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(useItemMess);
 	}
 
+	@Override
 	public boolean useItem_new(GameObject itemOwner, int slotId) {
 		int itemId = itemOwner.equipment.get(slotId);
 		XML objectXML = ObjectLibrary.xmlLibrary.get(itemId);
@@ -573,6 +585,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		}
 	}
 
+	@Override
 	public void setCondition(int conditionEffect, double conditionDuration) {
 		SetCondition setCondition = (SetCondition) this.messages.require(SETCONDITION);
 		setCondition.conditionEffect = conditionEffect;
@@ -611,23 +624,26 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 			player.onMove();
 	}
 
+	@Override
 	public void teleport(int objectId) {
 		Teleport teleport = (Teleport) this.messages.require(TELEPORT);
 		teleport.objectId = objectId;
 		this.serverConnection.sendMessage(teleport);
 	}
 
+	@Override
 	public void usePortal(int objectId) {
 		UsePortal usePortalMess = (UsePortal) this.messages.require(USEPORTAL);
 		usePortalMess.objectId = objectId;
 		this.serverConnection.sendMessage(usePortalMess);
 	}
 
+	@Override
 	public void buy(int sellableObjectId, int currencyType) {
 		if (this.outstandingBuy != null) {
 			return;
 		}
-		SellableObject sObj = (SellableObject) this.gs.map.goDict.get(sellableObjectId);
+		SellableObject sObj = (SellableObject) AbstractMap.goDict.get(sellableObjectId);
 		if (sObj == null) {
 			return;
 		}
@@ -647,6 +663,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(gotoAck);
 	}
 
+	@Override
 	public void editAccountList(int accountListId, boolean add, int objectId) {
 		EditAccountList eal = (EditAccountList) this.messages.require(EDITACCOUNTLIST);
 		eal.accountListId = accountListId;
@@ -655,42 +672,49 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(eal);
 	}
 
+	@Override
 	public void chooseName(String name) {
 		ChooseName chooseName = (ChooseName) this.messages.require(CHOOSENAME);
 		chooseName.name = name;
 		this.serverConnection.sendMessage(chooseName);
 	}
 
+	@Override
 	public void createGuild(String name) {
 		CreateGuild createGuild = (CreateGuild) this.messages.require(CREATEGUILD);
 		createGuild.name = name;
 		this.serverConnection.sendMessage(createGuild);
 	}
 
+	@Override
 	public void guildRemove(String name) {
 		GuildRemove guildRemove = (GuildRemove) this.messages.require(GUILDREMOVE);
 		guildRemove.name = name;
 		this.serverConnection.sendMessage(guildRemove);
 	}
 
+	@Override
 	public void guildInvite(String name) {
 		GuildInvite guildInvite = (GuildInvite) this.messages.require(GUILDINVITE);
 		guildInvite.name = name;
 		this.serverConnection.sendMessage(guildInvite);
 	}
 
+	@Override
 	public void requestTrade(String name) {
 		RequestTrade requestTrade = (RequestTrade) this.messages.require(REQUESTTRADE);
 		requestTrade.name = name;
 		this.serverConnection.sendMessage(requestTrade);
 	}
 
+	@Override
 	public void changeTrade(boolean[] offer) {
 		ChangeTrade changeTrade = (ChangeTrade) this.messages.require(CHANGETRADE);
 		changeTrade.offer = offer;
 		this.serverConnection.sendMessage(changeTrade);
 	}
 
+	@Override
 	public void acceptTrade(boolean[] myOffer, boolean[] yourOffer) {
 		AcceptTrade acceptTrade = (AcceptTrade) this.messages.require(ACCEPTTRADE);
 		acceptTrade.myOffer = myOffer;
@@ -698,14 +722,17 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(acceptTrade);
 	}
 
+	@Override
 	public void cancelTrade() {
 		this.serverConnection.sendMessage(this.messages.require(CANCELTRADE));
 	}
 
+	@Override
 	public void checkCredits() {
 		this.serverConnection.sendMessage(this.messages.require(CHECKCREDITS));
 	}
 
+	@Override
 	public void escape() {
 		if (this.playerId == -1) {
 			return;
@@ -713,12 +740,14 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		this.serverConnection.sendMessage(this.messages.require(ESCAPE));
 	}
 
+	@Override
 	public void joinGuild(String guildName) {
 		JoinGuild joinGuild = (JoinGuild) this.messages.require(JOINGUILD);
 		joinGuild.guildName = guildName;
 		this.serverConnection.sendMessage(joinGuild);
 	}
 
+	@Override
 	public void changeGuildRank(String name, int rank) {
 		ChangeGuildRank changeGuildRank = (ChangeGuildRank) this.messages.require(CHANGEGUILDRANK);
 		changeGuildRank.name = name;
@@ -781,12 +810,12 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		Projectile proj = null;
 		if (damage.objectId >= 0 && damage.bulletId > 0) {
 			projId = Projectile.findObjId(damage.objectId, damage.bulletId);
-			proj = (Projectile) map.boDict.get(projId);
+			proj = (Projectile) AbstractMap.boDict.get(projId);
 			if (proj != null && !proj.projProps.multiHit) {
 				map.removeObj(projId);
 			}
 		}
-		GameObject target = map.goDict.get(damage.targetId);
+		GameObject target = AbstractMap.goDict.get(damage.targetId);
 		if (target != null) {
 			target.damage(false, damage.damageAmount, ConversionUtil.toIntVector(damage.effects), damage.kill, proj);
 		}
@@ -794,7 +823,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	public void onServerPlayerShoot(ServerPlayerShoot serverPlayerShoot) {
 		boolean needsAck = (serverPlayerShoot.ownerId == this.playerId);
-		GameObject owner = this.gs.map.goDict.get(serverPlayerShoot.ownerId);
+		GameObject owner = AbstractMap.goDict.get(serverPlayerShoot.ownerId);
 		if (owner == null || owner.dead) {
 			if (needsAck) {
 				this.shootAck(-1);
@@ -812,7 +841,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	void onAllyShoot(AllyShoot allyShoot) {
-		GameObject owner = this.gs.map.goDict.get(allyShoot.ownerId);
+		GameObject owner = AbstractMap.goDict.get(allyShoot.ownerId);
 		if (owner == null || owner.dead) {
 			return;
 		}
@@ -824,7 +853,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	void onEnemyShoot(EnemyShoot enemyShoot) {
-		GameObject owner = this.gs.map.goDict.get(enemyShoot.ownerId);
+		GameObject owner = AbstractMap.goDict.get(enemyShoot.ownerId);
 		if (owner == null || owner.dead) {
 			this.shootAck(-1);
 			return;
@@ -922,7 +951,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
 	private void onNotification(Notification notification) {
 		QueuedStatusText text = null;
-		GameObject go = this.gs.map.goDict.get(notification.objectId);
+		GameObject go = AbstractMap.goDict.get(notification.objectId);
 		if (go != null) {
 			/*StringBuilder b = new StringBuilder(notification.message); // Workaround
 			text = new QueuedStatusText(go, b, notification.color, 2000);
@@ -977,7 +1006,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	 */
 	private void onGoto(Goto gotoPacket) {
 		this.gotoAck(this.gs.lastUpdate);
-		GameObject go = this.gs.map.goDict.get(gotoPacket.objectId);
+		GameObject go = AbstractMap.goDict.get(gotoPacket.objectId);
 		if (go == null) {
 			return;
 		}
@@ -1235,7 +1264,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		List newUnlocks = null;
 		CharacterClass type = null;
 		AbstractMap map = this.gs.map;
-		GameObject go = map.goDict.get(objectStatus.objectId);
+		GameObject go = AbstractMap.goDict.get(objectStatus.objectId);
 		if (go == null) {
 			return;
 		}
@@ -1428,7 +1457,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 	}
 
 	void onPlaySound(PlaySound playSound) {
-		GameObject obj = this.gs.map.goDict.get(playSound.ownerId);
+		GameObject obj = AbstractMap.goDict.get(playSound.ownerId);
 
 		if (obj != null) {
 			//obj.playSound(playSound.soundId);

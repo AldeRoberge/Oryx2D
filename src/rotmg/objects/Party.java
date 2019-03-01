@@ -2,6 +2,7 @@ package rotmg.objects;
 
 import alde.flash.utils.Vector;
 import flash.utils.Dictionary;
+import rotmg.map.AbstractMap;
 import rotmg.map.Map;
 import rotmg.messaging.incoming.AccountList;
 import rotmg.util.PointUtil;
@@ -47,7 +48,7 @@ public class Party {
 		if (loc3 == null) {
 			return;
 		}
-		for (GameObject loc4 : this.map.goDict) {
+		for (GameObject loc4 : AbstractMap.goDict) {
 			loc5 = (Player) loc4;
 			if (!(loc5 == null || loc5 == loc3)) {
 				loc5.starred = this.starred.get(loc5.accountId) != null;

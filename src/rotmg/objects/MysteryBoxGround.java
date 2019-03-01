@@ -12,6 +12,7 @@ public class MysteryBoxGround extends GameObject implements IInteractiveObject {
 		isInteractive = true;
 	}
 
+	@Override
 	public Panel getPanel(GameSprite param1) {
 		return new MysteryBoxPanel(param1, objectType);
 	}

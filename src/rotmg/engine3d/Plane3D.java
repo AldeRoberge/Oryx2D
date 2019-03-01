@@ -82,6 +82,7 @@ public class Plane3D {
 		return -(this.d + this.normal.x * param1 + this.normal.y * param2) / this.normal.z;
 	}
 
+	@Override
 	public String toString() {
 		return "Plane(n = " + this.normal + ", d = " + this.d + ")";
 	}

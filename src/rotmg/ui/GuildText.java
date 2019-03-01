@@ -25,7 +25,7 @@ public class GuildText extends Sprite {
 		this.icon = new Bitmap(null);
 		this.icon.y = -8;
 		this.icon.x = -8;
-		int loc4 = param3 == 0 ? 0 : (int) param3 - (this.icon.width - 16);
+		int loc4 = param3 == 0 ? 0 : param3 - (this.icon.width - 16);
 		this.guildName = new TextFieldDisplayConcrete().setSize(16).setColor(16777215).setTextWidth(loc4);
 		this.guildName.setAutoSize(TextFieldAutoSize.LEFT);
 		this.guildName.filters = new Vector(new DropShadowFilter(0, 0, 0));

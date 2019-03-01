@@ -49,6 +49,7 @@ public class Line3D {
 		return new Vector3D(this.v0.x + (this.v1.x - this.v0.x) * param1, this.v0.y + (this.v1.y - this.v0.y) * param1, this.v0.z + (this.v1.z - this.v0.z) * param1);
 	}
 
+	@Override
 	public String toString() {
 		return "(" + this.v0 + ", " + this.v1 + ")";
 	}

@@ -71,6 +71,7 @@ public class BitmapData implements IBitmapDrawable {
 	}
 
 
+	@Override
 	public BitmapData clone() {
 		return new BitmapData(image);
 	}

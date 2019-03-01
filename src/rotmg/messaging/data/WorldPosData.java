@@ -48,7 +48,7 @@ public class WorldPosData implements IData {
 	}
 
 	public double distanceTo(WorldPosData location) {
-		return (double) Math.sqrt(distanceSquaredTo(location));
+		return Math.sqrt(distanceSquaredTo(location));
 	}
 
 	@Override

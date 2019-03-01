@@ -16,6 +16,7 @@ public class CharactersConfig implements IConfig {
 		super();
 	}
 
+	@Override
 	public void configure() {
 		//this.injector.map(CharacterModel).toSingleton(LegacyCharacterModel);
 		this.context.configure(DeletionConfig.class);

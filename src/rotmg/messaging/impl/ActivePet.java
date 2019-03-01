@@ -15,6 +15,7 @@ public class ActivePet extends IncomingMessage {
 		super(param1, param2);
 	}
 
+	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		this.instanceID = in.readInt();
 	}

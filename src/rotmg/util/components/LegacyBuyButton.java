@@ -60,6 +60,7 @@ public class LegacyBuyButton extends BuyButton {
 
 	}
 
+	@Override
 	public void setPrice(int param1, int param2) {
 
 	}
@@ -77,6 +78,7 @@ public class LegacyBuyButton extends BuyButton {
 		this.updateUI();
 	}
 
+	@Override
 	public void setEnabled(boolean param1) {
 
 	}
@@ -144,6 +146,7 @@ public class LegacyBuyButton extends BuyButton {
 		return this._width;
 	}
 
+	@Override
 	public void setWidth(int param1) {
 		this._width = param1;
 		this.updateUI();

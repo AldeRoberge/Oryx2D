@@ -58,10 +58,12 @@ public class WebAccount implements Account {
 		return account;
 	}
 
+	@Override
 	public String getUserName() {
 		return this.userId;
 	}
 
+	@Override
 	public String getUserId() {
 		if (this.userId == null) {
 			//this.userId = GUID.create();
@@ -69,6 +71,7 @@ public class WebAccount implements Account {
 		return this.userId;
 	}
 
+	@Override
 	public String getPassword() {
 
 		if (this.password != null) {
@@ -79,14 +82,17 @@ public class WebAccount implements Account {
 
 	}
 
+	@Override
 	public String getToken() {
 		return "";
 	}
 
+	@Override
 	public boolean isRegistered() {
 		return true;
 	}
 
+	@Override
 	public void updateUser(String param1, String param2, String param3) {
 		/**   SharedObject loc4 = null;
 		 this.userId = param1;
@@ -107,6 +113,7 @@ public class WebAccount implements Account {
 		 }*/
 	}
 
+	@Override
 	public void clear() {
 		this.rememberMe = true;
 		//this.updateUser(GUID.create(), null, null);
@@ -116,25 +123,31 @@ public class WebAccount implements Account {
 		Parameters.save();**/
 	}
 
+	@Override
 	public void reportIntStat(String param1, int param2) {
 	}
 
+	@Override
 	public String getRequestPrefix() {
 		return "/credits";
 	}
 
+	@Override
 	public String gameNetworkUserId() {
 		return WEBUSERID;
 	}
 
+	@Override
 	public String gameNetwork() {
 		return NETWORKNAME;
 	}
 
+	@Override
 	public String playPlatform() {
 		return WEBPLAYPLATFORMNAME;
 	}
 
+	@Override
 	public String getEntryTag() {
 		if (this.entryTag != null) {
 			return this.entryTag;
@@ -143,6 +156,7 @@ public class WebAccount implements Account {
 		}
 	}
 
+	@Override
 	public String getSecret() {
 		return "";
 	}
@@ -152,14 +166,17 @@ public class WebAccount implements Account {
 		return null;
 	}
 
+	@Override
 	public void verify(boolean param1) {
 		this.isVerifiedEmail = param1;
 	}
 
+	@Override
 	public boolean isVerified() {
 		return this.isVerifiedEmail;
 	}
 
+	@Override
 	public String getPlatformToken() {
 
 		if (this.platformToken != null) {
@@ -170,14 +187,17 @@ public class WebAccount implements Account {
 
 	}
 
+	@Override
 	public void setPlatformToken(String param1) {
 		this.platformToken = param1;
 	}
 
+	@Override
 	public String getMoneyAccessToken() {
 		return this.signedRequest;
 	}
 
+	@Override
 	public String getMoneyUserId() {
 		return this.kabamId;
 	}

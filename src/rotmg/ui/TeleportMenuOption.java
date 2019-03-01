@@ -81,10 +81,12 @@ public class TeleportMenuOption extends MenuOption {
 		}
 	}
 
+	@Override
 	protected void onMouseOver(MouseEvent param1) {
 		this.mouseOver = true;
 	}
 
+	@Override
 	protected void onMouseOut(MouseEvent param1) {
 		this.mouseOver = false;
 	}

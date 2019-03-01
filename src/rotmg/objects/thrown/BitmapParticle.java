@@ -50,9 +50,11 @@ public class BitmapParticle extends BasicObject {
 		this.size = param1 / 100 * 5;
 	}
 
+	@Override
 	public void drawShadow(Vector<IGraphicsData> param1, Camera param2, int param3) {
 	}
 
+	@Override
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		BitmapData texture = null;
 		int w = 0;

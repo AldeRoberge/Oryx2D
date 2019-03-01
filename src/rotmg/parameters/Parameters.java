@@ -111,7 +111,7 @@ public class Parameters {
 	}
 
 	public static boolean isGpuRender() {
-		return !GPURenderError && (boolean) data.GPURender && !Map.forceSoftwareRender;
+		return !GPURenderError && Data.GPURender && !Map.forceSoftwareRender;
 	}
 
 	public static void clearGpuRenderEvent(Event param1) {
@@ -221,12 +221,12 @@ public class Parameters {
 		setDefault("toggleBarText", 0);
 		setDefault("toggleToMaxText", false);
 		setDefault("particleEffect", true);
-		if (data.contains("playMusic") && data.playMusic) {
+		if (data.contains("playMusic") && Data.playMusic) {
 			setDefault("musicVolume", 1);
 		} else {
 			setDefault("musicVolume", 0);
 		}
-		if (data.contains("playSFX") && data.playMusic) {
+		if (data.contains("playSFX") && Data.playMusic) {
 			setDefault("SFXVolume", 1);
 		} else {
 			setDefault("SFXVolume", 0);

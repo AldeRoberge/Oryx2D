@@ -15,11 +15,13 @@ public class ActivePetUpdateRequest extends OutgoingMessage {
 		super(id, callback);
 	}
 
+	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		commandtype = in.readByte();
 		instanceid = in.readInt();
 	}
 
+	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
 		out.writeInt(commandtype);
 		out.writeByte(instanceid);

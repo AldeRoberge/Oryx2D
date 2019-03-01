@@ -11,6 +11,7 @@ import rotmg.lib.tasks.tasks.TaskMonitor;
 import rotmg.model.GameInitData;
 import rotmg.net.Server;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.pets.data.PetsModel;
 import rotmg.servers.api.ServerModel;
 
@@ -67,7 +68,7 @@ public class PlayGameCommand {
 	}
 
 	private void recordCharacterUseInSharedObject() {
-		Parameters.data.charIdUseMap.put(this.data.charId, new Date().getTime());
+		Data.charIdUseMap.put(this.data.charId, new Date().getTime());
 		Parameters.save();
 	}
 
@@ -92,9 +93,9 @@ public class PlayGameCommand {
 
 	private int getInitialGameId() {
 		int loc1 = 0;
-		if (Parameters.data.needsTutorial) {
+		if (Data.needsTutorial) {
 			loc1 = Parameters.TUTORIAL_GAMEID;
-		} else if (Parameters.data.needsRandomRealm) {
+		} else if (Data.needsRandomRealm) {
 			loc1 = Parameters.RANDOM_REALM_GAMEID;
 		} else {
 			loc1 = Parameters.NEXUS_GAMEID;

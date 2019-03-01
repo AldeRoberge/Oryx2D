@@ -19,6 +19,7 @@ import rotmg.dialogs.OpenDialogSignal;
 import rotmg.friends.FriendsPopupView;
 import rotmg.friends.model.FriendModel;
 import rotmg.friends.view.FriendListView;
+import rotmg.map.AbstractMap;
 import rotmg.messaging.GameServerConnection;
 import rotmg.model.PotionInventoryModel;
 import rotmg.objects.GameObject;
@@ -26,6 +27,7 @@ import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
 import rotmg.objects.Square;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.pets.controller.reskin.ReskinPetFlowStartSignal;
 import rotmg.signals.*;
 import rotmg.tutorial.Tutorial;
@@ -358,21 +360,21 @@ public class MapUserInput {
 			this.moveRight = true;
 
 		} else if (param1.keyCode == Parameters.data.rotateLeft) {
-			if (!Parameters.data.allowRotation) {
+			if (!Data.allowRotation) {
 				return;
 			}
 			doneAction(this.gs, Tutorial.ROTATE_LEFT_ACTION);
 			this.rotateLeft = true;
 
 		} else if (param1.keyCode == Parameters.data.rotateRight) {
-			if (!Parameters.data.allowRotation) {
+			if (!Data.allowRotation) {
 				return;
 			}
 			doneAction(this.gs, Tutorial.ROTATE_RIGHT_ACTION);
 			this.rotateRight = true;
 
 		} else if (param1.keyCode == Parameters.data.resetToDefaultCameraAngle) {
-			Parameters.data.cameraAngle = Parameters.data.defaultCameraAngle;
+			Data.cameraAngle = Parameters.data.defaultCameraAngle;
 			Parameters.save();
 
 		} else if (param1.keyCode == Parameters.data.useSpecial) {
@@ -401,10 +403,10 @@ public class MapUserInput {
 			Parameters.data.HPBar = Parameters.data.HPBar != 0 ? 0 : 1;
 
 		} else if (param1.keyCode == Parameters.data.toggleProjectiles) {
-			Parameters.data.disableAllyParticles = !Parameters.data.disableAllyParticles;
+			Data.disableAllyParticles = !Data.disableAllyParticles;
 
 		} else if (param1.keyCode == Parameters.data.toggleMasterParticles) {
-			Parameters.data.noParticlesMaster = !Parameters.data.noParticlesMaster;
+			Data.noParticlesMaster = !Data.noParticlesMaster;
 
 		} else if (param1.keyCode == Parameters.data.useInvSlot1) {
 			this.useItem(4);
@@ -436,7 +438,7 @@ public class MapUserInput {
 			}*/
 
 		} else if (param1.keyCode == Parameters.data.GPURenderToggle) {
-			Parameters.data.GPURender = !Parameters.data.GPURender;
+			Data.GPURender = !Data.GPURender;
 
 		} else if (param1.keyCode == Parameters.data.useMagicPotion) {
 			/*if (this.potionInventoryModel.getPotionModel(PotionInventoryModel.MAGIC_POTION_ID).available) {
@@ -456,12 +458,12 @@ public class MapUserInput {
 			loc4.dispatch();
 			this.exitGame.dispatch();
 			this.gs.gsc.escape();
-			Parameters.data.needsRandomRealm = false;
+			Data.needsRandomRealm = false;
 			Parameters.save();
 
 		} else if (param1.keyCode == Parameters.data.friendList) {
-			Parameters.data.friendListDisplayFlag = !Parameters.data.friendListDisplayFlag;
-			if (Parameters.data.friendListDisplayFlag) {
+			Data.friendListDisplayFlag = !Data.friendListDisplayFlag;
+			if (Data.friendListDisplayFlag) {
 				if (Parameters.USE_NEW_FRIENDS_UI) {
 					loc11 = ShowPopupSignal.getInstance();
 					loc12 = FriendModel.getInstance();
@@ -481,7 +483,7 @@ public class MapUserInput {
 			this.layers.overlay.addChild(new Options(this.gs));
 
 		} else if (param1.keyCode == Parameters.data.toggleCentering) {
-			Parameters.data.centerOnPlayer = !Parameters.data.centerOnPlayer;
+			Data.centerOnPlayer = !Data.centerOnPlayer;
 			Parameters.save();
 
 		} else if (param1.keyCode == Parameters.data.toggleFullscreen) {
@@ -522,7 +524,7 @@ public class MapUserInput {
 				this.addTextLine.dispatch(ChatMessage.make(Parameters.ERROR_CHAT_NAME, "Projectile Color  Type;"));
 
 			} else if (param1.keyCode == KeyCodes.F7) {
-				for (Square loc14 : this.gs.map.squares) {
+				for (Square loc14 : AbstractMap.squares) {
 					if (loc14 != null) {
 						loc14.faces.length = 0;
 					}

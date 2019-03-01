@@ -40,18 +40,22 @@ public class AppEngineRetryLoader implements RetryLoader {
 		return this._complete;
 	}
 
+	@Override
 	public boolean isInProgress() {
 		return this.inProgress;
 	}
 
+	@Override
 	public void setDataFormat(String param1) {
 		this.dataFormat = param1;
 	}
 
+	@Override
 	public void setMaxRetries(int param1) {
 		this.maxRetries = param1;
 	}
 
+	@Override
 	public void sendRequest(String param1, Vector param2) {
 		this.url = param1;
 		this.params = param2;

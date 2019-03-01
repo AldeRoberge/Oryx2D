@@ -7,6 +7,7 @@ import rotmg.map.Map;
 import rotmg.map.Quest;
 import rotmg.objects.GameObject;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.ui.tooltip.QuestToolTip;
 import rotmg.ui.tooltip.ToolTip;
 
@@ -25,11 +26,13 @@ public class QuestArrow extends GameObjectArrow {
 		setToolTip(this.getToolTip(go, getTimer()));
 	}
 
+	@Override
 	protected void onMouseOver(MouseEvent param1) {
 		super.onMouseOver(param1);
 		this.refreshToolTip();
 	}
 
+	@Override
 	protected void onMouseOut(MouseEvent param1) {
 		super.onMouseOut(param1);
 		this.refreshToolTip();
@@ -42,7 +45,7 @@ public class QuestArrow extends GameObjectArrow {
 		if (this.shouldShowFullQuest(param2)) {
 			return new QuestToolTip(go);
 		}
-		if (Parameters.data.showQuestPortraits) {
+		if (Data.showQuestPortraits) {
 			return new PortraitToolTip(param1);
 		}
 		return null;
@@ -53,6 +56,7 @@ public class QuestArrow extends GameObjectArrow {
 		return mouseOver || loc2.isNew(param1);
 	}
 
+	@Override
 	public void draw(int param1, Camera param2) {
 		Object loc4 = false;
 		boolean loc5 = false;

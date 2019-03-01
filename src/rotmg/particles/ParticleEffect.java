@@ -36,6 +36,7 @@ public class ParticleEffect extends GameObject {
 		}
 	}
 
+	@Override
 	public boolean update(int time, int dt) {
 		return false;
 	}

@@ -8,6 +8,7 @@ public class DeprecatedClickableText extends ClickableTextBase {
 		super(param1, param2, param3);
 	}
 
+	@Override
 	protected TextFieldDisplayConcrete makeText() {
 		return new TextFieldDisplayConcrete();
 	}

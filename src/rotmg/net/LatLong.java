@@ -28,6 +28,7 @@ public class LatLong {
 		return dist;
 	}
 
+	@Override
 	public String toString() {
 		return "(" + this.latitude + ", " + this.longitude + ")";
 	}

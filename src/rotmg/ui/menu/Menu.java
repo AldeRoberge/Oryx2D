@@ -105,7 +105,7 @@ public class Menu extends Sprite implements UnFocusAble {
 		this.outlineFill.color = this.outline;
 		graphics.clear();
 		GraphicsUtil.clearPath(this.path);
-		GraphicsUtil.drawCutEdgeRect(-6, -6, (int) Math.max(154, width + 12), (int) height + 12, 4, new Vector<>(1, 1, 1, 1), this.path);
+		GraphicsUtil.drawCutEdgeRect(-6, -6, Math.max(154, width + 12), height + 12, 4, new Vector<>(1, 1, 1, 1), this.path);
 		graphics.drawGraphicsData(this.graphicsData);
 	}
 }

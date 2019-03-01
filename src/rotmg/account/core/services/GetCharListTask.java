@@ -52,7 +52,7 @@ public class GetCharListTask extends BaseTask {
 	}
 
 	protected void startTask() {
-		this.logger.info("GetUserDataTask start");
+		ILogger.info("GetUserDataTask start");
 		this.requestData = this.makeRequestData();
 		this.sendRequest();
 		Parameters.sendLogin = false;
@@ -143,7 +143,7 @@ public class GetCharListTask extends BaseTask {
 	}
 
 	private void clearAccountAndReloadCharacters() {
-		this.logger.info("GetUserDataTask invalid credentials");
+		ILogger.info("GetUserDataTask invalid credentials");
 		this.account.clear();
 		//this.client.complete.addOnce(new SignalConsumer<>(this::onComplete));
 		this.requestData = this.makeRequestData();
@@ -151,7 +151,7 @@ public class GetCharListTask extends BaseTask {
 	}
 
 	private void waitForASecondThenRetryRequest() {
-		this.logger.info("GetUserDataTask error - retrying");
+		ILogger.info("GetUserDataTask error - retrying");
 		this.retryTimer = new Timer(ONE_SECOND_IN_MS, 1);
 		//this.retryTimer.addEventListener(TimerEvent.TIMER_COMPLETE, new EventConsumer<>(this::onRetryTimer));
 		this.retryTimer.start();

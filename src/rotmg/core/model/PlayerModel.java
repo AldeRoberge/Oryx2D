@@ -82,7 +82,7 @@ public class PlayerModel {
 	public void setCredits(int param1) {
 		if (this.charList.credits != param1) {
 			this.charList.credits = param1;
-			this.creditsChanged.dispatch(param1);
+			PlayerModel.creditsChanged.dispatch(param1);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class PlayerModel {
 
 	public void changeCredits(int param1) {
 		this.charList.credits = this.charList.credits + param1;
-		this.creditsChanged.dispatch(this.charList.credits);
+		PlayerModel.creditsChanged.dispatch(this.charList.credits);
 	}
 
 	public int getFame() {
@@ -102,7 +102,7 @@ public class PlayerModel {
 	public void setFame(int param1) {
 		if (this.charList.fame != param1) {
 			this.charList.fame = param1;
-			this.fameChanged.dispatch(param1);
+			PlayerModel.fameChanged.dispatch(param1);
 		}
 	}
 
@@ -113,7 +113,7 @@ public class PlayerModel {
 	public void setTokens(int param1) {
 		if (this.charList.tokens != param1) {
 			this.charList.tokens = param1;
-			this.tokensChanged.dispatch(param1);
+			PlayerModel.tokensChanged.dispatch(param1);
 		}
 	}
 

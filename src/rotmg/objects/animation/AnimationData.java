@@ -40,7 +40,7 @@ public class AnimationData {
 
 	public int getLastRun(int time) {
 		if (this.sync) {
-			return (int) time / this.period * this.period;
+			return time / this.period * this.period;
 		}
 		return (int) (time + this.getPeriod() + 200 * Math.random());
 	}

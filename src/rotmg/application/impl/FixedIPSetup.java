@@ -26,51 +26,63 @@ public class FixedIPSetup implements ApplicationSetup {
 		return this;
 	}
 
+	@Override
 	public String getAppEngineUrl(boolean param1) {
 		return !!param1 ? this.UNENCRYPTED : this.ENCRYPTED;
 	}
 
+	@Override
 	public String getAnalyticsCode() {
 		return this.ANALYTICS;
 	}
 
+	@Override
 	public boolean isServerLocal() {
 		return false;
 	}
 
+	@Override
 	public String getBuildLabel() {
 		String loc1 = Parameters.BUILD_VERSION + "." + Parameters.MINOR_VERSION;
 		return this.BUILD_LABEL.replace("{IP}", this.ipAddress).replace("{VERSION}", loc1);
 	}
 
+	@Override
 	public boolean useLocalTextures() {
 		return true;
 	}
 
+	@Override
 	public boolean isToolingEnabled() {
 		return true;
 	}
 
+	@Override
 	public boolean isGameLoopMonitored() {
 		return true;
 	}
 
+	@Override
 	public boolean useProductionDialogs() {
 		return false;
 	}
 
+	@Override
 	public boolean areErrorsReported() {
 		return false;
 	}
 
+	@Override
 	public boolean areDeveloperHotkeysEnabled() {
 		return true;
 	}
 
+	@Override
 	public boolean isDebug() {
 		return false;
 	}
 
+	@Override
 	public String getServerDomain() {
 		return this.SERVER;
 	}

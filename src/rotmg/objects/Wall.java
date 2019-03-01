@@ -30,16 +30,19 @@ public class Wall extends GameObject {
 		this.topTexture = loc2.getTexture(0);
 	}
 
+	@Override
 	public void setObjectId(int param1) {
 		super.setObjectId(param1);
 		TextureData loc2 = ObjectLibrary.typeToTopTextureData.get(objectType);
 		this.topTexture = loc2.getTexture(param1);
 	}
 
+	@Override
 	public int getColor() {
 		return BitmapUtil.mostCommonColor(this.topTexture);
 	}
 
+	@Override
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		BitmapData loc6 = null;
 		Face3D loc7 = null;

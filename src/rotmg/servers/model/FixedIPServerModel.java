@@ -27,17 +27,21 @@ public class FixedIPServerModel implements ServerModel {
 		return this;
 	}
 
+	@Override
 	public Vector<Server> getServers() {
 		return new Vector<Server>(this.localhost);
 	}
 
+	@Override
 	public void setServers(Vector<Server> param1) {
 	}
 
+	@Override
 	public Server getServer() {
 		return this.localhost;
 	}
 
+	@Override
 	public boolean isServerAvailable() {
 		return true;
 	}

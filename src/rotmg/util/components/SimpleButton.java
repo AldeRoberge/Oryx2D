@@ -14,6 +14,7 @@ import flash.text.TextFormatAlign;
 import flash.ui.Mouse;
 import rotmg.assets.services.IconFactory;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.ui.view.SignalWaiter;
 import rotmg.util.Currency;
 import rotmg.util.GraphicsUtil;
@@ -87,6 +88,7 @@ public class SimpleButton extends BuyButton {
 	public SimpleButton(String param1) {
 	}
 
+	@Override
 	public void setPrice(int param1, int param2) {
 		if (this.price != param1 || this.currency != param2) {
 			this.price = param1;
@@ -105,6 +107,7 @@ public class SimpleButton extends BuyButton {
 		this.updateUI();
 	}
 
+	@Override
 	public void setEnabled(boolean param1) {
 		if (param1 != mouseEnabled) {
 			mouseEnabled = param1;
@@ -167,7 +170,7 @@ public class SimpleButton extends BuyButton {
 	}
 
 	private void onRollOut(MouseEvent param1) {
-		Mouse.cursor = Parameters.data.cursorSelect;
+		Mouse.cursor = Data.cursorSelect;
 		this.enabledFill.color = 16777215;
 		this.draw();
 	}
@@ -185,6 +188,7 @@ public class SimpleButton extends BuyButton {
 		return this.fixedWidth != -1 ? this.fixedWidth : (int) Math.max(this._width, this.text.width + this.icon.width + 4 * PADDING);
 	}
 
+	@Override
 	public void setWidth(int param1) {
 		this._width = param1;
 		this.updateUI();

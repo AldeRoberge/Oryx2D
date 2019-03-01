@@ -38,10 +38,12 @@ public class TemplateBuilder implements StringBuilder {
 		return this;
 	}
 
+	@Override
 	public void setStringMap(StringMap param1) {
 		this.provider = param1;
 	}
 
+	@Override
 	public String getString() {
 
 		return "this is not yet implemented";

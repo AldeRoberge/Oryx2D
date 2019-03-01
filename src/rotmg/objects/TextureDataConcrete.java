@@ -45,6 +45,7 @@ public class TextureDataConcrete extends TextureData {
 	}
 
 	// TODO this is a debug implementation
+	@Override
 	public BitmapData getTexture(int param1) {
 		if (randomTextureData == null) {
 			return texture;
@@ -53,6 +54,7 @@ public class TextureDataConcrete extends TextureData {
 		}
 	}
 
+	@Override
 	public TextureData getAltTextureData(int param1) {
 		if (altTextures == null) {
 			return null;

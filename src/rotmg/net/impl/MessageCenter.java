@@ -25,6 +25,7 @@ public class MessageCenter implements MessageMap, MessageProvider {
 		return instance;
 	}
 
+	@Override
 	public MessageMapping map(int param1) {
 		if (this.maps.get(param1) == null) {
 			this.maps.put(param1, this.makeMapping(param1));
@@ -32,6 +33,7 @@ public class MessageCenter implements MessageMap, MessageProvider {
 		return this.maps.get(param1);
 	}
 
+	@Override
 	public void unmap(int param1) {
 		this.maps.put(param1, null);
 	}

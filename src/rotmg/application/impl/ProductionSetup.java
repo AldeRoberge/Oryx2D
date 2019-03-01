@@ -24,50 +24,62 @@ public class ProductionSetup implements ApplicationSetup {
 		return instance;
 	}
 
+	@Override
 	public String getAppEngineUrl(boolean param1) {
 		return !!param1 ? this.UNENCRYPTED : this.ENCRYPTED;
 	}
 
+	@Override
 	public String getAnalyticsCode() {
 		return this.ANALYTICS;
 	}
 
+	@Override
 	public String getBuildLabel() {
 		return this.BUILD_LABEL.replace("{VERSION}", Parameters.BUILD_VERSION).replace("{MINOR}", Parameters.MINOR_VERSION);
 	}
 
+	@Override
 	public boolean useLocalTextures() {
 		return false;
 	}
 
+	@Override
 	public boolean isToolingEnabled() {
 		return false;
 	}
 
+	@Override
 	public boolean isGameLoopMonitored() {
 		return false;
 	}
 
+	@Override
 	public boolean isServerLocal() {
 		return false;
 	}
 
+	@Override
 	public boolean useProductionDialogs() {
 		return true;
 	}
 
+	@Override
 	public boolean areErrorsReported() {
 		return false;
 	}
 
+	@Override
 	public boolean areDeveloperHotkeysEnabled() {
 		return false;
 	}
 
+	@Override
 	public boolean isDebug() {
 		return false;
 	}
 
+	@Override
 	public String getServerDomain() {
 		return this.SERVER;
 	}

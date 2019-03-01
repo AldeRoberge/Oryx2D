@@ -22,6 +22,7 @@ import rotmg.objects.particles.ExplosionEffect;
 import rotmg.objects.particles.HitEffect;
 import rotmg.objects.particles.ShockerEffect;
 import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 import rotmg.particles.ParticleEffect;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
@@ -264,7 +265,7 @@ public class GameObject extends BasicObject {
 			map.removeObj(this.effect.objectId);
 			this.effect = null;
 		}
-		if (!Parameters.data.noParticlesMaster && loc3.effectProps != null) {
+		if (!Data.noParticlesMaster && loc3.effectProps != null) {
 			this.effect = ParticleEffect.fromProps(loc3.effectProps, this);
 			if (map != null) {
 				map.addObj(this.effect, x, y);
@@ -545,6 +546,7 @@ public class GameObject extends BasicObject {
 		}
 	}
 
+	@Override
 	public boolean addTo(Map param1, double param2, double param3) {
 		map = param1;
 		this.posAtTick.x = this.tickPosition.x = param2;
@@ -559,6 +561,7 @@ public class GameObject extends BasicObject {
 		return true;
 	}
 
+	@Override
 	public void removeFromMap() {
 		if (this.props.isStatic && square != null) {
 			if (square.obj == this) {
@@ -596,6 +599,7 @@ public class GameObject extends BasicObject {
 		return true;
 	}
 
+	@Override
 	public boolean update(int time, int dt) {
 		int tickDT = 0;
 		double pX = 0;
@@ -806,7 +810,7 @@ public class GameObject extends BasicObject {
 				}
 			}
 		}
-		if (!(this.props.isEnemy && Parameters.data.disableEnemyParticles) && !(!this.props.isEnemy && Parameters.data.disablePlayersHitParticles)) {
+		if (!(this.props.isEnemy && Data.disableEnemyParticles) && !(!this.props.isEnemy && Data.disablePlayersHitParticles)) {
 			loc15 = BloodComposition.getBloodComposition(this.objectType, this.texture, this.props.bloodProb, this.props.bloodColor);
 			if (this.dead) {
 				map.addObj(new ExplosionEffect(loc15, this.size, 30), x, y);
@@ -816,7 +820,7 @@ public class GameObject extends BasicObject {
 				map.addObj(new ExplosionEffect(loc15, this.size, 10), x, y);
 			}
 		}
-		if (!param1 && (Parameters.data.noEnemyDamage && this.props.isEnemy || Parameters.data.noAllyDamage && this.props.isPlayer)) {
+		if (!param1 && (Data.noEnemyDamage && this.props.isEnemy || Data.noAllyDamage && this.props.isPlayer)) {
 			return;
 		}
 		if (param2 > 0) {
@@ -945,7 +949,7 @@ public class GameObject extends BasicObject {
 			}
 		}
 		if (this.tex1Id == 0 && this.tex2Id == 0) {
-			if (this.isCursed() && Parameters.data.curseIndication) {
+			if (this.isCursed() && Data.curseIndication) {
 				loc3 = TextureRedrawer.redraw(loc3, loc4, false, 16711680);
 			} else {
 				loc3 = TextureRedrawer.redraw(loc3, loc4, false, 0);
@@ -997,6 +1001,7 @@ public class GameObject extends BasicObject {
 		this.attackStart = getTimer();
 	}
 
+	@Override
 	public void draw3d(Vector<Object3DStage3D> param1) {
 		if (this.object3d != null) {
 			param1.add(this.object3d);
@@ -1038,6 +1043,7 @@ public class GameObject extends BasicObject {
 		GraphicsFillExtra.setSoftwareDrawSolid(this.hpbarBackFill, true);
 	}
 
+	@Override
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		BitmapData loc9 = null;
 		int loc10 = 0;
@@ -1196,6 +1202,7 @@ public class GameObject extends BasicObject {
 	}
 
 
+	@Override
 	public void drawShadow(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		if (this.shadowGradientFill == null) {
 			this.shadowGradientFill = new GraphicsGradientFill(GradientType.RADIAL, new Vector<Integer>(this.props.shadowColor, this.props.shadowColor), new Vector<Double>(0.5, 0.0), null, new Matrix());
@@ -1216,6 +1223,7 @@ public class GameObject extends BasicObject {
 		this.texturingCache = new Dictionary<>();
 	}
 
+	@Override
 	public String toString() {
 		return "[" + this.getClass().getSimpleName() + " id: " + objectId + " type: " + ObjectLibrary.typeToDisplayId.get(this.objectType) + " pos: " + x + ", " + y + "]";
 	}

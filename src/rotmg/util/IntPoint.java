@@ -38,6 +38,7 @@ public class IntPoint {
 		this.y = param1;
 	}
 
+	@Override
 	public IntPoint clone() {
 		return new IntPoint(this.x, this.y);
 	}
@@ -65,7 +66,7 @@ public class IntPoint {
 	}
 
 	public IntPoint trunc1000() {
-		return new IntPoint((int) (this.x / 1000) * 1000, (int) (this.y / 1000) * 1000);
+		return new IntPoint(this.x / 1000 * 1000, this.y / 1000 * 1000);
 	}
 
 	public IntPoint round1000() {
@@ -89,6 +90,7 @@ public class IntPoint {
 	 * }
 	 */
 
+	@Override
 	public String toString() {
 		return "(" + this.x + ", " + this.y + ")";
 	}

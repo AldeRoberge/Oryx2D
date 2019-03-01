@@ -21,6 +21,7 @@ public class Reconnect extends IncomingMessage {
 		super(id, callback);
 	}
 
+	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		this.name = in.readUTF();
 		this.host = in.readUTF();
@@ -33,6 +34,7 @@ public class Reconnect extends IncomingMessage {
 		in.readFully(key);
 	}
 
+	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
 		out.writeUTF(this.name);
 		out.writeUTF(this.host);

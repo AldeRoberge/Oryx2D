@@ -18,6 +18,7 @@ public class NameChanger extends GameObject implements IInteractiveObject {
 		this.rankRequired = param1;
 	}
 
+	@Override
 	public Panel getPanel(GameSprite param1) {
 		return new NameChangerPanel(param1, this.rankRequired);
 	}

@@ -29,6 +29,7 @@ public class MoneyChangerPanel extends ButtonPanel {
 		stage.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
 	}
 
+	@Override
 	protected void onButtonClick(MouseEvent param1) {
 		this.triggered.dispatch();
 	}

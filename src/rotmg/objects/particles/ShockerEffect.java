@@ -62,6 +62,7 @@ public class ShockerEffect extends ParticleEffect {
 		}
 	}
 
+	@Override
 	public boolean update(int time, int dt) {
 		if (this.isDestroyed) {
 			return false;
@@ -106,6 +107,7 @@ public class ShockerEffect extends ParticleEffect {
 		this.isDestroyed = true;
 	}
 
+	@Override
 	public void removeFromMap() {
 		this.destroy();
 		super.removeFromMap();

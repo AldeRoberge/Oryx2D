@@ -162,15 +162,18 @@ public class TextFieldDisplayConcrete extends Sprite implements TextFieldDisplay
 		this.setTextIfAble();
 	}
 
+	@Override
 	public void setFont(FontInfo param1) {
 		this.font = param1;
 	}
 
+	@Override
 	public void setStringMap(StringMap param1) {
 		this.stringMap = param1;
 		this.setTextIfAble();
 	}
 
+	@Override
 	public void setTextField(TextField param1) {
 		param1.width = this.textWidth;
 		param1.height = this.textHeight;

@@ -17,6 +17,7 @@ public class QuestFetchResponse extends IncomingMessage {
 		this.quests = new QuestData[0];
 	}
 
+	@Override
 	public void parseFromInput(DataInput param1) throws IOException {
 		this.quests = new QuestData[param1.readShort()];
 

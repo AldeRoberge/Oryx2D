@@ -47,6 +47,7 @@ public class CharacterStatusText extends Sprite implements IMapOverlayElement {
 		visible = false;
 	}
 
+	@Override
 	public boolean draw(Camera param1, int param2) {
 		if (this.startTime == 0) {
 			this.startTime = param2 + this.offsetTime;
@@ -70,10 +71,12 @@ public class CharacterStatusText extends Sprite implements IMapOverlayElement {
 		return true;
 	}
 
+	@Override
 	public GameObject getGameObject() {
 		return this.go;
 	}
 
+	@Override
 	public void dispose() {
 		parent.removeChild(this);
 	}

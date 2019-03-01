@@ -30,6 +30,7 @@ public class Player extends Mob {
 		this.input = input;
 	}
 
+	@Override
 	public void update() {
 		int xa = 0;
 		int ya = 0;
@@ -64,6 +65,7 @@ public class Player extends Mob {
 		}
 	}
 
+	@Override
 	public void render(Screen screen) {
 		int flip = 0;
 		if (dir == 0) {

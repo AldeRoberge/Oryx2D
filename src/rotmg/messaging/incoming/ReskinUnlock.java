@@ -14,10 +14,12 @@ public class ReskinUnlock extends IncomingMessage {
 		super(id, callback);
 	}
 
+	@Override
 	public void parseFromInput(DataInput in) throws IOException {
 		this.skinID = in.readInt();
 	}
 
+	@Override
 	public void writeToOutput(DataOutput out) throws IOException {
 		out.writeInt(this.skinID);
 	}

@@ -46,6 +46,7 @@ public class Container extends GameObject implements IInteractiveObject {
 		return true;
 	}
 
+	@Override
 	public rotmg.ui.panels.Panel getPanel(GameSprite param1) {
 		/*Player loc2 = param1 != null && param1.map ? param1.map.player_ : null;
 		ContainerGrid loc3 = new ContainerGrid(this, loc2);

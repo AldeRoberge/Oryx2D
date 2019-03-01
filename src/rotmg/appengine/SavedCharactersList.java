@@ -279,10 +279,12 @@ public class SavedCharactersList extends Event {
 		return loc3;
 	}
 
+	@Override
 	public Event clone() {
 		return new SavedCharactersList(this.origData);
 	}
 
+	@Override
 	public String toString() {
 		return "[" + " numChars: " + this.numChars + " maxNumChars: " + this.maxNumChars + " ]";
 	}

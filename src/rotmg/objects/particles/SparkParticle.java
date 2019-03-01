@@ -20,6 +20,7 @@ public class SparkParticle extends Particle {
 		this.dy = param6;
 	}
 
+	@Override
 	public boolean update(int param1, int param2) {
 		this.timeLeft = this.timeLeft - param2;
 		if (this.timeLeft <= 0) {

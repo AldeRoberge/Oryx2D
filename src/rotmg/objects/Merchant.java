@@ -75,16 +75,19 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		isInteractive = true;
 	}
 
+	@Override
 	public void setPrice(int param1) {
 		super.setPrice(param1);
 		this.untilNextMessage = 0;
 	}
 
+	@Override
 	public void setRankReq(int param1) {
 		super.setRankReq(param1);
 		this.untilNextMessage = 0;
 	}
 
+	@Override
 	public boolean addTo(Map param1, double param2, double param3) {
 		if (!super.addTo(param1, param2, param3)) {
 			return false;
@@ -93,6 +96,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		return true;
 	}
 
+	@Override
 	public void removeFromMap() {
 		IntPoint loc1 = new IntPoint((int) x, (int) y);
 		if (map.merchLookup.get(loc1) == this) {
@@ -145,6 +149,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		return new AddSpeechBalloonVO(this, loc2.getString(), "", false, false, loc3, 1, loc4, 1, loc5, 6, true, false);
 	}
 
+	@Override
 	public boolean update(int time, int dt) {
 
 		super.update(time, dt);
@@ -176,10 +181,12 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		return true;
 	}
 
+	@Override
 	public String soldObjectName() {
 		return ObjectLibrary.typeToDisplayId.get(this.merchandiseType);
 	}
 
+	@Override
 	public String soldObjectInternalName() {
 		XML loc1 = ObjectLibrary.xmlLibrary.get(this.merchandiseType);
 		return String.valueOf(loc1.getIntAttribute("id"));
@@ -194,6 +201,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		return this.merchandiseType;
 	}
 
+	@Override
 	public BitmapData getIcon() {
 		/**BaseSimpleText loc3 = null;
 		 BaseSimpleText loc4 = null;
@@ -239,6 +247,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 		return param1;
 	}
 
+	@Override
 	protected BitmapData getTexture(Camera param1, int param2) {
 		if (this.alpha == 1 && size == 100) {
 			return this.merchandiseTexture;

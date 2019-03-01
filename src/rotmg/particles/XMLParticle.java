@@ -73,6 +73,7 @@ public class XMLParticle extends BasicObject {
 		return true;
 	}
 
+	@Override
 	public boolean update(int param1, int param2) {
 		double loc3 = 0;
 		loc3 = param2 / 1000;
@@ -85,6 +86,7 @@ public class XMLParticle extends BasicObject {
 		return true;
 	}
 
+	@Override
 	public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
 		BitmapData loc7 = null;
 		BitmapData loc4 = this.texture;

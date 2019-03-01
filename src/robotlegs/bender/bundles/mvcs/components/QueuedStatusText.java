@@ -22,6 +22,7 @@ public class QueuedStatusText extends CharacterStatusText {
 		setStringBuilder(param2);
 	}
 
+	@Override
 	public void dispose() {
 		this.list.shift();
 	}
