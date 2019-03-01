@@ -1,3 +1,11 @@
+**Oryx2D**
+------
+
+
+Oryx2D is a Java client for Realm of the Mad God.
+It uses a very simple Java-only graphics engine. It is based on previous attempts to convert the ActionScript client to pure Java.
+
+
 Help with convertion from AS3 to Java
 -------------------
     

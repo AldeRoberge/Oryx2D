@@ -7,6 +7,9 @@ import oryx2D.util.hint.PasswordHintTextField;
 import rotmg.account.core.WebAccount;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -90,6 +93,27 @@ public class LoaderUI {
         fillerPanel1.add(emailPanel);
 
         this.emailField = new HintTextField(this.EMAIL.getValue(), "Email");
+        
+        
+        
+        emailField.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				EMAIL.setValue(emailField.getText());
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+			}
+        	
+        	
+        });
+        
         emailPanel.add(this.emailField);
         this.emailField.setColumns(20);
 
@@ -98,6 +122,24 @@ public class LoaderUI {
         fillerPanel1.add(passwordPanel);
 
         this.passwordField = new PasswordHintTextField(this.PASSWORD.getValue(), "Password");
+        this.passwordField.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				EMAIL.setValue(emailField.getText());
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+			}
+        	
+        	
+        });
+        
         passwordPanel.add(this.passwordField);
         this.passwordField.setColumns(20);
 
