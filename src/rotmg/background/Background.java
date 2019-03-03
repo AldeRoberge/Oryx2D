@@ -1,8 +1,5 @@
 package rotmg.background;
 
-import flash.display.Sprite;
-import rotmg.map.Camera;
-
 /**
  * 100% match
  */

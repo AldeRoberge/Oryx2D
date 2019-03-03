@@ -1,6 +1,6 @@
 package rotmg.objects.animation;
 
-import alde.flash.utils.XML;
+import utils.flash.XML;
 
 import java.util.ArrayList;
 import java.util.List;

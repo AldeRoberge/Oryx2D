@@ -1,9 +1,8 @@
 package oryx2D.level;
 
-import alde.flash.utils.Vector;
-import flash.display.BitmapData;
+import utils.flash.Vector;
+import utils.flash.display.BitmapData;
 import oryx2D.graphics.Screen;
-import rotmg.map.AbstractMap;
 import rotmg.objects.GameObject;
 import rotmg.objects.Square;
 

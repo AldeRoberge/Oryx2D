@@ -1,7 +1,6 @@
 package rotmg.messaging;
 
-import flash.display.DisplayObject;
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 import rotmg.AGameSprite;
 import rotmg.messaging.data.SlotObjectData;
 import rotmg.net.Server;

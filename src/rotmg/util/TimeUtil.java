@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import flash.utils.Date;
+import utils.flash.utils.Date;
 
 public class TimeUtil {
 

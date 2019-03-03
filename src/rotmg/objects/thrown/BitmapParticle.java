@@ -1,12 +1,8 @@
 package rotmg.objects.thrown;
 
-import alde.flash.utils.Vector;
-import flash.display.BitmapData;
-import flash.display.GraphicsBitmapFill;
-import flash.display.GraphicsPath;
-import flash.display.IGraphicsData;
-import flash.geom.Matrix;
-import rotmg.map.Camera;
+import utils.flash.Vector;
+import utils.flash.display.BitmapData;
+import utils.flash.geom.Matrix;
 import rotmg.objects.BasicObject;
 import rotmg.objects.Square;
 import rotmg.util.GraphicsUtil;

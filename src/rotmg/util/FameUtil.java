@@ -1,12 +1,11 @@
 package rotmg.util;
 
 
-import alde.flash.utils.XML;
-import flash.display.BitmapData;
-import flash.display.Sprite;
-import flash.geom.ColorTransform;
 import rotmg.objects.ObjectLibrary;
-import spark.filters.DropShadowFilter;
+import utils.flash.XML;
+import utils.flash.display.BitmapData;
+
+import java.awt.*;
 
 public class FameUtil {
 
@@ -14,17 +13,17 @@ public class FameUtil {
 
     public static final Integer[] STARS = new Integer[]{20, 150, 400, 800, 2000};
 
-    private static final ColorTransform lightBlueCT = new ColorTransform(138 / 255, 152 / 255, 222 / 255);
+    private static final Color lightBlueCT = new Color(138, 152, 222);
 
-    private static final ColorTransform darkBlueCT = new ColorTransform(49 / 255, 77 / 255, 219 / 255);
+    private static final Color darkBlueCT = new Color(49, 77, 219);
 
-    private static final ColorTransform redCT = new ColorTransform(193 / 255, 39 / 255, 45 / 255);
+    private static final Color redCT = new Color(193, 39, 45);
 
-    private static final ColorTransform orangeCT = new ColorTransform(247 / 255, 147 / 255, 30 / 255);
+    private static final Color orangeCT = new Color(247, 147, 30);
 
-    private static final ColorTransform yellowCT = new ColorTransform(255 / 255, 255 / 255, 0 / 255);
+    private static final Color yellowCT = new Color(255, 255, 0);
 
-    public static final ColorTransform[] COLORS = new ColorTransform[]{lightBlueCT, darkBlueCT, redCT, orangeCT, yellowCT};
+    public static final Color[] COLORS = new Color[]{lightBlueCT, darkBlueCT, redCT, orangeCT, yellowCT};
 
     public FameUtil() {
         super();
@@ -68,50 +67,9 @@ public class FameUtil {
         return loc4;
     }
 
-    public static Sprite numStarsToBigImage(int param1) {
-        Sprite loc2 = numStarsToImage(param1);
-        loc2.filters.set(new DropShadowFilter(0, 0, 0, 1, 4, 4, 2));
-        loc2.scaleX = 1.4;
-        loc2.scaleY = 1.4;
-        return loc2;
-    }
-
-    public static Sprite numStarsToImage(int param1) {
-        /**Sprite loc2 = new StarGraphic();
-         if (param1 < ObjectLibrary.playerChars.size()) {
-         loc2.transform.colorTransform = lightBlueCT;
-         } else if (param1 < ObjectLibrary.playerChars.size() * 2) {
-         loc2.transform.colorTransform = darkBlueCT;
-         } else if (param1 < ObjectLibrary.playerChars.size() * 3) {
-         loc2.transform.colorTransform = redCT;
-         } else if (param1 < ObjectLibrary.playerChars.size() * 4) {
-         loc2.transform.colorTransform = orangeCT;
-         } else if (param1 < ObjectLibrary.playerChars.size() * 5) {
-         loc2.transform.colorTransform = yellowCT;
-         }
-         return loc2;*/
-
-        return new Sprite();
-    }
-
-    public static Sprite numStarsToIcon(int param1) {
-        Sprite loc2 = null;
-        loc2 = numStarsToImage(param1);
-        Sprite loc3 = new Sprite();
-        loc3.graphics.beginFill(0, 0.4);
-        int loc4 = (loc2.width / 2) + 2;
-        int loc5 = (loc2.height / 2) + 2;
-        loc3.graphics.drawCircle(loc4, loc5, loc4);
-        loc2.x = 2;
-        loc2.y = 1;
-        loc3.addChild(loc2);
-        loc3.filters.set(new DropShadowFilter(0.0, 0.0, 0.0, 0.5, 6.0, 6.0, 1.0));
-        return loc3;
-    }
 
     public static BitmapData getFameIcon() {
-        BitmapData loc1 = AssetLibrary.getImageFromSet("lofiObj3", 224);
-        return TextureRedrawer.redraw(loc1, 40, true, 0);
+        return AssetLibrary.getImageFromSet("lofiObj3", 224);
     }
 
 }

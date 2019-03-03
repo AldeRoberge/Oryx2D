@@ -1,6 +1,6 @@
 package rotmg.commands;
 
-import flash.utils.Date;
+import utils.flash.utils.Date;
 import rotmg.GameSprite;
 import rotmg.account.core.services.GetCharListTask;
 import rotmg.appengine.SavedCharacter;

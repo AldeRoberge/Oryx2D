@@ -1,6 +1,6 @@
 package rotmg;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 public class MiniMapZoomSignal extends Signal<String> {
 

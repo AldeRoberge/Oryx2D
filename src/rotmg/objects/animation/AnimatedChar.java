@@ -1,11 +1,10 @@
 package rotmg.objects.animation;
 
-import alde.flash.utils.Vector;
-import flash.display.BitmapData;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.utils.Dictionary;
-import rotmg.map.Camera;
+import utils.flash.Vector;
+import utils.flash.display.BitmapData;
+import utils.flash.geom.Point;
+import utils.flash.geom.Rectangle;
+import utils.flash.utils.Dictionary;
 import rotmg.util.MaskedImage;
 import rotmg.util.MaskedImageSet;
 

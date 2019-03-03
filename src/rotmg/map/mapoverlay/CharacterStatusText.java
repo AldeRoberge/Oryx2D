@@ -1,16 +1,13 @@
 package rotmg.map.mapoverlay;
 
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.display.Bitmap;
-import flash.display.BitmapData;
-import flash.display.Sprite;
-import flash.geom.Matrix;
-import flash.geom.Point;
-import rotmg.map.Camera;
+import utils.flash.consumer.SignalConsumer;
+import utils.flash.display.Bitmap;
+import utils.flash.display.BitmapData;
+import utils.flash.geom.Matrix;
+import utils.flash.geom.Point;
 import rotmg.objects.GameObject;
 import rotmg.text.view.stringBuilder.StringBuilder;
 import rotmg.text.view.stringBuilder.TextFieldDisplayConcrete;
-import spark.filters.GlowFilter;
 
 public class CharacterStatusText extends Sprite implements IMapOverlayElement {
 
@@ -42,7 +39,6 @@ public class CharacterStatusText extends Sprite implements IMapOverlayElement {
         this.lifetime = param3;
         this.offsetTime = param4;
         this.textDisplay = new TextFieldDisplayConcrete().setSize(24).setColor(param2).setBold(true);
-        this.textDisplay.filters.set(new GlowFilter(0, 1, 4, 4, 2, 1));
         this.addChild(this.textDisplay);
         this.visible = false;
     }

@@ -1,8 +1,8 @@
 package rotmg.util;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.utils.Dictionary;
 import org.w3c.dom.Document;
 import rotmg.WebMain;
 import rotmg.map.GroundLibrary;

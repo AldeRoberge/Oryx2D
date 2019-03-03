@@ -1,8 +1,6 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import flash.display.IGraphicsData;
-import rotmg.map.Camera;
+import utils.flash.Vector;
 import rotmg.map.Map;
 import rotmg.stage3D.graphic3D.Object3DStage3D;
 

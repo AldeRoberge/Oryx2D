@@ -1,9 +1,8 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import flash.utils.Dictionary;
-import rotmg.util.ConditionEffect;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.utils.Dictionary;
 
 /**
  * This is a VERY close match to the client.

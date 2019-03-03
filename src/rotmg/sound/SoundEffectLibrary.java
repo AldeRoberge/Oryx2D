@@ -1,6 +1,6 @@
 package rotmg.sound;
 
-import flash.utils.Dictionary;
+import utils.flash.utils.Dictionary;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package rotmg.account.core.signals;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 public class CharListDataSignal extends Signal {
 

@@ -1,11 +1,10 @@
 package rotmg.particles;
 
-import alde.flash.utils.Vector;
-import flash.display.BitmapData;
+import utils.flash.Vector;
+import utils.flash.display.BitmapData;
 import rotmg.objects.EffectProperties;
 import rotmg.objects.GameObject;
 import rotmg.util.AssetLibrary;
-import rotmg.util.TextureRedrawer;
 
 public class ParticleGenerator extends ParticleEffect {
 

@@ -1,14 +1,12 @@
 package rotmg;
 
-import alde.flash.utils.XML;
-import alde.flash.utils.consumer.EventConsumer;
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.display.Stage;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
-import flash.system.Capabilities;
-import robotlegs.bender.bundles.mvcs.components.StatsTabHotKeyInputSignal;
+import utils.flash.XML;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.consumer.SignalConsumer;
+import utils.flash.events.Event;
+import utils.flash.events.KeyboardEvent;
+import utils.flash.events.MouseEvent;
+import utils.flash.system.Capabilities;
 import rotmg.application.api.ApplicationSetup;
 import rotmg.application.impl.ProductionSetup;
 import rotmg.chat.model.ChatMessage;
@@ -16,10 +14,6 @@ import rotmg.constants.GeneralConstants;
 import rotmg.constants.UseType;
 import rotmg.dialogs.CloseDialogsSignal;
 import rotmg.dialogs.OpenDialogSignal;
-import rotmg.friends.FriendsPopupView;
-import rotmg.friends.model.FriendModel;
-import rotmg.friends.view.FriendListView;
-import rotmg.map.AbstractMap;
 import rotmg.messaging.GameServerConnection;
 import rotmg.model.PotionInventoryModel;
 import rotmg.objects.GameObject;
@@ -37,7 +31,6 @@ import rotmg.ui.popups.signals.CloseAllPopupsSignal;
 import rotmg.ui.popups.signals.ClosePopupByClassSignal;
 import rotmg.ui.popups.signals.ShowPopupSignal;
 import rotmg.util.KeyCodes;
-import rotmg.util.TextureRedrawer;
 
 import static rotmg.tutorial.doneAction.doneAction;
 
@@ -76,8 +69,6 @@ public class MapUserInput {
 
     private SetTextBoxVisibilitySignal setTextBoxVisibility;
 
-    private StatsTabHotKeyInputSignal statsTabHotKeyInputSignal;
-
     private MiniMapZoomSignal miniMapZoom;
 
     private UseBuyPotionSignal useBuyPotionSignal;
@@ -114,7 +105,6 @@ public class MapUserInput {
         this.potionInventoryModel = PotionInventoryModel.getInstance();
         this.tabStripModel = TabStripModel.getInstance();
         this.layers = Layers.getInstance();
-        this.statsTabHotKeyInputSignal = StatsTabHotKeyInputSignal.getInstance();
         this.exitGame = ExitGameSignal.getInstance();
         this.openDialogSignal = OpenDialogSignal.getInstance();
         this.closeDialogSignal = CloseDialogsSignal.getInstance();
@@ -302,7 +292,6 @@ public class MapUserInput {
         double loc9 = 0;
         boolean loc10 = false;
         ShowPopupSignal loc11 = null;
-        FriendModel loc12 = null;
         OpenDialogSignal loc13 = null;
         Stage loc2 = this.gs.stage;
         /**this.currentString = this.currentString + param1.keyCode;
@@ -461,22 +450,6 @@ public class MapUserInput {
             Data.needsRandomRealm = false;
             Parameters.save();
 
-        } else if (param1.keyCode == Parameters.data.friendList) {
-            Data.friendListDisplayFlag = !Data.friendListDisplayFlag;
-            if (Data.friendListDisplayFlag) {
-                if (Parameters.USE_NEW_FRIENDS_UI) {
-                    loc11 = ShowPopupSignal.getInstance();
-                    loc12 = FriendModel.getInstance();
-                    loc11.dispatch(new FriendsPopupView(loc12.hasInvitations));
-                } else {
-                    loc13 = OpenDialogSignal.getInstance();
-                    loc13.dispatch(new FriendListView());
-                }
-            } else {
-                this.closeDialogSignal.dispatch();
-                this.closePopupByClassSignal.dispatch(FriendsPopupView.class);
-            }
-
         } else if (param1.keyCode == Parameters.data.options) {
             CloseAllPopupsSignal.getInstance().dispatch();
             this.clearInput();
@@ -492,11 +465,6 @@ public class MapUserInput {
                 //Parameters.save();
                 //loc2.displayState = !!Parameters.stats.fullscreenMode ? "fullScreenInteractive" : StageDisplayState.NORMAL;
             }
-
-        } else if (param1.keyCode == Parameters.data.switchTabs) {
-            loc4 = CloseAllPopupsSignal.getInstance();
-            loc4.dispatch();
-            this.statsTabHotKeyInputSignal.dispatch();
 
         } else if (param1.keyCode == Parameters.data.interact) {
             loc4 = CloseAllPopupsSignal.getInstance();

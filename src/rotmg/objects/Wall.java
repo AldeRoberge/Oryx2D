@@ -1,11 +1,9 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import flash.display.BitmapData;
-import flash.display.IGraphicsData;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.display.BitmapData;
 import rotmg.engine3d.Face3D;
-import rotmg.map.Camera;
 import rotmg.util.BitmapUtil;
 
 public class Wall extends GameObject {

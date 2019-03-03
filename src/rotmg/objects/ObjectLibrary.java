@@ -1,17 +1,15 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import flash.display.BitmapData;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.display.BitmapData;
+import utils.flash.utils.Dictionary;
 import rotmg.constants.GeneralConstants;
 import rotmg.constants.ItemConstants;
 import rotmg.messaging.data.StatData;
 import rotmg.objects.animation.AnimationsData;
 import rotmg.parameters.Parameters;
 import rotmg.util.AssetLibrary;
-import rotmg.util.ConversionUtil;
-import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
 
 import java.lang.reflect.InvocationTargetException;

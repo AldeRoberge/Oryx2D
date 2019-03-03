@@ -1,6 +1,6 @@
 package rotmg.particles;
 
-import alde.flash.utils.XML;
+import utils.flash.XML;
 import rotmg.objects.TextureData;
 import rotmg.objects.TextureDataConcrete;
 import rotmg.objects.animation.AnimationsData;

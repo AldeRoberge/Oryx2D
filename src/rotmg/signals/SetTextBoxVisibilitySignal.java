@@ -1,6 +1,6 @@
 package rotmg.signals;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 public class SetTextBoxVisibilitySignal extends Signal<Boolean> {
 

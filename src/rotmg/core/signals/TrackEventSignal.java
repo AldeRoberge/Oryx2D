@@ -1,6 +1,6 @@
 package rotmg.core.signals;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 import rotmg.core.service.TrackingData;
 
 public class TrackEventSignal extends Signal<TrackingData> {

@@ -1,7 +1,5 @@
 package rotmg.pets.view.components;
 
-import flash.display.Sprite;
-
 public class PopupWindowBackground extends Sprite {
 
     public static final String HORIZONTAL_DIVISION = "HORIZONTAL_DIVISION";

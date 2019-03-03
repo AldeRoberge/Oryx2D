@@ -1,6 +1,6 @@
 package oryx2D.graphics;
 
-import flash.display.BitmapData;
+import utils.flash.display.BitmapData;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

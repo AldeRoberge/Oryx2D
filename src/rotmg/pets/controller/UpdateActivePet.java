@@ -1,6 +1,6 @@
 package rotmg.pets.controller;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 public class UpdateActivePet extends Signal<Integer> {
 

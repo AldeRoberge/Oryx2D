@@ -1,6 +1,6 @@
 package rotmg.focus.control;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 public class SetGameFocusSignal extends Signal<String> {
 

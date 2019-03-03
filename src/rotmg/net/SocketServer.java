@@ -1,6 +1,6 @@
 package rotmg.net;
 
-import com.hurlant.crypto.symmetric.ICipher;
+import utils.symmetric.ICipher;
 import rotmg.AGameSprite;
 import rotmg.messaging.GameServerConnectionConcrete;
 import rotmg.net.impl.Message;

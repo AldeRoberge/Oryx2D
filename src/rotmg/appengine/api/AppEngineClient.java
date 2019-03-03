@@ -1,6 +1,6 @@
 package rotmg.appengine.api;
 
-import org.osflash.OnceSignal;
+import utils.osflash.OnceSignal;
 
 public abstract class AppEngineClient {
 

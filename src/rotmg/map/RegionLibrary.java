@@ -1,7 +1,7 @@
 package rotmg.map;
 
-import alde.flash.utils.XML;
-import flash.utils.Dictionary;
+import utils.flash.XML;
+import utils.flash.utils.Dictionary;
 
 /**
  * 100% match

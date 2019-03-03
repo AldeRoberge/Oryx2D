@@ -1,10 +1,8 @@
 package rotmg.map.mapoverlay;
 
-import alde.flash.utils.Vector;
-import flash.display.Sprite;
+import utils.flash.Vector;
 import robotlegs.bender.bundles.mvcs.components.QueuedStatusText;
 import robotlegs.bender.bundles.mvcs.components.QueuedStatusTextList;
-import rotmg.map.Camera;
 
 public class MapOverlay extends Sprite {
 

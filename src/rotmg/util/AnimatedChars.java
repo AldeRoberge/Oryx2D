@@ -1,7 +1,7 @@
 package rotmg.util;
 
-import alde.flash.utils.StaticAssetLoaderUtility;
-import flash.display.BitmapData;
+import utils.flash.StaticAssetLoaderUtility;
+import utils.flash.display.BitmapData;
 import rotmg.objects.animation.AnimatedChar;
 
 import java.util.ArrayList;

@@ -9,7 +9,6 @@ import rotmg.account.core.WebAccount;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -93,13 +92,12 @@ public class LoaderUI {
         fillerPanel1.add(emailPanel);
 
         this.emailField = new HintTextField(this.EMAIL.getValue(), "Email");
-        
-        
-        
+
         emailField.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
 			public void changedUpdate(DocumentEvent arg0) {
+			    System.out.println("Changed email");
 				EMAIL.setValue(emailField.getText());
 			}
 
@@ -110,8 +108,7 @@ public class LoaderUI {
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
 			}
-        	
-        	
+
         });
         
         emailPanel.add(this.emailField);
@@ -126,6 +123,7 @@ public class LoaderUI {
 
 			@Override
 			public void changedUpdate(DocumentEvent arg0) {
+			    System.out.println("Changed password");
 				EMAIL.setValue(emailField.getText());
 			}
 

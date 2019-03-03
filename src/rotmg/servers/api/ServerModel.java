@@ -1,6 +1,6 @@
 package rotmg.servers.api;
 
-import alde.flash.utils.Vector;
+import utils.flash.Vector;
 import rotmg.net.Server;
 import rotmg.servers.api.model.LiveServerModel;
 

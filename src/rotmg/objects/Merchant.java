@@ -1,14 +1,13 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import flash.display.BitmapData;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.display.BitmapData;
+import utils.flash.geom.ColorTransform;
+import utils.flash.geom.Matrix;
 import rotmg.GameSprite;
 import rotmg.constants.InventoryOwnerTypes;
 import rotmg.language.model.StringMap;
-import rotmg.map.Camera;
 import rotmg.map.Map;
 import rotmg.model.AddSpeechBalloonVO;
 import rotmg.signals.AddSpeechBalloonSignal;

@@ -1,7 +1,7 @@
 package rotmg.objects;
 
-import alde.flash.utils.XML;
-import flash.display.BitmapData;
+import utils.flash.XML;
+import utils.flash.display.BitmapData;
 
 public class SellableObject extends GameObject {
 

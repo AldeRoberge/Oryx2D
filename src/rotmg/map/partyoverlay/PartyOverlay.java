@@ -1,10 +1,8 @@
 package rotmg.map.partyoverlay;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.consumer.EventConsumer;
-import flash.display.Sprite;
-import flash.events.Event;
-import rotmg.map.Camera;
+import utils.flash.Vector;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.events.Event;
 import rotmg.map.Map;
 import rotmg.objects.Party;
 import rotmg.objects.Player;

@@ -1,6 +1,6 @@
 package rotmg.core.signals;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 import rotmg.ui.tooltip.ToolTip;
 
 public class ShowTooltipSignal extends Signal<ToolTip> {

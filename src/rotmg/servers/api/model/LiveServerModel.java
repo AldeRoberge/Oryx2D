@@ -1,6 +1,6 @@
 package rotmg.servers.api.model;
 
-import alde.flash.utils.Vector;
+import utils.flash.Vector;
 import rotmg.core.model.PlayerModel;
 import rotmg.net.LatLong;
 import rotmg.net.Server;

@@ -1,8 +1,5 @@
 package rotmg.util;
 
-import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
-
 public class SpriteUtil {
 
     public static void safeAddChild(DisplayObjectContainer param1, DisplayObject param2) {

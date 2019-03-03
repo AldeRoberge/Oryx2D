@@ -18,7 +18,9 @@ import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
 
-    private JFrame frame;
+	private static final long serialVersionUID = 1L;
+	
+	private JFrame frame;
     private static final String TITLE = "Oryx2D";
 
     private static final double frameRate = 60;
@@ -30,7 +32,7 @@ public class Game extends Canvas implements Runnable {
     private static final int width = (int) ((800 / scale) * UI_SCALING);
     private static final int height = (int) ((600 / scale) * UI_SCALING);
 
-    //
+    // FPS
 
     private static boolean showFPS = true;
     private int currentFPS = 0;

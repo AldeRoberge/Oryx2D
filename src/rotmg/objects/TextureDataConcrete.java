@@ -1,10 +1,10 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.display.BitmapData;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.consumer.SignalConsumer;
+import utils.flash.display.BitmapData;
+import utils.flash.utils.Dictionary;
 import rotmg.appengine.RemoteTexture;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.util.AnimatedChars;

@@ -1,9 +1,9 @@
 package rotmg.appengine;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
-import flash.events.Event;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
+import utils.flash.XML;
+import utils.flash.events.Event;
+import utils.flash.utils.Dictionary;
 import rotmg.account.core.Account;
 import rotmg.account.core.WebAccount;
 import rotmg.dialogs.OpenDialogSignal;

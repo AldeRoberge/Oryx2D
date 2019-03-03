@@ -1,6 +1,6 @@
 package rotmg.net.api;
 
-import alde.flash.utils.consumer.MessageConsumer;
+import utils.flash.consumer.MessageConsumer;
 
 public interface MessageMapping {
 

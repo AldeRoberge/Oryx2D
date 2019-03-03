@@ -1,6 +1,6 @@
 package rotmg.pets.controller.reskin;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 public class ReskinPetFlowStartSignal extends Signal {
 

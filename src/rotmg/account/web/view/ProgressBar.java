@@ -1,7 +1,5 @@
 package rotmg.account.web.view;
 
-import flash.display.Sprite;
-
 public class ProgressBar extends Sprite {
 
     private static final int BEVEL = 4;

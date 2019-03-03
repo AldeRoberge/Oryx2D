@@ -1,8 +1,7 @@
 package rotmg.application.model;
 
 
-import flash.display.DisplayObjectContainer;
-import flash.system.Capabilities;
+import utils.flash.system.Capabilities;
 
 public class PlatformModel {
 

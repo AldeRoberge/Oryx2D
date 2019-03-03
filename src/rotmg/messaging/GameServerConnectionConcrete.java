@@ -1,29 +1,21 @@
 package rotmg.messaging;
 
-import alde.flash.utils.RSA;
-import alde.flash.utils.XML;
-import alde.flash.utils.consumer.EventConsumer;
-import alde.flash.utils.consumer.MessageConsumer;
-import com.hurlant.crypto.symmetric.ICipher;
-import flash.events.Event;
-import flash.events.TimerEvent;
-import flash.utils.timer.Timer;
-import robotlegs.bender.bundles.mvcs.components.QueuedStatusText;
+import utils.flash.RSA;
+import utils.flash.XML;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.consumer.MessageConsumer;
+import utils.symmetric.ICipher;
+import utils.flash.events.Event;
+import utils.flash.events.TimerEvent;
+import utils.flash.utils.timer.Timer;
 import rotmg.AGameSprite;
 import rotmg.account.core.WebAccount;
-import rotmg.arena.model.ArenaDeathSignal;
-import rotmg.arena.model.CurrentArenaRunModel;
-import rotmg.arena.model.ImminentArenaWaveSignal;
-import rotmg.characters.reskin.control.ReskinHandler;
 import rotmg.chat.control.TextHandler;
 import rotmg.chat.model.ChatMessage;
 import rotmg.classes.model.CharacterClass;
 import rotmg.classes.model.ClassesModel;
 import rotmg.constants.GeneralConstants;
 import rotmg.constants.ItemConstants;
-import rotmg.dailyLogin.signal.ClaimDailyRewardResponseSignal;
-import rotmg.dailyQuests.signal.QuestFetchCompleteSignal;
-import rotmg.dailyQuests.signal.QuestRedeemCompleteSignal;
 import rotmg.death.control.HandleDeathSignal;
 import rotmg.death.control.ZombifySignal;
 import rotmg.dialogs.CloseDialogsSignal;
@@ -32,7 +24,6 @@ import rotmg.events.KeyInfoResponseSignal;
 import rotmg.events.ReconnectEvent;
 import rotmg.focus.control.SetGameFocusSignal;
 import rotmg.focus.control.UpdateGroundTileSignal;
-import rotmg.map.AbstractMap;
 import rotmg.map.GroundLibrary;
 import rotmg.map.Map;
 import rotmg.maploading.signals.ChangeMapSignal;
@@ -70,8 +61,6 @@ import rotmg.ui.signals.ShowKeyUISignal;
 import rotmg.ui.signals.UpdateBackpackTabSignal;
 import rotmg.ui.view.NotEnoughFameDialog;
 import rotmg.ui.view.NotEnoughGoldDialog;
-import rotmg.util.ConditionEffect;
-import rotmg.util.ConversionUtil;
 import rotmg.util.Currency;
 import rotmg.util.TextKey;
 
@@ -79,7 +68,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static flash.utils.timer.getTimer.getTimer;
+import static utils.flash.utils.timer.getTimer.getTimer;
 
 public class GameServerConnectionConcrete extends GameServerConnection {
 
@@ -104,13 +93,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     private PetFeedResultSignal petFeedResult;
     private CloseDialogsSignal closeDialogs;
     private OpenDialogSignal openDialog;
-    private ArenaDeathSignal arenaDeath;
-    private ImminentArenaWaveSignal imminentWave;
-    private QuestFetchCompleteSignal questFetchComplete;
-    private QuestRedeemCompleteSignal questRedeemComplete;
     private KeyInfoResponseSignal keyInfoResponse;
-    private ClaimDailyRewardResponseSignal claimDailyRewardResponse;
-    private CurrentArenaRunModel currentArenaRun;
     private ClassesModel classesModel;
     private GameModel model;
     private UpdateActivePet updateActivePet;
@@ -136,12 +119,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         this.closeDialogs = CloseDialogsSignal.getInstance();
         this.changeMapSignal = ChangeMapSignal.getInstance();
         this.openDialog = OpenDialogSignal.getInstance();
-        this.arenaDeath = ArenaDeathSignal.getInstance();
-        this.imminentWave = ImminentArenaWaveSignal.getInstance();
-        this.questFetchComplete = QuestFetchCompleteSignal.getInstance();
-        this.questRedeemComplete = QuestRedeemCompleteSignal.getInstance();
         this.keyInfoResponse = KeyInfoResponseSignal.getInstance();
-        this.claimDailyRewardResponse = ClaimDailyRewardResponseSignal.getInstance();
         this.handleDeath = HandleDeathSignal.getInstance();
         this.zombify = ZombifySignal.getInstance();
         this.setGameFocus = SetGameFocusSignal.getInstance();
@@ -308,7 +286,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 		_loc1.map(LOGIN_REWARD_MSG).toMessage(ClaimDailyRewardResponse.class).toMethod(new MessageConsumer<>(this::onLoginRewardResponse));**/
 
         //The following is a map that is in a IConfig thing, I put it here for debugging purpose (see CharactersConfig)
-        loc1.map(GameServerConnection.RESKIN).toMessage(Reskin.class).toHandler(ReskinHandler.class);
         //This one awsell (see ChatConfig)
         loc1.map(GameServerConnection.TEXT).toMessage(Text.class).toHandler(TextHandler.class);
 
@@ -949,7 +926,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private void onNotification(Notification notification) {
-        QueuedStatusText text = null;
         GameObject go = AbstractMap.goDict.get(notification.objectId);
         if (go != null) {
 			/*StringBuilder b = new StringBuilder(notification.message); // Workaround

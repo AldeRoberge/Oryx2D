@@ -1,10 +1,9 @@
 package rotmg.pets.data;
 
-import alde.flash.utils.XML;
-import flash.utils.Dictionary;
+import utils.flash.XML;
+import utils.flash.utils.Dictionary;
 import rotmg.appengine.SavedCharacter;
 import rotmg.core.model.PlayerModel;
-import rotmg.map.AbstractMap;
 import rotmg.objects.ObjectLibrary;
 import rotmg.pets.controller.NotifyActivePetUpdated;
 

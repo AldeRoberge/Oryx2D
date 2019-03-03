@@ -1,14 +1,12 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import flash.display.*;
-import flash.geom.Matrix;
-import flash.geom.Point;
-import flash.geom.Vector3D;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
+import utils.flash.display.*;
+import utils.flash.geom.Matrix;
+import utils.flash.geom.Point;
+import utils.flash.geom.Vector3D;
+import utils.flash.utils.Dictionary;
 import rotmg.engine3d.Point3D;
-import rotmg.map.AbstractMap;
-import rotmg.map.Camera;
 import rotmg.map.Map;
 import rotmg.objects.particles.HitEffect;
 import rotmg.objects.particles.SparkParticle;

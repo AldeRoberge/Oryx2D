@@ -1,7 +1,5 @@
 package rotmg.core.view;
 
-import flash.display.Sprite;
-
 public class ScreensView extends Sprite {
 
     private Sprite current;

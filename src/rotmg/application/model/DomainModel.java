@@ -1,8 +1,8 @@
 package rotmg.application.model;
 
-import alde.flash.utils.Vector;
-import flash.net.LocalConnection;
-import flash.system.Security;
+import utils.flash.Vector;
+import utils.flash.net.LocalConnection;
+import utils.flash.system.Security;
 
 public class DomainModel {
 

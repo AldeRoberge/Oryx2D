@@ -1,8 +1,8 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import flash.display.BitmapData;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
+import utils.flash.display.BitmapData;
+import utils.flash.utils.Dictionary;
 import rotmg.objects.animation.AnimatedChar;
 
 

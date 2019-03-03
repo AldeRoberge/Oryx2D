@@ -1,11 +1,7 @@
 package rotmg.util;
 
-import alde.flash.utils.Vector;
-import flash.display.GraphicsEndFill;
-import flash.display.GraphicsPath;
-import flash.display.GraphicsPathCommand;
-import flash.display.GraphicsStroke;
-import flash.geom.Matrix;
+import utils.flash.Vector;
+import utils.flash.geom.Matrix;
 
 /**
  * About 10% done

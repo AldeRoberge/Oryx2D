@@ -1,7 +1,7 @@
 package rotmg.objects.animation;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.XML;
+import utils.flash.Vector;
+import utils.flash.XML;
 
 /**
  * This is a 100% match

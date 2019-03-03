@@ -1,17 +1,15 @@
 package rotmg.account.core.services;
 
-import alde.flash.utils.XML;
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.events.TimerEvent;
-import flash.utils.timer.Timer;
-import mx.logging.ILogger;
+import utils.flash.XML;
+import utils.flash.consumer.SignalConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rotmg.account.core.WebAccount;
 import rotmg.account.core.signals.CharListDataSignal;
 import rotmg.account.securityQuestions.data.SecurityQuestionsModel;
 import rotmg.account.web.view.MigrationDialog;
 import rotmg.account.web.view.WebLoginDialog;
 import rotmg.appengine.api.AppEngineClient;
-import rotmg.components.TimerCallback;
 import rotmg.core.model.PlayerModel;
 import rotmg.core.signals.SetLoadingMessageSignal;
 import rotmg.dialogs.CloseDialogsSignal;
@@ -19,8 +17,11 @@ import rotmg.dialogs.OpenDialogSignal;
 import rotmg.lib.tasks.tasks.BaseTask;
 import rotmg.parameters.Parameters;
 import rotmg.util.TextKey;
+import utils.flash.utils.timer.Timer;
 
 public class GetCharListTask extends BaseTask {
+
+    Logger log = LoggerFactory.getLogger(GetCharListTask.class);
 
     private static final int ONE_SECOND_IN_MS = 1000;
 
@@ -31,7 +32,6 @@ public class GetCharListTask extends BaseTask {
     public PlayerModel model;
     public SetLoadingMessageSignal setLoadingMessage;
     public CharListDataSignal charListData;
-    public ILogger logger;
     public OpenDialogSignal openDialog;
     public CloseDialogsSignal closeDialogs;
     public SecurityQuestionsModel securityQuestionsModel;
@@ -39,6 +39,7 @@ public class GetCharListTask extends BaseTask {
     private Timer retryTimer;
     private int numRetries = 0;
     private boolean fromMigration = false;
+
 
     public GetCharListTask() {
         super();
@@ -52,7 +53,7 @@ public class GetCharListTask extends BaseTask {
     }
 
     protected void startTask() {
-        ILogger.info("GetUserDataTask start");
+        log.info("GetUserDataTask start");
         this.requestData = this.makeRequestData();
         this.sendRequest();
         Parameters.sendLogin = false;
@@ -136,14 +137,21 @@ public class GetCharListTask extends BaseTask {
             this.clearAccountAndReloadCharacters();
         } else if (param1.equals("Account is under maintenance")) {
             this.setLoadingMessage.dispatch("This account has been banned");
-            new TimerCallback(5, new SignalConsumer<>(this::clearAccountAndReloadCharacters));
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            clearAccountAndReloadCharacters();
         } else {
             this.waitForASecondThenRetryRequest();
         }
     }
 
     private void clearAccountAndReloadCharacters() {
-        ILogger.info("GetUserDataTask invalid credentials");
+        log.info("GetUserDataTask invalid credentials");
         this.account.clear();
         //this.client.complete.addOnce(new SignalConsumer<>(this::onComplete));
         this.requestData = this.makeRequestData();
@@ -151,7 +159,7 @@ public class GetCharListTask extends BaseTask {
     }
 
     private void waitForASecondThenRetryRequest() {
-        ILogger.info("GetUserDataTask error - retrying");
+        log.info("GetUserDataTask error - retrying");
         this.retryTimer = new Timer(ONE_SECOND_IN_MS, 1);
         //this.retryTimer.addEventListener(TimerEvent.TIMER_COMPLETE, new EventConsumer<>(this::onRetryTimer));
         this.retryTimer.start();
@@ -163,7 +171,7 @@ public class GetCharListTask extends BaseTask {
         this.retryTimer = null;
     }
 
-    private void onRetryTimer(TimerEvent param1) {
+    private void onRetryTimer() {
         this.stopRetryTimer();
         if (this.numRetries < MAX_RETRIES) {
             this.sendRequest();

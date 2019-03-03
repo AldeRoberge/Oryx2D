@@ -1,18 +1,15 @@
 package rotmg.map.mapoverlay;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.consumer.EventConsumer;
-import flash.display.*;
-import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFormat;
-import rotmg.map.Camera;
+import utils.flash.Vector;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.events.MouseEvent;
+import utils.flash.geom.Point;
+import utils.flash.text.TextField;
+import utils.flash.text.TextFieldAutoSize;
+import utils.flash.text.TextFormat;
 import rotmg.objects.GameObject;
 import rotmg.parameters.Parameters.Data;
 import rotmg.util.GraphicsUtil;
-import spark.filters.DropShadowFilter;
 
 public class SpeechBalloon extends Sprite implements IMapOverlayElement {
 
@@ -89,7 +86,6 @@ public class SpeechBalloon extends Sprite implements IMapOverlayElement {
         int loc16 = this.height;
         this.path.data.splice(12, 0, (loc15 / 2) + 8, loc16 + 6, loc15 / 2, loc16 + 18, (loc15 / 2) - 8, loc16 + 6);
         this.graphics.drawGraphicsData(this.graphicsData);
-        this.filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 16, 16));
         this.offset.y = -this.height - (this.go.texture.height * (param1.size / 100) * 5) - 2;
         this.visible = false;
         this.addEventListener(MouseEvent.RIGHT_CLICK, new EventConsumer<>(this::onSpeechBalloonRightClicked));

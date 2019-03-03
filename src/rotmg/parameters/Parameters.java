@@ -1,14 +1,10 @@
 package rotmg.parameters;
 
-import alde.flash.utils.Vector;
-import flash.display.DisplayObject;
-import flash.events.Event;
-import flash.net.SharedObject;
-import flash.system.Capabilities;
-import flash.utils.Dictionary;
+import utils.flash.Vector;
 import rotmg.map.Map;
 import rotmg.util.KeyCodes;
 import rotmg.util.MoreDateUtil;
+import utils.flash.utils.Dictionary;
 
 /**
  * The AS3 version uses Parameters.stats.value (Object)
@@ -34,15 +30,13 @@ public class Parameters {
     public static final String RANDOM1 = "311f80691451c71b09a13a2a6e";
     public static final String RANDOM2 = "72c5583cafb6818995cbd74b80";
 
-    /**
-     * RSA formatted
-     * AS3 format : "-----BEGIN PUBLIC KEY-----\n" + "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCKFctVrhfF3m2Kes0FBL/JFeO" + "cmNg9eJz8k/hQy1kadD+XFUpluRqa//Uxp2s9W2qE0EoUCu59ugcf/p7lGuL99Uo" + "SGmQEynkBvZct+/M40L0E0rZ4BVgzLOJmIbXMp0J4PnPcb6VLZvxazGcmSfjauC7" + "F3yWYqUbZd/HCBtawwIDAQAB\n" + "-----END PUBLIC KEY-----";
-     */
+
+    //NOTE: The RSA is formatted. No '-----BEGIN PUBLIC KEY-----' etc.
     public static final String RSA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCKFctVrhfF3m2Kes0FBL/JFeOcmNg9eJz8k/hQy1kadD+XFUpluRqa//Uxp2s9W2qE0EoUCu59ugcf/p7lGuL99UoSGmQEynkBvZct+/M40L0E0rZ4BVgzLOJmIbXMp0J4PnPcb6VLZvxazGcmSfjauC7F3yWYqUbZd/HCBtawwIDAQAB\n";
     public static final Vector<Integer> skinTypes16 = new Vector<>(1027, 1028, 1029, 1030, 10973, 19494, 19531);
     public static final Vector<Integer> itemTypes16 = new Vector<>(5473, 5474, 5475, 5476, 10939, 19494, 19531);
     public static int PORT = 2050;
-    public static DisplayObject root;
+
     public static Data data = new Data();
     public static boolean GPURenderError = false;
     public static boolean sessionStarted = false;
@@ -66,7 +60,6 @@ public class Parameters {
     public static int MAPTEST_GAMEID = -6;
     public static Object stats;
     private static Dictionary keyNames = new Dictionary();
-    private static SharedObject savedOptions = null;
 
     public Parameters() {
         super();
@@ -84,14 +77,7 @@ public class Parameters {
     }
 
     public static void save() {
-        try {
-            if (savedOptions != null) {
-                savedOptions.flush();
-            }
-            return;
-        } catch (Error error) {
-            return;
-        }
+        // TODO save
     }
 
     private static void setDefaultKey(String param1, int param2) {
@@ -115,7 +101,7 @@ public class Parameters {
         return !GPURenderError && Data.GPURender && !Map.forceSoftwareRender;
     }
 
-    public static void clearGpuRenderEvent(Event param1) {
+    public static void clearGpuRenderEvent() {
         clearGpuRender();
     }
 
@@ -207,11 +193,7 @@ public class Parameters {
         setDefault("disablePlayersHitParticles", false);
         setDefault("cursorSelect", "4");
         setDefault("friendListDisplayFlag", false);
-        if (Capabilities.playerType.equals("Desktop")) {
-            setDefault("GPURender", false);
-        } else {
-            setDefault("GPURender", false);
-        }
+        setDefault("GPURender", false);
         setDefault("forceChatQuality", false);
         setDefault("hidePlayerChat", false);
         setDefault("chatStarRequirement", 2);

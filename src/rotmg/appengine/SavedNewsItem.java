@@ -1,8 +1,7 @@
 package rotmg.appengine;
 
-import flash.display.BitmapData;
+import utils.flash.display.BitmapData;
 import rotmg.util.AssetLibrary;
-import rotmg.util.TextureRedrawer;
 
 public class SavedNewsItem {
 

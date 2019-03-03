@@ -1,7 +1,7 @@
 package rotmg.objects;
 
-import flash.display.BitmapData;
-import flash.geom.ColorTransform;
+import utils.flash.display.BitmapData;
+import utils.flash.geom.ColorTransform;
 import rotmg.stage3D.GraphicsFillExtra;
 
 public class FlashDescription {

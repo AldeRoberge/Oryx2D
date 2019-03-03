@@ -1,10 +1,8 @@
 package rotmg.pets.view.components;
 
-import alde.flash.utils.consumer.EventConsumer;
-import flash.display.DisplayObject;
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import org.osflash.signals.Signal;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.events.MouseEvent;
+import utils.osflash.signals.Signal;
 
 public class DialogCloseButton extends Sprite {
 

@@ -1,6 +1,6 @@
 package rotmg.objects;
 
-import alde.flash.utils.XML;
+import utils.flash.XML;
 import rotmg.GameSprite;
 import rotmg.ui.panels.Panel;
 

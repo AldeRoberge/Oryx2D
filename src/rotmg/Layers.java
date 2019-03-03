@@ -1,7 +1,5 @@
 package rotmg;
 
-import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
 import rotmg.core.view.ScreensView;
 import rotmg.dialogs.view.DialogsView;
 import rotmg.tooltips.view.TooltipsView;

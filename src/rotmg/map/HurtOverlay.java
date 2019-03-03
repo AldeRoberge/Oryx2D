@@ -1,8 +1,7 @@
 package rotmg.map;
 
-import alde.flash.utils.Vector;
-import flash.airglobal.Shape;
-import flash.display.IGraphicsData;
+import utils.flash.Vector;
+import utils.flash.airglobal.Shape;
 
 public class HurtOverlay extends Shape {
 

@@ -1,21 +1,16 @@
 package rotmg.map.partyoverlay;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.consumer.EventConsumer;
-import flash.airglobal.Graphics;
-import flash.airglobal.Shape;
-import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import rotmg.map.Camera;
+import utils.flash.Vector;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.airglobal.Graphics;
+import utils.flash.airglobal.Shape;
+import utils.flash.events.MouseEvent;
+import utils.flash.geom.Point;
+import utils.flash.geom.Rectangle;
 import rotmg.objects.GameObject;
 import rotmg.ui.menu.Menu;
 import rotmg.ui.tooltip.ToolTip;
 import rotmg.util.RectangleUtil;
-import rotmg.util.Trig;
-import spark.filters.DropShadowFilter;
 
 public class GameObjectArrow extends Sprite {
 
@@ -56,7 +51,6 @@ public class GameObjectArrow extends Sprite {
         this.addEventListener(MouseEvent.MOUSE_OVER, new EventConsumer<>(this::onMouseOver));
         this.addEventListener(MouseEvent.MOUSE_OUT, new EventConsumer<>(this::onMouseOut));
         this.addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-        this.filters = new Vector<>(new DropShadowFilter(0, 0, 0, 1, 8, 8));
         this.visible = false;
     }
 

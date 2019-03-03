@@ -1,11 +1,12 @@
 package rotmg.appengine;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.display.BitmapData;
-import flash.utils.Date;
-import ion.utils.png.PNGDecoder;
-import mx.logging.ILogger;
+import utils.flash.Vector;
+import utils.flash.consumer.SignalConsumer;
+import utils.flash.display.BitmapData;
+import utils.flash.utils.Date;
+import utils.png.PNGDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rotmg.util.BitmapDataSpy;
 
 /**
@@ -25,14 +26,13 @@ public class RemoteTexture {
 
     public SignalConsumer callback;
 
-    private ILogger logger;
+    private Logger log = LoggerFactory.getLogger(RemoteTexture.class);
 
     public RemoteTexture(String param1, String param2, SignalConsumer param3) {
         super();
         this.id = param1;
         this.instance = param2;
         this.callback = param3;
-        this.logger = ILogger.getInstance();
     }
 
     public void run() {
@@ -66,7 +66,7 @@ public class RemoteTexture {
 
     public void reportError(String param1) {
         param1 = ERROR_PATTERN.replace("{ERROR}", param1).replace("{ID}", this.id).replace("{INSTANCE}", this.instance);
-        this.logger.warn("RemoteTexture.reportError: {0}", new Vector<>(param1));
+        log.warn("RemoteTexture.reportError: {0}", new Vector<>(param1));
         BitmapData loc2 = new BitmapDataSpy(1, 1);
         this.callback.dispatch(loc2);
     }

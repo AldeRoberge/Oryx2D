@@ -1,9 +1,9 @@
 package rotmg.model;
 
-import alde.flash.utils.XML;
-import alde.flash.utils.consumer.SignalConsumer;
-import flash.utils.Dictionary;
-import org.osflash.signals.Signal;
+import utils.flash.XML;
+import utils.flash.consumer.SignalConsumer;
+import utils.flash.utils.Dictionary;
+import utils.osflash.signals.Signal;
 
 import java.util.ArrayList;
 import java.util.List;

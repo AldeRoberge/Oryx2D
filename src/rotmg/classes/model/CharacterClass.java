@@ -1,6 +1,6 @@
 package rotmg.classes.model;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 import java.util.ArrayList;
 import java.util.List;

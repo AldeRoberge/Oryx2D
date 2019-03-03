@@ -1,13 +1,12 @@
 package rotmg.assets.services;
 
-import flash.display.BitmapData;
+import utils.flash.display.BitmapData;
 import rotmg.assets.model.Animation;
 import rotmg.assets.model.CharacterTemplate;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.util.AnimatedChars;
 import rotmg.util.BitmapUtil;
 import rotmg.util.MaskedImage;
-import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
 
 public class CharacterFactory {

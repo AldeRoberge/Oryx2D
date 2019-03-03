@@ -1,7 +1,7 @@
 package rotmg.events;
-//	import flash.events.Event;
+//	import utils.flash.events.Event;
 
-import flash.events.Event;
+import utils.flash.events.Event;
 
 public class MoneyChangedEvent extends Event {
 

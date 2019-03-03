@@ -1,8 +1,7 @@
 package rotmg.objects;
 
-import alde.flash.utils.Vector;
-import flash.utils.Dictionary;
-import rotmg.map.AbstractMap;
+import utils.flash.Vector;
+import utils.flash.utils.Dictionary;
 import rotmg.map.Map;
 import rotmg.messaging.incoming.AccountList;
 import rotmg.util.PointUtil;

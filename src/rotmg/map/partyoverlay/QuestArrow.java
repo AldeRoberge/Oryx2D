@@ -1,7 +1,6 @@
 package rotmg.map.partyoverlay;
 
-import flash.events.MouseEvent;
-import rotmg.map.Camera;
+import utils.flash.events.MouseEvent;
 import rotmg.map.Map;
 import rotmg.map.Quest;
 import rotmg.objects.GameObject;
@@ -10,7 +9,7 @@ import rotmg.ui.tooltip.PortraitToolTip;
 import rotmg.ui.tooltip.QuestToolTip;
 import rotmg.ui.tooltip.ToolTip;
 
-import static flash.utils.timer.getTimer.getTimer;
+import static utils.flash.utils.timer.getTimer.getTimer;
 
 public class QuestArrow extends GameObjectArrow {
 

@@ -1,6 +1,6 @@
 package rotmg.lib.tasks;
 
-import org.osflash.signals.Signal;
+import utils.osflash.signals.Signal;
 
 /*
  * Very loose, this is an interface

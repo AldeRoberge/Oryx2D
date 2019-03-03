@@ -1,6 +1,6 @@
 package rotmg.account.securityQuestions.data;
 
-import alde.flash.utils.Vector;
+import utils.flash.Vector;
 
 /**
  * 100% match

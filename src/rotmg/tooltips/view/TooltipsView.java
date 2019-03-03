@@ -1,8 +1,5 @@
 package rotmg.tooltips.view;
 
-import flash.display.DisplayObject;
-import flash.display.Sprite;
-
 public class TooltipsView extends Sprite {
 
     private DisplayObject toolTip;

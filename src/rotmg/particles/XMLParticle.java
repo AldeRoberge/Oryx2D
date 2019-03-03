@@ -1,18 +1,13 @@
 package rotmg.particles;
 
-import alde.flash.utils.Vector;
-import flash.display.BitmapData;
-import flash.display.GraphicsBitmapFill;
-import flash.display.GraphicsPath;
-import flash.display.IGraphicsData;
-import flash.geom.Matrix;
-import flash.geom.Vector3D;
-import rotmg.map.Camera;
+import utils.flash.Vector;
+import utils.flash.display.BitmapData;
+import utils.flash.geom.Matrix;
+import utils.flash.geom.Vector3D;
 import rotmg.objects.BasicObject;
 import rotmg.objects.Square;
 import rotmg.objects.animation.Animations;
 import rotmg.util.GraphicsUtil;
-import rotmg.util.TextureRedrawer;
 
 /**
  * 100% match

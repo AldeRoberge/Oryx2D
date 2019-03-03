@@ -1,13 +1,10 @@
 package rotmg.account.core.view;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.consumer.EventConsumer;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFormatAlign;
-import org.osflash.signals.Signal;
+import utils.flash.consumer.EventConsumer;
+import utils.flash.events.Event;
+import utils.flash.events.MouseEvent;
+import utils.flash.text.TextFieldAutoSize;
+import utils.flash.text.TextFormatAlign;
 import rotmg.WebMain;
 import rotmg.pets.util.PetsViewAssetFactory;
 import rotmg.pets.view.components.DialogCloseButton;
@@ -15,7 +12,7 @@ import rotmg.pets.view.components.PopupWindowBackground;
 import rotmg.text.view.stringBuilder.LineBuilder;
 import rotmg.text.view.stringBuilder.StaticStringBuilder;
 import rotmg.text.view.stringBuilder.TextFieldDisplayConcrete;
-import spark.filters.DropShadowFilter;
+import utils.osflash.signals.Signal;
 
 public class EmptyFrame extends Sprite {
 
@@ -125,7 +122,7 @@ public class EmptyFrame extends Sprite {
         loc5.setMultiLine(true);
         loc5.setAutoSize(TextFieldAutoSize.CENTER);
         loc5.setHorizontalAlign(TextFormatAlign.CENTER);
-        loc5.filters = new Vector<>(new DropShadowFilter(0, 0, 0));
+
         loc5.x = param2;
         loc5.y = param3;
         return loc5;

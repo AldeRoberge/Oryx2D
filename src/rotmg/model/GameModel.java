@@ -1,6 +1,6 @@
 package rotmg.model;
 
-import flash.utils.Dictionary;
+import utils.flash.utils.Dictionary;
 import rotmg.objects.GameObject;
 import rotmg.objects.Player;
 

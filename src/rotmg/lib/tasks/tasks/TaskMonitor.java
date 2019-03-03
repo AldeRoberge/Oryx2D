@@ -1,7 +1,7 @@
 package rotmg.lib.tasks.tasks;
 
-import alde.flash.utils.Vector;
-import alde.flash.utils.consumer.SignalConsumer;
+import utils.flash.Vector;
+import utils.flash.consumer.SignalConsumer;
 import rotmg.lib.tasks.Task;
 
 public class TaskMonitor {

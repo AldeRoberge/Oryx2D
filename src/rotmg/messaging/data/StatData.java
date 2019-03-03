@@ -1,7 +1,8 @@
 package rotmg.messaging.data;
 
-import alde.flash.utils.IData;
-import mx.logging.ILogger;
+import utils.flash.IData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rotmg.util.TextKey;
 
 import java.io.DataInput;
@@ -9,6 +10,8 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class StatData implements IData {
+
+    Logger log = LoggerFactory.getLogger(StatData.class);
 
     public static final int MAX_HP_STAT = 0;
     public static final int HP_STAT = 1;
@@ -167,7 +170,7 @@ public class StatData implements IData {
             try {
                 this.strStatValue = in.readUTF();
             } catch (IOException exception) {
-                ILogger.info("EOF");
+                log.info("EOF");
             }
         }
     }

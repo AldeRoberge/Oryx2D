@@ -1,6 +1,6 @@
 package oryx2D.entity.mob;
 
-import flash.display.BitmapData;
+import utils.flash.display.BitmapData;
 import oryx2D.Game;
 import oryx2D.graphics.Screen;
 import oryx2D.input.Keyboard;

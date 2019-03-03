@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import flash.display.BitmapData;
+import utils.flash.display.BitmapData;
 
 /**
  * Still needs mirror() and amountTransparent() methods
