@@ -4,11 +4,11 @@ import flash.RSA;
 import flash.XML;
 import flash.consumer.EventConsumer;
 import flash.consumer.MessageConsumer;
-import rotmg.map.AbstractMap;
-import utils.symmetric.ICipher;
 import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.utils.timer.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rotmg.AGameSprite;
 import rotmg.account.core.WebAccount;
 import rotmg.chat.control.TextHandler;
@@ -17,14 +17,11 @@ import rotmg.classes.model.CharacterClass;
 import rotmg.classes.model.ClassesModel;
 import rotmg.constants.GeneralConstants;
 import rotmg.constants.ItemConstants;
-import rotmg.death.control.HandleDeathSignal;
-import rotmg.death.control.ZombifySignal;
-import rotmg.dialogs.CloseDialogsSignal;
-import rotmg.dialogs.OpenDialogSignal;
 import rotmg.events.KeyInfoResponseSignal;
 import rotmg.events.ReconnectEvent;
 import rotmg.focus.control.SetGameFocusSignal;
 import rotmg.focus.control.UpdateGroundTileSignal;
+import rotmg.map.AbstractMap;
 import rotmg.map.GroundLibrary;
 import rotmg.maploading.signals.ChangeMapSignal;
 import rotmg.messaging.data.GroundTileData;
@@ -37,8 +34,6 @@ import rotmg.messaging.incoming.pets.DeletePetMessage;
 import rotmg.messaging.outgoing.*;
 import rotmg.messaging.outgoing.arena.EnterArena;
 import rotmg.messaging.outgoing.arena.QuestRedeem;
-import rotmg.minimap.control.UpdateGameObjectTileSignal;
-import rotmg.minimap.model.UpdateGroundTileVO;
 import rotmg.model.GameModel;
 import rotmg.model.PotionInventoryModel;
 import rotmg.net.Server;
@@ -54,15 +49,11 @@ import rotmg.signals.AddSpeechBalloonSignal;
 import rotmg.signals.AddTextLineSignal;
 import rotmg.signals.GiftStatusUpdateSignal;
 import rotmg.sound.SoundEffectLibrary;
-import rotmg.ui.model.Key;
-import rotmg.ui.model.UpdateGameObjectTileVO;
-import rotmg.ui.signals.ShowKeySignal;
-import rotmg.ui.signals.ShowKeyUISignal;
-import rotmg.ui.signals.UpdateBackpackTabSignal;
-import rotmg.ui.view.NotEnoughFameDialog;
-import rotmg.ui.view.NotEnoughGoldDialog;
+import rotmg.util.ConditionEffect;
 import rotmg.util.Currency;
 import rotmg.util.TextKey;
+import utils.ConversionUtil;
+import utils.symmetric.ICipher;
 
 import java.util.List;
 import java.util.Random;
@@ -71,6 +62,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import static flash.utils.timer.getTimer.getTimer;
 
 public class GameServerConnectionConcrete extends GameServerConnection {
+
+    Logger log = LoggerFactory.getLogger(GameServerConnectionConcrete.class);
 
     private static final int TO_MILLISECONDS = 1000;
     //private PetUpdater petUpdater;
@@ -85,14 +78,8 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     private AddTextLineSignal addTextLine;
     private AddSpeechBalloonSignal addSpeechBalloon;
     private UpdateGroundTileSignal updateGroundTileSignal;
-    private UpdateGameObjectTileSignal updateGameObjectTileSignal;
-    private HandleDeathSignal handleDeath;
-    private ZombifySignal zombify;
     private SetGameFocusSignal setGameFocus;
-    private UpdateBackpackTabSignal updateBackpackTab;
     private PetFeedResultSignal petFeedResult;
-    private CloseDialogsSignal closeDialogs;
-    private OpenDialogSignal openDialog;
     private KeyInfoResponseSignal keyInfoResponse;
     private ClassesModel classesModel;
     private GameModel model;
@@ -113,15 +100,9 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         this.addTextLine = AddTextLineSignal.getInstance();
         this.addSpeechBalloon = AddSpeechBalloonSignal.getInstance();
         this.updateGroundTileSignal = UpdateGroundTileSignal.getInstance();
-        this.updateGameObjectTileSignal = UpdateGameObjectTileSignal.getInstance();
         this.petFeedResult = PetFeedResultSignal.getInstance();
-        this.updateBackpackTab = UpdateBackpackTabSignal.getInstance();
-        this.closeDialogs = CloseDialogsSignal.getInstance();
         this.changeMapSignal = ChangeMapSignal.getInstance();
-        this.openDialog = OpenDialogSignal.getInstance();
         this.keyInfoResponse = KeyInfoResponseSignal.getInstance();
-        this.handleDeath = HandleDeathSignal.getInstance();
-        this.zombify = ZombifySignal.getInstance();
         this.setGameFocus = SetGameFocusSignal.getInstance();
         this.classesModel = ClassesModel.getInstance();
         this.serverConnection = SocketServer.getInstance();
@@ -883,7 +864,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
         this.processObjectStatus(status, 0, -1);
         if (go.props.isStatic && go.props.occupySquare && !go.props.noMiniMap) {
-            this.updateGameObjectTileSignal.dispatch(new UpdateGameObjectTileVO((int) go.x, (int) go.y, go));
+            //this.updateGameObjectTileSignal.dispatch(new UpdateGameObjectTileVO((int) go.x, (int) go.y, go));
         }
     }
 
@@ -910,7 +891,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         while (loc3 < update.tiles.length) {
             loc4 = update.tiles[loc3];
             this.gs.map.setGroundTile(loc4.x, loc4.y, loc4.type);
-            this.updateGroundTileSignal.dispatch(new UpdateGroundTileVO(loc4.x, loc4.y, loc4.type));
+            //this.updateGroundTileSignal.dispatch(new UpdateGroundTileVO(loc4.x, loc4.y, loc4.type));
             loc3++;
         }
         loc3 = 0;
@@ -939,7 +920,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
     private void onGlobalNotification(GlobalNotification notification) {
         switch (notification.text) {
-            case "yellow":
+            /*case "yellow":
                 ShowKeySignal.getInstance().dispatch(Key.YELLOW);
                 break;
             case "red":
@@ -953,7 +934,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
                 break;
             case "showKeyUI":
                 ShowKeyUISignal.getInstance().dispatch();
-                break;
+                break;*/
             case "giftChestOccupied":
                 this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_GIFT);
                 break;
@@ -1370,10 +1351,12 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         this.outstandingBuy = null;
         switch (buyResult.result) {
             case BuyResult.NOT_ENOUGH_GOLD_BRID:
-                OpenDialogSignal.getInstance().dispatch(new NotEnoughGoldDialog());
+                log.info("Not enough gold");
+                //OpenDialogSignal.getInstance().dispatch(new NotEnoughGoldDialog());
                 break;
             case BuyResult.NOT_ENOUGH_FAME_BRID:
-                OpenDialogSignal.getInstance().dispatch(new NotEnoughFameDialog());
+                log.info("Not enough fame");
+                // OpenDialogSignal.getInstance().dispatch(new NotEnoughFameDialog());
                 break;
             default:
                 this.addTextLine

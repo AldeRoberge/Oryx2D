@@ -13,6 +13,7 @@ import rotmg.parameters.Parameters;
 import rotmg.util.AssetLibrary;
 import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
+import utils.ConversionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

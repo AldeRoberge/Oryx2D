@@ -1,6 +1,6 @@
 package rotmg.offer;
 
-import alde.commons.util.as3.Vector;
+import flash.Vector;
 import flash.XML;
 import rotmg.util.Offer;
 

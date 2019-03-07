@@ -9,7 +9,6 @@ import rotmg.account.web.view.MigrationDialog;
 import rotmg.account.web.view.WebLoginDialog;
 import rotmg.appengine.api.AppEngineClient;
 import rotmg.core.model.PlayerModel;
-import rotmg.core.signals.SetLoadingMessageSignal;
 import rotmg.lib.tasks.tasks.BaseTask;
 import rotmg.parameters.Parameters;
 import rotmg.util.TextKey;
@@ -28,7 +27,6 @@ public class GetCharListTask extends BaseTask {
     public WebAccount account;
     public AppEngineClient client;
     public PlayerModel model;
-    public SetLoadingMessageSignal setLoadingMessage;
     public CharListDataSignal charListData;
     public SecurityQuestionsModel securityQuestionsModel;
     private Object requestData;
@@ -121,8 +119,10 @@ public class GetCharListTask extends BaseTask {
 
     private void onTextError(String param1) {
         WebLoginDialog loc2 = null;
-        this.setLoadingMessage.dispatch("error.loadError");
         if (param1.equals("Account credentials not valid")) {
+
+            log.error("Credentials not valid.");
+
             if (this.fromMigration) {
                 loc2 = new WebLoginDialog();
                 loc2.setError(TextKey.WEB_LOGIN_DIALOG_PASSWORD_INVALID);
@@ -130,7 +130,7 @@ public class GetCharListTask extends BaseTask {
             }
             this.clearAccountAndReloadCharacters();
         } else if (param1.equals("Account is under maintenance")) {
-            this.setLoadingMessage.dispatch("This account has been banned");
+            log.error("Banned!");
 
             try {
                 Thread.sleep(5000);
@@ -172,7 +172,7 @@ public class GetCharListTask extends BaseTask {
             this.numRetries++;
         } else {
             this.clearAccountAndReloadCharacters();
-            this.setLoadingMessage.dispatch("LoginError.tooManyFails");
+            log.error("Too many fails");
         }
     }
 }

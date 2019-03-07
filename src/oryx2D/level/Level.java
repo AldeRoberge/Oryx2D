@@ -3,6 +3,7 @@ package oryx2D.level;
 import flash.Vector;
 import flash.display.BitmapData;
 import oryx2D.graphics.Screen;
+import rotmg.map.AbstractMap;
 import rotmg.objects.GameObject;
 import rotmg.objects.Square;
 
