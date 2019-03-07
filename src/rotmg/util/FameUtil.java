@@ -2,8 +2,8 @@ package rotmg.util;
 
 
 import rotmg.objects.ObjectLibrary;
-import utils.flash.XML;
-import utils.flash.display.BitmapData;
+import flash.XML;
+import flash.display.BitmapData;
 
 import java.awt.*;
 

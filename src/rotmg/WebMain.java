@@ -18,6 +18,8 @@ public class WebMain {
     private void setup() {
         new AssetLoader().load();
 
+        //TODO @sEE PlayGameCommand
+
         // Following is a loose implementation of PlayGameCommand's makeGameView
 
         PlayerModel p = PlayerModel.getInstance();

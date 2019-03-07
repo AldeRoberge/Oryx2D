@@ -130,7 +130,6 @@ public class GameServerConnection {
 
 	public OutstandingBuy outstandingBuy = null;
 	public Random rand;
-	public DisplayObject jitterWatcher;
 
 	public GameServerConnection() {
 		super();

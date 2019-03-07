@@ -1,10 +1,11 @@
 package rotmg.messaging.incoming;
 
-import utils.flash.consumer.MessageConsumer;
+import flash.consumer.MessageConsumer;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class MapInfo extends IncomingMessage {
 
@@ -49,13 +50,13 @@ public class MapInfo extends IncomingMessage {
         for (int i = 0; i < this.clientXML.length; i++) {
             byte[] utf = new byte[in.readInt()];
             in.readFully(utf);
-            this.clientXML[i] = new String(utf, "UTF-8");
+            this.clientXML[i] = new String(utf, StandardCharsets.UTF_8);
         }
         this.extraXML = new String[in.readShort()];
         for (int i = 0; i < this.extraXML.length; i++) {
             byte[] utf = new byte[in.readInt()];
             in.readFully(utf);
-            this.extraXML[i] = new String(utf, "UTF-8");
+            this.extraXML[i] = new String(utf, StandardCharsets.UTF_8);
         }
     }
 
@@ -72,13 +73,13 @@ public class MapInfo extends IncomingMessage {
         out.writeBoolean(this.showDisplays);
         out.writeShort(this.clientXML.length);
         for (String xml : this.clientXML) {
-            byte[] utf = xml.getBytes("UTF-8");
+            byte[] utf = xml.getBytes(StandardCharsets.UTF_8);
             out.writeInt(utf.length);
             out.write(utf);
         }
         out.writeShort(this.extraXML.length);
         for (String xml : this.extraXML) {
-            byte[] utf = xml.getBytes("UTF-8");
+            byte[] utf = xml.getBytes(StandardCharsets.UTF_8);
             out.writeInt(utf.length);
             out.write(utf);
         }

@@ -1,7 +1,7 @@
 package rotmg.objects;
 
-import utils.flash.XML;
-import utils.flash.utils.Dictionary;
+import flash.XML;
+import flash.utils.Dictionary;
 import rotmg.sound.SoundEffectLibrary;
 
 /**
@@ -112,7 +112,7 @@ public class ObjectProperties {
             this.projectiles.put(projectile.getIntAttribute("id"), new ProjectileProperties(projectile));
         }
         this.angleCorrection = param1.hasOwnProperty("AngleCorrection")
-                ? (double) ((param1.getDoubleValue("AngleCorrection") * Math.PI) / 4)
+                ? ((param1.getDoubleValue("AngleCorrection") * Math.PI) / 4)
                 : 0;
 
         this.rotation = param1.hasOwnProperty("Rotation") ? param1.getDoubleValue("Rotation") : 0;

@@ -1,6 +1,6 @@
 package rotmg.objects;
 
-import utils.flash.XML;
+import flash.XML;
 import rotmg.GameSprite;
 import rotmg.ui.panels.Panel;
 import rotmg.view.NameChangerPanel;

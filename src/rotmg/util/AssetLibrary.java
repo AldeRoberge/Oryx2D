@@ -1,8 +1,8 @@
 package rotmg.util;
 
-import utils.flash.StaticAssetLoaderUtility;
-import utils.flash.display.BitmapData;
-import utils.flash.utils.Dictionary;
+import flash.StaticAssetLoaderUtility;
+import flash.display.BitmapData;
+import flash.utils.Dictionary;
 
 import java.util.ArrayList;
 import java.util.List;

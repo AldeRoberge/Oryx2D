@@ -3,15 +3,15 @@ package rotmg.objects;
 //import com.company.assembleegameclient.objects.GameObject;
 //import com.company.assembleegameclient.util.TileRedrawer;
 
+import rotmg.map.AbstractMap;
 import rotmg.map.GroundLibrary;
 import rotmg.map.GroundProperties;
-import rotmg.map.Map;
-import utils.flash.Vector;
-import utils.flash.display.BitmapData;
+import flash.Vector;
+import flash.display.BitmapData;
 
-//import utils.flash.display.BitmapData;
-//import utils.flash.display.IGraphicsData;
-//import utils.flash.geom.Vector3D;
+//import flash.display.BitmapData;
+//import flash.display.IGraphicsData;
+//import flash.geom.Vector3D;
 
 public class Square {
 
@@ -19,7 +19,7 @@ public class Square {
 
     private static final int[] LOOKUP = new int[]{26171, 44789, 20333, 70429, 98257, 59393, 33961};
 
-    public Map map;
+    public AbstractMap map;
 
     public int x;
 
@@ -41,7 +41,7 @@ public class Square {
 
     public int lastVisible;
 
-    public Square(Map param1, int param2, int param3) {
+    public Square(AbstractMap param1, int param2, int param3) {
         super();
         this.props = GroundLibrary.defaultProps;
         this.map = param1;

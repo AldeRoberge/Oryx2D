@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import utils.flash.display.BitmapData;
+import flash.display.BitmapData;
 
 public class GuildUtil {
 
@@ -79,10 +79,7 @@ public class GuildUtil {
         if ((param1 == LEADER) && (param2 < LEADER) && (param3 <= LEADER)) {
             return true;
         }
-        if ((param1 == OFFICER) && (param2 < OFFICER) && (param3 < OFFICER)) {
-            return true;
-        }
-        return false;
+        return (param1 == OFFICER) && (param2 < OFFICER) && (param3 < OFFICER);
     }
 
     public static int promotedRank(int param1) {

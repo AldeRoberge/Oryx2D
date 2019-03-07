@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import utils.flash.display.BitmapData;
+import flash.display.BitmapData;
 
 import java.util.ArrayList;
 import java.util.List;

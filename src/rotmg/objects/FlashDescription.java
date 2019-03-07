@@ -1,8 +1,6 @@
 package rotmg.objects;
 
-import utils.flash.display.BitmapData;
-import utils.flash.geom.ColorTransform;
-import rotmg.stage3D.GraphicsFillExtra;
+import flash.display.BitmapData;
 
 public class FlashDescription {
 
@@ -35,9 +33,7 @@ public class FlashDescription {
         int loc3 = (param2 - this.startTime) % this.periodMS;
         double loc4 = Math.sin((loc3 / this.periodMS) * Math.PI);
         double loc5 = loc4 * 0.5;
-        ColorTransform loc6 = new ColorTransform(1 - loc5, 1 - loc5, 1 - loc5, 1, loc5 * this.targetR, loc5 * this.targetG, loc5 * this.targetB, 0);
         BitmapData loc7 = param1.clone();
-        loc7.colorTransform(loc7.rect, loc6);
         return loc7;
     }
 
@@ -45,8 +41,6 @@ public class FlashDescription {
         int loc3 = (param2 - this.startTime) % this.periodMS;
         double loc4 = Math.sin((loc3 / this.periodMS) * Math.PI);
         double loc5 = loc4 * 0.5;
-        ColorTransform loc6 = new ColorTransform(1 - loc5, 1 - loc5, 1 - loc5, 1, loc5 * this.targetR, loc5 * this.targetG, loc5 * this.targetB, 0);
-        GraphicsFillExtra.setColorTransform(param1, loc6);
     }
 
     public boolean doneAt(int param1) {

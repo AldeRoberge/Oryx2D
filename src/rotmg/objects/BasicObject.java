@@ -1,8 +1,6 @@
 package rotmg.objects;
 
-import utils.flash.Vector;
-import rotmg.map.Map;
-import rotmg.stage3D.graphic3D.Object3DStage3D;
+import rotmg.map.AbstractMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,7 @@ public class BasicObject {
 
     private static int nextFakeObjectId = 0;
 
-    public Map map;
+    public AbstractMap map;
 
     public Square square;
 
@@ -69,29 +67,8 @@ public class BasicObject {
         return true;
     }
 
-    public void draw3d(Vector<Object3DStage3D> param1) {
-    }
 
-    public void draw(Vector<IGraphicsData> graphicsData, Camera camera, int time) {
-    }
-
-    public void drawShadow(Vector<IGraphicsData> graphicsData, Camera camera, int time) {
-    }
-
-    public void computeSortVal(Camera camera) {
-        this.posW.clear();
-        this.posW.add(this.x);
-        this.posW.add(this.y);
-        this.posW.add(0.0);
-        this.posW.add(this.x);
-        this.posW.add(this.y);
-        this.posW.add(this.z);
-        this.posS.clear();
-        camera.wToS.transformVectors(this.posW, this.posS);
-        this.sortVal = this.posS.get(1);
-    }
-
-    public boolean addTo(Map map, double par1, double par2) {
+    public boolean addTo(AbstractMap map, double par1, double par2) {
 
         int x = (int) par1;
         int y = (int) par2;

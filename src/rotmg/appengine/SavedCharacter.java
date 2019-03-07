@@ -1,8 +1,5 @@
 package rotmg.appengine;
 
-import utils.flash.XML;
-import utils.flash.display.BitmapData;
-import utils.flash.geom.ColorTransform;
 import rotmg.assets.services.CharacterFactory;
 import rotmg.classes.model.CharacterClass;
 import rotmg.classes.model.CharacterSkin;
@@ -15,8 +12,8 @@ import rotmg.parameters.Parameters.Data;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
 import rotmg.util.AnimatedChars;
-import rotmg.util.MaskedImage;
-import rotmg.util.redrawers.GlowRedrawer;
+import flash.XML;
+import flash.display.BitmapData;
 
 public class SavedCharacter {
 
@@ -45,18 +42,7 @@ public class SavedCharacter {
 	                                  boolean param6, boolean param7) {
 		AnimatedChar loc8 = AnimatedChars.getAnimatedChar(param2.child("AnimatedTexture").getValue("File"),
 				param2.child("AnimatedTexture").getIntValue("Index"));
-		MaskedImage loc9 = loc8.imageFromDir(param3, param4, param5);
-		int loc10 = param1 != null ? param1.tex1() : null;
-		int loc11 = param1 != null ? param1.tex2() : null;
-		BitmapData loc12 = TextureRedrawer.resize(loc9.image, loc9.mask, 100, false, loc10, loc11);
-		loc12 = GlowRedrawer.outlineGlow(loc12, 0);
-		if (!param6) {
-			loc12 = CachingColorTransformer.transformBitmapData(loc12, new ColorTransform(0, 0, 0, 0.5, 0, 0, 0, 0));
-		} else if (!param7) {
-			loc12 = CachingColorTransformer.transformBitmapData(loc12,
-					new ColorTransform(0.75, 0.75, 0.75, 1, 0, 0, 0, 0));
-		}
-		return loc12;
+		return loc8.origImage.image;
 	}
 
 	public static double compare(SavedCharacter param1, SavedCharacter param2) {

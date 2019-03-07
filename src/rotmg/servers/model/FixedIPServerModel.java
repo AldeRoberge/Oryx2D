@@ -1,6 +1,6 @@
 package rotmg.servers.model;
 
-import utils.flash.Vector;
+import flash.Vector;
 import rotmg.net.Server;
 import rotmg.parameters.Parameters;
 import rotmg.servers.api.ServerModel;

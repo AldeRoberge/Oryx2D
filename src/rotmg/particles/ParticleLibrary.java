@@ -1,10 +1,10 @@
 package rotmg.particles;
 
-import utils.flash.XML;
-import utils.flash.utils.Dictionary;
+import flash.XML;
+import flash.utils.Dictionary;
 
 /**
- * We parse a list of projectiles instead of a root XML.
+ * We parse a list of particles instead of a root XML.
  * <p>
  * This is the only difference.
  */

@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import utils.flash.geom.Point;
+import flash.geom.Point;
 
 public class PointUtil {
 

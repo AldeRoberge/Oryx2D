@@ -125,8 +125,8 @@ public class SocketServer {
                             SocketServer.this.lastTimePacketReceived = System.currentTimeMillis();
                             SocketServer.this.bufferIndex += bytesRead;
                             while (SocketServer.this.bufferIndex >= 5) {
-                                int packetLength = ((ByteBuffer) ByteBuffer.allocate(4).put(SocketServer.this.buffer[0]).put(SocketServer.this.buffer[1])
-                                        .put(SocketServer.this.buffer[2]).put(SocketServer.this.buffer[3]).rewind()).getInt();
+                                int packetLength = ByteBuffer.allocate(4).put(SocketServer.this.buffer[0]).put(SocketServer.this.buffer[1])
+                                        .put(SocketServer.this.buffer[2]).put(SocketServer.this.buffer[3]).rewind().getInt();
                                 if (SocketServer.this.buffer.length < packetLength) {
                                     SocketServer.this.buffer = Arrays.copyOf(SocketServer.this.buffer, packetLength);
                                 }

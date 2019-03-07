@@ -3,7 +3,7 @@ package rotmg;
 import rotmg.core.model.MapModel;
 import rotmg.core.model.PlayerModel;
 import rotmg.core.service.GoogleAnalytics;
-import rotmg.map.Map;
+import rotmg.map.AbstractMap;
 import rotmg.maploading.signals.HideMapLoadingSignal;
 import rotmg.maploading.signals.MapLoadedSignal;
 import rotmg.messaging.GameServerConnectionConcrete;
@@ -14,7 +14,7 @@ import rotmg.parameters.Parameters;
 import rotmg.signals.ShowProTipSignal;
 import utils.osflash.signals.Signal;
 
-import static utils.flash.utils.timer.getTimer.getTimer;
+import static flash.utils.timer.getTimer.getTimer;
 
 public class GameSprite extends AGameSprite {
 
@@ -36,7 +36,7 @@ public class GameSprite extends AGameSprite {
         super();
         this.showPackage = new Signal();
         this.model = param7;
-        this.map = new Map(this);
+        this.map = new AbstractMap(this);
         this.gsc = new GameServerConnectionConcrete(this, param1, param2, param3, param4, param5, param6, param8, param9);
         this.mui = new MapUserInput(this);
     }
@@ -67,7 +67,7 @@ public class GameSprite extends AGameSprite {
     public void initialize() {
         ShowProTipSignal loc4 = null;
         this.map.initialize();
-        this.isNexus = this.map.name.equals(Map.NEXUS);
+        this.isNexus = this.map.name.equals(AbstractMap.NEXUS);
         Parameters.save();
         hidePreloader();
     }
@@ -88,14 +88,12 @@ public class GameSprite extends AGameSprite {
         if (this.isGameStarted) {
             this.isGameStarted = false;
             this.map.dispose();
-            CachingColorTransformer.clear();
-            TextureRedrawer.clearCache();
             this.gsc.disconnect();
         }
     }
     @Override
     public boolean evalIsNotInCombatMapArea() {
-        return this.map.name.equals(Map.NEXUS) || this.map.name.equals(Map.VAULT) || this.map.name.equals(Map.GUILD_HALL) || this.map.name.equals(Map.CLOTH_BAZAAR) || this.map.name.equals(Map.NEXUS_EXPLANATION) || this.map.name.equals(Map.DAILY_QUEST_ROOM);
+        return this.map.name.equals(AbstractMap.NEXUS) || this.map.name.equals(AbstractMap.VAULT) || this.map.name.equals(AbstractMap.GUILD_HALL) || this.map.name.equals(AbstractMap.CLOTH_BAZAAR) || this.map.name.equals(AbstractMap.NEXUS_EXPLANATION) || this.map.name.equals(AbstractMap.DAILY_QUEST_ROOM);
     }
 
 }

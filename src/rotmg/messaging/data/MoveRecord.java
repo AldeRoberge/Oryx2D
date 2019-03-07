@@ -1,6 +1,6 @@
 package rotmg.messaging.data;
 
-import utils.flash.IData;
+import flash.IData;
 
 import java.io.DataInput;
 import java.io.DataOutput;

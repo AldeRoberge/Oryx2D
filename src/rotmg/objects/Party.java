@@ -1,8 +1,8 @@
 package rotmg.objects;
 
-import utils.flash.Vector;
-import utils.flash.utils.Dictionary;
-import rotmg.map.Map;
+import flash.Vector;
+import flash.utils.Dictionary;
+import rotmg.map.AbstractMap;
 import rotmg.messaging.incoming.AccountList;
 import rotmg.util.PointUtil;
 
@@ -18,7 +18,7 @@ public class Party {
 
     private static final int PARTY_DISTANCE_SQ = 50 * 50;
 
-    public Map map;
+    public AbstractMap map;
 
     public Vector<Player> members;
 
@@ -28,7 +28,7 @@ public class Party {
 
     private int lastUpdate = -2147483648;
 
-    public Party(Map param1) {
+    public Party(AbstractMap param1) {
         super();
         this.members = new Vector();
         this.starred = new Dictionary();

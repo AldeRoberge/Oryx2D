@@ -1,6 +1,6 @@
 package rotmg.appengine;
 
-import utils.flash.XML;
+import flash.XML;
 import rotmg.util.FameUtil;
 
 public class CharacterStats {

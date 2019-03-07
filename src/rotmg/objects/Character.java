@@ -1,6 +1,6 @@
 package rotmg.objects;
 
-import utils.flash.XML;
+import flash.XML;
 
 public class Character extends GameObject {
 

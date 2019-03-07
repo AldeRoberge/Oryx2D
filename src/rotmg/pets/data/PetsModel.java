@@ -1,15 +1,16 @@
 package rotmg.pets.data;
 
-import utils.flash.XML;
-import utils.flash.utils.Dictionary;
+import flash.XML;
+import flash.utils.Dictionary;
 import rotmg.appengine.SavedCharacter;
 import rotmg.core.model.PlayerModel;
+import rotmg.map.AbstractMap;
 import rotmg.objects.ObjectLibrary;
 import rotmg.pets.controller.NotifyActivePetUpdated;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 // This is a 100% match, except maybe for the getInstance() [Inject]
 public class PetsModel {
@@ -17,7 +18,7 @@ public class PetsModel {
     static public PetsModel instance;
     public NotifyActivePetUpdated notifyActivePetUpdated = NotifyActivePetUpdated.getInstance();
     public PlayerModel playerModel = PlayerModel.getInstance();
-    private Map<Integer, PetVO> hash;
+    private Dictionary<Integer, PetVO> hash;
     private List<PetVO> pets;
     private XML yardXmlData;
     private int type;

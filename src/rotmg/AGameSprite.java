@@ -1,23 +1,20 @@
 package rotmg;
 
-import utils.osflash.signals.Signal;
 import rotmg.core.model.PlayerModel;
+import rotmg.map.AbstractMap;
 import rotmg.messaging.GameServerConnection;
 import rotmg.messaging.incoming.MapInfo;
 import rotmg.objects.GameObject;
-import rotmg.tutorial.Tutorial;
-import rotmg.ui.HUDView;
+import utils.osflash.signals.Signal;
 
 /**
  * Implemented by GameSprite
  */
-public class AGameSprite extends Sprite {
+public class AGameSprite {
 
     public final Signal closed = new Signal();
 
     public boolean isEditor;
-
-    public Tutorial tutorial;
 
     public MapUserInput mui;
 
@@ -29,15 +26,10 @@ public class AGameSprite extends Sprite {
 
     public PlayerModel model;
 
-    public HUDView hudView;
-
-    public Camera camera;
-
     public GameServerConnection gsc;
 
     public AGameSprite() {
         this.moveRecords = new MoveRecords();
-        this.camera = new Camera();
     }
 
     public void initialize() {

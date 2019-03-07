@@ -1,7 +1,7 @@
 package rotmg.classes.model;
 
-import utils.flash.consumer.SignalConsumer;
-import utils.flash.utils.Dictionary;
+import flash.consumer.SignalConsumer;
+import flash.utils.Dictionary;
 import utils.osflash.signals.Signal;
 
 import java.util.ArrayList;

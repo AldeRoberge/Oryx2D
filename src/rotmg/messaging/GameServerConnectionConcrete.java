@@ -1,13 +1,14 @@
 package rotmg.messaging;
 
-import utils.flash.RSA;
-import utils.flash.XML;
-import utils.flash.consumer.EventConsumer;
-import utils.flash.consumer.MessageConsumer;
+import flash.RSA;
+import flash.XML;
+import flash.consumer.EventConsumer;
+import flash.consumer.MessageConsumer;
+import rotmg.map.AbstractMap;
 import utils.symmetric.ICipher;
-import utils.flash.events.Event;
-import utils.flash.events.TimerEvent;
-import utils.flash.utils.timer.Timer;
+import flash.events.Event;
+import flash.events.TimerEvent;
+import flash.utils.timer.Timer;
 import rotmg.AGameSprite;
 import rotmg.account.core.WebAccount;
 import rotmg.chat.control.TextHandler;
@@ -25,7 +26,6 @@ import rotmg.events.ReconnectEvent;
 import rotmg.focus.control.SetGameFocusSignal;
 import rotmg.focus.control.UpdateGroundTileSignal;
 import rotmg.map.GroundLibrary;
-import rotmg.map.Map;
 import rotmg.maploading.signals.ChangeMapSignal;
 import rotmg.messaging.data.GroundTileData;
 import rotmg.messaging.data.ObjectData;
@@ -68,7 +68,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static utils.flash.utils.timer.getTimer.getTimer;
+import static flash.utils.timer.getTimer.getTimer;
 
 public class GameServerConnectionConcrete extends GameServerConnection {
 
@@ -782,7 +782,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
     public void onDamage(Damage damage) {
         int projId = 0;
-        Map map = (Map) this.gs.map;
+        AbstractMap map = this.gs.map;
         Projectile proj = null;
         if ((damage.objectId >= 0) && (damage.bulletId > 0)) {
             projId = Projectile.findObjId(damage.objectId, damage.bulletId);
@@ -870,7 +870,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private void addObject(ObjectData obj) {
-        Map map = (Map) this.gs.map;
+        AbstractMap map = this.gs.map;
         GameObject go = ObjectLibrary.getObjectFromType(obj.objectType);
         if (go == null) {
             return;
@@ -890,7 +890,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     /**
      * From addObject(ObjectData param1)
      */
-    private void handleNewPlayer(Player player, Map map) {
+    private void handleNewPlayer(Player player, AbstractMap map) {
         this.setPlayerSkinTemplate(player, 0);
         if (player.objectId == this.playerId) {
             this.player = player;
@@ -1330,7 +1330,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private void onMapInfo(MapInfo mapInfo) {
-        System.out.println("Map info received");
+        System.out.println("AbstractMap info received");
 
         for (String clientXMLString : mapInfo.clientXML) {
             this.parseXML(clientXMLString);

@@ -1,7 +1,7 @@
 package rotmg.net.impl;
 
-import utils.flash.consumer.MessageConsumer;
-import utils.flash.utils.Dictionary;
+import flash.consumer.MessageConsumer;
+import flash.utils.Dictionary;
 import rotmg.net.api.MessageMap;
 import rotmg.net.api.MessageMapping;
 import rotmg.net.api.MessageProvider;

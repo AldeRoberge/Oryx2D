@@ -1,10 +1,10 @@
 package rotmg.appengine.impl;
 
-import utils.flash.Vector;
-import utils.flash.consumer.EventConsumer;
-import utils.flash.events.Event;
-import utils.flash.events.IOErrorEvent;
-import utils.flash.net.*;
+import flash.Vector;
+import flash.consumer.EventConsumer;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.net.*;
 import utils.osflash.OnceSignal;
 import rotmg.appengine.api.RetryLoader;
 import rotmg.packages.models.SecurityErrorEvent;

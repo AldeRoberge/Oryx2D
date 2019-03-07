@@ -1,19 +1,15 @@
 package rotmg.appengine;
 
-import utils.flash.Vector;
-import utils.flash.XML;
-import utils.flash.events.Event;
-import utils.flash.utils.Dictionary;
 import rotmg.account.core.Account;
 import rotmg.account.core.WebAccount;
-import rotmg.dialogs.OpenDialogSignal;
 import rotmg.net.LatLong;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
-import rotmg.promotions.model.BeginnersPackageModel;
-import rotmg.ui.TOSPopup;
+import flash.Vector;
+import flash.XML;
+import flash.utils.Dictionary;
 
-public class SavedCharactersList extends Event {
+public class SavedCharactersList {
 
     public static final String SAVED_CHARS_LIST = "SAVED_CHARS_LIST";
 
@@ -57,8 +53,6 @@ public class SavedCharactersList extends Event {
     private Account account;
 
     public SavedCharactersList(String param1) {
-        super(SAVED_CHARS_LIST);
-
         Account loc5 = null;
         this.savedChars = new Vector<>();
         this.charStats = new Dictionary<>();
@@ -67,14 +61,12 @@ public class SavedCharactersList extends Event {
         this.charsXML = new XML(this.origData);
         XML loc2 = this.charsXML.child("Account");
         this.parseUserData(loc2);
-        this.parseBeginnersPackageData(loc2);
         this.parseGuildData(loc2);
         this.parseCharacterData();
         this.parseCharacterStatsData();
         this.parseNewsData();
         this.parseGeoPositioningData();
         this.parseSalesForceData();
-        this.parseTOSPopup();
         this.reportUnlocked();
 
         loc5 = WebAccount.getInstance();
@@ -117,20 +109,7 @@ public class SavedCharactersList extends Event {
         this.hasPlayerDied = true;
     }
 
-    private void parseBeginnersPackageData(XML param1) {
-        double loc2 = 0;
-        BeginnersPackageModel loc3 = null;
-        if (param1.hasOwnProperty("BeginnerPackageTimeLeft")) {
-            loc2 = param1.getDoubleValue("BeginnerPackageTimeLeft");
-            loc3 = this.getBeginnerModel();
-            loc3.setBeginnersOfferSecondsLeft(loc2);
-        }
-    }
 
-    private BeginnersPackageModel getBeginnerModel() {
-        BeginnersPackageModel loc2 = BeginnersPackageModel.getInstance();
-        return loc2;
-    }
 
     private void parseGuildData(XML param1) {
         XML loc2 = null;
@@ -184,11 +163,6 @@ public class SavedCharactersList extends Event {
         }
     }
 
-    private void parseTOSPopup() {
-        if (this.charsXML.hasOwnProperty("TOSPopup")) {
-            OpenDialogSignal.getInstance().dispatch(new TOSPopup());
-        }
-    }
 
     public boolean isFirstTimeLogin() {
         return !this.charsXML.hasOwnProperty("TOSPopup");
@@ -279,12 +253,6 @@ public class SavedCharactersList extends Event {
         return loc3;
     }
 
-    @Override
-    public Event clone() {
-        return new SavedCharactersList(this.origData);
-    }
-
-    @Override
     public String toString() {
         return "[" + " numChars: " + this.numChars + " maxNumChars: " + this.maxNumChars + " ]";
     }

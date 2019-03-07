@@ -1,8 +1,8 @@
 package rotmg.objects;
 
-import utils.flash.XML;
+import flash.XML;
 import rotmg.GameSprite;
-import rotmg.map.Map;
+import rotmg.map.AbstractMap;
 import rotmg.sound.SoundEffectLibrary;
 import rotmg.util.PointUtil;
 
@@ -32,7 +32,7 @@ public class Container extends GameObject implements IInteractiveObject {
     }
 
     @Override
-    public boolean addTo(Map param1, double param2, double param3) {
+    public boolean addTo(AbstractMap param1, double param2, double param3) {
         if (!super.addTo(param1, param2, param3)) {
             return false;
         }

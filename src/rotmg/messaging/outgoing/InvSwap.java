@@ -1,6 +1,6 @@
 package rotmg.messaging.outgoing;
 
-import utils.flash.consumer.MessageConsumer;
+import flash.consumer.MessageConsumer;
 import rotmg.messaging.data.SlotObjectData;
 import rotmg.messaging.data.WorldPosData;
 

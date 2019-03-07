@@ -1,7 +1,5 @@
 package rotmg.account.core.services;
 
-import utils.flash.XML;
-import utils.flash.consumer.SignalConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rotmg.account.core.WebAccount;
@@ -12,12 +10,12 @@ import rotmg.account.web.view.WebLoginDialog;
 import rotmg.appengine.api.AppEngineClient;
 import rotmg.core.model.PlayerModel;
 import rotmg.core.signals.SetLoadingMessageSignal;
-import rotmg.dialogs.CloseDialogsSignal;
-import rotmg.dialogs.OpenDialogSignal;
 import rotmg.lib.tasks.tasks.BaseTask;
 import rotmg.parameters.Parameters;
 import rotmg.util.TextKey;
-import utils.flash.utils.timer.Timer;
+import flash.XML;
+import flash.consumer.SignalConsumer;
+import flash.utils.timer.Timer;
 
 public class GetCharListTask extends BaseTask {
 
@@ -32,8 +30,6 @@ public class GetCharListTask extends BaseTask {
     public PlayerModel model;
     public SetLoadingMessageSignal setLoadingMessage;
     public CharListDataSignal charListData;
-    public OpenDialogSignal openDialog;
-    public CloseDialogsSignal closeDialogs;
     public SecurityQuestionsModel securityQuestionsModel;
     private Object requestData;
     private Timer retryTimer;
@@ -97,7 +93,6 @@ public class GetCharListTask extends BaseTask {
             this.fromMigration = true;
             loc4.done.addOnce(new SignalConsumer<>(this::sendRequest));
             loc4.cancel.addOnce(new SignalConsumer<>(this::clearAccountAndReloadCharacters));
-            this.openDialog.dispatch(loc4);
         } else {
             if (loc2.hasOwnProperty("Account")) {
                 if (this.account instanceof WebAccount) {
@@ -132,7 +127,6 @@ public class GetCharListTask extends BaseTask {
                 loc2 = new WebLoginDialog();
                 loc2.setError(TextKey.WEB_LOGIN_DIALOG_PASSWORD_INVALID);
                 loc2.setEmail(this.account.getUserId());
-                OpenDialogSignal.getInstance().dispatch(loc2);
             }
             this.clearAccountAndReloadCharacters();
         } else if (param1.equals("Account is under maintenance")) {

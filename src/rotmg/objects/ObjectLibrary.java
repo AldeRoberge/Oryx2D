@@ -1,15 +1,17 @@
 package rotmg.objects;
 
-import utils.flash.Vector;
-import utils.flash.XML;
-import utils.flash.display.BitmapData;
-import utils.flash.utils.Dictionary;
+
+import flash.Vector;
+import flash.XML;
+import flash.display.BitmapData;
+import flash.utils.Dictionary;
 import rotmg.constants.GeneralConstants;
 import rotmg.constants.ItemConstants;
 import rotmg.messaging.data.StatData;
 import rotmg.objects.animation.AnimationsData;
 import rotmg.parameters.Parameters;
 import rotmg.util.AssetLibrary;
+import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
 
 import java.lang.reflect.InvocationTargetException;
@@ -38,8 +40,8 @@ public class ObjectLibrary {
     public static final Dictionary<Object, Object> skinSetXMLDataLibrary = new Dictionary<>();
     public static final Dictionary dungeonToPortalTextureData = new Dictionary();
     public static final Dictionary<String, Dictionary<Integer, XML>> dungeonsXMLLibrary = new Dictionary<>();
-    public static final String ENEMY_FILTER_LIST[] = new String[]{"None", "Hp", "Defense"};
-    public static final String TILE_FILTER_LIST[] = new String[]{"ALL", "Walkable", "Unwalkable", "Slow", "Speed=1"};
+    public static final String[] ENEMY_FILTER_LIST = new String[]{"None", "Hp", "Defense"};
+    public static final String[] TILE_FILTER_LIST = new String[]{"ALL", "Walkable", "Unwalkable", "Slow", "Speed=1"};
     public static final ObjectProperties defaultProps = new ObjectProperties(null);
     public static TextureDataFactory textureDataFactory = new TextureDataFactory();
     public static Vector<XML> playerChars = new Vector<>();

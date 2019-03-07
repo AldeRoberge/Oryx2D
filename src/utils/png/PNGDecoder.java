@@ -1,6 +1,6 @@
 package utils.png;
 
-import utils.flash.display.BitmapData;
+import flash.display.BitmapData;
 
 public class PNGDecoder {
 

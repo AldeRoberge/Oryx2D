@@ -1,12 +1,13 @@
 package rotmg.objects.animation;
 
-import utils.flash.Vector;
-import utils.flash.display.BitmapData;
-import utils.flash.geom.Point;
-import utils.flash.geom.Rectangle;
-import utils.flash.utils.Dictionary;
+
 import rotmg.util.MaskedImage;
 import rotmg.util.MaskedImageSet;
+import flash.Vector;
+import flash.display.BitmapData;
+import flash.utils.Dictionary;
+
+import java.awt.*;
 
 
 /**
@@ -29,7 +30,7 @@ public class AnimatedChar {
     public static final int WALK = 1;
 
     public static final int ATTACK = 2;
-    private static final int SEC_TO_DIRS[][] = {{LEFT, UP, DOWN}, {UP, LEFT, DOWN}, {UP, RIGHT, DOWN},
+    private static final int[][] SEC_TO_DIRS = {{LEFT, UP, DOWN}, {UP, LEFT, DOWN}, {UP, RIGHT, DOWN},
             {RIGHT, UP, DOWN}, {RIGHT, DOWN}, {DOWN, RIGHT}, {DOWN, LEFT}, {LEFT, DOWN}};
     public static int NUM_ACTION = 3;
     private static double PIOVER4 = Math.PI / 4;
@@ -178,7 +179,4 @@ public class AnimatedChar {
         return this.height;
     }
 
-    public MaskedImage imageFromFacing(double facing, Camera camera, int action, double p) {
-        return null;
-    }
 }

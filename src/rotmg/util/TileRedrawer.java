@@ -1,12 +1,12 @@
 package rotmg.util;
 
-import utils.flash.Vector;
-import utils.flash.display.BitmapData;
-import utils.flash.geom.Point;
-import utils.flash.geom.Rectangle;
-import utils.flash.utils.Dictionary;
+import flash.Vector;
+import flash.display.BitmapData;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.utils.Dictionary;
+import rotmg.map.AbstractMap;
 import rotmg.map.GroundLibrary;
-import rotmg.map.Map;
 import rotmg.objects.Square;
 import rotmg.parameters.Parameters;
 
@@ -176,7 +176,7 @@ public class TileRedrawer {
         int loc6 = 0;
         Square loc7 = null;
         Vector loc2 = new Vector();
-        Map loc3 = param1.map;
+        AbstractMap loc3 = param1.map;
         int loc4 = param1.tileType;
         int loc5 = param1.y - 1;
         while (loc5 <= (param1.y + 1)) {
@@ -229,7 +229,7 @@ public class TileRedrawer {
         Square loc17 = null;
         Vector<Integer> loc2 = new Vector<>();
         loc2.length = 4;
-        Map loc3 = param1.map;
+        AbstractMap loc3 = param1.map;
         int loc4 = param1.x;
         int loc5 = param1.y;
         Square loc6 = loc3.lookupSquare(loc4, loc5 - 1);
@@ -302,7 +302,7 @@ public class TileRedrawer {
         Square loc8 = null;
         boolean loc9 = false;
         Vector loc2 = new Vector();
-        Map loc3 = param1.map;
+        AbstractMap loc3 = param1.map;
         boolean loc4 = false;
         boolean loc5 = param1.props.sameTypeEdgeMode;
         int loc6 = param1.y - 1;

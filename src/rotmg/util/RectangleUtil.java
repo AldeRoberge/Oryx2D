@@ -1,7 +1,7 @@
 package rotmg.util;
 
-import utils.flash.geom.Point;
-import utils.flash.geom.Rectangle;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 public class RectangleUtil {
 

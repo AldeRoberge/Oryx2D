@@ -1,6 +1,6 @@
 package rotmg.messaging.data;
 
-import utils.flash.IData;
+import flash.IData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rotmg.util.TextKey;

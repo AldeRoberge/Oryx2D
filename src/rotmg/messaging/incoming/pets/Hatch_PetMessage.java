@@ -1,6 +1,6 @@
 package rotmg.messaging.incoming.pets;
 
-import utils.flash.consumer.MessageConsumer;
+import flash.consumer.MessageConsumer;
 import rotmg.messaging.outgoing.OutgoingMessage;
 
 import java.io.DataInput;

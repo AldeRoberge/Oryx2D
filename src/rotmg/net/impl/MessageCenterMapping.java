@@ -1,10 +1,10 @@
 package rotmg.net.impl;
 
-import utils.flash.consumer.MessageConsumer;
+import flash.consumer.MessageConsumer;
 import rotmg.net.api.MessageMapping;
 
 /**
- * Map between CLASS and TYPE
+ * AbstractMap between CLASS and TYPE
  */
 public class MessageCenterMapping implements MessageMapping {
 

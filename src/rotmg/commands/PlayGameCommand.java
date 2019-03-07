@@ -1,11 +1,10 @@
 package rotmg.commands;
 
-import utils.flash.utils.Date;
+import flash.utils.Date;
 import rotmg.GameSprite;
 import rotmg.account.core.services.GetCharListTask;
 import rotmg.appengine.SavedCharacter;
 import rotmg.core.model.PlayerModel;
-import rotmg.core.signals.SetScreenSignal;
 import rotmg.lib.tasks.impl.SocketServerModel;
 import rotmg.lib.tasks.tasks.TaskMonitor;
 import rotmg.model.GameInitData;
@@ -18,8 +17,6 @@ import rotmg.servers.api.ServerModel;
 public class PlayGameCommand {
 
     public static final int RECONNECT_DELAY = 2000;
-
-    public SetScreenSignal setScreen;
 
     public GameInitData data;
 
@@ -37,7 +34,6 @@ public class PlayGameCommand {
 
     public PlayGameCommand() {
         super();
-        this.setScreen = SetScreenSignal.getInstance();
         this.data = GameInitData.getInstance();
         this.model = PlayerModel.getInstance();
         this.petsModel = PetsModel.getInstance();
@@ -88,7 +84,7 @@ public class PlayGameCommand {
         int loc5 = this.data.isNewGame ? -1 : this.data.keyTime;
         byte[] loc6 = this.data.key;
         this.model.currentCharId = loc4;
-        this.setScreen.dispatch(new GameSprite(loc1, loc2, loc3, loc4, loc5, loc6, this.model, null, this.data.isFromArena));
+        new GameSprite(loc1, loc2, loc3, loc4, loc5, loc6, this.model, null, this.data.isFromArena);
     }
 
     private int getInitialGameId() {

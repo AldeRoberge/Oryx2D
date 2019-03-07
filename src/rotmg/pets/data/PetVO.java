@@ -1,15 +1,16 @@
 package rotmg.pets.data;
 
-import utils.flash.XML;
-import utils.flash.consumer.SignalConsumer;
-import utils.flash.display.Bitmap;
-import utils.flash.display.BitmapData;
-import utils.osflash.signals.Signal;
+import flash.XML;
+import flash.consumer.SignalConsumer;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.util.AnimatedChars;
 import rotmg.util.MaskedImage;
+import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
+import utils.osflash.signals.Signal;
 
 public class PetVO {
 

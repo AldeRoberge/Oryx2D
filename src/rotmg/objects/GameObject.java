@@ -1,55 +1,38 @@
 package rotmg.objects;
 
-import utils.flash.Vector;
-import utils.flash.XML;
-import utils.flash.display.*;
-import utils.flash.filters.ColorMatrixFilter;
-import utils.flash.geom.ColorTransform;
-import utils.flash.geom.Matrix;
-import utils.flash.geom.Point;
-import utils.flash.geom.Vector3D;
-import utils.flash.utils.Dictionary;
-import rotmg.engine3d.Model3D;
-import rotmg.engine3d.Object3D;
-import rotmg.map.Map;
-import rotmg.map.mapoverlay.CharacterStatusText;
+import rotmg.map.AbstractMap;
 import rotmg.messaging.data.WorldPosData;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.objects.animation.Animations;
 import rotmg.objects.animation.AnimationsData;
-import rotmg.objects.particles.ExplosionEffect;
-import rotmg.objects.particles.HitEffect;
-import rotmg.objects.particles.ShockerEffect;
 import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.particles.ParticleEffect;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
 import rotmg.sound.SoundEffectLibrary;
-import rotmg.stage3D.GraphicsFillExtra;
-import rotmg.stage3D.graphic3D.Object3DStage3D;
-import rotmg.text.view.BitmapTextFactory;
-import rotmg.text.view.stringBuilder.LineBuilder;
-import rotmg.text.view.stringBuilder.StaticStringBuilder;
-import rotmg.text.view.stringBuilder.StringBuilder;
-import rotmg.util.*;
-import rotmg.util.redrawers.GlowRedrawer;
+import rotmg.util.AssetLibrary;
+import rotmg.util.BitmapUtil;
+import rotmg.util.ConditionEffect;
+import utils.ConversionUtil;
+import flash.geom.Point;
+import flash.geom.Vector3D;
+import flash.Vector;
+import flash.XML;
+import flash.display.BitmapData;
+import flash.utils.Dictionary;
 
-import static utils.flash.utils.timer.getTimer.getTimer;
+import static flash.utils.timer.getTimer.getTimer;
 
 
 public class GameObject extends BasicObject {
 
     public static final int ATTACK_PERIOD = 300;
-    protected static final ColorMatrixFilter PAUSED_FILTER = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
-    protected static final ColorMatrixFilter CURSED_FILTER = new ColorMatrixFilter(MoreColorUtil.redFilterMatrix);
-    protected static final Matrix IDENTITY_MATRIX = new Matrix();
     private static final double ZERO_LIMIT = 0.00001;
     private static final double NEGATIVE_ZERO_LIMIT = -ZERO_LIMIT;
     private static final int DEFAULT_HP_BAR_Y_OFFSET = 6;
 
     public BitmapData nameBitmapData = null;
-    public ShockerEffect shockEffect;
     public ObjectProperties props;
     public String name = "";
     public double radius = 0.5;
@@ -61,8 +44,6 @@ public class GameObject extends BasicObject {
     public BitmapData texture = null;
     public BitmapData mask = null;
     public Vector<TextureData> randomTextureData = null;
-    public Object3D obj3D = null;
-    public Object3DStage3D object3d = null;
     public ParticleEffect effect = null;
     public Animations animations = null;
     public boolean dead = false;
@@ -91,16 +72,8 @@ public class GameObject extends BasicObject {
     protected int myLastTickId = -1;
     protected Point posAtTick;
     protected Point tickPosition;
-    protected Vector3D moveVec;
-    protected GraphicsBitmapFill bitmapFill;
-    protected GraphicsPath path;
     protected Vector<Double> vS;
     protected Vector<Double> uvt;
-    protected Matrix fillMatrix;
-    protected GraphicsGradientFill shadowGradientFill = null;
-    protected GraphicsPath shadowPath = null;
-    private GraphicsBitmapFill nameFill = null;
-    private GraphicsPath namePath = null;
     private boolean isShocked;
     private boolean isShockedTransformSet = false;
     private boolean isCharging;
@@ -112,13 +85,9 @@ public class GameObject extends BasicObject {
     private boolean isDazedImmune = false;
     private boolean isStasisImmune = false;
     private boolean ishpScaleSet = false;
-    private GraphicsSolidFill hpbarBackFill = null;
-    private GraphicsPath hpbarBackPath = null;
-    private GraphicsSolidFill hpbarFill = null;
-    private GraphicsPath hpbarPath = null;
     private Vector<BitmapData> icons = null;
-    private Vector<GraphicsBitmapFill> iconFills = null;
-    private Vector<GraphicsPath> iconPaths = null;
+
+    protected Vector3D moveVec;
 
     public GameObject(XML param1) {
         super();
@@ -127,12 +96,8 @@ public class GameObject extends BasicObject {
         this.condition = new Vector<>(0, 0);
         this.posAtTick = new Point();
         this.tickPosition = new Point();
-        this.moveVec = new Vector3D();
-        this.bitmapFill = new GraphicsBitmapFill(null, null, false, false);
-        this.path = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, null);
         this.vS = new Vector<>();
         this.uvt = new Vector<>();
-        this.fillMatrix = new Matrix();
         if (param1 == null) {
             return;
         }
@@ -149,13 +114,6 @@ public class GameObject extends BasicObject {
         }
         if (this.texture != null) {
             this.sizeMult = this.texture.height / 8;
-        }
-        if (param1.hasOwnProperty("Model")) {
-            this.obj3D = Model3D.getObject3D(param1.getValue("Model"));
-            this.object3d = Model3D.getStage3dObject3D(param1.getValue("Model"));
-            if (this.texture != null) {
-                this.object3d.setBitMapData(this.texture);
-            }
         }
         AnimationsData loc3 = ObjectLibrary.typeToAnimationsData.get(this.objectType);
         if (loc3 != null) {
@@ -229,9 +187,6 @@ public class GameObject extends BasicObject {
             this.texture = loc2.texture;
             this.mask = loc2.mask;
             this.animatedChar = loc2.animatedChar;
-            if (this.object3d != null) {
-                this.object3d.setBitMapData(this.texture);
-            }
         }
     }
 
@@ -321,14 +276,7 @@ public class GameObject extends BasicObject {
             }
             this.texturingCache = null;
         }
-        if (this.obj3D != null) {
-            this.obj3D.dispose();
-            this.obj3D = null;
-        }
-        if (this.object3d != null) {
-            this.object3d.dispose();
-            this.object3d = null;
-        }
+
         this.slotTypes = null;
         this.equipment = null;
         this.lockedSlot = null;
@@ -336,23 +284,12 @@ public class GameObject extends BasicObject {
             this.nameBitmapData.dispose();
             this.nameBitmapData = null;
         }
-        this.nameFill = null;
-        this.namePath = null;
-        this.bitmapFill = null;
-        this.path.commands = null;
-        this.path.data = null;
+
         this.vS = null;
         this.uvt = null;
-        this.fillMatrix = null;
+
         this.icons = null;
-        this.iconFills = null;
-        this.iconPaths = null;
-        this.shadowGradientFill = null;
-        if (this.shadowPath != null) {
-            this.shadowPath.commands = null;
-            this.shadowPath.data = null;
-            this.shadowPath = null;
-        }
+
     }
 
     public boolean isQuiet() {
@@ -546,7 +483,7 @@ public class GameObject extends BasicObject {
     }
 
     @Override
-    public boolean addTo(Map param1, double param2, double param3) {
+    public boolean addTo(AbstractMap param1, double param2, double param3) {
         this.map = param1;
         this.posAtTick.x = this.tickPosition.x = param2;
         this.posAtTick.y = this.tickPosition.y = param3;
@@ -589,12 +526,7 @@ public class GameObject extends BasicObject {
             loc3.obj = this;
         }
         this.square = loc3;
-        if (this.obj3D != null) {
-            this.obj3D.setPosition(this.x, this.y, 0, this.props.rotation);
-        }
-        if (this.object3d != null) {
-            this.object3d.setPosition(this.x, this.y, 0, this.props.rotation);
-        }
+
         return true;
     }
 
@@ -666,7 +598,6 @@ public class GameObject extends BasicObject {
     public void damage(boolean param1, int param2, Vector<Integer> param3, boolean param4, Projectile param5, boolean param6) {
         int loc8 = 0;
         ConditionEffect loc10 = null;
-        CharacterStatusText loc11 = null;
         PetsModel loc12 = null;
         PetVO loc13 = null;
         String loc14 = null;
@@ -682,11 +613,7 @@ public class GameObject extends BasicObject {
                 if ((param5 != null) && (param5.projProps.isPetEffect != null) && (param5.projProps.isPetEffect.get(loc9) != null)) {
                     loc12 = PetsModel.getInstance();
                     loc13 = loc12.getActivePet();
-                    if (loc13 != null) {
-                        loc10 = ConditionEffect.effects.get(loc9);
-                        this.showConditionEffectPet(loc8, loc10.name);
-                        loc8 = loc8 + 500;
-                    }
+
                 } else {
                     switch (loc9) {
                         case ConditionEffect.NOTHING:
@@ -716,76 +643,28 @@ public class GameObject extends BasicObject {
                             loc10 = ConditionEffect.effects.get(loc9);
                             break;
                         case ConditionEffect.STASIS:
-                            if (this.isStasisImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.SLOWED:
-                            if (this.isSlowedImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.ARMORBROKEN:
-                            if (this.isArmorBrokenImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.STUNNED:
-                            if (this.isStunImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.DAZED:
-                            if (this.isDazedImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.PARALYZED:
-                            if (this.isParalyzeImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.PETRIFIED:
-                            if (this.isPetrifiedImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.CURSE:
-                            if (this.isCursedImmune()) {
-                                loc11 = new CharacterStatusText(this, 16711680, 3000);
-                                loc11.setStringBuilder(new LineBuilder().setParams(TextKey.GAMEOBJECT_IMMUNE));
-                                this.map.mapOverlay.addStatusText(loc11);
-                            } else {
-                                loc10 = ConditionEffect.effects.get(loc9);
-                            }
+
                             break;
                         case ConditionEffect.GROUND_DAMAGE:
                             loc7 = true;
@@ -803,75 +682,19 @@ public class GameObject extends BasicObject {
                             this.condition.put(ConditionEffect.CE_SECOND_BATCH, this.condition.get(ConditionEffect.CE_SECOND_BATCH) | loc10.bit);
                         }
                         loc14 = loc10.localizationKey;
-                        this.showConditionEffect(loc8, loc14);
                         loc8 = loc8 + 500;
                     }
                 }
             }
         }
         if (!(this.props.isEnemy && Data.disableEnemyParticles) && !(!this.props.isEnemy && Data.disablePlayersHitParticles)) {
-            loc15 = BloodComposition.getBloodComposition(this.objectType, this.texture, this.props.bloodProb, this.props.bloodColor);
-            if (this.dead) {
-                this.map.addObj(new ExplosionEffect(loc15, this.size, 30), this.x, this.y);
-            } else if (param5 != null) {
-                this.map.addObj(new HitEffect(loc15, this.size, 10, param5.angle, param5.projProps.speed), this.x, this.y);
-            } else {
-                this.map.addObj(new ExplosionEffect(loc15, this.size, 10), this.x, this.y);
-            }
         }
         if (!param1 && ((Data.noEnemyDamage && this.props.isEnemy) || (Data.noAllyDamage && this.props.isPlayer))) {
             return;
         }
-        if (param2 > 0) {
-            loc16 = this.isArmorBroken() || ((param5 != null) && param5.projProps.armorPiercing) || loc7 || param6;
-            this.showDamageText(param2, loc16);
-        }
+
     }
 
-    public void showConditionEffect(int param1, String param2) {
-        CharacterStatusText loc3 = new CharacterStatusText(this, 16711680, 3000, param1);
-        loc3.setStringBuilder(new LineBuilder().setParams(param2));
-        this.map.mapOverlay.addStatusText(loc3);
-    }
-
-    public void showConditionEffectPet(int param1, String param2) {
-        CharacterStatusText loc3 = new CharacterStatusText(this, 16711680, 3000, param1);
-        loc3.setStringBuilder(new StaticStringBuilder("Pet " + param2));
-        this.map.mapOverlay.addStatusText(loc3);
-    }
-
-    public void showDamageText(int param1, boolean param2) {
-        String loc3 = "-" + param1;
-        CharacterStatusText loc4 = new CharacterStatusText(this, param2 ? 9437439 : 16711680, 1000);
-        loc4.setStringBuilder(new StaticStringBuilder(loc3));
-        this.map.mapOverlay.addStatusText(loc4);
-    }
-
-    protected BitmapData makeNameBitmapData() {
-        StringBuilder loc1 = new StaticStringBuilder(this.name);
-        BitmapTextFactory loc2 = BitmapTextFactory.getInstance();
-        return loc2.make(loc1, 16, 16777215, true, IDENTITY_MATRIX, true);
-    }
-
-    public void drawName(Vector<IGraphicsData> param1, Camera param2) {
-        if (this.nameBitmapData == null) {
-            this.nameBitmapData = this.makeNameBitmapData();
-            this.nameFill = new GraphicsBitmapFill(null, new Matrix(), false, false);
-            this.namePath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
-        }
-        int loc3 = (this.nameBitmapData.width / 2) + 1;
-        int loc4 = 30;
-        Vector<Double> loc5 = this.namePath.data;
-        loc5.length = 0;
-        loc5.add(this.posS.get(0) - loc3, this.posS.get(1), this.posS.get(0) + loc3, this.posS.get(1), this.posS.get(0) + loc3, this.posS.get(1) + loc4, this.posS.get(0) - loc3, this.posS.get(1) + loc4);
-        this.nameFill.bitmapData = this.nameBitmapData;
-        Matrix loc6 = this.nameFill.matrix;
-        loc6.identity();
-        loc6.translate(loc5.get(0), loc5.get(1));
-        param1.add(this.nameFill);
-        param1.add(this.namePath);
-        param1.add(GraphicsUtil.END_FILL);
-    }
 
     protected BitmapData getHallucinatingTexture() {
         if (this.hallucinatingTexture == null) {
@@ -880,119 +703,9 @@ public class GameObject extends BasicObject {
         return this.hallucinatingTexture;
     }
 
-    protected BitmapData getTexture(Camera param1, int param2) {
-        Pet pet = null;
-        double loc7 = 0;
-        int loc8 = 0;
-        MaskedImage maskedImage = null;
-        int loc10 = 0;
-        BitmapData loc11 = null;
-        int loc12 = 0;
-        BitmapData loc13 = null;
-        if (this instanceof Pet) {
-            pet = (Pet) this;
-            if ((this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0) && !this.isPaused()) {
-                if (pet.skinId != 32912) {
-                    pet.setSkin(32912);
-                }
-            } else if (!pet.isDefaultAnimatedChar) {
-                pet.setDefaultSkin();
-            }
-        }
-        BitmapData loc3 = this.texture;
-        int loc4 = this.size;
-        BitmapData loc5 = null;
-        if (this.animatedChar != null) {
-            loc7 = 0;
-            loc8 = AnimatedChar.STAND;
-            if (param2 < (this.attackStart + ATTACK_PERIOD)) {
-                if (!this.props.dontFaceAttacks) {
-                    this.facing = this.attackAngle;
-                }
-                loc7 = ((param2 - this.attackStart) % ATTACK_PERIOD) / ATTACK_PERIOD;
-                loc8 = AnimatedChar.ATTACK;
-            } else if ((this.moveVec.x != 0) || (this.moveVec.y != 0)) {
-                loc10 = (int) (0.5 / this.moveVec.length);
-                loc10 = loc10 + (400 - (loc10 % 400));
-                if ((this.moveVec.x > ZERO_LIMIT) || (this.moveVec.x < NEGATIVE_ZERO_LIMIT) || (this.moveVec.y > ZERO_LIMIT) || (this.moveVec.y < NEGATIVE_ZERO_LIMIT)) {
-                    if (!this.props.dontFaceMovement) {
-                        this.facing = Math.atan2(this.moveVec.y, this.moveVec.x);
-                    }
-                    loc8 = AnimatedChar.WALK;
-                } else {
-                    loc8 = AnimatedChar.STAND;
-                }
-                loc7 = (param2 % loc10) / loc10;
-            }
-            maskedImage = this.animatedChar.imageFromFacing(this.facing, param1, loc8, loc7);
-            loc3 = maskedImage.image;
-            loc5 = maskedImage.mask;
-        } else if (this.animations != null) {
-            loc11 = this.animations.getTexture(param2);
-            if (loc11 != null) {
-                loc3 = loc11;
-            }
-        }
-        if (this.props.drawOnGround || (this.obj3D != null)) {
-            return loc3;
-        }
-        if (param1.isHallucinating) {
-            loc12 = loc3 == null ? 8 : loc3.width;
-            loc3 = this.getHallucinatingTexture();
-            loc5 = null;
-            loc4 = (int) (this.size * Math.min(1.5, loc12 / loc3.width));
-        }
-        if (!(this instanceof Pet)) {
-            if (this.isStasis() || this.isPetrified()) {
-                loc3 = CachingColorTransformer.filterBitmapData(loc3, PAUSED_FILTER);
-            }
-        }
-        if ((this.tex1Id == 0) && (this.tex2Id == 0)) {
-            if (this.isCursed() && Data.curseIndication) {
-                loc3 = TextureRedrawer.redraw(loc3, loc4, false, 16711680);
-            } else {
-                loc3 = TextureRedrawer.redraw(loc3, loc4, false, 0);
-            }
-        } else {
-            loc13 = null;
-            if (this.texturingCache == null) {
-                this.texturingCache = new Dictionary();
-            } else {
-                loc13 = this.texturingCache.get(loc3);
-            }
-            if (loc13 == null) {
-                loc13 = TextureRedrawer.resize(loc3, loc5, loc4, false, this.tex1Id, this.tex2Id);
-                loc13 = GlowRedrawer.outlineGlow(loc13, 0);
-                this.texturingCache.put(loc3, loc13);
-            }
-            loc3 = loc13;
-        }
-        return loc3;
-    }
-
     public void useAltTexture(String param1, int param2) {
         this.texture = AssetLibrary.getImageFromSet(param1, param2);
         this.sizeMult = this.texture.height / 8;
-    }
-
-    public BitmapData getPortrait() {
-        try {
-            BitmapData loc1 = null;
-            int loc2 = 0;
-            if (this.portrait == null) {
-                loc1 = this.props.portrait != null ? this.props.portrait.getTexture() : this.texture;
-                loc2 = (4 / loc1.width) * 100;
-                this.portrait = TextureRedrawer.resize(loc1, this.mask, loc2, true, this.tex1Id, this.tex2Id);
-                this.portrait = GlowRedrawer.outlineGlow(this.portrait, 0);
-            }
-            return this.portrait;
-
-        } catch (Exception e) {
-
-        }
-
-        return null;
-
     }
 
     public void setAttack(int param1, double param2) {
@@ -1000,223 +713,11 @@ public class GameObject extends BasicObject {
         this.attackStart = getTimer();
     }
 
-    @Override
-    public void draw3d(Vector<Object3DStage3D> param1) {
-        if (this.object3d != null) {
-            param1.add(this.object3d);
-        }
-    }
-
-    protected void drawHpBar(Vector<IGraphicsData> param1, int param2) {
-        double loc6 = 0;
-        double loc7 = 0;
-        if (this.hpbarPath == null) {
-            this.hpbarBackFill = new GraphicsSolidFill();
-            this.hpbarBackPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
-            this.hpbarFill = new GraphicsSolidFill();
-            this.hpbarPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
-        }
-        if (this.hp > this.maxHP) {
-            this.maxHP = this.hp;
-        }
-        this.hpbarBackFill.color = 1118481;
-        int loc3 = 20;
-        int loc4 = 5;
-        this.hpbarBackPath.data.length = 0;
-        double loc5 = 1.2;
-        this.hpbarBackPath.data.add(this.posS.get(0) - loc3 - loc5, (this.posS.get(1) + param2) - loc5, this.posS.get(0) + loc3 + loc5, (this.posS.get(1) + param2) - loc5, this.posS.get(0) + loc3 + loc5, this.posS.get(1) + param2 + loc4 + loc5, this.posS.get(0) - loc3 - loc5, this.posS.get(1) + param2 + loc4 + loc5);
-        param1.add(this.hpbarBackFill);
-        param1.add(this.hpbarBackPath);
-        param1.add(GraphicsUtil.END_FILL);
-        if (this.hp > 0) {
-            loc6 = this.hp / this.maxHP;
-            loc7 = loc6 * 2 * loc3;
-            this.hpbarPath.data.length = 0;
-            this.hpbarPath.data.add(this.posS.get(0) - loc3, this.posS.get(1) + param2, (this.posS.get(0) - loc3) + loc7, this.posS.get(1) + param2, (this.posS.get(0) - loc3) + loc7, this.posS.get(1) + param2 + loc4, this.posS.get(0) - loc3, this.posS.get(1) + param2 + loc4);
-            this.hpbarFill.color = loc6 < 0.5 ? loc6 < 0.2 ? 14684176 : 16744464 : 1113856;
-            param1.add(this.hpbarFill);
-            param1.add(this.hpbarPath);
-            param1.add(GraphicsUtil.END_FILL);
-        }
-        GraphicsFillExtra.setSoftwareDrawSolid(this.hpbarFill, true);
-        GraphicsFillExtra.setSoftwareDrawSolid(this.hpbarBackFill, true);
-    }
-
-    @Override
-    public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
-        BitmapData loc9 = null;
-        int loc10 = 0;
-        int loc11 = 0;
-        int loc12 = 0;
-        BitmapData loc4 = this.getTexture(param2, param3);
-        if (this.props.drawOnGround) {
-            if (this.square.faces.length == 0) {
-                return;
-            }
-            this.path.data = this.square.faces.get(0).face.vout;
-            this.bitmapFill.bitmapData = loc4;
-            this.square.baseTexMatrix.calculateTextureMatrix(this.path.data);
-            this.bitmapFill.matrix = this.square.baseTexMatrix.tToS;
-            param1.add(this.bitmapFill);
-            param1.add(this.path);
-            param1.add(GraphicsUtil.END_FILL);
-            return;
-        }
-        boolean loc5 = (this.props != null) && (this.props.isEnemy || this.props.isPlayer) && !this.isInvincible() && (this.props.isPlayer || !this.isInvulnerable()) && !this.props.noMiniMap;
-        if (this.obj3D != null) {
-            if (loc5 && this.bHPBarParamCheck() && (this.props.healthBar != 0)) {
-                this.drawHpBar(param1, this.props.healthBar);
-            }
-            if (!Parameters.isGpuRender()) {
-                this.obj3D.draw(param1, param2, this.props.color, loc4);
-                return;
-            }
-            if (Parameters.isGpuRender()) {
-                //param1.add(null);
-                return;
-            }
-        }
-        int loc6 = loc4.width;
-        int loc7 = loc4.height;
-        int loc8 = this.square.sink + this.sinkLevel;
-        if ((loc8 > 0) && (this.flying || ((this.square.obj != null) && this.square.obj.props.protectFromSink))) {
-            loc8 = 0;
-        }
-        if (Parameters.isGpuRender()) {
-            if (loc8 != 0) {
-                GraphicsFillExtra.setSinkLevel(this.bitmapFill, Math.max(((loc8 / loc7) * 1.65) - 0.02, 0));
-                loc8 = (int) (-loc8 + 0.02);
-            } else if (GraphicsFillExtra.getSinkLevel(this.bitmapFill) != 0) {
-                GraphicsFillExtra.clearSink(this.bitmapFill);
-            }
-        }
-        this.vS.length = 0;
-        this.vS.add(this.posS.get(3) - (loc6 / 2), (this.posS.get(4) - loc7) + loc8, this.posS.get(3) + (loc6 / 2), (this.posS.get(4) - loc7) + loc8, this.posS.get(3) + (loc6 / 2), this.posS.get(4), this.posS.get(3) - (loc6 / 2), this.posS.get(4));
-        this.path.data = this.vS;
-        if (this.flash != null) {
-            if (!this.flash.doneAt(param3)) {
-                if (Parameters.isGpuRender()) {
-                    this.flash.applyGPUTextureColorTransform(loc4, param3);
-                } else {
-                    loc4 = this.flash.apply(loc4, param3);
-                }
-            } else {
-                this.flash = null;
-            }
-        }
-        if (this.isShocked && !this.isShockedTransformSet) {
-            if (Parameters.isGpuRender()) {
-                GraphicsFillExtra.setColorTransform(loc4, new ColorTransform(-1, -1, -1, 1, 255, 255, 255, 0));
-            } else {
-                loc9 = loc4.clone();
-                loc9.colorTransform(loc9.rect, new ColorTransform(-1, -1, -1, 1, 255, 255, 255, 0));
-                loc9 = CachingColorTransformer.filterBitmapData(loc9, new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix));
-                loc4 = loc9;
-            }
-            this.isShockedTransformSet = true;
-        }
-        if (this.isCharging && !this.isChargingTransformSet) {
-            if (Parameters.isGpuRender()) {
-                GraphicsFillExtra.setColorTransform(loc4, new ColorTransform(1, 1, 1, 1, 255, 255, 255, 0));
-            } else {
-                loc9 = loc4.clone();
-                loc9.colorTransform(loc9.rect, new ColorTransform(1, 1, 1, 1, 255, 255, 255, 0));
-                loc4 = loc9;
-            }
-            this.isChargingTransformSet = true;
-        }
-        this.bitmapFill.bitmapData = loc4;
-        this.fillMatrix.identity();
-        this.fillMatrix.translate(this.vS.get(0), this.vS.get(1));
-        this.bitmapFill.matrix = this.fillMatrix;
-        param1.add(this.bitmapFill);
-        param1.add(this.path);
-        param1.add(GraphicsUtil.END_FILL);
-        if (!this.isPaused() && ((this.condition.get(ConditionEffect.CE_FIRST_BATCH) != 0) || (this.condition.get(ConditionEffect.CE_SECOND_BATCH) != 0)) && !Parameters.screenShotMode && !(this instanceof Pet)) {
-            this.drawConditionIcons(param1, param2, param3);
-        }
-        if (this.props.showName && (this.name != null) && (this.name.length() != 0)) {
-            this.drawName(param1, param2);
-        }
-        if (loc5) {
-            loc10 = loc4.getPixel32(loc4.width / 4, loc4.height / 4) | loc4.getPixel32(loc4.width / 2, loc4.height / 2) | loc4.getPixel32((loc4.width * 3) / 4, (loc4.height * 3) / 4);
-            loc11 = loc10 >> 24;
-            if (loc11 != 0) {
-                this.hasShadow = true;
-                loc12 = this.props.isPlayer && (this != this.map.player) ? 12 : 0;
-                if (this.bHPBarParamCheck() && (this.props.healthBar != -1)) {
-                    this.drawHpBar(param1, this.props.healthBar != 0 ? this.props.healthBar : loc12 + DEFAULT_HP_BAR_Y_OFFSET);
-                }
-            } else {
-                this.hasShadow = false;
-            }
-        }
-    }
 
     private boolean bHPBarParamCheck() {
         return (Parameters.data.HPBar != 0) && ((Parameters.data.HPBar == 1) || ((Parameters.data.HPBar == 2) && this.props.isEnemy) || ((Parameters.data.HPBar == 3) && ((this == this.map.player) || this.props.isEnemy)) || ((Parameters.data.HPBar == 4) && (this == this.map.player)) || ((Parameters.data.HPBar == 5) && this.props.isPlayer));
     }
 
-    public void drawConditionIcons(Vector<IGraphicsData> param1, Camera param2, int param3) {
-        BitmapData loc9 = null;
-        GraphicsBitmapFill loc10 = null;
-        GraphicsPath loc11 = null;
-        double loc12 = 0;
-        double loc13 = 0;
-        Matrix loc14 = null;
-        if (this.icons == null) {
-            this.icons = new Vector<>();
-            this.iconFills = new Vector<>();
-            this.iconPaths = new Vector<>();
-        }
-        this.icons.length = 0;
-        int loc4 = param3 / 500;
-        ConditionEffect.getConditionEffectIcons(this.condition.get(ConditionEffect.CE_FIRST_BATCH), this.icons, loc4);
-        ConditionEffect.getConditionEffectIcons2(this.condition.get(ConditionEffect.CE_SECOND_BATCH), this.icons, loc4);
-        double loc5 = this.posS.get(3);
-        double loc6 = this.vS.get(1);
-        int loc7 = this.icons.length;
-        int loc8 = 0;
-        while (loc8 < loc7) {
-            loc9 = this.icons.get(loc8);
-            if (loc8 >= this.iconFills.length) {
-                this.iconFills.add(new GraphicsBitmapFill(null, new Matrix(), false, false));
-                this.iconPaths.add(new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>()));
-            }
-            loc10 = this.iconFills.get(loc8);
-            loc11 = this.iconPaths.get(loc8);
-            loc10.bitmapData = loc9;
-            loc12 = (loc5 - ((loc9.width * loc7) / 2)) + (loc8 * loc9.width);
-            loc13 = loc6 - (loc9.height / 2);
-            loc11.data.length = 0;
-            loc11.data.add(loc12, loc13, loc12 + loc9.width, loc13, loc12 + loc9.width, loc13 + loc9.height, loc12, loc13 + loc9.height);
-            loc14 = loc10.matrix;
-            loc14.identity();
-            loc14.translate(loc12, loc13);
-            param1.add(loc10);
-            param1.add(loc11);
-            param1.add(GraphicsUtil.END_FILL);
-            loc8++;
-        }
-    }
-
-
-    @Override
-    public void drawShadow(Vector<IGraphicsData> param1, Camera param2, int param3) {
-        if (this.shadowGradientFill == null) {
-            this.shadowGradientFill = new GraphicsGradientFill(GradientType.RADIAL, new Vector<>(this.props.shadowColor, this.props.shadowColor), new Vector<>(0.5, 0.0), null, new Matrix());
-            this.shadowPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
-        }
-        double loc4 = (this.size / 100) * (this.props.shadowSize / 100) * this.sizeMult;
-        double loc5 = 30 * loc4;
-        double loc6 = 15 * loc4;
-        this.shadowGradientFill.matrix.createGradientBox(loc5 * 2, loc6 * 2, 0, this.posS.get(0) - loc5, this.posS.get(1) - loc6);
-        param1.add(this.shadowGradientFill);
-        this.shadowPath.data.length = 0;
-        this.shadowPath.data.add(this.posS.get(0) - loc5, this.posS.get(1) - loc6, this.posS.get(0) + loc5, this.posS.get(1) - loc6, this.posS.get(0) + loc5, this.posS.get(1) + loc6, this.posS.get(0) - loc5, this.posS.get(1) + loc6);
-        param1.add(this.shadowPath);
-        param1.add(GraphicsUtil.END_FILL);
-    }
 
     public void clearTextureCache() {
         this.texturingCache = new Dictionary<>();

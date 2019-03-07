@@ -1,6 +1,6 @@
 package rotmg.util;
 
-import utils.flash.display.BitmapData;
+import flash.display.BitmapData;
 
 public class BitmapDataSpy extends BitmapData {
     public BitmapDataSpy(int width, int height, boolean param3, int param4) {

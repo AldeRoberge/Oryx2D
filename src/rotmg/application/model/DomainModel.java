@@ -1,8 +1,6 @@
 package rotmg.application.model;
 
-import utils.flash.Vector;
-import utils.flash.net.LocalConnection;
-import utils.flash.system.Security;
+import flash.Vector;
 
 public class DomainModel {
 
@@ -18,23 +16,12 @@ public class DomainModel {
 
     private final Vector<String> WHITELIST = this.PRODUCTION_WHITELIST.concat(this.TESTING_WHITELIST).concat(this.TRANSLATION_WHITELIST).concat(this.TESTING2_WHITELIST);
 
-    public PlatformModel client;
-
     private String localDomain;
 
     public DomainModel() {
         super();
     }
 
-    public void applyDomainSecurity() {
-        for (String loc1 : this.WHITELIST) {
-            Security.allowDomain(loc1);
-        }
-    }
-
-    public boolean isLocalDomainValid() {
-        return this.client.isDesktop() || this.isLocalDomainInWhiteList();
-    }
 
     public boolean isLocalDomainProduction() {
         String loc1 = this.getLocalDomain();
@@ -51,11 +38,6 @@ public class DomainModel {
     }
 
     private String getLocalDomain() {
-
-        if (this.localDomain == null) {
-            this.localDomain = new LocalConnection().domain;
-        }
-
         return this.localDomain;
     }
 }

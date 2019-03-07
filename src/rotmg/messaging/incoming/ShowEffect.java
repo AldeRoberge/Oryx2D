@@ -1,6 +1,6 @@
 package rotmg.messaging.incoming;
 
-import utils.flash.consumer.MessageConsumer;
+import flash.consumer.MessageConsumer;
 import rotmg.messaging.data.WorldPosData;
 
 import java.io.DataInput;

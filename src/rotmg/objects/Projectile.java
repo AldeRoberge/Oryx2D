@@ -1,21 +1,14 @@
 package rotmg.objects;
 
-import utils.flash.Vector;
-import utils.flash.display.*;
-import utils.flash.geom.Matrix;
-import utils.flash.geom.Point;
-import utils.flash.geom.Vector3D;
-import utils.flash.utils.Dictionary;
-import rotmg.engine3d.Point3D;
-import rotmg.map.Map;
-import rotmg.objects.particles.HitEffect;
-import rotmg.objects.particles.SparkParticle;
+import rotmg.map.AbstractMap;
 import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
-import rotmg.tutorial.Tutorial;
-import rotmg.util.*;
-
-import static rotmg.tutorial.doneAction.doneAction;
+import flash.geom.Point;
+import flash.geom.Point3D;
+import flash.geom.Trig;
+import flash.Vector;
+import flash.display.BitmapData;
+import flash.utils.Dictionary;
 
 /**
  * This class is about 10% done. It requires a lot of graphics stuff.
@@ -59,18 +52,12 @@ public class Projectile extends BasicObject {
     public Dictionary multiHitDict;
 
     public Point3D p;
-    protected GraphicsGradientFill shadowGradientFill;
-    protected GraphicsPath shadowPath;
     private Point staticPoint;
-    private Vector3D staticVector3D;
 
     public Projectile() {
         super();
         this.p = new Point3D(100);
         this.staticPoint = new Point();
-        this.staticVector3D = new Vector3D();
-        this.shadowGradientFill = new GraphicsGradientFill(GradientType.RADIAL, new Vector<>(0, 0), new Vector<>(0.5, 0.0), null, new Matrix());
-        this.shadowPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector<Double>());
     }
 
     public static int findObjId(int param1, int param2) {
@@ -138,7 +125,7 @@ public class Projectile extends BasicObject {
     }
 
     @Override
-    public boolean addTo(Map param1, double param2, double param3) {
+    public boolean addTo(AbstractMap param1, double param2, double param3) {
         Player loc4 = null;
         this.startX = param2;
         this.startY = param3;
@@ -241,8 +228,8 @@ public class Projectile extends BasicObject {
                 this.map.gs.gsc.squareHit(param1, this.bulletId, this.ownerId);
             } else if (this.square.obj != null) {
                 if (!Data.noParticlesMaster) {
-                    loc5 = BloodComposition.getColors(this.texture);
-                    this.map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
+                    //loc5 = BloodComposition.getColors(this.texture);
+                    //this.map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
                 }
             }
             return false;
@@ -251,8 +238,8 @@ public class Projectile extends BasicObject {
             if (this.damagesPlayers) {
                 this.map.gs.gsc.otherHit(param1, this.bulletId, this.ownerId, this.square.obj.objectId);
             } else if (!Data.noParticlesMaster) {
-                loc5 = BloodComposition.getColors(this.texture);
-                this.map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
+                //loc5 = BloodComposition.getColors(this.texture);
+                //this.map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
             }
             return false;
         }
@@ -264,13 +251,7 @@ public class Projectile extends BasicObject {
             loc10 = loc8 && !loc7.isPaused() && (this.damagesPlayers || (loc9 && (this.ownerId == loc7.objectId)));
             if (loc10) {
                 loc11 = GameObject.damageWithDefense(this.damage, loc6.defense, this.projProps.armorPiercing, loc6.condition);
-                loc12 = false;
-                if (loc6.hp <= loc11) {
-                    loc12 = true;
-                    if (loc6.props.isEnemy) {
-                        doneAction(this.map.gs, Tutorial.KILL_ACTION);
-                    }
-                }
+                loc12 = loc6.hp <= loc11;
                 if (loc6 == loc7) {
                     this.map.gs.gsc.playerHit(this.bulletId, this.ownerId);
                     loc6.damage(true, loc11, this.projProps.effects, false, this);
@@ -325,65 +306,6 @@ public class Projectile extends BasicObject {
         return loc4;
     }
 
-    @Override
-    public void draw(Vector<IGraphicsData> param1, Camera param2, int param3) {
-        int loc8 = 0;
-        int loc9 = 0;
-        int loc10 = 0;
-        int loc11 = 0;
-        if (!Parameters.drawProj) {
-            return;
-        }
-        BitmapData loc4 = this.texture;
-        if (Parameters.projColorType != 0) {
-            switch (Parameters.projColorType) {
-                case 1:
-                    loc8 = 16777100;
-                    loc9 = 16777215;
-                    break;
-                case 2:
-                    loc8 = 16777100;
-                    loc9 = 16777100;
-                    break;
-                case 3:
-                    loc8 = 16711680;
-                    loc9 = 16711680;
-                    break;
-                case 4:
-                    loc8 = 255;
-                    loc9 = 255;
-                    break;
-                case 5:
-                    loc8 = 16777215;
-                    loc9 = 16777215;
-                    break;
-                case 6:
-                    loc8 = 0;
-                    loc9 = 0;
-            }
-            loc4 = TextureRedrawer.redraw(loc4, 120, true, loc9);
-        }
-        double loc5 = this.props.rotation == 0 ? 0 : param3 / this.props.rotation;
-        this.staticVector3D.x = this.x;
-        this.staticVector3D.y = this.y;
-        this.staticVector3D.z = this.z;
-        double loc6 = !!this.projProps.faceDir ? this.getDirectionAngle(param3) : this.angle;
-        double loc7 = !!this.projProps.noRotation ? param2.angleRad + this.props.angleCorrection : (loc6 - param2.angleRad) + this.props.angleCorrection + loc5;
-        this.p.draw(param1, this.staticVector3D, loc7, param2.wToS, param2, loc4);
-        if (!Data.noParticlesMaster && this.projProps.particleTrail) {
-            loc10 = this.projProps.particleTrailLifetimeMS != -1 ? this.projProps.particleTrailLifetimeMS : 600;
-            loc11 = 0;
-            for (; loc11 < 3; loc11++) {
-                if ((this.map != null) && (this.map.player.objectId != this.ownerId)) {
-                    if ((this.projProps.particleTrailIntensity == -1) && ((Math.random() * 100) > this.projProps.particleTrailIntensity)) {
-                        continue;
-                    }
-                }
-                this.map.addObj(new SparkParticle(100, this.projProps.particleTrailColor, loc10, 0.5, RandomUtil.plusMinus(3), RandomUtil.plusMinus(3)), this.x, this.y);
-            }
-        }
-    }
-
     private double getDirectionAngle(double param1) {
         int loc2 = (int) (param1 - this.startTime);
         Point loc3 = new Point();
@@ -392,22 +314,5 @@ public class Projectile extends BasicObject {
         double loc5 = loc3.y - this.y;
         return Math.atan2(loc5, loc4);
     }
-
-    @Override
-    public void drawShadow(Vector<IGraphicsData> param1, Camera param2, int param3) {
-        if (!Parameters.drawProj) {
-            return;
-        }
-        double loc4 = this.props.shadowSize / 400;
-        double loc5 = 30 * loc4;
-        double loc6 = 15 * loc4;
-        this.shadowGradientFill.matrix.createGradientBox(loc5 * 2, loc6 * 2, 0, this.posS.get(0) - loc5, this.posS.get(1) - loc6);
-        param1.add(this.shadowGradientFill);
-        this.shadowPath.data.length = 0;
-        this.shadowPath.data.add(this.posS.get(0) - loc5, this.posS.get(1) - loc6, this.posS.get(0) + loc5, this.posS.get(1) - loc6, this.posS.get(0) + loc5, this.posS.get(1) + loc6, this.posS.get(0) - loc5, this.posS.get(1) + loc6);
-        param1.add(this.shadowPath);
-        param1.add(GraphicsUtil.END_FILL);
-    }
-
 
 }

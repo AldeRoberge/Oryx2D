@@ -1,6 +1,6 @@
 package rotmg.objects.animation;
 
-import utils.flash.XML;
+import flash.XML;
 import rotmg.objects.TextureData;
 import rotmg.objects.TextureDataConcrete;
 

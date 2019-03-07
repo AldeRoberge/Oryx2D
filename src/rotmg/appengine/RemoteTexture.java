@@ -1,9 +1,9 @@
 package rotmg.appengine;
 
-import utils.flash.Vector;
-import utils.flash.consumer.SignalConsumer;
-import utils.flash.display.BitmapData;
-import utils.flash.utils.Date;
+import flash.Vector;
+import flash.consumer.SignalConsumer;
+import flash.display.BitmapData;
+import flash.utils.Date;
 import utils.png.PNGDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

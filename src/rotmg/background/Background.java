@@ -3,7 +3,7 @@ package rotmg.background;
 /**
  * 100% match
  */
-public class Background extends Sprite {
+public class Background {
 
     public static final int NO_BACKGROUND = 0;
 
@@ -15,7 +15,6 @@ public class Background extends Sprite {
 
     public Background() {
         super();
-        this.visible = false;
     }
 
     public static Background getBackground(int param1) {
@@ -29,9 +28,6 @@ public class Background extends Sprite {
             default:
                 return null;
         }
-    }
-
-    public void draw(Camera param1, int param2) {
     }
 
 }

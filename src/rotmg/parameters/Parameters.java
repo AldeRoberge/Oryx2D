@@ -1,10 +1,10 @@
 package rotmg.parameters;
 
-import utils.flash.Vector;
-import rotmg.map.Map;
+import flash.Vector;
+import rotmg.map.AbstractMap;
 import rotmg.util.KeyCodes;
 import rotmg.util.MoreDateUtil;
-import utils.flash.utils.Dictionary;
+import flash.utils.Dictionary;
 
 /**
  * The AS3 version uses Parameters.stats.value (Object)
@@ -98,7 +98,7 @@ public class Parameters {
     }
 
     public static boolean isGpuRender() {
-        return !GPURenderError && Data.GPURender && !Map.forceSoftwareRender;
+        return !GPURenderError && Data.GPURender && !AbstractMap.forceSoftwareRender;
     }
 
     public static void clearGpuRenderEvent() {

@@ -1,6 +1,6 @@
 package rotmg.pets.data;
 
-import utils.flash.XML;
+import flash.XML;
 import utils.osflash.signals.Signal;
 import rotmg.objects.ObjectLibrary;
 

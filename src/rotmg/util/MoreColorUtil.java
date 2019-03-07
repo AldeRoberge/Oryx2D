@@ -1,8 +1,8 @@
 package rotmg.util;
 
 
-import utils.flash.Vector;
-import utils.flash.geom.ColorTransform;
+import flash.Vector;
+import flash.geom.ColorTransform;
 
 public class MoreColorUtil {
 

@@ -1,6 +1,6 @@
 package rotmg.constants;
 
-import utils.flash.display.BitmapData;
+import flash.display.BitmapData;
 import rotmg.util.AssetLibrary;
 
 public class ItemConstants {

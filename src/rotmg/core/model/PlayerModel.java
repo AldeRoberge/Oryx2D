@@ -1,7 +1,7 @@
 package rotmg.core.model;
 
 
-import utils.flash.Vector;
+import flash.Vector;
 import utils.osflash.signals.Signal;
 import rotmg.account.core.Account;
 import rotmg.appengine.SavedCharacter;
@@ -262,10 +262,7 @@ public class PlayerModel {
     }
 
     public boolean isNewToEditing() {
-        if ((this.charList != null) && !this.charList.isFirstTimeLogin()) {
-            return false;
-        }
-        return true;
+        return (this.charList == null) || this.charList.isFirstTimeLogin();
     }
 
 

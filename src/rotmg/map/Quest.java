@@ -2,12 +2,12 @@ package rotmg.map;
 
 import rotmg.objects.GameObject;
 
-import static utils.flash.utils.timer.getTimer.getTimer;
+import static flash.utils.timer.getTimer.getTimer;
 
 
 public class Quest {
 
-    public Map map;
+    public AbstractMap map;
 
     public int objectId = -1;
 
@@ -15,7 +15,7 @@ public class Quest {
 
     private int questOldAt = 0;
 
-    public Quest(Map param1) {
+    public Quest(AbstractMap param1) {
         super();
         this.map = param1;
     }

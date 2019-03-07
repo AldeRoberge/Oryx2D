@@ -1,6 +1,6 @@
 package rotmg.appengine.api;
 
-import utils.flash.Vector;
+import flash.Vector;
 import utils.osflash.OnceSignal;
 
 public interface RetryLoader {

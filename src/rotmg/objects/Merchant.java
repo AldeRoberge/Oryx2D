@@ -1,26 +1,20 @@
 package rotmg.objects;
 
-import utils.flash.Vector;
-import utils.flash.XML;
-import utils.flash.display.BitmapData;
-import utils.flash.geom.ColorTransform;
-import utils.flash.geom.Matrix;
-import rotmg.GameSprite;
-import rotmg.constants.InventoryOwnerTypes;
-import rotmg.language.model.StringMap;
-import rotmg.map.Map;
+import rotmg.map.AbstractMap;
 import rotmg.model.AddSpeechBalloonVO;
 import rotmg.signals.AddSpeechBalloonSignal;
-import rotmg.text.view.stringBuilder.LineBuilder;
-import rotmg.ui.panels.Panel;
-import rotmg.ui.tooltip.EquipmentToolTip;
-import rotmg.ui.tooltip.ToolTip;
 import rotmg.util.IntPoint;
+import flash.LineBuilder;
+import flash.StringMap;
+import flash.Vector;
+import flash.XML;
+import flash.display.BitmapData;
+import flash.geom.ColorTransform;
 
 /**
  * Almost a 100% match, except that it's abstract because it doesnt have the getPanel() method
  */
-public class Merchant extends SellableObject implements IInteractiveObject {
+public class Merchant extends SellableObject {
 
     private static final int NONE_MESSAGE = 0;
 
@@ -33,14 +27,6 @@ public class Merchant extends SellableObject implements IInteractiveObject {
     private static final int DISCOUNT_MESSAGE = 4;
 
     private static final double T = 1;
-
-    private static Matrix DOSE_MATRIX;
-
-    static {
-        Matrix loc1 = new Matrix();
-        loc1.translate(10, 5);
-        DOSE_MATRIX = loc1;
-    }
 
     public int merchandiseType = -1;
 
@@ -87,7 +73,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
     }
 
     @Override
-    public boolean addTo(Map param1, double param2, double param3) {
+    public boolean addTo(AbstractMap param1, double param2, double param3) {
         if (!super.addTo(param1, param2, param3)) {
             return false;
         }
@@ -191,11 +177,6 @@ public class Merchant extends SellableObject implements IInteractiveObject {
         return String.valueOf(loc1.getIntAttribute("id"));
     }
 
-    public ToolTip getTooltip() {
-        ToolTip loc1 = new EquipmentToolTip(this.merchandiseType, this.map.player, -1, InventoryOwnerTypes.NPC);
-        return loc1;
-    }
-
     public int getSellableType() {
         return this.merchandiseType;
     }
@@ -246,15 +227,13 @@ public class Merchant extends SellableObject implements IInteractiveObject {
         return param1;
     }
 
-    @Override
-    protected BitmapData getTexture(Camera param1, int param2) {
+    protected BitmapData getTexture(int param2) {
         if ((this.alpha == 1) && (this.size == 100)) {
             return this.merchandiseTexture;
         }
         BitmapData loc3 = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType, this.size, false, false);
         if (this.alpha != 1) {
             this.ct.alphaMultiplier = (int) this.alpha;
-            loc3.colorTransform(loc3.rect, this.ct);
         }
         return loc3;
     }
@@ -264,8 +243,4 @@ public class Merchant extends SellableObject implements IInteractiveObject {
         //this.merchandiseTexture = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType, 100, false);
     }
 
-    @Override //TODO this is not correctly implemented
-    public Panel getPanel(GameSprite param1) {
-        return new Panel(param1);
-    }
 }

@@ -1,7 +1,7 @@
 package rotmg.net.impl;
 
-import utils.flash.IData;
-import utils.flash.consumer.MessageConsumer;
+import flash.IData;
+import flash.consumer.MessageConsumer;
 
 import java.io.*;
 

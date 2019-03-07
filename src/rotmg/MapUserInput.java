@@ -1,36 +1,26 @@
 package rotmg;
 
-import utils.flash.XML;
-import utils.flash.consumer.EventConsumer;
-import utils.flash.consumer.SignalConsumer;
-import utils.flash.events.Event;
-import utils.flash.events.KeyboardEvent;
-import utils.flash.events.MouseEvent;
-import utils.flash.system.Capabilities;
 import rotmg.application.api.ApplicationSetup;
 import rotmg.application.impl.ProductionSetup;
 import rotmg.chat.model.ChatMessage;
-import rotmg.constants.GeneralConstants;
 import rotmg.constants.UseType;
-import rotmg.dialogs.CloseDialogsSignal;
-import rotmg.dialogs.OpenDialogSignal;
 import rotmg.messaging.GameServerConnection;
 import rotmg.model.PotionInventoryModel;
 import rotmg.objects.GameObject;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
-import rotmg.objects.Square;
 import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.pets.controller.reskin.ReskinPetFlowStartSignal;
 import rotmg.signals.*;
 import rotmg.tutorial.Tutorial;
-import rotmg.ui.Options;
 import rotmg.ui.model.TabStripModel;
-import rotmg.ui.popups.signals.CloseAllPopupsSignal;
-import rotmg.ui.popups.signals.ClosePopupByClassSignal;
-import rotmg.ui.popups.signals.ShowPopupSignal;
 import rotmg.util.KeyCodes;
+import flash.XML;
+import flash.events.Event;
+import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
+import flash.system.Capabilities;
 
 import static rotmg.tutorial.doneAction.doneAction;
 
@@ -75,16 +65,6 @@ public class MapUserInput {
 
     private PotionInventoryModel potionInventoryModel;
 
-    private OpenDialogSignal openDialogSignal;
-
-    private CloseDialogsSignal closeDialogSignal;
-
-    private ClosePopupByClassSignal closePopupByClassSignal;
-
-    private TabStripModel tabStripModel;
-
-    private Layers layers;
-
     private ExitGameSignal exitGame;
 
     private boolean areFKeysAvailable;
@@ -94,8 +74,6 @@ public class MapUserInput {
     public MapUserInput(GameSprite param1) {
         super();
         this.gs = param1;
-        this.gs.addEventListener(Event.ADDED_TO_STAGE, new EventConsumer<>(this::onAddedToStage));
-        this.gs.addEventListener(Event.REMOVED_FROM_STAGE, new EventConsumer<>(this::onRemovedFromStage));
         this.giftStatusUpdateSignal = GiftStatusUpdateSignal.getInstance();
         this.reskinPetFlowStart = ReskinPetFlowStartSignal.getInstance();
         this.addTextLine = AddTextLineSignal.getInstance();
@@ -103,30 +81,11 @@ public class MapUserInput {
         this.miniMapZoom = MiniMapZoomSignal.getInstance();
         this.useBuyPotionSignal = UseBuyPotionSignal.getInstance();
         this.potionInventoryModel = PotionInventoryModel.getInstance();
-        this.tabStripModel = TabStripModel.getInstance();
-        this.layers = Layers.getInstance();
         this.exitGame = ExitGameSignal.getInstance();
-        this.openDialogSignal = OpenDialogSignal.getInstance();
-        this.closeDialogSignal = CloseDialogsSignal.getInstance();
-        this.closePopupByClassSignal = ClosePopupByClassSignal.getInstance();
         ApplicationSetup loc3 = ProductionSetup.getInstance();
         this.areFKeysAvailable = loc3.areDeveloperHotkeysEnabled();
-        this.gs.map.signalRenderSwitch.add(new SignalConsumer<>(this::onRenderSwitch));
     }
 
-    public void onRenderSwitch(boolean param1) {
-        if (param1) {
-            this.gs.stage.removeEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            this.gs.stage.removeEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-            this.gs.map.addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            this.gs.map.addEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-        } else {
-            this.gs.map.removeEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            this.gs.map.removeEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-            this.gs.stage.addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            this.gs.stage.addEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-        }
-    }
 
     public void clearInput() {
         this.moveLeft = false;
@@ -146,46 +105,6 @@ public class MapUserInput {
             this.clearInput();
         }
     }
-
-    private void onAddedToStage(Event param1) {
-        Stage loc2 = this.gs.stage;
-        loc2.addEventListener(Event.ACTIVATE, new EventConsumer<>(this::onActivate));
-        loc2.addEventListener(Event.DEACTIVATE, new EventConsumer<>(this::onDeactivate));
-        loc2.addEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
-        loc2.addEventListener(KeyboardEvent.KEY_UP, new EventConsumer<>(this::onKeyUp));
-        loc2.addEventListener(MouseEvent.MOUSE_WHEEL, new EventConsumer<>(this::onMouseWheel));
-        if (Parameters.isGpuRender()) {
-            loc2.addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            loc2.addEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-        } else {
-            this.gs.map.addEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            this.gs.map.addEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-        }
-        loc2.addEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
-        loc2.addEventListener(MouseEvent.RIGHT_CLICK, new EventConsumer<>(this::disableRightClick));
-    }
-
-    public void disableRightClick(MouseEvent param1) {
-    }
-
-    private void onRemovedFromStage(Event param1) {
-        Stage loc2 = this.gs.stage;
-        loc2.removeEventListener(Event.ACTIVATE, new EventConsumer<>(this::onActivate));
-        loc2.removeEventListener(Event.DEACTIVATE, new EventConsumer<>(this::onDeactivate));
-        loc2.removeEventListener(KeyboardEvent.KEY_DOWN, new EventConsumer<>(this::onKeyDown));
-        loc2.removeEventListener(KeyboardEvent.KEY_UP, new EventConsumer<>(this::onKeyUp));
-        loc2.removeEventListener(MouseEvent.MOUSE_WHEEL, new EventConsumer<>(this::onMouseWheel));
-        if (Parameters.isGpuRender()) {
-            loc2.removeEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            loc2.removeEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-        } else {
-            this.gs.map.removeEventListener(MouseEvent.MOUSE_DOWN, new EventConsumer<>(this::onMouseDown));
-            this.gs.map.removeEventListener(MouseEvent.MOUSE_UP, new EventConsumer<>(this::onMouseUp));
-        }
-        loc2.removeEventListener(Event.ENTER_FRAME, new EventConsumer<>(this::onEnterFrame));
-        loc2.removeEventListener(MouseEvent.RIGHT_CLICK, new EventConsumer<>(this::disableRightClick));
-    }
-
     private void onActivate(Event param1) {
     }
 
@@ -231,16 +150,8 @@ public class MapUserInput {
             }
             return;
         }
-        /**if (Parameters.isGpuRender()) {
-         if (param1.currentTarget == param1.target || param1.target == this.gs.map || param1.target == this.gs || param1.currentTarget == this.gs.chatBox.list) {
-         loc3 = Math.atan2(this.gs.map.mouseY, this.gs.map.mouseX);
-         } else {
-         return;
-         }
-         } else {*/
         loc3 = Math.atan2(this.gs.map.mouseY, this.gs.map.mouseX);
         //}
-        doneAction(this.gs, Tutorial.ATTACK_ACTION);
         if (loc2.isUnstable()) {
             loc2.attemptAttackAngle(Math.random() * 360);
         } else {
@@ -284,16 +195,13 @@ public class MapUserInput {
     }
 
     private void onKeyDown(KeyboardEvent param1) {
-        CloseAllPopupsSignal loc4 = null;
+
         AddTextLineSignal loc5 = null;
         ChatMessage loc6 = null;
         GameObject loc7 = null;
         double loc8 = 0;
         double loc9 = 0;
         boolean loc10 = false;
-        ShowPopupSignal loc11 = null;
-        OpenDialogSignal loc13 = null;
-        Stage loc2 = this.gs.stage;
         /**this.currentString = this.currentString + param1.keyCode;
          if (this.currentString.equals(UIUtils.EXPERIMENTAL_MENU_PASSWORD.substring(0, this.currentString.length()))) {
          if (this.currentString.length() == UIUtils.EXPERIMENTAL_MENU_PASSWORD.length()) {
@@ -325,41 +233,33 @@ public class MapUserInput {
             case KeyCodes.ALTERNATE:
                 break;
             default:
-                if (loc2.focus != null) {
-                    return;
-                }
+
                 break;
         }
 
         Player loc3 = this.gs.map.player;
         if (param1.keyCode == Parameters.data.moveUp) {
-            doneAction(this.gs, Tutorial.MOVE_FORWARD_ACTION);
             this.moveUp = true;
 
         } else if (param1.keyCode == Parameters.data.moveDown) {
-            doneAction(this.gs, Tutorial.MOVE_BACKWARD_ACTION);
             this.moveDown = true;
 
         } else if (param1.keyCode == Parameters.data.moveLeft) {
-            doneAction(this.gs, Tutorial.MOVE_LEFT_ACTION);
             this.moveLeft = true;
 
         } else if (param1.keyCode == Parameters.data.moveRight) {
-            doneAction(this.gs, Tutorial.MOVE_RIGHT_ACTION);
             this.moveRight = true;
 
         } else if (param1.keyCode == Parameters.data.rotateLeft) {
             if (!Data.allowRotation) {
                 return;
             }
-            doneAction(this.gs, Tutorial.ROTATE_LEFT_ACTION);
             this.rotateLeft = true;
 
         } else if (param1.keyCode == Parameters.data.rotateRight) {
             if (!Data.allowRotation) {
                 return;
             }
-            doneAction(this.gs, Tutorial.ROTATE_RIGHT_ACTION);
             this.rotateRight = true;
 
         } else if (param1.keyCode == Parameters.data.resetToDefaultCameraAngle) {
@@ -443,71 +343,23 @@ public class MapUserInput {
             this.togglePerformanceStats();
 
         } else if ((param1.keyCode == Parameters.data.escapeToNexus) || (param1.keyCode == Parameters.data.escapeToNexus2)) {
-            loc4 = CloseAllPopupsSignal.getInstance();
-            loc4.dispatch();
             this.exitGame.dispatch();
             this.gs.gsc.escape();
             Data.needsRandomRealm = false;
             Parameters.save();
 
         } else if (param1.keyCode == Parameters.data.options) {
-            CloseAllPopupsSignal.getInstance().dispatch();
             this.clearInput();
-            this.layers.overlay.addChild(new Options(this.gs));
 
         } else if (param1.keyCode == Parameters.data.toggleCentering) {
             Data.centerOnPlayer = !Data.centerOnPlayer;
             Parameters.save();
 
         } else if (param1.keyCode == Parameters.data.toggleFullscreen) {
-            if (Capabilities.playerType == "Desktop") {
-                Parameters.data.fullscreenMode = !Parameters.data.fullscreenMode;
-                //Parameters.save();
-                //loc2.displayState = !!Parameters.stats.fullscreenMode ? "fullScreenInteractive" : StageDisplayState.NORMAL;
-            }
 
         } else if (param1.keyCode == Parameters.data.interact) {
-            loc4 = CloseAllPopupsSignal.getInstance();
-            loc4.dispatch();
 
         } else if (param1.keyCode == Parameters.data.testOne) {
-        }
-        if (Parameters.ALLOW_SCREENSHOT_MODE) {
-            switch (param1.keyCode) {
-                case KeyCodes.F2:
-                    this.toggleScreenShotMode();
-                    break;
-                case KeyCodes.F3:
-                    Parameters.screenShotSlimMode = !Parameters.screenShotSlimMode;
-                    break;
-                case KeyCodes.F4:
-                    this.gs.map.mapOverlay.visible = !this.gs.map.mapOverlay.visible;
-                    this.gs.map.partyOverlay.visible = !this.gs.map.partyOverlay.visible;
-            }
-        }
-        if (this.areFKeysAvailable) {
-            if (param1.keyCode == KeyCodes.F6) {
-                TextureRedrawer.clearCache();
-                Parameters.projColorType = (Parameters.projColorType + 1) % 7;
-                this.addTextLine.dispatch(ChatMessage.make(Parameters.ERROR_CHAT_NAME, "Projectile Color  Type;"));
-
-            } else if (param1.keyCode == KeyCodes.F7) {
-                for (Square loc14 : AbstractMap.squares) {
-                    if (loc14 != null) {
-                        loc14.faces.length = 0;
-                    }
-                }
-                Parameters.blendType = (Parameters.blendType + 1) % 2;
-                this.addTextLine.dispatch(ChatMessage.make(Parameters.CLIENT_CHAT_NAME, "Blend  type;"));
-
-            } else if (param1.keyCode == KeyCodes.F8) {/*Parameters.stats.surveyDate = 0;
-					Parameters.stats.needsSurvey = true;
-					Parameters.stats.playTimeLeftTillSurvey = 5;
-					Parameters.stats.surveyGroup = "testing";*/
-
-            } else if (param1.keyCode == KeyCodes.F9) {
-                Parameters.drawProj = !Parameters.drawProj;
-            }
         }
         this.setPlayerMovement();
     }
@@ -560,33 +412,14 @@ public class MapUserInput {
     }
 
     private void useItem(int param1) {
-        if (this.tabStripModel.currentSelection.equals(TabStripModel.BACKPACK)) {
+        /*if (this.tabStripModel.currentSelection.equals(TabStripModel.BACKPACK)) {
             param1 = param1 + GeneralConstants.NUM_INVENTORY_SLOTS;
-        }
+        }*/
         GameServerConnection.instance.useItem_new(this.gs.map.player, param1);
     }
 
     private void togglePerformanceStats() {
-		/*if (this.gs.contains(stats)) {
-			this.gs.removeChild(stats);
-			this.gs.removeChild(this.gs.gsc.jitterWatcher);
-			this.gs.gsc.disableJitterWatcher();
-		} else {
-			this.gs.addChild(stats);
-			this.gs.gsc.enableJitterWatcher();
-			this.gs.gsc.jitterWatcher.y = stats.height;
-			this.gs.addChild(this.gs.gsc.jitterWatcher);
-		}**/
+
     }
 
-    private void toggleScreenShotMode() {
-        Parameters.screenShotMode = !Parameters.screenShotMode;
-        if (Parameters.screenShotMode) {
-            this.gs.hudView.visible = false;
-            this.setTextBoxVisibility.dispatch(false);
-        } else {
-            this.gs.hudView.visible = true;
-            this.setTextBoxVisibility.dispatch(true);
-        }
-    }
 }

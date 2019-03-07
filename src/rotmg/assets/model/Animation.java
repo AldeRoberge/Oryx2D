@@ -1,9 +1,7 @@
 package rotmg.assets.model;
 
-import utils.flash.consumer.EventConsumer;
-import utils.flash.display.BitmapData;
-import utils.flash.events.TimerEvent;
-import utils.flash.utils.timer.Timer;
+import flash.display.BitmapData;
+import flash.utils.timer.Timer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,7 @@ public class Animation {
 
     private Timer makeTimer() {
         Timer loc1 = new Timer(this.DEFAULT_SPEED);
-        loc1.addEventListener(TimerEvent.TIMER, new EventConsumer<>(this::iterate));
+        iterate();
         return loc1;
     }
 

@@ -1,6 +1,6 @@
 package rotmg.events;
 
-import utils.flash.events.Event;
+import flash.events.Event;
 
 public class GuildResultEvent extends Event {
 

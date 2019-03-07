@@ -1,8 +1,8 @@
 package rotmg.map;
 
-import utils.flash.XML;
-import utils.flash.display.BitmapData;
-import utils.flash.utils.Dictionary;
+import flash.XML;
+import flash.display.BitmapData;
+import flash.utils.Dictionary;
 import rotmg.objects.TextureData;
 import rotmg.objects.TextureDataConcrete;
 import rotmg.util.BitmapUtil;
