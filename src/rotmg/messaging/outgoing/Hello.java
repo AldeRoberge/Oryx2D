@@ -1,11 +1,11 @@
 package rotmg.messaging.outgoing;
 
-import flash.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
+
+import flash.consumer.MessageConsumer;
 
 public class Hello extends OutgoingMessage {
 

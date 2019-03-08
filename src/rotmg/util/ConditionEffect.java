@@ -1,10 +1,10 @@
 package rotmg.util;
 
+import java.util.Arrays;
+
 import flash.Vector;
 import flash.display.BitmapData;
 import flash.utils.Dictionary;
-
-import java.util.Arrays;
 
 /**
  * This is a very close match to the original source code.

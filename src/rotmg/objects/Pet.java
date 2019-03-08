@@ -1,12 +1,10 @@
 package rotmg.objects;
 
 import flash.XML;
-import rotmg.GameSprite;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
 import rotmg.signals.TextPanelMessageUpdateSignal;
-import rotmg.ui.panels.Panel;
 import rotmg.util.AnimatedChars;
 import rotmg.util.MaskedImage;
 
@@ -33,11 +31,7 @@ public class Pet extends GameObject implements IInteractiveObject {
 		return loc1;
 	}*/
 
-    @Override
-    public Panel getPanel(GameSprite param1) {
-        //return new PetPanel(param1, this.vo);
-        return null;
-    }
+
 
     public void setSkin(int param1) {
         MaskedImage loc5 = null;

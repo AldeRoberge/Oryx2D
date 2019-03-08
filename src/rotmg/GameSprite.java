@@ -1,5 +1,7 @@
 package rotmg;
 
+import static flash.utils.timer.getTimer.getTimer;
+
 import rotmg.core.model.MapModel;
 import rotmg.core.model.PlayerModel;
 import rotmg.core.service.GoogleAnalytics;
@@ -13,8 +15,6 @@ import rotmg.objects.GameObject;
 import rotmg.parameters.Parameters;
 import rotmg.signals.ShowProTipSignal;
 import utils.osflash.signals.Signal;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 public class GameSprite extends AGameSprite {
 

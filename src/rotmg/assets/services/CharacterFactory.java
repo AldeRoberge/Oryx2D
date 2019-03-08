@@ -1,11 +1,11 @@
 package rotmg.assets.services;
 
+import flash.display.BitmapData;
 import rotmg.assets.model.Animation;
 import rotmg.assets.model.CharacterTemplate;
 import rotmg.objects.animation.AnimatedChar;
 import rotmg.util.AnimatedChars;
 import rotmg.util.BitmapUtil;
-import flash.display.BitmapData;
 
 public class CharacterFactory {
 

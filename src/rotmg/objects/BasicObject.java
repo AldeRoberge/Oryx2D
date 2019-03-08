@@ -1,9 +1,9 @@
 package rotmg.objects;
 
-import rotmg.map.AbstractMap;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import rotmg.map.AbstractMap;
 
 public class BasicObject {
 

@@ -1,13 +1,14 @@
 package rotmg.objects.animation;
 
 
-import rotmg.util.MaskedImage;
-import rotmg.util.MaskedImageSet;
+import java.awt.Point;
+import java.awt.Rectangle;
+
 import flash.Vector;
 import flash.display.BitmapData;
 import flash.utils.Dictionary;
-
-import java.awt.*;
+import rotmg.util.MaskedImage;
+import rotmg.util.MaskedImageSet;
 
 
 /**

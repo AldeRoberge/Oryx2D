@@ -1,9 +1,9 @@
 package rotmg.objects.animation;
 
-import flash.XML;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import flash.XML;
 
 public class AnimationsData {
 

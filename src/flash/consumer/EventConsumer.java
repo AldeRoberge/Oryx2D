@@ -1,8 +1,8 @@
 package flash.consumer;
 
-import flash.events.Event;
-
 import java.util.function.Consumer;
+
+import flash.events.Event;
 
 /**
  * A method that accepts an Event

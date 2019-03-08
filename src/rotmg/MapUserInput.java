@@ -1,5 +1,9 @@
 package rotmg;
 
+import flash.XML;
+import flash.events.Event;
+import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
 import rotmg.application.api.ApplicationSetup;
 import rotmg.application.impl.ProductionSetup;
 import rotmg.chat.model.ChatMessage;
@@ -12,17 +16,12 @@ import rotmg.objects.Player;
 import rotmg.parameters.Parameters;
 import rotmg.parameters.Parameters.Data;
 import rotmg.pets.controller.reskin.ReskinPetFlowStartSignal;
-import rotmg.signals.*;
-import rotmg.tutorial.Tutorial;
-import rotmg.ui.model.TabStripModel;
+import rotmg.signals.AddTextLineSignal;
+import rotmg.signals.ExitGameSignal;
+import rotmg.signals.GiftStatusUpdateSignal;
+import rotmg.signals.SetTextBoxVisibilitySignal;
+import rotmg.signals.UseBuyPotionSignal;
 import rotmg.util.KeyCodes;
-import flash.XML;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
-import flash.system.Capabilities;
-
-import static rotmg.tutorial.doneAction.doneAction;
 
 public class MapUserInput {
 
@@ -180,7 +179,6 @@ public class MapUserInput {
     private void onEnterFrame(Event param1) {
         Player loc2 = null;
         double loc3 = 0;
-        doneAction(this.gs, Tutorial.UPDATE_ACTION);
         if (this.enablePlayerInput && (this.mouseDown || this.autofire)) {
             loc2 = this.gs.map.player;
             if (loc2 != null) {

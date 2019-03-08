@@ -1,7 +1,7 @@
 package rotmg.maploading.signals;
 
-import utils.osflash.signals.Signal;
 import rotmg.messaging.incoming.MapInfo;
+import utils.osflash.signals.Signal;
 
 public class MapLoadedSignal extends Signal<MapInfo> {
 

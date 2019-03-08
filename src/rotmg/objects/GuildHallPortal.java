@@ -1,9 +1,6 @@
 package rotmg.objects;
 
 import flash.XML;
-import rotmg.GameSprite;
-import rotmg.ui.panels.GuildHallPortalPanel;
-import rotmg.ui.panels.Panel;
 
 public class GuildHallPortal extends GameObject implements IInteractiveObject {
 
@@ -12,8 +9,5 @@ public class GuildHallPortal extends GameObject implements IInteractiveObject {
         this.isInteractive = true;
     }
 
-    @Override
-    public Panel getPanel(GameSprite param1) {
-        return new GuildHallPortalPanel(param1, this);
-    }
+
 }

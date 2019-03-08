@@ -1,9 +1,5 @@
 package flash;
 
-import rotmg.parameters.Parameters;
-
-import javax.crypto.Cipher;
-import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -11,6 +7,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+
+import javax.crypto.Cipher;
+import javax.xml.bind.DatatypeConverter;
+
+import rotmg.parameters.Parameters;
 
 /**
  * Also known as SCry
@@ -89,7 +90,6 @@ public class RSA {
 
     private static byte[] stringToBytes(String string) {
         return string.getBytes(StandardCharsets.UTF_8);
-        return null;
     }
 }
 

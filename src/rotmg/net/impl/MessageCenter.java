@@ -1,12 +1,12 @@
 package rotmg.net.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import flash.consumer.MessageConsumer;
 import flash.utils.Dictionary;
 import rotmg.net.api.MessageMap;
 import rotmg.net.api.MessageMapping;
 import rotmg.net.api.MessageProvider;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class MessageCenter implements MessageMap, MessageProvider {
 

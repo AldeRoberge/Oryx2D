@@ -1,12 +1,12 @@
 package rotmg.servers.control;
 
+import java.util.List;
+
 import flash.Vector;
 import flash.XML;
 import rotmg.net.Server;
 import rotmg.parameters.Parameters;
 import rotmg.servers.api.ServerModel;
-
-import java.util.List;
 
 public class ParseServerDataCommand {
 

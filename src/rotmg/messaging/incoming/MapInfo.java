@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming;
 
-import flash.consumer.MessageConsumer;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
+import flash.consumer.MessageConsumer;
 
 public class MapInfo extends IncomingMessage {
 

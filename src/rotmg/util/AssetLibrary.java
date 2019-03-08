@@ -1,11 +1,11 @@
 package rotmg.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import flash.StaticAssetLoaderUtility;
 import flash.display.BitmapData;
 import flash.utils.Dictionary;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is a 80% match.

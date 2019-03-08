@@ -1,10 +1,10 @@
 package flash.utils.timer;
 
+import java.util.TimerTask;
+
 import flash.consumer.EventConsumer;
 import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
-
-import java.util.TimerTask;
 
 /**
  * Representing AS3's Timer

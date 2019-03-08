@@ -1,13 +1,14 @@
 package rotmg.appengine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import flash.Vector;
 import flash.consumer.SignalConsumer;
 import flash.display.BitmapData;
 import flash.utils.Date;
-import utils.png.PNGDecoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import rotmg.util.BitmapDataSpy;
+import utils.png.PNGDecoder;
 
 /**
  * 30% match

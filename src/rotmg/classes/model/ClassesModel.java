@@ -1,10 +1,10 @@
 package rotmg.classes.model;
 
+import java.util.ArrayList;
+
 import flash.consumer.SignalConsumer;
 import flash.utils.Dictionary;
 import utils.osflash.signals.Signal;
-
-import java.util.ArrayList;
 
 /**
  * The Class selection model for the UI (create new character)

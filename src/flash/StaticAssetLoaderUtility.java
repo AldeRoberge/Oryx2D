@@ -1,9 +1,9 @@
 package flash;
 
+import javax.imageio.ImageIO;
+
 import flash.display.BitmapData;
 import rotmg.WebMain;
-
-import javax.imageio.ImageIO;
 
 /**
  * Not a part of AS3, just a lazy way of loading assets without all the stupid Embedded classes

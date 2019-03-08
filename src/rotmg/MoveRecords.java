@@ -1,9 +1,9 @@
 package rotmg;
 
-import rotmg.messaging.data.MoveRecord;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import rotmg.messaging.data.MoveRecord;
 
 /**
  * This is a 100% match

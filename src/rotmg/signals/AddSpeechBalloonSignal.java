@@ -1,7 +1,7 @@
 package rotmg.signals;
 
-import utils.osflash.signals.Signal;
 import rotmg.model.AddSpeechBalloonVO;
+import utils.osflash.signals.Signal;
 
 public class AddSpeechBalloonSignal extends Signal<AddSpeechBalloonVO> {
 

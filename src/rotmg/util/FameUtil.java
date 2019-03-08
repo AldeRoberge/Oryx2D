@@ -1,11 +1,11 @@
 package rotmg.util;
 
 
-import rotmg.objects.ObjectLibrary;
+import java.awt.Color;
+
 import flash.XML;
 import flash.display.BitmapData;
-
-import java.awt.*;
+import rotmg.objects.ObjectLibrary;
 
 public class FameUtil {
 

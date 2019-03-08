@@ -1,14 +1,14 @@
 package rotmg.objects;
 
-import rotmg.map.AbstractMap;
-import rotmg.parameters.Parameters;
-import rotmg.parameters.Parameters.Data;
+import flash.Vector;
+import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Point3D;
 import flash.geom.Trig;
-import flash.Vector;
-import flash.display.BitmapData;
 import flash.utils.Dictionary;
+import rotmg.map.AbstractMap;
+import rotmg.parameters.Parameters;
+import rotmg.parameters.Parameters.Data;
 
 /**
  * This class is about 10% done. It requires a lot of graphics stuff.

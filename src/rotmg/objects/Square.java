@@ -3,11 +3,11 @@ package rotmg.objects;
 //import com.company.assembleegameclient.objects.GameObject;
 //import com.company.assembleegameclient.util.TileRedrawer;
 
+import flash.Vector;
+import flash.display.BitmapData;
 import rotmg.map.AbstractMap;
 import rotmg.map.GroundLibrary;
 import rotmg.map.GroundProperties;
-import flash.Vector;
-import flash.display.BitmapData;
 
 //import flash.display.BitmapData;
 //import flash.display.IGraphicsData;

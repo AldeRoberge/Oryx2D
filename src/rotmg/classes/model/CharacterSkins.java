@@ -1,10 +1,10 @@
 package rotmg.classes.model;
 
-import flash.consumer.SignalConsumer;
-import flash.utils.Dictionary;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import flash.consumer.SignalConsumer;
+import flash.utils.Dictionary;
 
 public class CharacterSkins {
 

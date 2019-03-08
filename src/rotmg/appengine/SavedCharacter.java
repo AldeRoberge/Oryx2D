@@ -1,5 +1,7 @@
 package rotmg.appengine;
 
+import flash.XML;
+import flash.display.BitmapData;
 import rotmg.assets.services.CharacterFactory;
 import rotmg.classes.model.CharacterClass;
 import rotmg.classes.model.CharacterSkin;
@@ -12,8 +14,6 @@ import rotmg.parameters.Parameters.Data;
 import rotmg.pets.data.PetVO;
 import rotmg.pets.data.PetsModel;
 import rotmg.util.AnimatedChars;
-import flash.XML;
-import flash.display.BitmapData;
 
 public class SavedCharacter {
 

@@ -1,5 +1,19 @@
 package oryx2D;
 
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import oryx2D.entity.mob.Player;
 import oryx2D.graphics.Screen;
 import oryx2D.input.Keyboard;
@@ -8,13 +22,6 @@ import oryx2D.level.Level;
 import oryx2D.level.TileCoordinate;
 import rotmg.WebMain;
 import rotmg.account.core.WebAccount;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Game extends Canvas implements Runnable {
 

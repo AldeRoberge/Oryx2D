@@ -1,10 +1,10 @@
 package oryx2D.graphics;
 
-import flash.display.BitmapData;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+
+import flash.display.BitmapData;
 
 public class Screen {
 

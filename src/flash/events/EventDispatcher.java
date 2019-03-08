@@ -1,9 +1,9 @@
 package flash.events;
 
+import java.util.function.Consumer;
+
 import flash.consumer.EventConsumer;
 import flash.utils.Dictionary;
-
-import java.util.function.Consumer;
 
 
 public abstract class EventDispatcher {

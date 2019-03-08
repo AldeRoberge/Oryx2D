@@ -1,15 +1,15 @@
 package rotmg.objects;
 
-import rotmg.map.AbstractMap;
-import rotmg.model.AddSpeechBalloonVO;
-import rotmg.signals.AddSpeechBalloonSignal;
-import rotmg.util.IntPoint;
 import flash.LineBuilder;
 import flash.StringMap;
 import flash.Vector;
 import flash.XML;
 import flash.display.BitmapData;
 import flash.geom.ColorTransform;
+import rotmg.map.AbstractMap;
+import rotmg.model.AddSpeechBalloonVO;
+import rotmg.signals.AddSpeechBalloonSignal;
+import rotmg.util.IntPoint;
 
 /**
  * Almost a 100% match, except that it's abstract because it doesnt have the getPanel() method

@@ -1,13 +1,5 @@
 package rotmg.net;
 
-import utils.symmetric.ICipher;
-import rotmg.AGameSprite;
-import rotmg.messaging.GameServerConnectionConcrete;
-import rotmg.net.impl.Message;
-import rotmg.net.impl.MessageCenter;
-import rotmg.parameters.Parameters;
-import rotmg.util.AssetLoader;
-
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,6 +8,14 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import rotmg.AGameSprite;
+import rotmg.messaging.GameServerConnectionConcrete;
+import rotmg.net.impl.Message;
+import rotmg.net.impl.MessageCenter;
+import rotmg.parameters.Parameters;
+import rotmg.util.AssetLoader;
+import utils.symmetric.ICipher;
 
 /**
  * This class is a very loose implementation of WildShadow's SocketServer,

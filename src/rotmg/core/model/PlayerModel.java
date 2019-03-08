@@ -2,12 +2,12 @@ package rotmg.core.model;
 
 
 import flash.Vector;
-import utils.osflash.signals.Signal;
 import rotmg.account.core.Account;
 import rotmg.appengine.SavedCharacter;
 import rotmg.appengine.SavedCharactersList;
 import rotmg.appengine.SavedNewsItem;
 import rotmg.net.LatLong;
+import utils.osflash.signals.Signal;
 
 public class PlayerModel {
 

@@ -1,15 +1,20 @@
 package rotmg.map;
 
-import rotmg.AGameSprite;
-import rotmg.background.Background;
-import rotmg.model.GameModel;
-import rotmg.objects.*;
-import rotmg.parameters.Parameters;
-import rotmg.particles.ParticleEffect;
-import rotmg.util.IntPoint;
 import flash.Vector;
 import flash.display.BitmapData;
 import flash.utils.Dictionary;
+import rotmg.AGameSprite;
+import rotmg.background.Background;
+import rotmg.model.GameModel;
+import rotmg.objects.BasicObject;
+import rotmg.objects.GameObject;
+import rotmg.objects.Merchant;
+import rotmg.objects.Party;
+import rotmg.objects.Player;
+import rotmg.objects.Square;
+import rotmg.parameters.Parameters;
+import rotmg.particles.ParticleEffect;
+import rotmg.util.IntPoint;
 import utils.osflash.signals.Signal;
 
 /**

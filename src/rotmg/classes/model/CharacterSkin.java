@@ -1,7 +1,7 @@
 package rotmg.classes.model;
 
-import utils.osflash.signals.Signal;
 import rotmg.assets.model.CharacterTemplate;
+import utils.osflash.signals.Signal;
 
 public class CharacterSkin {
 

@@ -1,10 +1,10 @@
 package rotmg.parameters;
 
 import flash.Vector;
+import flash.utils.Dictionary;
 import rotmg.map.AbstractMap;
 import rotmg.util.KeyCodes;
 import rotmg.util.MoreDateUtil;
-import flash.utils.Dictionary;
 
 /**
  * The AS3 version uses Parameters.stats.value (Object)

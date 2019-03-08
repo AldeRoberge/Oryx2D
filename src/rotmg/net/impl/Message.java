@@ -1,9 +1,13 @@
 package rotmg.net.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import flash.IData;
 import flash.consumer.MessageConsumer;
-
-import java.io.*;
 
 public class Message implements IData {
 

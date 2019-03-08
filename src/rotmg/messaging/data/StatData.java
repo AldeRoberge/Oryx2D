@@ -1,13 +1,14 @@
 package rotmg.messaging.data;
 
-import flash.IData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import rotmg.util.TextKey;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import flash.IData;
+import rotmg.util.TextKey;
 
 public class StatData implements IData {
 

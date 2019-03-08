@@ -1,12 +1,12 @@
 package rotmg.util;
 
-import flash.StaticAssetLoaderUtility;
-import flash.display.BitmapData;
-import rotmg.objects.animation.AnimatedChar;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import flash.StaticAssetLoaderUtility;
+import flash.display.BitmapData;
+import rotmg.objects.animation.AnimatedChar;
 
 public class AnimatedChars {
 

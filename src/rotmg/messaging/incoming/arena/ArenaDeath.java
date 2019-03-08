@@ -1,11 +1,11 @@
 package rotmg.messaging.incoming.arena;
 
-import flash.consumer.MessageConsumer;
-import rotmg.messaging.outgoing.OutgoingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+
+import flash.consumer.MessageConsumer;
+import rotmg.messaging.outgoing.OutgoingMessage;
 
 public class ArenaDeath extends OutgoingMessage {
 

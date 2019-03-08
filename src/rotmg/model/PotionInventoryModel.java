@@ -1,12 +1,12 @@
 package rotmg.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import flash.XML;
 import flash.consumer.SignalConsumer;
 import flash.utils.Dictionary;
 import utils.osflash.signals.Signal;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PotionInventoryModel {
 

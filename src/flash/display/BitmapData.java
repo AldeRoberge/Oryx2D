@@ -1,10 +1,11 @@
 package flash.display;
 
-import flash.geom.Point;
-import flash.geom.Rectangle;
+import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 public class BitmapData {
 

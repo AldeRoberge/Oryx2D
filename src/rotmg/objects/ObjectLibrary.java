@@ -1,6 +1,10 @@
 package rotmg.objects;
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
 import flash.Vector;
 import flash.XML;
 import flash.display.BitmapData;
@@ -14,10 +18,6 @@ import rotmg.util.AssetLibrary;
 import rotmg.util.TextureRedrawer;
 import rotmg.util.redrawers.GlowRedrawer;
 import utils.ConversionUtil;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

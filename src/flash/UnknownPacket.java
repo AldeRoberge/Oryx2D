@@ -1,13 +1,13 @@
 package flash;
 
-import flash.consumer.MessageConsumer;
-import rotmg.messaging.incoming.IncomingMessage;
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import flash.consumer.MessageConsumer;
+import rotmg.messaging.incoming.IncomingMessage;
 
 /**
  * Unused class kept from Realm-Relay

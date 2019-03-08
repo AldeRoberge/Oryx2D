@@ -1,9 +1,15 @@
 package rotmg.util;
 
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import flash.Vector;
 import flash.XML;
 import flash.utils.Dictionary;
-import org.w3c.dom.Document;
 import rotmg.WebMain;
 import rotmg.map.GroundLibrary;
 import rotmg.map.RegionLibrary;
@@ -14,11 +20,6 @@ import rotmg.particles.ParticleLibrary;
 import rotmg.sound.IMusic;
 import rotmg.sound.SFX;
 import rotmg.sound.SoundEffectLibrary;
-import rotmg.ui.Options;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.InputStream;
 
 public class AssetLoader {
 
@@ -48,7 +49,6 @@ public class AssetLoader {
         this.parseObjectFiles();
         this.parseRegionFiles();
         Parameters.load();
-        Options.refreshCursor();
         this.music.load();
         SFX.load();
     }

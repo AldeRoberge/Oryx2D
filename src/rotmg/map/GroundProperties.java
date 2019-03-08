@@ -1,11 +1,11 @@
 package rotmg.map;
 
+import java.util.List;
+
 import flash.XML;
 import flash.display.BitmapData;
 import rotmg.objects.TextureData;
 import rotmg.objects.TextureDataConcrete;
-
-import java.util.List;
 
 /**
  * 75% done : requires AnimateProperties

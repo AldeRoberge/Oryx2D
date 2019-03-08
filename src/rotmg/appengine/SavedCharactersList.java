@@ -1,13 +1,13 @@
 package rotmg.appengine;
 
+import flash.Vector;
+import flash.XML;
+import flash.utils.Dictionary;
 import rotmg.account.core.Account;
 import rotmg.account.core.WebAccount;
 import rotmg.net.LatLong;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
-import flash.Vector;
-import flash.XML;
-import flash.utils.Dictionary;
 
 public class SavedCharactersList {
 

@@ -1,7 +1,7 @@
 package rotmg.signals;
 
-import utils.osflash.signals.Signal;
 import rotmg.model.GameInitData;
+import utils.osflash.signals.Signal;
 
 public class PlayGameSignal extends Signal<GameInitData> {
 

@@ -1,8 +1,8 @@
 package rotmg.pets.data;
 
 import flash.XML;
-import utils.osflash.signals.Signal;
 import rotmg.objects.ObjectLibrary;
+import utils.osflash.signals.Signal;
 
 /**
  * This is a 90% match, some uncertainty with 'this.name' (setType)

@@ -1,8 +1,8 @@
 package rotmg.sound;
 
-import flash.utils.Dictionary;
-
 import java.util.Map;
+
+import flash.utils.Dictionary;
 
 public class SoundEffectLibrary {
 

@@ -1,5 +1,13 @@
 package rotmg.objects;
 
+import static flash.utils.timer.getTimer.getTimer;
+
+import java.util.List;
+
+import flash.XML;
+import flash.display.BitmapData;
+import flash.geom.Point;
+import flash.utils.Dictionary;
 import rotmg.assets.services.CharacterFactory;
 import rotmg.constants.GeneralConstants;
 import rotmg.messaging.data.StatData;
@@ -9,15 +17,7 @@ import rotmg.particles.HealingEffect;
 import rotmg.signals.AddTextLineSignal;
 import rotmg.util.IntPoint;
 import utils.ConversionUtil;
-import flash.geom.Point;
-import flash.XML;
-import flash.display.BitmapData;
-import flash.utils.Dictionary;
 import utils.osflash.signals.Signal;
-
-import java.util.List;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 
 public class Player extends Character {

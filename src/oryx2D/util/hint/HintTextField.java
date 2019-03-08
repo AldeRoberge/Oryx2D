@@ -1,7 +1,13 @@
 package oryx2D.util.hint;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+
+import javax.swing.JTextField;
 
 /**
  * Text field with hint text

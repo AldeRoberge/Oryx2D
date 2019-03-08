@@ -1,7 +1,7 @@
 package rotmg.events;
 
-import utils.osflash.signals.Signal;
 import rotmg.messaging.incoming.KeyInfoResponse;
+import utils.osflash.signals.Signal;
 
 public class KeyInfoResponseSignal extends Signal<KeyInfoResponse> {
 

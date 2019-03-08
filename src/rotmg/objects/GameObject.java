@@ -1,5 +1,13 @@
 package rotmg.objects;
 
+import static flash.utils.timer.getTimer.getTimer;
+
+import flash.Vector;
+import flash.XML;
+import flash.display.BitmapData;
+import flash.geom.Point;
+import flash.geom.Vector3D;
+import flash.utils.Dictionary;
 import rotmg.map.AbstractMap;
 import rotmg.messaging.data.WorldPosData;
 import rotmg.objects.animation.AnimatedChar;
@@ -15,14 +23,6 @@ import rotmg.util.AssetLibrary;
 import rotmg.util.BitmapUtil;
 import rotmg.util.ConditionEffect;
 import utils.ConversionUtil;
-import flash.geom.Point;
-import flash.geom.Vector3D;
-import flash.Vector;
-import flash.XML;
-import flash.display.BitmapData;
-import flash.utils.Dictionary;
-
-import static flash.utils.timer.getTimer.getTimer;
 
 
 public class GameObject extends BasicObject {

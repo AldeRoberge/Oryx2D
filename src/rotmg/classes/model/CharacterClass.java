@@ -1,9 +1,9 @@
 package rotmg.classes.model;
 
-import utils.osflash.signals.Signal;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import utils.osflash.signals.Signal;
 
 public class CharacterClass {
 
