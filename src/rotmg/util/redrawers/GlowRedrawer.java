@@ -68,9 +68,7 @@ public class GlowRedrawer {
         Dictionary loc3 = null;
         if (glowHashes.contains(param1)) {
             loc3 = glowHashes.get(param1);
-            if (loc3.contains(param2)) {
-                return true;
-            }
+            return loc3.contains(param2);
         }
         return false;
     }

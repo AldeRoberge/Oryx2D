@@ -1,31 +1,15 @@
 package oryx2D;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.util.ArrayList;
+import alde.commons.properties.Property;
+import alde.commons.util.jtextfield.UtilityJTextField;
+import oryx2D.properties.Properties;
+import rotmg.account.core.WebAccount;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import alde.commons.properties.Property;
-import oryx2D.properties.Properties;
-import oryx2D.util.hint.HintTextField;
-import oryx2D.util.hint.PasswordHintTextField;
-import rotmg.account.core.WebAccount;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class LoaderUI {
 
@@ -33,8 +17,8 @@ public class LoaderUI {
 	private static final Property PASSWORD = Properties.PASSWORD;
 
 	private JFrame frame;
-	private JTextField emailField;
-	private JTextField passwordField;
+	private UtilityJTextField emailField;
+	private UtilityJTextField passwordField;
 
 	/**
 	 * Launch the application.
@@ -107,7 +91,7 @@ public class LoaderUI {
 		emailPanel.setBackground(Color.BLACK);
 		fillerPanel1.add(emailPanel);
 
-		this.emailField = new HintTextField(this.EMAIL.getValue(), "Email");
+		this.emailField = new UtilityJTextField(EMAIL.getValue(), "Email");
 
 		emailField.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -139,7 +123,8 @@ public class LoaderUI {
 		passwordPanel.setBackground(Color.BLACK);
 		fillerPanel1.add(passwordPanel);
 
-		this.passwordField = new PasswordHintTextField(this.PASSWORD.getValue(), "Password");
+		this.passwordField = new UtilityJTextField(PASSWORD.getValue(), "Password");
+		passwordField.setIsPassword();
 		this.passwordField.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
@@ -153,7 +138,7 @@ public class LoaderUI {
 			}
 
 			private void updatePassword() {
-				EMAIL.setValue(emailField.getText());
+				PASSWORD.setValue(passwordField.getText());
 			}
 
 			@Override
@@ -180,9 +165,9 @@ public class LoaderUI {
 
 		JButton btnJoin = new JButton("        Connect        ");
 		btnJoin.addActionListener(e -> {
-			Game.launch(new WebAccount(this.EMAIL.getValue(), this.PASSWORD.getValue()));
-			this.EMAIL.setValue(this.emailField.getText());
-			this.PASSWORD.setValue(this.passwordField.getText());
+			Game.launch(new WebAccount(EMAIL.getValue(), PASSWORD.getValue()));
+			EMAIL.setValue(this.emailField.getText());
+			PASSWORD.setValue(this.passwordField.getText());
 			this.frame.dispose();
 		});
 		btnJoin.setForeground(Color.BLACK);

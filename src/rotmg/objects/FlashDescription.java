@@ -33,8 +33,7 @@ public class FlashDescription {
         int loc3 = (param2 - this.startTime) % this.periodMS;
         double loc4 = Math.sin((loc3 / this.periodMS) * Math.PI);
         double loc5 = loc4 * 0.5;
-        BitmapData loc7 = param1.clone();
-        return loc7;
+        return param1.clone();
     }
 
     public void applyGPUTextureColorTransform(BitmapData param1, int param2) {

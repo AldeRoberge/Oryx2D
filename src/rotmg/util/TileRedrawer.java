@@ -10,6 +10,8 @@ import rotmg.map.GroundLibrary;
 import rotmg.objects.Square;
 import rotmg.parameters.Parameters;
 
+import java.util.Objects;
+
 public class TileRedrawer {
 
     private static final Rectangle rect0 = new Rectangle(0, 0, 4, 4);
@@ -94,32 +96,32 @@ public class TileRedrawer {
         boolean loc7 = false;
         boolean loc8 = false;
         boolean loc9 = false;
-        if (loc3.get(1) != loc3.get(4)) {
+        if (!Objects.equals(loc3.get(1), loc3.get(4))) {
             loc6 = true;
             loc7 = true;
         }
-        if (loc3.get(3) != loc3.get(4)) {
+        if (!Objects.equals(loc3.get(3), loc3.get(4))) {
             loc6 = true;
             loc8 = true;
         }
-        if (loc3.get(5) != loc3.get(4)) {
+        if (!Objects.equals(loc3.get(5), loc3.get(4))) {
             loc7 = true;
             loc9 = true;
         }
-        if (loc3.get(7) != loc3.get(4)) {
+        if (!Objects.equals(loc3.get(7), loc3.get(4))) {
             loc8 = true;
             loc9 = true;
         }
-        if (!loc6 && (loc3.get(0) != loc3.get(4))) {
+        if (!loc6 && (!Objects.equals(loc3.get(0), loc3.get(4)))) {
             loc6 = true;
         }
-        if (!loc7 && (loc3.get(2) != loc3.get(4))) {
+        if (!loc7 && (!Objects.equals(loc3.get(2), loc3.get(4)))) {
             loc7 = true;
         }
-        if (!loc8 && (loc3.get(6) != loc3.get(4))) {
+        if (!loc8 && (!Objects.equals(loc3.get(6), loc3.get(4)))) {
             loc8 = true;
         }
-        if (!loc9 && (loc3.get(8) != loc3.get(4))) {
+        if (!loc9 && (!Objects.equals(loc3.get(8), loc3.get(4)))) {
             loc9 = true;
         }
         if (!loc6 && !loc7 && !loc8 && !loc9) {
@@ -331,8 +333,7 @@ public class TileRedrawer {
     // TODO implement this
     private static BitmapData drawEdges(Vector<Integer> param1) {
         BitmapData loc2 = GroundLibrary.getBitmapData(param1.get(4));
-        BitmapData loc3 = loc2.clone();
-        return loc3;
+        return loc2.clone();
     }
 
 

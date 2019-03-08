@@ -135,8 +135,7 @@ public class MoreColorUtil {
             param2 = identity;
         }
         double loc4 = 1 - param3;
-        ColorTransform loc5 = new ColorTransform((param1.redMultiplier * loc4) + (param2.redMultiplier * param3), (param1.greenMultiplier * loc4) + (param2.greenMultiplier * param3), (param1.blueMultiplier * loc4) + (param2.blueMultiplier * param3), (param1.alphaMultiplier * loc4) + (param2.alphaMultiplier * param3), (param1.redOffset * loc4) + (param2.redOffset * param3), (param1.greenOffset * loc4) + (param2.greenOffset * param3), (param1.blueOffset * loc4) + (param2.blueOffset * param3), (param1.alphaOffset * loc4) + (param2.alphaOffset * param3));
-        return loc5;
+        return new ColorTransform((param1.redMultiplier * loc4) + (param2.redMultiplier * param3), (param1.greenMultiplier * loc4) + (param2.greenMultiplier * param3), (param1.blueMultiplier * loc4) + (param2.blueMultiplier * param3), (param1.alphaMultiplier * loc4) + (param2.alphaMultiplier * param3), (param1.redOffset * loc4) + (param2.redOffset * param3), (param1.greenOffset * loc4) + (param2.greenOffset * param3), (param1.blueOffset * loc4) + (param2.blueOffset * param3), (param1.alphaOffset * loc4) + (param2.alphaOffset * param3));
     }
 
     public static int lerpColor(int param1, int param2, double param3) {
@@ -153,8 +152,7 @@ public class MoreColorUtil {
         int loc14 = (int) ((loc6 * loc4) + (loc10 * param3));
         int loc15 = (int) ((loc7 * loc4) + (loc11 * param3));
         int loc16 = (int) ((loc8 * loc4) + (loc12 * param3));
-        int loc17 = (loc13 << 24) | (loc14 << 16) | (loc15 << 8) | loc16;
-        return loc17;
+        return (loc13 << 24) | (loc14 << 16) | (loc15 << 8) | loc16;
     }
 
     public static double transformAlpha(ColorTransform param1, double param2) {

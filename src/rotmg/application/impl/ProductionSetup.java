@@ -26,7 +26,7 @@ public class ProductionSetup implements ApplicationSetup {
 
     @Override
     public String getAppEngineUrl(boolean param1) {
-        return !!param1 ? this.UNENCRYPTED : this.ENCRYPTED;
+        return param1 ? this.UNENCRYPTED : this.ENCRYPTED;
     }
 
     @Override

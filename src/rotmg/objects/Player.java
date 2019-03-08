@@ -300,8 +300,7 @@ public class Player extends Character {
 
     @Override
     public boolean moveTo(double param1, double param2) {
-        boolean loc3 = super.moveTo(param1, param2);
-        return loc3;
+        return super.moveTo(param1, param2);
     }
 
     private double getMoveSpeed() {

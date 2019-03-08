@@ -64,7 +64,7 @@ public class BasicObject {
     }
 
     public boolean update(int time, int dt) {
-        return true;
+        return false;
     }
 
 
@@ -77,11 +77,11 @@ public class BasicObject {
         this.square = this.map.getSquare(x, y);
         if (this.square == null) {
             this.map = null;
-            return false;
+            return true;
         }
         this.x = x;
         this.y = y;
-        return true;
+        return false;
     }
 
     public void removeFromMap() {

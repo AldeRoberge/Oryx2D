@@ -9,6 +9,8 @@ import rotmg.net.LatLong;
 import rotmg.objects.ObjectLibrary;
 import rotmg.objects.Player;
 
+import java.util.Objects;
+
 public class SavedCharactersList {
 
     public static final String SAVED_CHARS_LIST = "SAVED_CHARS_LIST";
@@ -105,7 +107,7 @@ public class SavedCharactersList {
         this.credits = param1.getIntValue("Credits");
         this.tokens = param1.getIntValue("FortuneToken");
         this.nextCharSlotPrice = param1.getIntValue("NextCharSlotPrice");
-        this.isAgeVerified = (this.accountId != "") && (param1.getIntValue("IsAgeVerified") == 1);
+        this.isAgeVerified = (!Objects.equals(this.accountId, "")) && (param1.getIntValue("IsAgeVerified") == 1);
         this.hasPlayerDied = true;
     }
 

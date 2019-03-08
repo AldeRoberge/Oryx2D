@@ -156,16 +156,16 @@ public class StatData implements IData {
             case PET_NAME_STAT:
             case ACCOUNT_ID_STAT:
             case OWNER_ACCOUNT_ID_STAT:
-                return true;
-            default:
                 return false;
+            default:
+                return true;
         }
     }
 
     @Override
     public void parseFromInput(DataInput in) throws IOException {
         this.statType = in.readUnsignedByte();
-        if (!this.isStringStat()) {
+        if (this.isStringStat()) {
             this.statValue = in.readInt();
         } else {
             try {
@@ -179,7 +179,7 @@ public class StatData implements IData {
     @Override
     public void writeToOutput(DataOutput out) throws IOException {
         out.writeByte(this.statType);
-        if (!this.isStringStat()) {
+        if (this.isStringStat()) {
             out.writeInt(this.statValue);
         } else {
             out.writeUTF(this.strStatValue);

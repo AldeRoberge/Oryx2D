@@ -24,16 +24,16 @@ public class XMLEffect extends ParticleEffect {
     @Override
     public boolean update(int time, int dt) {
         if (this.go.map == null) {
-            return false;
+            return true;
         }
         double fdt = dt / 1000;
         this.cooldownLeft = this.cooldownLeft - fdt;
         if (this.cooldownLeft >= 0) {
-            return true;
+            return false;
         }
         this.cooldownLeft = this.cooldown;
         this.map.addObj(new XMLParticle(this.partProps), this.go.x, this.go.y);
-        return true;
+        return false;
     }
 
 

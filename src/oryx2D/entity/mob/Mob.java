@@ -23,11 +23,11 @@ public abstract class Mob extends Entity {
             this.dir = 3;
         }
 
-        if (!this.collision(0, ya)) {
+        if (this.collision(0, ya)) {
             this.y += ya;
         }
 
-        if (!this.collision(xa, 0)) {
+        if (this.collision(xa, 0)) {
             this.x += xa;
         }
     }
@@ -53,7 +53,7 @@ public abstract class Mob extends Entity {
 
         }
 
-        return solid;
+        return !solid;
     }
 
     @Override

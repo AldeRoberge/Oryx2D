@@ -74,11 +74,11 @@ public class Merchant extends SellableObject {
 
     @Override
     public boolean addTo(AbstractMap param1, double param2, double param3) {
-        if (!super.addTo(param1, param2, param3)) {
-            return false;
+        if (super.addTo(param1, param2, param3)) {
+            return true;
         }
         param1.merchLookup.put(new IntPoint((int) this.x, (int) this.y), this);
-        return true;
+        return false;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class Merchant extends SellableObject {
 
         this.untilNextMessage = this.untilNextMessage - dt;
         if (this.untilNextMessage > 0) {
-            return true;
+            return false;
         }
         this.untilNextMessage = 5000;
         Vector<Integer> loc3 = new Vector<>();
@@ -158,12 +158,12 @@ public class Merchant extends SellableObject {
             loc3.add(DISCOUNT_MESSAGE);
         }
         if (loc3.length == 0) {
-            return true;
+            return false;
         }
         this.messageIndex = ++this.messageIndex % loc3.length;
         int loc4 = loc3.get(this.messageIndex);
         this.addSpeechBalloon.dispatch(this.getSpeechBalloon(loc4));
-        return true;
+        return false;
     }
 
     @Override

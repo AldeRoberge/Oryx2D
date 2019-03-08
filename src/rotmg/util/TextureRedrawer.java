@@ -58,9 +58,7 @@ public class TextureRedrawer {
 
     private static boolean isCached(BitmapData param1, String param2) {
         if (redrawCaches.containsKey(param1)) {
-            if (redrawCaches.containsValue(param2)) {
-                return true;
-            }
+            return redrawCaches.containsValue(param2);
         }
         return false;
     }

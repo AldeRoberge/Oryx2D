@@ -32,17 +32,17 @@ public class Container extends GameObject implements IInteractiveObject {
 
     @Override
     public boolean addTo(AbstractMap param1, double param2, double param3) {
-        if (!super.addTo(param1, param2, param3)) {
-            return false;
+        if (super.addTo(param1, param2, param3)) {
+            return true;
         }
         if (this.map.player == null) {
-            return true;
+            return false;
         }
         double loc4 = PointUtil.distanceXY(this.map.player.x, this.map.player.y, param2, param3);
         if (this.isLoot && (loc4 < 10)) {
             SoundEffectLibrary.play("loot_appears");
         }
-        return true;
+        return false;
     }
 
 

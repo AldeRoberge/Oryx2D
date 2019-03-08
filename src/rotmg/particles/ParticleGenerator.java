@@ -50,7 +50,7 @@ public class ParticleGenerator extends ParticleEffect {
         double t = time / 1000;
         tDelta = dt / 1000;
         if (this.targetGO.map == null) {
-            return false;
+            return true;
         }
         this.x = this.targetGO.x;
         this.y = this.targetGO.y;
@@ -82,7 +82,7 @@ public class ParticleGenerator extends ParticleEffect {
                 particle.z = particle.z + (particle.spdZ * tDelta);
             }
         }
-        return true;
+        return false;
     }
 
     @Override

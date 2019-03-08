@@ -66,10 +66,10 @@ public class Vector<T> implements Iterable<T> {
     public void remove(T t) {
         Iterator<T> e = this.iterator();
 
-        for (Iterator<T> it = e; it.hasNext(); ) {
-            T a = it.next();
+        for (; e.hasNext(); ) {
+            T a = e.next();
             if (a.equals(t)) {
-                it.remove();
+                e.remove();
             }
         }
     }
@@ -151,7 +151,7 @@ public class Vector<T> implements Iterable<T> {
     }
 
     public boolean hasOwnProperty(T i) {
-        return this.contains(i);
+        return !this.contains(i);
     }
 
     public int indexOf(T loc2) {

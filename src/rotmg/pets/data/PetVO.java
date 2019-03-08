@@ -41,8 +41,7 @@ public class PetVO {
     }
 
     public static PetVO clone(PetVO param1) {
-        PetVO loc2 = new PetVO(param1.id);
-        return loc2;
+        return new PetVO(param1.id);
     }
 
     private void listenToAbilities() {

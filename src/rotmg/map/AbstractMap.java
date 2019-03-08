@@ -171,12 +171,12 @@ public class AbstractMap {
     public void update(int param1, int param2) {
         this.inUpdate = true;
         for (BasicObject loc3 : goDict) {
-            if (!loc3.update(param1, param2)) {
+            if (loc3.update(param1, param2)) {
                 this.idsToRemove.add(loc3.objectId);
             }
         }
         for (BasicObject loc3 : boDict) {
-            if (!loc3.update(param1, param2)) {
+            if (loc3.update(param1, param2)) {
                 this.idsToRemove.add(loc3.objectId);
             }
         }
@@ -223,7 +223,7 @@ public class AbstractMap {
     }
 
     public void internalAddObj(BasicObject param1) {
-        if (!param1.addTo(this, param1.x, param1.y)) {
+        if (param1.addTo(this, param1.x, param1.y)) {
             return;
         }
         Dictionary loc2 = param1 instanceof GameObject ? goDict : boDict;

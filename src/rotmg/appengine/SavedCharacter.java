@@ -46,10 +46,10 @@ public class SavedCharacter {
 	}
 
 	public static double compare(SavedCharacter param1, SavedCharacter param2) {
-		double loc3 = !!Data.charIdUseMap.hasOwnProperty(param1.charId())
+		double loc3 = !Data.charIdUseMap.hasOwnProperty(param1.charId())
 				? Data.charIdUseMap.get(param1.charId())
 				: 0F;
-		double loc4 = !!Data.charIdUseMap.hasOwnProperty(param2.charId())
+		double loc4 = !Data.charIdUseMap.hasOwnProperty(param2.charId())
 				? Data.charIdUseMap.get(param2.charId())
 				: 0F;
 		if (loc3 != loc4) {
@@ -164,8 +164,7 @@ public class SavedCharacter {
 			loc6 = loc5.skins.getDefaultSkin();
 		}
 
-		BitmapData loc7 = loc4.makeIcon(loc6.template, param1, this.tex1(), this.tex2());
-		return loc7;
+		return loc4.makeIcon(loc6.template, param1, this.tex1(), this.tex2());
 	}
 
 	public String bornOn() {

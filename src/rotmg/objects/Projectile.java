@@ -109,7 +109,7 @@ public class Projectile extends BasicObject {
             this.damagesPlayers = this.containerProps.isEnemy;
             this.damagesEnemies = !this.damagesPlayers;
             this.sound = this.containerProps.oldSound;
-            this.multiHitDict = !!this.projProps.multiHit ? new Dictionary() : null;
+            this.multiHitDict = this.projProps.multiHit ? new Dictionary() : null;
             if (this.projProps.size >= 0) {
                 loc11 = this.projProps.size;
             } else {
@@ -129,8 +129,8 @@ public class Projectile extends BasicObject {
         Player loc4 = null;
         this.startX = param2;
         this.startY = param3;
-        if (!super.addTo(param1, param2, param3)) {
-            return false;
+        if (super.addTo(param1, param2, param3)) {
+            return true;
         }
         if (!this.containerProps.flying && (this.square.sink != 0)) {
             this.z = 0.1;
@@ -140,7 +140,7 @@ public class Projectile extends BasicObject {
                 this.z = 0.5 - (0.4 * (loc4.sinkLevel / Parameters.MAX_SINK_LEVEL));
             }
         }
-        return true;
+        return false;
     }
 
     public boolean moveTo(double param1, double param2) {
@@ -219,7 +219,7 @@ public class Projectile extends BasicObject {
         boolean loc12 = false;
         int loc3 = param1 - this.startTime;
         if (loc3 > this.projProps.lifetime) {
-            return false;
+            return true;
         }
         Point loc4 = this.staticPoint;
         this.positionAt(loc3, loc4);
@@ -232,7 +232,7 @@ public class Projectile extends BasicObject {
                     //this.map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
                 }
             }
-            return false;
+            return true;
         }
         if ((this.square.obj != null) && (!this.square.obj.props.isEnemy || !this.damagesEnemies) && (this.square.obj.props.enemyOccupySquare || (!this.projProps.passesCover && this.square.obj.props.occupySquare))) {
             if (this.damagesPlayers) {
@@ -241,7 +241,7 @@ public class Projectile extends BasicObject {
                 //loc5 = BloodComposition.getColors(this.texture);
                 //this.map.addObj(new HitEffect(loc5, 100, 3, this.angle, this.projProps.speed), loc4.x, loc4.y);
             }
-            return false;
+            return true;
         }
         GameObject loc6 = this.getHit(loc4.x, loc4.y);
         if (loc6 != null) {
@@ -265,10 +265,10 @@ public class Projectile extends BasicObject {
             if (this.projProps.multiHit) {
                 this.multiHitDict.put(loc6, true);
             } else {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public GameObject getHit(double param1, double param2) {

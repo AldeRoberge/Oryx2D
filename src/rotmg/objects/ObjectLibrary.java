@@ -199,9 +199,8 @@ public class ObjectLibrary {
     public static GameObject getObjectFromType(int param1) {
         XML objectXML = null;
         String typeReference = null;
-        int objectType = param1;
         try {
-            objectXML = xmlLibrary.get(objectType);
+            objectXML = xmlLibrary.get(param1);
             typeReference = objectXML.getValue("Class");
 
 			/*System.out.println("Class : '" + typeReference + "' Object type : '" + objectType + "'.");

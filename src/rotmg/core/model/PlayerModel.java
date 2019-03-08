@@ -9,6 +9,8 @@ import rotmg.appengine.SavedNewsItem;
 import rotmg.net.LatLong;
 import utils.osflash.signals.Signal;
 
+import java.util.Objects;
+
 public class PlayerModel {
 
     public static final int[] CHARACTER_SLOT_PRICES = new int[]{600, 800, 1000};
@@ -139,7 +141,7 @@ public class PlayerModel {
     }
 
     public boolean hasAccount() {
-        return this.charList.accountId != "";
+        return !Objects.equals(this.charList.accountId, "");
     }
 
     public int getNumStars() {

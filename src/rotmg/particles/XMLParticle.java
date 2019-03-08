@@ -63,11 +63,11 @@ public class XMLParticle extends BasicObject {
         loc3 = param2 / 1000;
         this.durationLeft = this.durationLeft - loc3;
         if (this.durationLeft <= 0) {
-            return false;
+            return true;
         }
         this.x = this.x + (this.moveVec.x * loc3);
         this.y = this.y + (this.moveVec.y * loc3);
-        return true;
+        return false;
     }
 
 

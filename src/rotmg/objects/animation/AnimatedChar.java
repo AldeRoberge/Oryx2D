@@ -119,16 +119,16 @@ public class AnimatedChar {
             attack2Image = new MaskedImage(image, mask);
         }
         Vector<MaskedImage> standVec = new Vector<>();
-        standVec.add(!!mirror ? standImage.mirror() : standImage);
+        standVec.add(mirror ? standImage.mirror() : standImage);
         dirDict.put(STAND, standVec);
         Vector<MaskedImage> walkVec = new Vector<>();
-        walkVec.add(!!mirror ? walk1Image.mirror() : walk1Image);
+        walkVec.add(mirror ? walk1Image.mirror() : walk1Image);
         if (walk2Image != null) {
-            walkVec.add(!!mirror ? walk2Image.mirror() : walk2Image);
+            walkVec.add(mirror ? walk2Image.mirror() : walk2Image);
         } else if (sym) {
             walkVec.add(!mirror ? walk1Image.mirror(7) : walk1Image);
         } else {
-            walkVec.add(!!mirror ? standImage.mirror() : standImage);
+            walkVec.add(mirror ? standImage.mirror() : standImage);
         }
         dirDict.put(WALK, walkVec);
         if ((attack1Image == null) && (attack2Image == null)) {
@@ -136,10 +136,10 @@ public class AnimatedChar {
         } else {
             attackVec = new Vector<>();
             if (attack1Image != null) {
-                attackVec.add(!!mirror ? attack1Image.mirror() : attack1Image);
+                attackVec.add(mirror ? attack1Image.mirror() : attack1Image);
             }
             if (attack2Image != null) {
-                attackVec.add(!!mirror ? attack2Image.mirror() : attack2Image);
+                attackVec.add(mirror ? attack2Image.mirror() : attack2Image);
             }
         }
         dirDict.put(ATTACK, attackVec);

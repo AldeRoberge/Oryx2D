@@ -1,7 +1,5 @@
 package rotmg.objects;
 
-import static flash.utils.timer.getTimer.getTimer;
-
 import flash.Vector;
 import flash.XML;
 import flash.display.BitmapData;
@@ -23,6 +21,8 @@ import rotmg.util.AssetLibrary;
 import rotmg.util.BitmapUtil;
 import rotmg.util.ConditionEffect;
 import utils.ConversionUtil;
+
+import static flash.utils.timer.getTimer.getTimer;
 
 
 public class GameObject extends BasicObject {
@@ -489,12 +489,12 @@ public class GameObject extends BasicObject {
         this.posAtTick.y = this.tickPosition.y = param3;
         if (!this.moveTo(param2, param3)) {
             this.map = null;
-            return false;
+            return true;
         }
         if (this.effect != null) {
             this.map.addObj(this.effect, param2, param3);
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -558,7 +558,7 @@ public class GameObject extends BasicObject {
                 this.flying = this.props.whileMoving.flying;
             }
         }
-        return true;
+        return false;
     }
 
     public void onGoto(double param1, double param2, int param3) {
