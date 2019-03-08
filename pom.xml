@@ -48,6 +48,18 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
+        <dependency>
+            <groupId>alde.commons</groupId>
+            <artifactId>AldeCommons</artifactId>
+            <version>2.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>alde.commons</groupId>
+            <artifactId>AldeCommons</artifactId>
+            <version>2.0.0</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>

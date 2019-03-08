@@ -29,8 +29,8 @@ import rotmg.account.core.WebAccount;
 
 public class LoaderUI {
 
-	public Property EMAIL = Properties.EMAIL;
-	public Property PASSWORD = Properties.PASSWORD;
+	private static final Property EMAIL = Properties.EMAIL;
+	private static final Property PASSWORD = Properties.PASSWORD;
 
 	private JFrame frame;
 	private JTextField emailField;
@@ -71,9 +71,10 @@ public class LoaderUI {
 		icons.add(Toolkit.getDefaultToolkit().getImage(LoaderUI.class.getResource("/oryx2D/icons/icon16.png")));
 		icons.add(Toolkit.getDefaultToolkit().getImage(LoaderUI.class.getResource("/oryx2D/icons/icon32.png")));
 		this.frame.setIconImages(icons);
-		this.frame.setResizable(false);
-		this.frame.setBackground(Color.black);
+		
 		this.frame.setTitle("Oryx2D Launcher");
+		this.frame.setBackground(Color.black);
+		this.frame.setResizable(false);
 		this.frame.setLocationRelativeTo(null);
 
 		try {
